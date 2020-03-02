@@ -1,24 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="03W-Ec-HWu">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Phone Auth View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="phoneNumberInput" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="PhoneAuthViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="PhoneNumber" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6vv-gz-xvz" customClass="PhoneNumberTextField" customModule="PhoneNumberKit">
+                                <rect key="frame" x="30" y="118" width="354" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="42u-04-0df"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLO-ir-LRS">
+                                <rect key="frame" x="30" y="188" width="354" height="34"/>
+                                <state key="normal" title="confirm">
+                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTouchupConfirmBtnWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5x6-iu-gj8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6vv-gz-xvz" secondAttribute="trailing" constant="30" id="5LC-1v-aYU"/>
+                            <constraint firstItem="6vv-gz-xvz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="Gad-Ol-7VZ"/>
+                            <constraint firstItem="NLO-ir-LRS" firstAttribute="top" secondItem="6vv-gz-xvz" secondAttribute="bottom" constant="30" id="Jzz-oe-PUe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NLO-ir-LRS" secondAttribute="trailing" constant="30" id="Ty6-aG-re7"/>
+                            <constraint firstItem="NLO-ir-LRS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="cIJ-PL-Y0R"/>
+                            <constraint firstItem="6vv-gz-xvz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="xMV-9b-Uv9"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="gh6-we-GXH"/>
+                    <connections>
+                        <outlet property="phoneNumberTextField" destination="6vv-gz-xvz" id="udo-60-i7K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-875" y="734"/>
+        </scene>
+        <!--Phone Auth Code Input View Controller-->
+        <scene sceneID="0PB-m4-8ot">
+            <objects>
+                <viewController id="mU7-YP-pJs" customClass="PhoneAuthCodeInputViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0F6-0V-wfg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="AuthCode" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="edC-nD-zgJ">
+                                <rect key="frame" x="30" y="30" width="354" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="8y5-sT-J8j"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="one-time-code"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJO-1g-0Sn">
+                                <rect key="frame" x="30" y="110" width="354" height="34"/>
+                                <state key="normal" title="confirm">
+                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTouchupConfirmBtnWithSender:" destination="mU7-YP-pJs" eventType="touchUpInside" id="Zhv-I9-NhI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="hJO-1g-0Sn" firstAttribute="leading" secondItem="snF-Na-zkz" secondAttribute="leading" constant="30" id="HAs-Nl-AfZ"/>
+                            <constraint firstItem="edC-nD-zgJ" firstAttribute="leading" secondItem="snF-Na-zkz" secondAttribute="leading" constant="30" id="Oph-4M-2dr"/>
+                            <constraint firstItem="snF-Na-zkz" firstAttribute="trailing" secondItem="hJO-1g-0Sn" secondAttribute="trailing" constant="30" id="QzA-nf-HQx"/>
+                            <constraint firstItem="edC-nD-zgJ" firstAttribute="top" secondItem="snF-Na-zkz" secondAttribute="top" constant="30" id="d1t-ur-WGc"/>
+                            <constraint firstItem="snF-Na-zkz" firstAttribute="trailing" secondItem="edC-nD-zgJ" secondAttribute="trailing" constant="30" id="kmZ-5G-MrY"/>
+                            <constraint firstItem="hJO-1g-0Sn" firstAttribute="top" secondItem="edC-nD-zgJ" secondAttribute="bottom" constant="30" id="nsD-hE-xP7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="snF-Na-zkz"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="S2l-ER-R09"/>
+                    <connections>
+                        <outlet property="codeTextField" destination="edC-nD-zgJ" id="ctF-nl-kmj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Tj-0S-Hzb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-75" y="706"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="JOT-CV-mo4">
+            <objects>
+                <viewController storyboardIdentifier="main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kso-so-naL" customClass="MainViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Go8-55-Xh7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Ajj-5u-jQL"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8jD-zF-X8j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="728" y="706"/>
+        </scene>
+        <!--Main Navigation Controller-->
+        <scene sceneID="W6N-iX-7FP">
+            <objects>
+                <navigationController id="03W-Ec-HWu" customClass="MainNavigationController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0Uk-bK-naB">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9L3-7t-qJ3"/>
+                        <segue destination="mU7-YP-pJs" kind="show" identifier="showInputCode" id="TLv-jE-W9x"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o5Q-7X-Np5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-874" y="7"/>
         </scene>
     </scenes>
 </document>
