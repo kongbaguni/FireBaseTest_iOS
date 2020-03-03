@@ -13,7 +13,7 @@ class PhoneAuthCodeInputViewController: UIViewController {
     @IBOutlet weak var codeTextField:UITextField!
     @IBAction func onTouchupConfirmBtn(sender:UIButton) {
         guard let verificationCode = codeTextField.text,
-            let verificationID = UserDefaults.standard.authVerificationID else {
+            let userInfo = UserDefaults.standard.userInfo else {
             return
         }
         if verificationCode.isEmpty {
@@ -21,8 +21,8 @@ class PhoneAuthCodeInputViewController: UIViewController {
         }
         
         let credential = PhoneAuthProvider.provider().credential(
-        withVerificationID: verificationID,
-        verificationCode: verificationCode)
+            withVerificationID: userInfo.authVerificationID,
+            verificationCode: verificationCode)
 
         Auth.auth().signIn(with: credential) { [weak self](authResult, error) in
             if error == nil {

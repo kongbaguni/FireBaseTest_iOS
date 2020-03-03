@@ -17,13 +17,16 @@ class PhoneAuthViewController: UIViewController {
     @IBOutlet weak var phoneNumberTextField:PhoneNumberTextField!
     @IBAction func onTouchupConfirmBtn(sender:UIButton) {
         Auth.auth().languageCode = "kr"
-        if let phoneNumber = phoneNumberTextField.text {
+        if let phoneNumber = phoneNumberTextField.text?.phoneNumberFormat(format: .e164) {
             if !phoneNumber.isEmpty {
                 PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self](verificationID, err) in
                     print(err?.localizedDescription ?? "에러 없음")
                     if err == nil {
-                        self?.navigationController?.performSegue(withIdentifier: "showInputCode", sender: nil)
-                        UserDefaults.standard.authVerificationID = verificationID
+                        if let id = verificationID {
+                            self?.navigationController?.performSegue(withIdentifier: "showInputCode", sender: nil)
+                            
+                            UserDefaults.standard.userInfo = UserInfo(phoneNumber: phoneNumber, authVerificationID: id)
+                        }
                     }
                 }
             }

@@ -8,12 +8,22 @@
 
 import Foundation
 extension UserDefaults {
-    var authVerificationID:String? {
+    var userInfo:UserInfo? {
         set {
-            set(newValue, forKey: "authVerificationID")
+            if let value = newValue {
+                set(value.phoneNumber, forKey: "userPhoneNumber")
+                set(value.authVerificationID, forKey: "authVerificationID")
+            }
+            else {
+                set(nil, forKey: "userPhoneNumber")
+                set(nil, forKey: "authVerificationID")
+            }
         }
         get {
-            return string(forKey: "authVerificationID")
+            if let phoneNumber = string(forKey: "userPhoneNumber"), let id = string(forKey: "authVerificationID") {
+                return UserInfo(phoneNumber: phoneNumber, authVerificationID: id)
+            }
+            return nil
         }
     }
 }

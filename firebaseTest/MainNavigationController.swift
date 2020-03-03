@@ -10,7 +10,7 @@ import UIKit
 class MainNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        if UserDefaults.standard.authVerificationID == nil {
+        if UserDefaults.standard.userInfo == nil {
             viewControllers = [PhoneAuthViewController.viewController]
         }
         else {

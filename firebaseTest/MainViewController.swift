@@ -21,6 +21,10 @@ class MainViewController: UIViewController {
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        vc.addAction(UIAlertAction(title: "myProfile", style: .default, handler: { (action) in
+            self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
+        }))
+        
         vc.addAction(UIAlertAction(title: "logout", style: .default, handler: { (action) in
             let firebaseAuth = Auth.auth()
             do {
@@ -29,9 +33,10 @@ class MainViewController: UIViewController {
                 print ("Error signing out: %@", signOutError)
                 return
             }
-            UserDefaults.standard.authVerificationID = nil
+            UserDefaults.standard.userInfo = nil
             self.navigationController?.viewControllers = [PhoneAuthViewController.viewController]
         }))
+        
         vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)
         
