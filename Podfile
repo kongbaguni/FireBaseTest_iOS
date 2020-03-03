@@ -11,9 +11,10 @@ target 'firebaseTest' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'Firebase/Storage'
   pod 'AlamofireImage'
   pod 'NVActivityIndicatorView'
   pod 'NVActivityIndicatorView/AppExtension'
   pod 'CropViewController'
-
+  pod 'Kingfisher'
 end

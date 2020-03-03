@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Kingfisher
 
 class MainViewController: UIViewController {
     @IBOutlet weak var profileImageView:UIImageView!
@@ -35,12 +36,14 @@ class MainViewController: UIViewController {
         
     func loadData() {
         let userInfo = UserDefaults.standard.userInfo
+        profileImageView.image = #imageLiteral(resourceName: "profile")
+        profileImageView.setImageUrl(url: userInfo?.profileImageURL, placeHolder: #imageLiteral(resourceName: "profile"))
         
-        profileImageView.setImage(image: userInfo?.profileImage, placeHolder: #imageLiteral(resourceName: "profile"))
         nameLabel.text = userInfo?.name
         intoduceLabel.text = userInfo?.introduce
         userInfo?.syncData {
-            self.profileImageView.setImage(image: UserDefaults.standard.userInfo?.profileImage, placeHolder: #imageLiteral(resourceName: "profile"))
+            
+            self.profileImageView.setImageUrl(url: userInfo?.profileImageURL, placeHolder: #imageLiteral(resourceName: "profile"))
             self.nameLabel.text = userInfo?.name
             self.intoduceLabel.text = userInfo?.introduce
         }

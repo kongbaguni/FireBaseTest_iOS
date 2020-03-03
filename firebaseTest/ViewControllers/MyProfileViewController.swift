@@ -10,6 +10,7 @@ import UIKit
 import FirebaseFirestore
 import NVActivityIndicatorView
 import CropViewController
+import FirebaseStorage
 
 class MyProfileViewController: UITableViewController {
     
@@ -32,6 +33,7 @@ class MyProfileViewController: UITableViewController {
     
     let dbCollection = Firestore.firestore().collection("users")
 
+    let storageRef = Storage.storage().reference()
     let indicatorView = NVActivityIndicatorView(frame: UIScreen.main.bounds, type: .ballRotateChase, color: .yellow, padding: UIScreen.main.bounds.width)
     
     @IBOutlet weak var nameTextField : UITextField!
@@ -48,7 +50,7 @@ class MyProfileViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.onTouchupSave(_:)))
         
         let document = dbCollection.document(UserDefaults.standard.userInfo!.id)
-        profileImageView.setImage(image: UserDefaults.standard.userInfo?.profileImage, placeHolder: #imageLiteral(resourceName: "profile"))
+        profileImageView.setImageUrl(url: UserDefaults.standard.userInfo?.profileImageURL, placeHolder: #imageLiteral(resourceName: "profile"))
         indicatorView.startAnimating()
         document.getDocument { [weak self](snapshot, error) in
             self?.indicatorView.stopAnimating()
@@ -63,9 +65,8 @@ class MyProfileViewController: UITableViewController {
                         self?.introduceTextView.text = intro
                         userInfo?.introduce = intro
                     }
-                    if let profileImage = info["profileImage"] as? String {
-                        UserDefaults.standard.userInfo?.photoBase64String = profileImage
-                        self?.profileImageView.setImage(image: UserDefaults.standard.userInfo?.profileImage, placeHolder: #imageLiteral(resourceName: "profile"))
+                    if let url = info["profileImageUrl"] as? String {
+                        self?.profileImageView.setImageUrl(url: url, placeHolder: #imageLiteral(resourceName: "profile"))
                     }
                 }
             }
@@ -77,33 +78,72 @@ class MyProfileViewController: UITableViewController {
         guard let userInfo = UserDefaults.standard.userInfo else {
             return
         }
-        indicatorView.startAnimating()
-        var data = [
-            "name":nameTextField.text ?? "",
-            "intro":introduceTextView.text ?? "",
-        ]
-        if let str = profileImageBase64String {
-            data["profileImage"] = str
-        }
-        print(userInfo.id)
-        let document = dbCollection.document(userInfo.id)
-        document.updateData(data) { [weak self](error) in
-            self?.indicatorView.stopAnimating()
-            if let e = error {
-                print(e.localizedDescription)
-                document.setData(data, merge: true) { (error) in
-                    if let e = error {
-                        print(e.localizedDescription)
+        func uploadImage(complete:@escaping(_ isSucess:Bool)->Void) {
+            if let str = profileImageBase64String {
+                if let data = Data(base64Encoded: str) {
+                    let ref:StorageReference = storageRef.child("profileImages/\(userInfo.id).png")
+                    let metadata = StorageMetadata()
+                    metadata.contentType = "image/png"
+                    let task = ref.putData(data, metadata: metadata)
+                    task.observe(.success) { (snapshot) in
+                        let path = snapshot.reference.fullPath
+                        print(path)
+                        ref.downloadURL { (downloadUrl, err) in
+                            if (downloadUrl != nil) {
+                                print(downloadUrl?.absoluteString ?? "없다")
+                                userInfo.profileImageURL = downloadUrl?.absoluteString
+                            }
+                            complete(true)
+                        }
+
                     }
-                    else {
-                        self?.navigationController?.popViewController(animated: true)
+                    task.observe(.failure) { (_) in
+                        complete(false)
                     }
+                    return
                 }
             }
-            else {
-                self?.navigationController?.popViewController(animated: true)
+            complete(true)
+        }
+        
+        func updateProfile(complete:@escaping()->Void) {
+            print(userInfo.id)
+            let document = dbCollection.document(userInfo.id)
+            var data = [
+                "name":nameTextField.text ?? "",
+                "intro":introduceTextView.text ?? "",
+            ]
+            if let url = UserDefaults.standard.userInfo?.profileImageURL {
+                data["profileImageUrl"] = url
+            }
+            document.updateData(data) { [weak self](error) in
+                if let e = error {
+                    print(e.localizedDescription)
+                    document.setData(data, merge: true) { (error) in
+                        if let e = error {
+                            print(e.localizedDescription)
+                        }
+                        else {
+                            complete()
+                        }
+                    }
+                }
+                else {
+                    complete()
+                }
             }
         }
+        
+        indicatorView.startAnimating()
+        uploadImage { isSucess in
+            if (isSucess) {
+                updateProfile {
+                    self.indicatorView.stopAnimating()
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
+        
     }
     @IBAction func onTouchupProfileImageBtn(_ sender: UIButton) {
         let picker = UIImagePickerController()

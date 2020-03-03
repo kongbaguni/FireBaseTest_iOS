@@ -7,12 +7,21 @@
 //
 
 import UIKit
-
+import Kingfisher
 extension UIImageView {
     func setImage(image:UIImage?, placeHolder:UIImage!) {
         self.image = placeHolder
         if let img = image {
             self.image = img
+        }
+    }
+    
+    func setImageUrl(url:String?, placeHolder:UIImage!) {
+        if let str = url {
+            let url = URL(string: str)
+            kf.setImage(with: url, placeholder: placeHolder)
+        } else {
+            image = placeHolder
         }
     }
 }
