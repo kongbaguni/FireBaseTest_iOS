@@ -14,4 +14,6 @@ target 'firebaseTest' do
   pod 'AlamofireImage'
   pod 'NVActivityIndicatorView'
   pod 'NVActivityIndicatorView/AppExtension'
+  pod 'CropViewController'
+
 end

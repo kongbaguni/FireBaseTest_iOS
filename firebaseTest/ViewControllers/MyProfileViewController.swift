@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseFirestore
 import NVActivityIndicatorView
+import CropViewController
 
 class MyProfileViewController: UITableViewController {
     
@@ -64,6 +65,7 @@ class MyProfileViewController: UITableViewController {
                 }
             }
         }
+        
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
@@ -108,11 +110,34 @@ extension MyProfileViewController : UIImagePickerControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
         if let url = info[.imageURL] as? URL {
             if let data = try? Data(contentsOf: url) {
-                let image = UIImage(data: data)
-                profileImage = image
+                if let image = UIImage(data: data) {
+                    let cropvc = CropViewController(croppingStyle: .circular, image: image)
+                    cropvc.delegate = self
+                    present(cropvc, animated: true, completion: nil)
+                }
             }
         }
         
         
+    }
+}
+
+extension MyProfileViewController : CropViewControllerDelegate {
+    func cropViewController(_ cropViewController: CropViewController, didCropImageToRect rect: CGRect, angle: Int) {
+        debugPrint(#function)
+    }
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        debugPrint(#function)
+    }
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        debugPrint(#function)
+        profileImage = image
+        
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        debugPrint(#function)
+        cropViewController.dismiss(animated: true, completion: nil)
+        profileImage = image
     }
 }
