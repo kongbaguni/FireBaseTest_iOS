@@ -11,5 +11,7 @@ target 'firebaseTest' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
-
+  pod 'AlamofireImage'
+  pod 'NVActivityIndicatorView'
+  pod 'NVActivityIndicatorView/AppExtension'
 end

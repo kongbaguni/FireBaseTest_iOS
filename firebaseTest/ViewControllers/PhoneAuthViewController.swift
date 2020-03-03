@@ -11,6 +11,10 @@ import FirebaseAuth
 import PhoneNumberKit
 
 class PhoneAuthViewController: UIViewController {
+    deinit {
+        debugPrint("deinit \(#file)")
+    }
+
     class var viewController : PhoneAuthViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "phoneNumberInput") as! PhoneAuthViewController
     }

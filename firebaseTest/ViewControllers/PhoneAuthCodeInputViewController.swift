@@ -10,6 +10,10 @@ import UIKit
 import FirebaseAuth
 
 class PhoneAuthCodeInputViewController: UIViewController {
+    deinit {
+        debugPrint("deinit \(#file)")
+    }
+
     @IBOutlet weak var codeTextField:UITextField!
     @IBAction func onTouchupConfirmBtn(sender:UIButton) {
         guard let verificationCode = codeTextField.text,

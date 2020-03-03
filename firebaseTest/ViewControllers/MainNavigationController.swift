@@ -8,6 +8,10 @@
 
 import UIKit
 class MainNavigationController: UINavigationController {
+    deinit {
+        debugPrint("deinit \(#file)")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if UserDefaults.standard.userInfo == nil {

@@ -15,6 +15,7 @@ extension UserDefaults {
                 set(value.authVerificationID, forKey: "authVerificationID")
             }
             else {
+                self.userInfo?.profileImage = nil
                 set(nil, forKey: "userPhoneNumber")
                 set(nil, forKey: "authVerificationID")
             }

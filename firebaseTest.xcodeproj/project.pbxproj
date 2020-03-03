@@ -75,6 +75,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C3780E5F240E15D0006070CF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */,
+				C3EF51BE240CDB5700A4C29E /* PhoneAuthViewController.swift */,
+				C3EF51C0240CE23D00A4C29E /* PhoneAuthCodeInputViewController.swift */,
+				C3EF51C2240CE56A00A4C29E /* MainViewController.swift */,
+				C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		C3BDFBF2240CD79D006AE2B3 = {
 			isa = PBXGroup;
 			children = (
@@ -100,11 +112,7 @@
 				C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */,
 				C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */,
 				C3BDFC04240CD79D006AE2B3 /* Main.storyboard */,
-				C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */,
-				C3EF51BE240CDB5700A4C29E /* PhoneAuthViewController.swift */,
-				C3EF51C0240CE23D00A4C29E /* PhoneAuthCodeInputViewController.swift */,
-				C3EF51C2240CE56A00A4C29E /* MainViewController.swift */,
-				C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */,
+				C3780E5F240E15D0006070CF /* ViewControllers */,
 				C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */,
 				C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */,
 				C3BDFC0C240CD7A1006AE2B3 /* Info.plist */,
