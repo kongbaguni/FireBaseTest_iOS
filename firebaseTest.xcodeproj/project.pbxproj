@@ -10,6 +10,7 @@
 		313AEA29D63D2AF8108134B0 /* Pods_firebaseTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */; };
 		C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E59240DDEEC006070CF /* UserInfo.swift */; };
 		C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E5B240DE535006070CF /* String+Extensions.swift */; };
+		C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */; };
 		C399C395240CD7DB00A7EF16 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C399C394240CD7DB00A7EF16 /* GoogleService-Info.plist */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */; };
@@ -29,6 +30,7 @@
 		8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_firebaseTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3780E59240DDEEC006070CF /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C3780E5B240DE535006070CF /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		C399C394240CD7DB00A7EF16 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* firebaseTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = firebaseTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */,
 				C3780E59240DDEEC006070CF /* UserInfo.swift */,
 				C3780E5B240DE535006070CF /* String+Extensions.swift */,
+				C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 			files = (
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
+				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
 				C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */,
 				C3EF51BF240CDB5700A4C29E /* PhoneAuthViewController.swift in Sources */,

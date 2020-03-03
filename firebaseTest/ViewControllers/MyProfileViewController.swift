@@ -26,7 +26,7 @@ class MyProfileViewController: UITableViewController {
         set {
             let image = newValue?.af_imageAspectScaled(toFit: CGSize(width: 30, height: 30))
             profileImageBase64String = image?.pngData()?.base64EncodedString()
-            profileImageView.image = image
+            profileImageView.setImage(image: image, placeHolder: #imageLiteral(resourceName: "profile"))
         }
     }
     
@@ -37,30 +37,35 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var nameTextField : UITextField!
     @IBOutlet weak var introduceTextView : UITextView!
     @IBOutlet weak var profileImageView: UIImageView!
+    
     deinit {
         debugPrint("deinit \(#file)")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(indicatorView)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.onTouchupSave(_:)))
         
-        let document = dbCollection.document(UserDefaults.standard.userInfo!.phoneNumber)
-        profileImageView.image = UserDefaults.standard.userInfo?.profileImage
+        let document = dbCollection.document(UserDefaults.standard.userInfo!.id)
+        profileImageView.setImage(image: UserDefaults.standard.userInfo?.profileImage, placeHolder: #imageLiteral(resourceName: "profile"))
         indicatorView.startAnimating()
         document.getDocument { [weak self](snapshot, error) in
             self?.indicatorView.stopAnimating()
+            let userInfo = UserDefaults.standard.userInfo
             if let doc = snapshot {
                 doc.data().map { info in
                     if let name = info["name"] as? String {
                         self?.nameTextField.text = name
+                        userInfo?.name = name
                     }
                     if let intro = info["intro"] as? String {
                         self?.introduceTextView.text = intro
+                        userInfo?.introduce = intro
                     }
                     if let profileImage = info["profileImage"] as? String {
                         UserDefaults.standard.userInfo?.photoBase64String = profileImage
-                        self?.profileImageView.image = UserDefaults.standard.userInfo?.profileImage
+                        self?.profileImageView.setImage(image: UserDefaults.standard.userInfo?.profileImage, placeHolder: #imageLiteral(resourceName: "profile"))
                     }
                 }
             }
@@ -80,10 +85,20 @@ class MyProfileViewController: UITableViewController {
         if let str = profileImageBase64String {
             data["profileImage"] = str
         }
-        dbCollection.document(userInfo.phoneNumber).updateData(data) { [weak self](error) in
+        print(userInfo.id)
+        let document = dbCollection.document(userInfo.id)
+        document.updateData(data) { [weak self](error) in
             self?.indicatorView.stopAnimating()
             if let e = error {
                 print(e.localizedDescription)
+                document.setData(data, merge: true) { (error) in
+                    if let e = error {
+                        print(e.localizedDescription)
+                    }
+                    else {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                }
             }
             else {
                 self?.navigationController?.popViewController(animated: true)

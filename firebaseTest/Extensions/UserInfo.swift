@@ -9,9 +9,10 @@
 import Foundation
 import UIKit
 import AlamofireImage
+import FirebaseFirestore
 
 class UserInfo {
-    let phoneNumber:String
+    var id:String
     let authVerificationID:String
     
     var photoBase64String:String? {
@@ -39,8 +40,55 @@ class UserInfo {
         }
     }
     
-    init(phoneNumber:String,authVerificationID:String) {
-        self.phoneNumber = phoneNumber
+    var name:String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "name")
+        }
+        get {
+            UserDefaults.standard.string(forKey: "name")
+        }
+    }
+    
+    var introduce:String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "introduce")
+        }
+        get {
+            UserDefaults.standard.string(forKey: "introduce")
+        }
+    }
+    
+    init(id:String,authVerificationID:String) {
+        self.id = id
         self.authVerificationID = authVerificationID
+    }
+    
+    func clear() {
+        name = nil
+        introduce = nil
+        profileImage = nil
+    }
+    
+    func syncData(complete:@escaping()->Void) {
+        let dbCollection = Firestore.firestore().collection("users")
+        let document = dbCollection.document(UserDefaults.standard.userInfo!.id)
+        document.getDocument { [weak self](snapshot, error) in
+            if let doc = snapshot {
+                doc.data().map { info in
+                    if let name = info["name"] as? String {
+                        self?.name = name
+                    }
+                    if let intro = info["intro"] as? String {
+                        self?.introduce = intro
+                    }
+                    if let profileImage = info["profileImage"] as? String {
+                        if let data = Data(base64Encoded: profileImage) {
+                            self?.profileImage = UIImage(data: data)
+                        }
+                    }
+                    complete()                    
+                }
+            }
+        }
     }
 }

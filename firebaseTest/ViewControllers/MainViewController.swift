@@ -10,6 +10,10 @@ import UIKit
 import FirebaseAuth
 
 class MainViewController: UIViewController {
+    @IBOutlet weak var profileImageView:UIImageView!
+    @IBOutlet weak var nameLabel:UILabel!
+    @IBOutlet weak var intoduceLabel:UILabel!
+    
     class var viewController : MainViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "main") as! MainViewController
     }
@@ -21,6 +25,25 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
+    }
+        
+    func loadData() {
+        let userInfo = UserDefaults.standard.userInfo
+        
+        profileImageView.setImage(image: userInfo?.profileImage, placeHolder: #imageLiteral(resourceName: "profile"))
+        nameLabel.text = userInfo?.name
+        intoduceLabel.text = userInfo?.introduce
+        userInfo?.syncData {
+            self.profileImageView.setImage(image: UserDefaults.standard.userInfo?.profileImage, placeHolder: #imageLiteral(resourceName: "profile"))
+            self.nameLabel.text = userInfo?.name
+            self.intoduceLabel.text = userInfo?.introduce
+        }
     }
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
@@ -36,7 +59,7 @@ class MainViewController: UIViewController {
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
                 return
-            }
+            }            
             UserDefaults.standard.userInfo = nil
             self.navigationController?.viewControllers = [PhoneAuthViewController.viewController]
         }))

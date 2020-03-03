@@ -11,18 +11,18 @@ extension UserDefaults {
     var userInfo:UserInfo? {
         set {
             if let value = newValue {
-                set(value.phoneNumber, forKey: "userPhoneNumber")
+                set(value.id, forKey: "userId")
                 set(value.authVerificationID, forKey: "authVerificationID")
             }
             else {
-                self.userInfo?.profileImage = nil
-                set(nil, forKey: "userPhoneNumber")
+                self.userInfo?.clear()
+                set(nil, forKey: "userId")
                 set(nil, forKey: "authVerificationID")
             }
         }
         get {
             if let phoneNumber = string(forKey: "userPhoneNumber"), let id = string(forKey: "authVerificationID") {
-                return UserInfo(phoneNumber: phoneNumber, authVerificationID: id)
+                return UserInfo(id: phoneNumber.sha512, authVerificationID: id)
             }
             return nil
         }
