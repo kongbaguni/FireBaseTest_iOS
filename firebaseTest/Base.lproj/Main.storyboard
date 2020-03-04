@@ -281,8 +281,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="ZDG-pl-hk0"/>
                     <connections>
+                        <outlet property="introduceLabel" destination="IQU-oz-lWk" id="4b0-uo-L6s"/>
                         <outlet property="introduceTextView" destination="b6p-bq-IpB" id="ivS-cv-4Py"/>
+                        <outlet property="nameLabel" destination="XBJ-gV-guz" id="ike-Mp-y2b"/>
                         <outlet property="nameTextField" destination="JPL-OQ-zEG" id="M2E-pQ-tju"/>
+                        <outlet property="photoLabel" destination="zrx-R1-MKC" id="8fU-Sr-gcf"/>
                         <outlet property="profileImageView" destination="fJa-5z-xuf" id="Bun-aw-dZ9"/>
                     </connections>
                 </tableViewController>

@@ -47,6 +47,9 @@ class MyProfileViewController: UITableViewController {
     let storageRef = Storage.storage().reference()
     let indicatorView = NVActivityIndicatorView(frame: UIScreen.main.bounds, type: .ballRotateChase, color: .yellow, padding: UIScreen.main.bounds.width)
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var photoLabel: UILabel!
+    @IBOutlet weak var introduceLabel: UILabel!
     @IBOutlet weak var nameTextField : UITextField!
     @IBOutlet weak var introduceTextView : UITextView!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -57,38 +60,40 @@ class MyProfileViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "myProfile".localized
         view.addSubview(indicatorView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.onTouchupSave(_:)))
+        setTitle()
         
-        let document = dbCollection.document(UserDefaults.standard.userInfo!.id)
-        profileImageView.setImageUrl(url: UserDefaults.standard.userInfo?.profileImageURL, placeHolder: #imageLiteral(resourceName: "profile"))
-        indicatorView.startAnimating()
-        document.getDocument { [weak self](snapshot, error) in
-            self?.indicatorView.stopAnimating()
-            let userInfo = UserDefaults.standard.userInfo
-            if let doc = snapshot {
-                doc.data().map { info in
-                    if let name = info["name"] as? String {
-                        self?.nameTextField.text = name
-                        userInfo?.name = name
-                    }
-                    if let intro = info["intro"] as? String {
-                        self?.introduceTextView.text = intro
-                        userInfo?.introduce = intro
-                    }
-                    if let url = info["profileImageUrl"] as? String {
-                        self?.profileImageView.setImageUrl(url: url, placeHolder: #imageLiteral(resourceName: "profile"))
-                    }
-                }
+        navigationItem.rightBarButtonItem =
+            UIBarButtonItem(title: "save".localized, style: .done, target: self, action: #selector(self.onTouchupSave(_:)))
+        
+        loadData()
+        if let userInfo = UserDefaults.standard.userInfo {
+            userInfo.syncData {
+                self.loadData()
             }
         }
-        
+    }
+    
+    private func loadData() {
+        if let userInfo = UserDefaults.standard.userInfo {
+            self.nameTextField.text = userInfo.name
+            self.introduceTextView.text = userInfo.introduce
+            self.profileImageView.setImageUrl(url: userInfo.profileImageURL, placeHolder: #imageLiteral(resourceName: "profile"))
+        }
+    }
+    
+    private func setTitle() {
+        introduceLabel.text = "introduce".localized
+        photoLabel.text = "photo".localized
+        nameLabel.text = "name".localized
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
         guard let userInfo = UserDefaults.standard.userInfo else {
             return
         }
+        view.endEditing(true)
         /** 이미지 업로드*/
         func uploadImage(complete:@escaping(_ isSucess:Bool)->Void) {
             if let str = profileImageBase64String {
@@ -161,23 +166,28 @@ class MyProfileViewController: UITableViewController {
     }
     
     @IBAction func onTouchupProfileImageBtn(_ sender: UIButton) {
+//        "camera" = "카메라";
+//        "photoLibrary" = "사진 앨범";
+//        "cancel" = "취소";
+//        "confirm" = "확인";
+
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "take photo", style: .default, handler: { (_) in
+        ac.addAction(UIAlertAction(title: "camera".localized, style: .default, handler: { (_) in
             let picker = UIImagePickerController()
             picker.sourceType = .camera
             picker.delegate = self
             self.present(picker, animated: true, completion: nil)
         }))
-        ac.addAction(UIAlertAction(title: "pick", style: .default, handler: { (_) in
+        ac.addAction(UIAlertAction(title: "photoLibrary".localized, style: .default, handler: { (_) in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .photoLibrary
             self.present(picker, animated: true, completion: nil)
         }))
-        ac.addAction(UIAlertAction(title: "delete", style: .default, handler: { (_) in
+        ac.addAction(UIAlertAction(title: "delete".localized, style: .default, handler: { (_) in
             self.isDeleteImage = true
         }))
-        ac.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(ac, animated: true, completion: nil)
     }
 }

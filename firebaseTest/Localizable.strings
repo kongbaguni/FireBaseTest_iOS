@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  firebaseTest
+
+  Created by Changyul Seo on 2020/03/04.
+  Copyright © 2020 Changyul Seo. All rights reserved.
+*/
+"camera" = "카메라";
+"photoLibrary" = "사진 앨범";
+"cancel" = "취소";
+"confirm" = "확인";
+"photo" = "사진";
+"name" = "이름";
+"introduce" = "자기소개";
+"save" = "저장";
+"delete" = "삭제";
+"myProfile" = "내 정보";
+"logout" = "로그아웃";
+

@@ -25,6 +25,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "home"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
         if UserDefaults.standard.userInfo?.name?.isEmpty == true {
             navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
@@ -53,11 +54,11 @@ class MainViewController: UIViewController {
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        vc.addAction(UIAlertAction(title: "myProfile", style: .default, handler: { (action) in
+        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
             self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
         }))
         
-        vc.addAction(UIAlertAction(title: "logout", style: .default, handler: { (action) in
+        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
@@ -69,7 +70,7 @@ class MainViewController: UIViewController {
             self.navigationController?.viewControllers = [PhoneAuthViewController.viewController]
         }))
         
-        vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)
         
     }
