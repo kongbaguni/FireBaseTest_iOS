@@ -8,18 +8,12 @@
 
 import UIKit
 class MainNavigationController: UINavigationController {
+    class var viewController : MainNavigationController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "mainNavigation") as! MainNavigationController
+    }
+    
     deinit {
         debugPrint("deinit \(#file)")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if UserDefaults.standard.userInfo == nil {
-            viewControllers = [PhoneAuthViewController.viewController]
-        }
-        else {
-            viewControllers = [MainViewController.viewController]
-        }
-    }
-    
 }

@@ -9,6 +9,7 @@ target 'firebaseTest' do
   pod 'PhoneNumberKit'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Storage'
@@ -17,4 +18,5 @@ target 'firebaseTest' do
   pod 'NVActivityIndicatorView/AppExtension'
   pod 'CropViewController'
   pod 'Kingfisher'
+  pod "RxRealm"
 end

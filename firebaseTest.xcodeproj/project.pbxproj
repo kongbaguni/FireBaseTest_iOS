@@ -13,13 +13,12 @@
 		C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */; };
 		C3780E63240F361A006070CF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3780E62240F361A006070CF /* Localizable.strings */; };
 		C3780E65240F3FAD006070CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3780E64240F3FAC006070CF /* GoogleService-Info.plist */; };
+		C3780E67240F44AF006070CF /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E66240F44AF006070CF /* FirstViewController.swift */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
 		C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */; };
 		C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */; };
-		C3EF51BF240CDB5700A4C29E /* PhoneAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51BE240CDB5700A4C29E /* PhoneAuthViewController.swift */; };
-		C3EF51C1240CE23D00A4C29E /* PhoneAuthCodeInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C0240CE23D00A4C29E /* PhoneAuthCodeInputViewController.swift */; };
 		C3EF51C3240CE56A00A4C29E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C2240CE56A00A4C29E /* MainViewController.swift */; };
 		C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */; };
 		C3EF51C8240CEB7700A4C29E /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */; };
@@ -34,6 +33,7 @@
 		C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		C3780E62240F361A006070CF /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		C3780E64240F3FAC006070CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C3780E66240F44AF006070CF /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* firebaseTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = firebaseTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,8 +41,6 @@
 		C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3BDFC0A240CD7A1006AE2B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3BDFC0C240CD7A1006AE2B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C3EF51BE240CDB5700A4C29E /* PhoneAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthViewController.swift; sourceTree = "<group>"; };
-		C3EF51C0240CE23D00A4C29E /* PhoneAuthCodeInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthCodeInputViewController.swift; sourceTree = "<group>"; };
 		C3EF51C2240CE56A00A4C29E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
@@ -83,12 +81,19 @@
 			isa = PBXGroup;
 			children = (
 				C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */,
-				C3EF51BE240CDB5700A4C29E /* PhoneAuthViewController.swift */,
-				C3EF51C0240CE23D00A4C29E /* PhoneAuthCodeInputViewController.swift */,
 				C3EF51C2240CE56A00A4C29E /* MainViewController.swift */,
 				C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */,
+				C3780E66240F44AF006070CF /* FirstViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C3780E68240F5B94006070CF /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				C3780E59240DDEEC006070CF /* UserInfo.swift */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 		C3BDFBF2240CD79D006AE2B3 = {
@@ -112,6 +117,7 @@
 		C3BDFBFD240CD79D006AE2B3 /* firebaseTest */ = {
 			isa = PBXGroup;
 			children = (
+				C3780E68240F5B94006070CF /* DB */,
 				C3EF51C4240CEAA700A4C29E /* Extensions */,
 				C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */,
 				C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */,
@@ -130,7 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */,
-				C3780E59240DDEEC006070CF /* UserInfo.swift */,
 				C3780E5B240DE535006070CF /* String+Extensions.swift */,
 				C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */,
 			);
@@ -149,6 +154,7 @@
 				C3BDFBF8240CD79D006AE2B3 /* Frameworks */,
 				C3BDFBF9240CD79D006AE2B3 /* Resources */,
 				39EDDF3081B93368F35F9EB3 /* [CP] Embed Pods Frameworks */,
+				D324A7017D568B367D56C86E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -225,6 +231,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-firebaseTest/Pods-firebaseTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D324A7017D568B367D56C86E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-firebaseTest/Pods-firebaseTest-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-firebaseTest/Pods-firebaseTest-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-firebaseTest/Pods-firebaseTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EF59CE91D587D5952EF64B88 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,11 +280,10 @@
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
+				C3780E67240F44AF006070CF /* FirstViewController.swift in Sources */,
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
 				C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */,
-				C3EF51BF240CDB5700A4C29E /* PhoneAuthViewController.swift in Sources */,
 				C3EF51C8240CEB7700A4C29E /* MainNavigationController.swift in Sources */,
-				C3EF51C1240CE23D00A4C29E /* PhoneAuthCodeInputViewController.swift in Sources */,
 				C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */,
 				C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */,
 				C3EF51C3240CE56A00A4C29E /* MainViewController.swift in Sources */,

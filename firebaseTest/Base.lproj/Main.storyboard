@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="03W-Ec-HWu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yDO-NB-Ajw">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -7,97 +7,37 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Phone Auth View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--First View Controller-->
+        <scene sceneID="ac8-lB-W5b">
             <objects>
-                <viewController storyboardIdentifier="phoneNumberInput" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="PhoneAuthViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController storyboardIdentifier="first" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yDO-NB-Ajw" customClass="FirstViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="G6G-dY-bIO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="PhoneNumber" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6vv-gz-xvz" customClass="PhoneNumberTextField" customModule="PhoneNumberKit">
-                                <rect key="frame" x="30" y="118" width="354" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="42u-04-0df"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLO-ir-LRS">
-                                <rect key="frame" x="30" y="188" width="354" height="34"/>
-                                <state key="normal" title="confirm">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yix-rA-O0y">
+                                <rect key="frame" x="30" y="782" width="354" height="30"/>
+                                <state key="normal" title="Login with Google"/>
                                 <connections>
-                                    <action selector="onTouchupConfirmBtnWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5x6-iu-gj8"/>
+                                    <action selector="onTouchupLoginGoogleBtn:" destination="yDO-NB-Ajw" eventType="touchUpInside" id="Ds9-v5-rr4"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6vv-gz-xvz" secondAttribute="trailing" constant="30" id="5LC-1v-aYU"/>
-                            <constraint firstItem="6vv-gz-xvz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="Gad-Ol-7VZ"/>
-                            <constraint firstItem="NLO-ir-LRS" firstAttribute="top" secondItem="6vv-gz-xvz" secondAttribute="bottom" constant="30" id="Jzz-oe-PUe"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NLO-ir-LRS" secondAttribute="trailing" constant="30" id="Ty6-aG-re7"/>
-                            <constraint firstItem="NLO-ir-LRS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="cIJ-PL-Y0R"/>
-                            <constraint firstItem="6vv-gz-xvz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="xMV-9b-Uv9"/>
+                            <constraint firstItem="Yix-rA-O0y" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="6Qp-LX-5Ws"/>
+                            <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="Yix-rA-O0y" secondAttribute="trailing" constant="30" id="J0o-Hy-izn"/>
+                            <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="Yix-rA-O0y" secondAttribute="bottom" constant="50" id="cvm-2o-RZv"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="apL-ZA-0RF"/>
                     </view>
-                    <navigationItem key="navigationItem" id="gh6-we-GXH"/>
                     <connections>
-                        <outlet property="phoneNumberTextField" destination="6vv-gz-xvz" id="udo-60-i7K"/>
+                        <outlet property="loginGoogleBtn" destination="Yix-rA-O0y" id="z5I-xX-8kT"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8aw-CK-01d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-875" y="734"/>
-        </scene>
-        <!--Phone Auth Code Input View Controller-->
-        <scene sceneID="0PB-m4-8ot">
-            <objects>
-                <viewController id="mU7-YP-pJs" customClass="PhoneAuthCodeInputViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0F6-0V-wfg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="AuthCode" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="edC-nD-zgJ">
-                                <rect key="frame" x="30" y="30" width="354" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="8y5-sT-J8j"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="one-time-code"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJO-1g-0Sn">
-                                <rect key="frame" x="30" y="110" width="354" height="34"/>
-                                <state key="normal" title="confirm">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="onTouchupConfirmBtnWithSender:" destination="mU7-YP-pJs" eventType="touchUpInside" id="Zhv-I9-NhI"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="hJO-1g-0Sn" firstAttribute="leading" secondItem="snF-Na-zkz" secondAttribute="leading" constant="30" id="HAs-Nl-AfZ"/>
-                            <constraint firstItem="edC-nD-zgJ" firstAttribute="leading" secondItem="snF-Na-zkz" secondAttribute="leading" constant="30" id="Oph-4M-2dr"/>
-                            <constraint firstItem="snF-Na-zkz" firstAttribute="trailing" secondItem="hJO-1g-0Sn" secondAttribute="trailing" constant="30" id="QzA-nf-HQx"/>
-                            <constraint firstItem="edC-nD-zgJ" firstAttribute="top" secondItem="snF-Na-zkz" secondAttribute="top" constant="30" id="d1t-ur-WGc"/>
-                            <constraint firstItem="snF-Na-zkz" firstAttribute="trailing" secondItem="edC-nD-zgJ" secondAttribute="trailing" constant="30" id="kmZ-5G-MrY"/>
-                            <constraint firstItem="hJO-1g-0Sn" firstAttribute="top" secondItem="edC-nD-zgJ" secondAttribute="bottom" constant="30" id="nsD-hE-xP7"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="snF-Na-zkz"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="S2l-ER-R09"/>
-                    <connections>
-                        <outlet property="codeTextField" destination="edC-nD-zgJ" id="ctF-nl-kmj"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Tj-0S-Hzb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-75" y="706"/>
+            <point key="canvasLocation" x="-181" y="706"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="JOT-CV-mo4">
@@ -108,20 +48,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LVL-at-dso">
-                                <rect key="frame" x="30" y="64" width="50" height="50"/>
+                                <rect key="frame" x="30" y="108" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="kDW-JU-kCG"/>
                                     <constraint firstAttribute="width" constant="50" id="mid-M4-9ho"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Kb-GD-CgP">
-                                <rect key="frame" x="90" y="64" width="294" height="21"/>
+                                <rect key="frame" x="90" y="108" width="294" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fky-e5-RZm">
-                                <rect key="frame" x="90" y="90" width="294" height="16"/>
+                                <rect key="frame" x="90" y="134" width="294" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -140,6 +80,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ajj-5u-jQL"/>
                     </view>
+                    <navigationItem key="navigationItem" id="7x5-Py-PJM"/>
                     <connections>
                         <outlet property="intoduceLabel" destination="Fky-e5-RZm" id="KU4-OA-prY"/>
                         <outlet property="nameLabel" destination="7Kb-GD-CgP" id="ksU-DC-t5Y"/>
@@ -296,20 +237,19 @@
         <!--Main Navigation Controller-->
         <scene sceneID="W6N-iX-7FP">
             <objects>
-                <navigationController id="03W-Ec-HWu" customClass="MainNavigationController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNavigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="03W-Ec-HWu" customClass="MainNavigationController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0Uk-bK-naB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9L3-7t-qJ3"/>
-                        <segue destination="mU7-YP-pJs" kind="show" identifier="showInputCode" id="TLv-jE-W9x"/>
                         <segue destination="ABD-kk-8hZ" kind="show" identifier="showMyProfile" id="XpR-Cm-hF3"/>
+                        <segue destination="Kso-so-naL" kind="relationship" relationship="rootViewController" id="8jx-pv-95Y"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o5Q-7X-Np5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-874" y="7"/>
+            <point key="canvasLocation" x="728" y="-50"/>
         </scene>
     </scenes>
     <resources>

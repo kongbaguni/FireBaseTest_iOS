@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Kingfisher
+import RealmSwift
 
 class MainViewController: UIViewController {
     @IBOutlet weak var profileImageView:UIImageView!
@@ -27,7 +28,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         title = "home"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
-        if UserDefaults.standard.userInfo?.name?.isEmpty == true {
+        if UserInfo.info?.name.isEmpty == true {
             navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
         }
     }
@@ -38,15 +39,14 @@ class MainViewController: UIViewController {
     }
         
     func loadData() {
-        let userInfo = UserDefaults.standard.userInfo
+        let userInfo = UserInfo.info
         profileImageView.image = #imageLiteral(resourceName: "profile")
-        profileImageView.setImageUrl(url: userInfo?.profileImageURL, placeHolder: #imageLiteral(resourceName: "profile"))
+        profileImageView.kf.setImage(with: userInfo?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         
         nameLabel.text = userInfo?.name
         intoduceLabel.text = userInfo?.introduce
         userInfo?.syncData {
-            
-            self.profileImageView.setImageUrl(url: userInfo?.profileImageURL, placeHolder: #imageLiteral(resourceName: "profile"))
+            self.profileImageView.kf.setImage(with: userInfo?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
             self.nameLabel.text = userInfo?.name
             self.intoduceLabel.text = userInfo?.introduce
         }
@@ -66,8 +66,8 @@ class MainViewController: UIViewController {
                 print ("Error signing out: %@", signOutError)
                 return
             }            
-            UserDefaults.standard.userInfo = nil
-            self.navigationController?.viewControllers = [PhoneAuthViewController.viewController]
+            //TODO: LOGOUT DB clear
+            UIApplication.shared.windows.first?.rootViewController = FirstViewController.viewController
         }))
         
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))

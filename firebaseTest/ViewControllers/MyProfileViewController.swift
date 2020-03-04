@@ -11,6 +11,8 @@ import FirebaseFirestore
 import NVActivityIndicatorView
 import CropViewController
 import FirebaseStorage
+import AlamofireImage
+import RealmSwift
 
 class MyProfileViewController: UITableViewController {
     
@@ -68,7 +70,7 @@ class MyProfileViewController: UITableViewController {
             UIBarButtonItem(title: "save".localized, style: .done, target: self, action: #selector(self.onTouchupSave(_:)))
         
         loadData()
-        if let userInfo = UserDefaults.standard.userInfo {
+        if let userInfo = UserInfo.info {
             userInfo.syncData {
                 self.loadData()
             }
@@ -76,10 +78,10 @@ class MyProfileViewController: UITableViewController {
     }
     
     private func loadData() {
-        if let userInfo = UserDefaults.standard.userInfo {
+        if let userInfo = UserInfo.info {
             self.nameTextField.text = userInfo.name
             self.introduceTextView.text = userInfo.introduce
-            self.profileImageView.setImageUrl(url: userInfo.profileImageURL, placeHolder: #imageLiteral(resourceName: "profile"))
+            self.profileImageView.kf.setImage(with: userInfo.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         }
     }
     
@@ -90,15 +92,12 @@ class MyProfileViewController: UITableViewController {
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
-        guard let userInfo = UserDefaults.standard.userInfo else {
-            return
-        }
         view.endEditing(true)
         /** 이미지 업로드*/
         func uploadImage(complete:@escaping(_ isSucess:Bool)->Void) {
             if let str = profileImageBase64String {
                 if let data = Data(base64Encoded: str) {
-                    let ref:StorageReference = storageRef.child("profileImages/\(userInfo.id).png")
+                    let ref:StorageReference = storageRef.child("profileImages/\(UserInfo.info!.id).png")
                     let metadata = StorageMetadata()
                     metadata.contentType = "image/png"
                     let task = ref.putData(data, metadata: metadata)
@@ -108,7 +107,16 @@ class MyProfileViewController: UITableViewController {
                         ref.downloadURL { (downloadUrl, err) in
                             if (downloadUrl != nil) {
                                 print(downloadUrl?.absoluteString ?? "없다")
-                                userInfo.profileImageURL = downloadUrl?.absoluteString
+                                do {
+                                    let realm = try Realm()
+                                    realm.beginWrite()
+                                    UserInfo.info?.profileImageURLfirebase = downloadUrl?.absoluteString ?? ""
+                                    try realm.commitWrite()
+                                } catch {
+                                    print(error.localizedDescription)
+                                    complete(false)
+                                    return
+                                }
                             }
                             complete(true)
                         }
@@ -125,12 +133,12 @@ class MyProfileViewController: UITableViewController {
         
         /** 프로필 업데이트*/
         func updateProfile(complete:@escaping()->Void) {
-            let document = dbCollection.document(userInfo.id)
+            let document = dbCollection.document(UserInfo.info!.id)
             var data = [
                 "name":nameTextField.text ?? "",
                 "intro":introduceTextView.text ?? "",
             ]
-            if let url = UserDefaults.standard.userInfo?.profileImageURL {
+            if let url = UserInfo.info?.profileImageURLfirebase {
                 data["profileImageUrl"] = url
             }
             if isDeleteImage {
