@@ -47,6 +47,7 @@ class UserInfo : Object {
         return email.sha512
     }
                 
+    /** firebase 에서 데이터를 받아와서 사용자 정보를 갱신합니다.*/
     func syncData(complete:@escaping()->Void) {
         let dbCollection = Firestore.firestore().collection("users")
         let document = dbCollection.document(self.id)
@@ -60,17 +61,48 @@ class UserInfo : Object {
                     }
                     if let intro = info["intro"] as? String {
                         self?.introduce = intro
-                    }
+                    }                    
                     if let url = info["profileImageUrl"] as? String {
                         self?.profileImageURLfirebase = url
                     }
                     if let value = info["isDefaultProfile"] as? Bool {
                         self?.isDeleteProfileImage = value
                     }
+                    self?.updateDt = Date()
                     try! realm.commitWrite()
                     complete()                    
                 }
             }
         }
     }
+    
+    /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
+    func updateData(complete:@escaping()->Void) {
+        let dbCollection = Firestore.firestore().collection("users")
+        let document = dbCollection.document(UserInfo.info!.id)
+        let data:[String:Any] = [
+            "name": self.name,
+            "intro": self.introduce,
+            "isDefaultProfile" : isDeleteProfileImage,
+            "profileImageUrl" : profileImageURLfirebase
+        ]
+        
+        document.updateData(data) {(error) in
+            if let e = error {
+                print(e.localizedDescription)
+                document.setData(data, merge: true) { (error) in
+                    if let e = error {
+                        print(e.localizedDescription)
+                    }
+                    else {
+                        complete()
+                    }
+                }
+            }
+            else {
+                complete()
+            }
+        }
+    }
+    
 }

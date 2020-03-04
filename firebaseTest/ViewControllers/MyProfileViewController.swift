@@ -139,46 +139,22 @@ class MyProfileViewController: UITableViewController {
         
         /** 프로필 업데이트*/
         func updateProfile(complete:@escaping()->Void) {
-            let document = dbCollection.document(UserInfo.info!.id)
-            var data:[String:Any] = [
-                "name":nameTextField.text ?? "",
-                "intro":introduceTextView.text ?? "",
-                "isDefaultProfile" : false
-            ]
-            
-            if let url = UserInfo.info?.profileImageURLfirebase {
-                data["profileImageUrl"] = url
+            guard let userinfo = UserInfo.info else {
+                return
             }
+            let realm = try! Realm()
+            realm.beginWrite()
+            userinfo.name = nameTextField.text ?? ""
+            userinfo.introduce = introduceTextView.text ?? ""
+            userinfo.isDeleteProfileImage = profileImageDeleteMode == .delete
             
             if profileImageDeleteMode != nil {
-                data["profileImageUrl"] = ""
+                userinfo.profileImageURLfirebase = ""
             }
+            try! realm.commitWrite()
             
-            switch profileImageDeleteMode {
-            case .delete:
-                data["isDefaultProfile"] = true
-                break
-            case .googlePhoto:
-                break
-            default:
-                break
-            }
-            
-            document.updateData(data) {(error) in
-                if let e = error {
-                    print(e.localizedDescription)
-                    document.setData(data, merge: true) { (error) in
-                        if let e = error {
-                            print(e.localizedDescription)
-                        }
-                        else {
-                            complete()
-                        }
-                    }
-                }
-                else {
-                    complete()
-                }
+            userinfo.updateData() {
+                complete()
             }
         }
         
