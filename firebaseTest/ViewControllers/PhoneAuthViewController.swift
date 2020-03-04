@@ -29,7 +29,7 @@ class PhoneAuthViewController: UIViewController {
                         if let id = verificationID {
                             self?.navigationController?.performSegue(withIdentifier: "showInputCode", sender: nil)
                             
-                            UserDefaults.standard.userInfo = UserInfo(id: phoneNumber.sha512, authVerificationID: id)
+                            UserDefaults.standard.userInfo = UserInfo(phoneNumber: phoneNumber, authVerificationID: id)
                         }
                     }
                 }

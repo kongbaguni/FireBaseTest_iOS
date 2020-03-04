@@ -11,18 +11,18 @@ extension UserDefaults {
     var userInfo:UserInfo? {
         set {
             if let value = newValue {
-                set(value.id, forKey: "userId")
+                set(value.phonnumber, forKey: "userPhoneNumber")
                 set(value.authVerificationID, forKey: "authVerificationID")
             }
             else {
                 self.userInfo?.clear()
-                set(nil, forKey: "userId")
+                set(nil, forKey: "userPhoneNumber")
                 set(nil, forKey: "authVerificationID")
             }
         }
         get {
-            if let phoneNumber = string(forKey: "userPhoneNumber"), let id = string(forKey: "authVerificationID") {
-                return UserInfo(id: phoneNumber.sha512, authVerificationID: id)
+            if let phoneNumber = string(forKey: "userPhoneNumber"), let authVerificationID = string(forKey: "authVerificationID") {
+                return UserInfo(phoneNumber: phoneNumber, authVerificationID: authVerificationID)
             }
             return nil
         }

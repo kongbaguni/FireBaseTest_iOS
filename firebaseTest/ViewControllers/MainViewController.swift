@@ -26,7 +26,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
-        
+        if UserDefaults.standard.userInfo?.name?.isEmpty == true {
+            navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

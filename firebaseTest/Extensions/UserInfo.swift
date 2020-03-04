@@ -12,7 +12,14 @@ import AlamofireImage
 import FirebaseFirestore
 
 class UserInfo {
-    var id:String
+    var id:String {
+        print(phonnumber)
+        
+        print(phonnumber.sha512)
+        return phonnumber.sha512
+    }
+    
+    var phonnumber:String
     let authVerificationID:String
     
     var profileImageURL:String? {
@@ -42,8 +49,8 @@ class UserInfo {
         }
     }
     
-    init(id:String,authVerificationID:String) {
-        self.id = id
+    init(phoneNumber:String,authVerificationID:String) {
+        self.phonnumber = phoneNumber
         self.authVerificationID = authVerificationID
     }
     

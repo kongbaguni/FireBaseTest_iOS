@@ -15,6 +15,14 @@ import FirebaseStorage
 class MyProfileViewController: UITableViewController {
     
     private var profileImageBase64String:String? = nil
+    var isDeleteImage:Bool = false {
+        didSet {
+            if isDeleteImage {
+                profileImage = nil
+            }
+        }
+    }
+    
     var profileImage:UIImage? {
         get {
             if let str = profileImageBase64String {
@@ -25,9 +33,12 @@ class MyProfileViewController: UITableViewController {
             return nil
         }
         set {
-            let image = newValue?.af_imageAspectScaled(toFit: CGSize(width: 30, height: 30))
+            let image = newValue?.af_imageAspectScaled(toFit: CGSize(width: 100, height: 100))
             profileImageBase64String = image?.pngData()?.base64EncodedString()
             profileImageView.setImage(image: image, placeHolder: #imageLiteral(resourceName: "profile"))
+            if image != nil {
+                isDeleteImage = false
+            }
         }
     }
     
@@ -78,6 +89,7 @@ class MyProfileViewController: UITableViewController {
         guard let userInfo = UserDefaults.standard.userInfo else {
             return
         }
+        /** 이미지 업로드*/
         func uploadImage(complete:@escaping(_ isSucess:Bool)->Void) {
             if let str = profileImageBase64String {
                 if let data = Data(base64Encoded: str) {
@@ -106,8 +118,8 @@ class MyProfileViewController: UITableViewController {
             complete(true)
         }
         
+        /** 프로필 업데이트*/
         func updateProfile(complete:@escaping()->Void) {
-            print(userInfo.id)
             let document = dbCollection.document(userInfo.id)
             var data = [
                 "name":nameTextField.text ?? "",
@@ -116,7 +128,10 @@ class MyProfileViewController: UITableViewController {
             if let url = UserDefaults.standard.userInfo?.profileImageURL {
                 data["profileImageUrl"] = url
             }
-            document.updateData(data) { [weak self](error) in
+            if isDeleteImage {
+                data["profileImageUrl"] = ""
+            }
+            document.updateData(data) {(error) in
                 if let e = error {
                     print(e.localizedDescription)
                     document.setData(data, merge: true) { (error) in
@@ -143,12 +158,27 @@ class MyProfileViewController: UITableViewController {
                 }
             }
         }
-        
     }
+    
     @IBAction func onTouchupProfileImageBtn(_ sender: UIButton) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        present(picker, animated: true, completion: nil)
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "take photo", style: .default, handler: { (_) in
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+        }))
+        ac.addAction(UIAlertAction(title: "pick", style: .default, handler: { (_) in
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true, completion: nil)
+        }))
+        ac.addAction(UIAlertAction(title: "delete", style: .default, handler: { (_) in
+            self.isDeleteImage = true
+        }))
+        ac.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        present(ac, animated: true, completion: nil)
     }
 }
 
@@ -163,17 +193,11 @@ extension MyProfileViewController : UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print(info)
         picker.dismiss(animated: true, completion: nil)
-        if let url = info[.imageURL] as? URL {
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    let cropvc = CropViewController(croppingStyle: .circular, image: image)
-                    cropvc.delegate = self
-                    present(cropvc, animated: true, completion: nil)
-                }
-            }
+        if let image = info[.originalImage] as? UIImage {
+            let cropvc = CropViewController(croppingStyle: .circular, image: image)
+            cropvc.delegate = self
+            present(cropvc, animated: true, completion: nil)
         }
-        
-        
     }
 }
 

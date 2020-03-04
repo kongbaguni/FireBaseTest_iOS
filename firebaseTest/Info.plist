@@ -73,5 +73,7 @@
 	</array>
 	<key>FirebaseScreenReportingEnabled</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Profile photo upload</string>
 </dict>
 </plist>
