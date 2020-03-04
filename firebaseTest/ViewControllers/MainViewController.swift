@@ -67,6 +67,15 @@ class MainViewController: UIViewController {
                 return
             }            
             //TODO: LOGOUT DB clear
+            do {
+                let realm = try Realm()
+                realm.beginWrite()
+                realm.delete(realm.objects(UserInfo.self))
+                try realm.commitWrite()
+            } catch {
+                debugPrint(error.localizedDescription)
+                return
+            }
             UIApplication.shared.windows.first?.rootViewController = FirstViewController.viewController
         }))
         
