@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  LoginViewController.swift
 //  firebaseTest
 //
 //  Created by Changyul Seo on 2020/03/04.
@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class FirstViewController: UIViewController {
-    class var viewController : FirstViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! FirstViewController
+class LoginViewController: UIViewController {
+    class var viewController : LoginViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! LoginViewController
     }
     @IBOutlet weak var loginGoogleBtn:UIButton!
     

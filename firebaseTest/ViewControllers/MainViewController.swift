@@ -76,7 +76,7 @@ class MainViewController: UIViewController {
                 debugPrint(error.localizedDescription)
                 return
             }
-            UIApplication.shared.windows.first?.rootViewController = FirstViewController.viewController
+            UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
         }))
         
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))

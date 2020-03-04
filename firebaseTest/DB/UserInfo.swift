@@ -20,11 +20,23 @@ class UserInfo : Object {
     @objc dynamic var idToken                   : String    = ""
     @objc dynamic var accessToken               : String    = ""
     @objc dynamic var updateDt                  : Date      = Date()
+    /** 프로필 이미지 사용하지 않을 경우 true*/
+    @objc dynamic var isDeleteProfileImage      : Bool      = false {
+        didSet {
+            if isDeleteProfileImage {
+                profileImageURLfirebase = ""
+            }
+        }
+    }
     
     static var info:UserInfo? {
         return try! Realm().objects(UserInfo.self).first
     }
+    
     var profileImageURL:URL? {
+        if isDeleteProfileImage {
+            return nil
+        }
         if let url = URL(string:profileImageURLfirebase) {
             return url
         }
@@ -51,6 +63,9 @@ class UserInfo : Object {
                     }
                     if let url = info["profileImageUrl"] as? String {
                         self?.profileImageURLfirebase = url
+                    }
+                    if let value = info["isDefaultProfile"] as? Bool {
+                        self?.isDeleteProfileImage = value
                     }
                     try! realm.commitWrite()
                     complete()                    

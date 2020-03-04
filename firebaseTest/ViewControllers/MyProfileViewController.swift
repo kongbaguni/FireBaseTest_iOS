@@ -17,9 +17,15 @@ import RealmSwift
 class MyProfileViewController: UITableViewController {
     
     private var profileImageBase64String:String? = nil
-    var isDeleteImage:Bool = false {
+    
+    enum ProfileImageDeleteMode {
+        case delete
+        case googlePhoto
+    }
+    
+    var profileImageDeleteMode:ProfileImageDeleteMode? = nil {
         didSet {
-            if isDeleteImage {
+            if profileImageDeleteMode != nil {
                 profileImage = nil
             }
         }
@@ -39,7 +45,7 @@ class MyProfileViewController: UITableViewController {
             profileImageBase64String = image?.pngData()?.base64EncodedString()
             profileImageView.setImage(image: image, placeHolder: #imageLiteral(resourceName: "profile"))
             if image != nil {
-                isDeleteImage = false
+                profileImageDeleteMode = nil
             }
         }
     }
@@ -134,16 +140,30 @@ class MyProfileViewController: UITableViewController {
         /** 프로필 업데이트*/
         func updateProfile(complete:@escaping()->Void) {
             let document = dbCollection.document(UserInfo.info!.id)
-            var data = [
+            var data:[String:Any] = [
                 "name":nameTextField.text ?? "",
                 "intro":introduceTextView.text ?? "",
+                "isDefaultProfile" : false
             ]
+            
             if let url = UserInfo.info?.profileImageURLfirebase {
                 data["profileImageUrl"] = url
             }
-            if isDeleteImage {
+            
+            if profileImageDeleteMode != nil {
                 data["profileImageUrl"] = ""
             }
+            
+            switch profileImageDeleteMode {
+            case .delete:
+                data["isDefaultProfile"] = true
+                break
+            case .googlePhoto:
+                break
+            default:
+                break
+            }
+            
             document.updateData(data) {(error) in
                 if let e = error {
                     print(e.localizedDescription)
@@ -192,8 +212,13 @@ class MyProfileViewController: UITableViewController {
             picker.sourceType = .photoLibrary
             self.present(picker, animated: true, completion: nil)
         }))
+        ac.addAction(UIAlertAction(title: "use google profile image".localized, style: .default, handler: { (_) in
+            self.profileImageDeleteMode = .googlePhoto
+            self.profileImageView.setImageUrl(url: UserInfo.info?.profileImageURLgoogle, placeHolder: #imageLiteral(resourceName: "profile"))
+        }))
+
         ac.addAction(UIAlertAction(title: "delete".localized, style: .default, handler: { (_) in
-            self.isDeleteImage = true
+            self.profileImageDeleteMode = .delete
         }))
         ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(ac, animated: true, completion: nil)
@@ -212,8 +237,10 @@ extension MyProfileViewController : UIImagePickerControllerDelegate {
         print(info)
         picker.dismiss(animated: true, completion: nil)
         if let image = info[.originalImage] as? UIImage {
-            let cropvc = CropViewController(croppingStyle: .circular, image: image)
+            let cropvc = CropViewController(croppingStyle: .default, image: image)            
             cropvc.delegate = self
+            cropvc.aspectRatioLockEnabled = true
+            cropvc.customAspectRatio = CGSize(width:300,height:300)
             present(cropvc, animated: true, completion: nil)
         }
     }
@@ -223,13 +250,15 @@ extension MyProfileViewController : CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropImageToRect rect: CGRect, angle: Int) {
         debugPrint(#function)
     }
+    
     func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
         debugPrint(#function)
     }
+    
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         debugPrint(#function)
+        cropViewController.dismiss(animated: true, completion: nil)
         profileImage = image
-        
     }
     
     func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
