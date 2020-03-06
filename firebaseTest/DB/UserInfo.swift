@@ -105,4 +105,12 @@ class UserInfo : Object {
         }
     }
     
+    func logout() {
+        let realm = try! Realm()
+        realm.beginWrite()
+        realm.delete(self)
+        try! realm.commitWrite()
+        
+        UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
+    }
 }

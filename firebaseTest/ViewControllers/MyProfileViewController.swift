@@ -51,7 +51,7 @@ class MyProfileViewController: UITableViewController {
     }
     
     let dbCollection = Firestore.firestore().collection("users")
-
+    
     let storageRef = Storage.storage().reference()
     let indicatorView = NVActivityIndicatorView(frame: UIScreen.main.bounds, type: .ballRotateChase, color: .yellow, padding: UIScreen.main.bounds.width)
     
@@ -103,14 +103,10 @@ class MyProfileViewController: UITableViewController {
         func uploadImage(complete:@escaping(_ isSucess:Bool)->Void) {
             if let str = profileImageBase64String {
                 if let data = Data(base64Encoded: str) {
-                    let ref:StorageReference = storageRef.child("profileImages/\(UserInfo.info!.id).png")
-                    let metadata = StorageMetadata()
-                    metadata.contentType = "image/png"
-                    let task = ref.putData(data, metadata: metadata)
-                    task.observe(.success) { (snapshot) in
-                        let path = snapshot.reference.fullPath
-                        print(path)
-                        ref.downloadURL { (downloadUrl, err) in
+                    FirebaseStorageHelper().uploadImage(
+                        withData: data,
+                        contentType: "image/png",
+                        uploadURL: "profileImages/\(UserInfo.info!.id).png") { (downloadUrl) in
                             if (downloadUrl != nil) {
                                 print(downloadUrl?.absoluteString ?? "없다")
                                 do {
@@ -125,11 +121,6 @@ class MyProfileViewController: UITableViewController {
                                 }
                             }
                             complete(true)
-                        }
-
-                    }
-                    task.observe(.failure) { (_) in
-                        complete(false)
                     }
                     return
                 }
@@ -170,11 +161,11 @@ class MyProfileViewController: UITableViewController {
     }
     
     @IBAction func onTouchupProfileImageBtn(_ sender: UIButton) {
-//        "camera" = "카메라";
-//        "photoLibrary" = "사진 앨범";
-//        "cancel" = "취소";
-//        "confirm" = "확인";
-
+        //        "camera" = "카메라";
+        //        "photoLibrary" = "사진 앨범";
+        //        "cancel" = "취소";
+        //        "confirm" = "확인";
+        
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "camera".localized, style: .default, handler: { (_) in
             let picker = UIImagePickerController()
@@ -192,7 +183,7 @@ class MyProfileViewController: UITableViewController {
             self.profileImageDeleteMode = .googlePhoto
             self.profileImageView.setImageUrl(url: UserInfo.info?.profileImageURLgoogle, placeHolder: #imageLiteral(resourceName: "profile"))
         }))
-
+        
         ac.addAction(UIAlertAction(title: "delete".localized, style: .default, handler: { (_) in
             self.profileImageDeleteMode = .delete
         }))

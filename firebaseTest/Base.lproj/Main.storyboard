@@ -22,7 +22,7 @@
                                 </constraints>
                                 <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
-                                <state key="normal" title="Login with Google" image="google.png">
+                                <state key="normal" title="Login with Google">
                                     <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -101,7 +101,7 @@
         <!--My Profile View Controller-->
         <scene sceneID="cW0-Sl-0N7">
             <objects>
-                <tableViewController id="ABD-kk-8hZ" customClass="MyProfileViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="ABD-kk-8hZ" customClass="MyProfileViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="loq-6k-dyw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -241,10 +241,29 @@
             </objects>
             <point key="canvasLocation" x="1552" y="706"/>
         </scene>
-        <!--Main Navigation Controller-->
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="E9H-7F-iAa">
+            <objects>
+                <tabBarController storyboardIdentifier="mainTabBar" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wAb-BI-pxE" customClass="MainTabBarController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nBw-m9-xAA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="03W-Ec-HWu" kind="relationship" relationship="viewControllers" id="dh3-Dc-lQ2"/>
+                        <segue destination="1wT-DU-Drd" kind="relationship" relationship="viewControllers" id="36b-ST-Zkp"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TOR-HO-qgT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="728" y="-811"/>
+        </scene>
+        <!--Item-->
         <scene sceneID="W6N-iX-7FP">
             <objects>
                 <navigationController storyboardIdentifier="mainNavigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="03W-Ec-HWu" customClass="MainNavigationController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="XGK-5H-6TP"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0Uk-bK-naB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -258,9 +277,54 @@
             </objects>
             <point key="canvasLocation" x="728" y="-50"/>
         </scene>
+        <!--Root View Controller-->
+        <scene sceneID="JHO-8s-zpz">
+            <objects>
+                <tableViewController id="fhw-9x-wS1" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ao7-xW-OgG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="SdK-bw-wM3">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SdK-bw-wM3" id="pQl-gR-jtS">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fhw-9x-wS1" id="zpT-9V-PHC"/>
+                            <outlet property="delegate" destination="fhw-9x-wS1" id="et4-xg-mKH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="Vo7-ep-yQW"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sf3-h0-e65" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2610" y="-91"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="77m-Xj-3G0">
+            <objects>
+                <navigationController id="1wT-DU-Drd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="5Pe-mx-8mi"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vxm-od-h6q">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fhw-9x-wS1" kind="relationship" relationship="rootViewController" id="Mhp-F2-xqP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OqL-u2-K6z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1719" y="-91"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="google.png" width="18" height="18"/>
-        <image name="profile" width="300" height="300.5"/>
+        <image name="profile" width="300" height="300"/>
     </resources>
 </document>

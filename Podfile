@@ -8,6 +8,7 @@ target 'firebaseTest' do
   # Pods for firebaseTest
   pod 'PhoneNumberKit'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
   pod 'Firebase/Firestore'

@@ -54,7 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if error == nil {
-                UIApplication.shared.windows.first?.rootViewController  = MainNavigationController.viewController
+                UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+            }
+            else {
+                UserInfo.info?.logout()
             }
         }
     }
@@ -74,28 +77,12 @@ extension AppDelegate : GIDSignInDelegate {
                                                        accessToken: authentication.accessToken)
         
         Auth.auth().signIn(with: credential) {(authResult, error) in
+            
             if error == nil {
                 if UserInfo.info == nil {
-                    if let userInfo = authResult?.additionalUserInfo,
-                        let profile = userInfo.profile {
-                        if let name = profile["name"] as? String,
-                            let email = profile["email"] as? String,
-                            let profileUrl = profile["picture"] as? String {
-                            
-                            let userInfo = UserInfo()
-                            userInfo.name = name
-                            userInfo.profileImageURLgoogle = profileUrl
-                            userInfo.email = email
-                            userInfo.accessToken = authentication.accessToken
-                            userInfo.idToken = authentication.idToken
-                            let realm = try! Realm()
-                            realm.beginWrite()
-                            realm.add(userInfo)
-                            try! realm.commitWrite()
-                        }
-                    }
+                    authResult?.saveUserInfo(idToken: authentication.idToken, accessToken: authentication.accessToken)
                 }
-                UIApplication.shared.windows.first?.rootViewController  = MainNavigationController.viewController
+                UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
             }
         }
     }

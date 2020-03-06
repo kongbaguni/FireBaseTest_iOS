@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import AlamofireImage
 
 class LoginViewController: UIViewController {
     class var viewController : LoginViewController {
@@ -22,7 +23,11 @@ class LoginViewController: UIViewController {
         if UserInfo.info != nil {
             view.isHidden = true
         }
+        let icon =
+        #imageLiteral(resourceName: "google").af_imageAspectScaled(toFit: CGSize(width: 50, height: 50))
+        loginGoogleBtn.setImage(icon, for: .normal)
     }
+    
     @IBAction func onTouchupLoginGoogleBtn(_ sender:UIButton) {
         GIDSignIn.sharedInstance().signIn()
 

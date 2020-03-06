@@ -66,7 +66,7 @@ class MainViewController: UIViewController {
                 print ("Error signing out: %@", signOutError)
                 return
             }            
-            //TODO: LOGOUT DB clear
+
             do {
                 let realm = try Realm()
                 realm.beginWrite()

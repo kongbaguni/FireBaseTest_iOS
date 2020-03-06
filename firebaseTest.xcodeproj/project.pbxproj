@@ -23,6 +23,9 @@
 		C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */; };
 		C3EF51C8240CEB7700A4C29E /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */; };
 		C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */; };
+		C3FED0B9240F7CB7007A4F4F /* FirebaseStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FED0B8240F7CB7007A4F4F /* FirebaseStorageHelper.swift */; };
+		C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FED0BA240F84BD007A4F4F /* MainTabBarController.swift */; };
+		C3FED0BD240F9F8E007A4F4F /* AuthDataResult+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FED0BC240F9F8E007A4F4F /* AuthDataResult+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,9 @@
 		C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		C3FED0B8240F7CB7007A4F4F /* FirebaseStorageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageHelper.swift; sourceTree = "<group>"; };
+		C3FED0BA240F84BD007A4F4F /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		C3FED0BC240F9F8E007A4F4F /* AuthDataResult+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthDataResult+Extensions.swift"; sourceTree = "<group>"; };
 		FB28C5BE5C3633710658148E /* Pods-firebaseTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firebaseTest.release.xcconfig"; path = "Target Support Files/Pods-firebaseTest/Pods-firebaseTest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +90,7 @@
 				C3EF51C2240CE56A00A4C29E /* MainViewController.swift */,
 				C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */,
 				C3780E66240F44AF006070CF /* LoginViewController.swift */,
+				C3FED0BA240F84BD007A4F4F /* MainTabBarController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -117,6 +124,7 @@
 		C3BDFBFD240CD79D006AE2B3 /* firebaseTest */ = {
 			isa = PBXGroup;
 			children = (
+				C3FED0B7240F7C90007A4F4F /* firebaseUtil */,
 				C3780E68240F5B94006070CF /* DB */,
 				C3EF51C4240CEAA700A4C29E /* Extensions */,
 				C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */,
@@ -138,8 +146,17 @@
 				C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */,
 				C3780E5B240DE535006070CF /* String+Extensions.swift */,
 				C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */,
+				C3FED0BC240F9F8E007A4F4F /* AuthDataResult+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C3FED0B7240F7C90007A4F4F /* firebaseUtil */ = {
+			isa = PBXGroup;
+			children = (
+				C3FED0B8240F7CB7007A4F4F /* FirebaseStorageHelper.swift */,
+			);
+			path = firebaseUtil;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,11 +296,14 @@
 			files = (
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
+				C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */,
 				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
 				C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */,
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
 				C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */,
 				C3EF51C8240CEB7700A4C29E /* MainNavigationController.swift in Sources */,
+				C3FED0B9240F7CB7007A4F4F /* FirebaseStorageHelper.swift in Sources */,
+				C3FED0BD240F9F8E007A4F4F /* AuthDataResult+Extensions.swift in Sources */,
 				C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */,
 				C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */,
 				C3EF51C3240CE56A00A4C29E /* MainViewController.swift in Sources */,
