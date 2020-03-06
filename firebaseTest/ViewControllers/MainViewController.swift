@@ -67,16 +67,7 @@ class MainViewController: UIViewController {
                 return
             }            
 
-            do {
-                let realm = try Realm()
-                realm.beginWrite()
-                realm.delete(realm.objects(UserInfo.self))
-                try realm.commitWrite()
-            } catch {
-                debugPrint(error.localizedDescription)
-                return
-            }
-            UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
+            UserInfo.info?.logout()
         }))
         
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))

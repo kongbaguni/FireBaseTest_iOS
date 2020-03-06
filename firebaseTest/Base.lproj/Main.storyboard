@@ -319,7 +319,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69Q-jW-3PK">
-                                            <rect key="frame" x="80" y="11" width="304" height="21"/>
+                                            <rect key="frame" x="80" y="11" width="324" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -327,12 +327,12 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="iyh-mW-wBg" firstAttribute="leading" secondItem="pQl-gR-jtS" secondAttribute="leadingMargin" id="7ou-NM-KDw"/>
-                                        <constraint firstItem="69Q-jW-3PK" firstAttribute="leading" secondItem="iyh-mW-wBg" secondAttribute="trailing" constant="10" id="Cpa-ld-qbg"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="69Q-jW-3PK" secondAttribute="trailing" constant="10" id="MBM-TQ-XWV"/>
+                                        <constraint firstItem="69Q-jW-3PK" firstAttribute="leading" secondItem="INQ-jR-Gg4" secondAttribute="leading" id="YTY-vH-gEB"/>
                                         <constraint firstItem="INQ-jR-Gg4" firstAttribute="top" secondItem="pQl-gR-jtS" secondAttribute="top" constant="42" id="YjF-v0-ipA"/>
                                         <constraint firstAttribute="bottom" secondItem="INQ-jR-Gg4" secondAttribute="bottom" constant="10" id="Zbc-cJ-G45"/>
                                         <constraint firstItem="INQ-jR-Gg4" firstAttribute="leading" secondItem="pQl-gR-jtS" secondAttribute="leading" constant="80" id="Zdc-gG-rkl"/>
                                         <constraint firstItem="iyh-mW-wBg" firstAttribute="top" secondItem="pQl-gR-jtS" secondAttribute="topMargin" id="aOA-jf-TXV"/>
+                                        <constraint firstItem="69Q-jW-3PK" firstAttribute="trailing" secondItem="INQ-jR-Gg4" secondAttribute="trailing" id="sJI-e3-lGC"/>
                                         <constraint firstAttribute="trailing" secondItem="INQ-jR-Gg4" secondAttribute="trailing" constant="10" id="yPe-Lq-DNk"/>
                                         <constraint firstItem="69Q-jW-3PK" firstAttribute="top" secondItem="pQl-gR-jtS" secondAttribute="topMargin" id="ypH-8i-dBb"/>
                                     </constraints>

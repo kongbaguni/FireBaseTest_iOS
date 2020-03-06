@@ -12,7 +12,7 @@ import RealmSwift
 
 class TodaysTalksTableViewController: UITableViewController {
     var list:Results<TalkModel> {
-        return try! Realm().objects(TalkModel.self)
+        return try! Realm().objects(TalkModel.self).sorted(byKeyPath: "regTimeIntervalSince1970", ascending: false).filter("regTimeIntervalSince1970 > %@", Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
     }
     
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ class TodaysTalksTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()
+        self.onRefreshControl(UIRefreshControl())
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

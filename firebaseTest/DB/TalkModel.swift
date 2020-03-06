@@ -64,30 +64,33 @@ class TalkModel: Object {
     
     static func syncDatas(complete:@escaping()->Void) {
         let collection = Firestore.firestore().collection("talks")
-        collection.getDocuments { (shot, error) in
-            guard let snap = shot else {
-                return
-            }
-            let realm = try! Realm()
-            realm.beginWrite()
-            for doc in snap.documents {
-                let data = doc.data()
-                if let regTimeIntervalSince1970 = data["regTimeIntervalSince1970"] as? Double,
-                    let creatorId = data["creator_id"] as? String,
-                    let text = data["talk"] as? String,
-                    let id = data["documentId"] as? String {
-                    let model = TalkModel()
-                    model.regTimeIntervalSince1970 = regTimeIntervalSince1970
-                    model.creatorId = creatorId
-                    model.text = text
-                    model.id = id
-                    realm.add(model, update: .modified)
+        collection
+            .whereField("regTimeIntervalSince1970", isGreaterThan: Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
+            .getDocuments { (shot, error) in
+                guard let snap = shot else {
+                    return
                 }
-            }
-            try! realm.commitWrite()
-            complete()
+                let realm = try! Realm()
+                realm.beginWrite()
+                print(snap.documents.count)
+                for doc in snap.documents {
+                    let data = doc.data()
+                    if let regTimeIntervalSince1970 = data["regTimeIntervalSince1970"] as? Double,
+                        let creatorId = data["creator_id"] as? String,
+                        let text = data["talk"] as? String,
+                        let id = data["documentId"] as? String {
+                        let model = TalkModel()
+                        model.regTimeIntervalSince1970 = regTimeIntervalSince1970
+                        model.creatorId = creatorId
+                        model.text = text
+                        model.id = id
+                        realm.add(model, update: .modified)
+                    }
+                }
+                try! realm.commitWrite()
+                complete()
         }
-
+        
     }
     
 }
