@@ -12,7 +12,12 @@ import FirebaseFirestore
 import RealmSwift
 
 class UserInfo : Object {
-    @objc dynamic var email                     : String    = ""
+    @objc dynamic var id                        : String    = ""
+    @objc dynamic var email                     : String    = "" {
+        didSet {
+            id = email.sha512
+        }
+    }
     @objc dynamic var name                      : String    = ""
     @objc dynamic var introduce                 : String    = ""
     @objc dynamic var profileImageURLgoogle     : String    = ""
@@ -41,12 +46,12 @@ class UserInfo : Object {
             return url
         }
         return URL(string:profileImageURLgoogle)
+    }    
+    
+    override static func primaryKey() -> String? {
+        return "id"
     }
     
-    var id:String {
-        return email.sha512
-    }
-                
     /** firebase 에서 데이터를 받아와서 사용자 정보를 갱신합니다.*/
     func syncData(complete:@escaping()->Void) {
         let dbCollection = Firestore.firestore().collection("users")

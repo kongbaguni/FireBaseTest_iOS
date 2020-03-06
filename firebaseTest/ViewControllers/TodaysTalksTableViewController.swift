@@ -29,6 +29,18 @@ class TodaysTalksTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showTalk":
+            if let id =  sender as? String, let vc = segue.destination as? PostTalkViewController  {
+                vc.documentId  = id
+            }
+            
+        default:
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
         TalkModel.syncDatas {
             sender.endRefreshing()
@@ -61,6 +73,11 @@ class TodaysTalksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = list[indexPath.row]
+        performSegue(withIdentifier: "showTalk", sender: data.id)
     }
         
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var porfileImageView:UIImageView!
     @IBOutlet weak var dateLabel:UILabel!
@@ -15,5 +16,8 @@ class TodayTalksTableViewCell: UITableViewCell {
     func setData(data:TalkModel) {
         dateLabel.text = data.regDtStr
         talkLabel.text = data.text
+        if let user = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: data.creatorId) {
+            self.porfileImageView.kf.setImage(with: user.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+        }
     }
 }

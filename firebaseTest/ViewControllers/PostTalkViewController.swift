@@ -11,21 +11,45 @@ import RealmSwift
 
 class PostTalkViewController: UIViewController {
     @IBOutlet weak var textView:UITextView!
+    var documentId:String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "write talk"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save".localized, style: .plain, target: self, action: #selector(self.onTouchupSaveBtn(_:)))
+        
+        if let id = documentId {
+            let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id)
+            textView.text = document?.text
+        }
     }
     
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
         if textView.text.isEmpty {
             return
         }
-        
         sender.isEnabled = false
         Loading.show(viewController: self)
-
+        if let id = documentId {
+            let realm = try! Realm()
+            if let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
+                realm.beginWrite()
+                document.text = textView.text
+                document.regTimeIntervalSince1970 = Date().timeIntervalSince1970
+                try! realm.commitWrite()
+                document.update { [weak self] (isSucess) in
+                    if self != nil {
+                        sender.isEnabled = true
+                        Loading.hide(viewController: self!)
+                        if isSucess {
+                            self?.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                }
+            }
+            return
+        }
+        
         let documentId = "\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)"
         let regTimeIntervalSince1970 = Date().timeIntervalSince1970
         let creatorId = UserInfo.info!.id
