@@ -75,7 +75,11 @@ extension AppDelegate : GIDSignInDelegate {
         }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
-        
+        if let vc = UIApplication.shared.windows.first?.rootViewController as? LoginViewController {
+            vc.autologinBgView.isHidden = false
+            vc.indicator.startAnimating()
+        }
+
         Auth.auth().signIn(with: credential) {(authResult, error) in
             
             if error == nil {
