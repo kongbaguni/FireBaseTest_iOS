@@ -108,7 +108,7 @@ class UserInfo : Object {
     func logout() {
         let realm = try! Realm()
         realm.beginWrite()
-        realm.delete(self)
+        realm.deleteAll()
         try! realm.commitWrite()
         
         UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
