@@ -35,7 +35,7 @@ class PostTalkViewController: UIViewController {
             if let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
                 realm.beginWrite()
                 document.text = textView.text
-                document.regTimeIntervalSince1970 = Date().timeIntervalSince1970
+                document.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
                 try! realm.commitWrite()
                 document.update { [weak self] (isSucess) in
                     if self != nil {

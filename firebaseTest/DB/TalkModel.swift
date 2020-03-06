@@ -14,7 +14,14 @@ class TalkModel: Object {
     @objc dynamic var id:String = ""
     @objc dynamic var text:String = ""
     @objc dynamic var creatorId:String = ""
-    @objc dynamic var regTimeIntervalSince1970:Double = 0
+    @objc dynamic var regTimeIntervalSince1970:Double = 0 {
+        didSet {
+            if modifiedTimeIntervalSince1970 == 0 {
+                modifiedTimeIntervalSince1970 = regTimeIntervalSince1970
+            }
+        }
+    }
+    @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     
     func loadData(id:String, text:String, creatorId:String, regTimeIntervalSince1970:Double) {
         self.id = id
@@ -31,6 +38,20 @@ class TalkModel: Object {
         return  DateFormatter.localizedString(from: regDt, dateStyle: .short, timeStyle: .short)
     }
     
+    var modifiedDt:Date? {
+        if modifiedTimeIntervalSince1970 == 0 {
+            return nil
+        }
+        return Date(timeIntervalSince1970: modifiedTimeIntervalSince1970)
+    }
+    
+    var modifiedDtStr:String? {
+        if let date = modifiedDt {
+            return  DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+        }
+        return nil
+    }
+    
     override static func primaryKey() -> String? {
            return "id"
     }
@@ -44,6 +65,7 @@ class TalkModel: Object {
         let data:[String:Any] = [
             "documentId":id,
             "regTimeIntervalSince1970":regTimeIntervalSince1970,
+            "modifiedTimeIntervalSince1970":modifiedTimeIntervalSince1970,
             "creator_id":creatorId,
             "talk":text
         ]
@@ -76,11 +98,13 @@ class TalkModel: Object {
                 for doc in snap.documents {
                     let data = doc.data()
                     if let regTimeIntervalSince1970 = data["regTimeIntervalSince1970"] as? Double,
+                        let modifiedTimeIntervalSince1970 = data["modifiedTimeIntervalSince1970"] as? Double,
                         let creatorId = data["creator_id"] as? String,
                         let text = data["talk"] as? String,
                         let id = data["documentId"] as? String {
                         let model = TalkModel()
                         model.regTimeIntervalSince1970 = regTimeIntervalSince1970
+                        model.modifiedTimeIntervalSince1970 = modifiedTimeIntervalSince1970
                         model.creatorId = creatorId
                         model.text = text
                         model.id = id
