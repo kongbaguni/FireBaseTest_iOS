@@ -15,8 +15,14 @@ class TodayTalksTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     func setData(data:TalkModel) {
-        let text = NSMutableAttributedString(string: data.text)
+        let text = NSMutableAttributedString(string: "")
         if data.likes.count > 0 {
+            if data.modifiedTimeIntervalSince1970 != data.regTimeIntervalSince1970 {
+                text.append(NSAttributedString(string: "edit : \(data.modifiedDtStr ?? "") \n", attributes: [
+                    .font               : UIFont.systemFont(ofSize: 10)
+                ]))
+            }
+            text.append(NSAttributedString(string: data.text))
             text.append(NSAttributedString(string: "\n"))
             text.append(NSAttributedString(string: "like : ".localized, attributes: [
                 .font               : UIFont.systemFont(ofSize: 10)
@@ -30,14 +36,7 @@ class TodayTalksTableViewCell: UITableViewCell {
         talkLabel.attributedText = text
         nameLabel.text = data.creator?.name ?? "unknown people".localized
         self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-
-        
-        if data.regTimeIntervalSince1970 != data.modifiedTimeIntervalSince1970 {
-            dateLabel.textColor = .text_color
-            dateLabel.text = "\(data.regDtStr) 수정 : \(data.modifiedDtStr!)"
-        } else {
-            dateLabel.textColor = .text_color
-            dateLabel.text = data.regDtStr
-        }
+        dateLabel.text = data.regDtStr
+        dateLabel.textColor = .text_color
     }
 }

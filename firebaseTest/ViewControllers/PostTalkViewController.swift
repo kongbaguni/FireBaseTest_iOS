@@ -15,7 +15,10 @@ class PostTalkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "write talk"
+        title = "write talk".localized
+        if documentId != nil {
+            title = "edit talk".localized
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save".localized, style: .plain, target: self, action: #selector(self.onTouchupSaveBtn(_:)))
         
         if let id = documentId {

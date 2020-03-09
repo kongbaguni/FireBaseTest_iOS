@@ -15,6 +15,9 @@ import AlamofireImage
 import RealmSwift
 
 class MyProfileViewController: UITableViewController {
+    class var viewController : MyProfileViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "myProfile") as! MyProfileViewController
+    }
     
     private var profileImageBase64String:String? = nil
     
@@ -154,7 +157,11 @@ class MyProfileViewController: UITableViewController {
             if (isSucess) {
                 updateProfile {
                     self.indicatorView.stopAnimating()
-                    self.navigationController?.popViewController(animated: true)
+                    if self.navigationController?.viewControllers.first == self {
+                        UIApplication.shared.windows.first?.rootViewController = MainTabBarController.viewController
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
         }

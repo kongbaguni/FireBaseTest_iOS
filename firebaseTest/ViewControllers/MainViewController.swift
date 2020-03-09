@@ -49,9 +49,6 @@ class MainViewController: UIViewController {
             self.profileImageView.kf.setImage(with: userInfo?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
             self.nameLabel.text = userInfo?.name
             self.intoduceLabel.text = userInfo?.introduce
-            if isNew {
-                self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
-            }
         }
     }
     

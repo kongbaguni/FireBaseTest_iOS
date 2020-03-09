@@ -53,7 +53,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if error == nil {
-                UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                userInfo.syncData { (isNew) in
+                    if isNew {
+                        UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                    } else {
+                        UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                    }
+                }
             }
             else {
                 UserInfo.info?.logout()
@@ -84,8 +90,18 @@ extension AppDelegate : GIDSignInDelegate {
             if error == nil {
                 if UserInfo.info == nil {
                     authResult?.saveUserInfo(idToken: authentication.idToken, accessToken: authentication.accessToken)
+                    UserInfo.info?.syncData(complete: { (isNew) in
+                        if isNew {
+                            UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                        }
+                        else {
+                            UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                        }
+                    })
+                } else {
+                    UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
                 }
-                UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                
             }
         }
     }
