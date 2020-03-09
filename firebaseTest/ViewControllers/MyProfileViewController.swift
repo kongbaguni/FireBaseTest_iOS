@@ -77,7 +77,7 @@ class MyProfileViewController: UITableViewController {
         
         loadData()
         if let userInfo = UserInfo.info {
-            userInfo.syncData {
+            userInfo.syncData { isNew in
                 self.loadData()
             }
         }

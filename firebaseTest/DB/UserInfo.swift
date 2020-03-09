@@ -53,11 +53,12 @@ class UserInfo : Object {
     }
     
     /** firebase 에서 데이터를 받아와서 사용자 정보를 갱신합니다.*/
-    func syncData(complete:@escaping()->Void) {
+    func syncData(complete:@escaping(_ isNew:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection("users")
         let document = dbCollection.document(self.id)
         document.getDocument { [weak self](snapshot, error) in
             if let doc = snapshot {
+                var count = 0
                 doc.data().map { info in
                     let realm = try! Realm()
                     realm.beginWrite()
@@ -66,17 +67,21 @@ class UserInfo : Object {
                     }
                     if let intro = info["intro"] as? String {
                         self?.introduce = intro
-                    }                    
+                    }
                     if let url = info["profileImageUrl"] as? String {
                         self?.profileImageURLfirebase = url
                     }
                     if let value = info["isDefaultProfile"] as? Bool {
                         self?.isDeleteProfileImage = value
                     }
+                    if let url = info["profileImageUrlGoogle"] as? String {
+                        self?.profileImageURLgoogle = url
+                    }
                     self?.updateDt = Date()
                     try! realm.commitWrite()
-                    complete()                    
+                    count += 1
                 }
+                complete(count == 0)
             }
         }
         // 다른 유저 정보 가져오기
@@ -96,6 +101,7 @@ class UserInfo : Object {
 
                 let isDefaultProfile = info["isDefaultProfile"] as? Bool ?? false
                 let profileImageUrl = info["profileImageUrl"] as? String ?? ""
+                let profileimageUrlGoogle = info["profileImageUrlGoogle"] as? String ?? ""
                 
                 let userInfo = UserInfo()
                 userInfo.email = email
@@ -103,6 +109,7 @@ class UserInfo : Object {
                 userInfo.introduce = intro
                 userInfo.isDeleteProfileImage = isDefaultProfile
                 userInfo.profileImageURLfirebase = profileImageUrl
+                userInfo.profileImageURLgoogle = profileimageUrlGoogle
                 newUsers.append(userInfo)
             }
             if newUsers.count > 0 {
@@ -124,7 +131,8 @@ class UserInfo : Object {
             "email" : self.email,
             "intro": self.introduce,
             "isDefaultProfile" : isDeleteProfileImage,
-            "profileImageUrl" : profileImageURLfirebase
+            "profileImageUrl" : profileImageURLfirebase,
+            "profileImageUrlGoogle" : profileImageURLgoogle
         ]
         
         document.updateData(data) {(error) in

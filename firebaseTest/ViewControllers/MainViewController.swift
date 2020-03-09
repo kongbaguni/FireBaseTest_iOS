@@ -45,10 +45,13 @@ class MainViewController: UIViewController {
         
         nameLabel.text = userInfo?.name
         intoduceLabel.text = userInfo?.introduce
-        userInfo?.syncData {
+        userInfo?.syncData { isNew in
             self.profileImageView.kf.setImage(with: userInfo?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
             self.nameLabel.text = userInfo?.name
             self.intoduceLabel.text = userInfo?.introduce
+            if isNew {
+                self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
+            }
         }
     }
     

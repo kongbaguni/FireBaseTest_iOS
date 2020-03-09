@@ -9,13 +9,14 @@
 import UIKit
 extension UIColor {
     open class var indicator_color: UIColor {
-        get {
-            if UIApplication.shared.isDarkMode {
-                return .white
-            }
-            else {
-                return .black
-            }
-        }
+        UIApplication.shared.isDarkMode ? .white : .black
+    }
+    
+    open class var text_color : UIColor {
+        UIApplication.shared.isDarkMode ? .white : .black
+    }
+    
+    open class var bold_text_color : UIColor {
+        UIApplication.shared.isDarkMode ? .yellow : .blue
     }
 }
