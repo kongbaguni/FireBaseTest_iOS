@@ -14,10 +14,16 @@ class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var talkLabel:UILabel!
     
     func setData(data:TalkModel) {
-        dateLabel.text = data.regDtStr
         talkLabel.text = data.text
         if let user = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: data.creatorId) {
             self.porfileImageView.kf.setImage(with: user.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+        }
+        if data.regTimeIntervalSince1970 != data.modifiedTimeIntervalSince1970 {
+            dateLabel.textColor = .red
+            dateLabel.text = "\(data.regDtStr) 수정 : \(data.modifiedDtStr!)"
+        } else {
+            dateLabel.textColor = .white
+            dateLabel.text = data.regDtStr
         }
     }
 }
