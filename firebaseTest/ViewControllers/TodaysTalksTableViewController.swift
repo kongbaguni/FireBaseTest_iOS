@@ -10,12 +10,24 @@ import UIKit
 import FirebaseFirestore
 import RealmSwift
 import AlamofireImage
+import RxSwift
+import RxCocoa
 
 class TodaysTalksTableViewController: UITableViewController {
+    var filterText:String? = nil
     var list:Results<TalkModel> {
-        return try! Realm().objects(TalkModel.self).sorted(byKeyPath: "regTimeIntervalSince1970", ascending: false).filter("regTimeIntervalSince1970 > %@", Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
+        var result = try! Realm().objects(TalkModel.self)
+            .sorted(byKeyPath: "regTimeIntervalSince1970", ascending: true)
+            .filter("regTimeIntervalSince1970 > %@", Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
+        
+        if let txt = filterText {
+            result = result.filter("text CONTAINS[c] %@", txt)
+        }
+        
+        return result
     }
-    
+    let disposebag = DisposeBag()
+    @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "todays talks".localized
@@ -23,6 +35,20 @@ class TodaysTalksTableViewController: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
+        searchBar
+            .rx.text
+            .orEmpty
+            .subscribe(onNext: { [weak self](query) in
+                print(query)
+                let q = query.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+                if q.isEmpty == false {
+                    self?.filterText = q
+                } else {
+                    self?.filterText = nil
+                }
+                self?.tableView.reloadData()
+            }).disposed(by: self.disposebag)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,7 +90,10 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TodayTalksTableViewCell
+        let data = list[indexPath.row]
+        
+        let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
         cell.setData(data: list[indexPath.row])
         return cell
     }

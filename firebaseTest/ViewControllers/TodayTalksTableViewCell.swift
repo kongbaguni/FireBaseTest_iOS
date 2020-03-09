@@ -16,13 +16,17 @@ class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     func setData(data:TalkModel) {
         let text = NSMutableAttributedString(string: "")
+        if data.modifiedTimeIntervalSince1970 != data.regTimeIntervalSince1970 {
+            text.append(NSAttributedString(string: "edit : ".localized, attributes: [
+                .font               : UIFont.systemFont(ofSize: 10),
+                .foregroundColor    : UIColor.bold_text_color
+            ]))
+            text.append(NSAttributedString(string: "\(data.modifiedDtStr ?? "") \n", attributes: [
+                .font               : UIFont.systemFont(ofSize: 10)
+            ]))
+        }
+        text.append(NSAttributedString(string: data.text))
         if data.likes.count > 0 {
-            if data.modifiedTimeIntervalSince1970 != data.regTimeIntervalSince1970 {
-                text.append(NSAttributedString(string: "edit : \(data.modifiedDtStr ?? "") \n", attributes: [
-                    .font               : UIFont.systemFont(ofSize: 10)
-                ]))
-            }
-            text.append(NSAttributedString(string: data.text))
             text.append(NSAttributedString(string: "\n"))
             text.append(NSAttributedString(string: "like : ".localized, attributes: [
                 .font               : UIFont.systemFont(ofSize: 10)
@@ -32,7 +36,6 @@ class TodayTalksTableViewCell: UITableViewCell {
                 .foregroundColor    : UIColor.bold_text_color
             ]))
         }
-        
         talkLabel.attributedText = text
         nameLabel.text = data.creator?.name ?? "unknown people".localized
         self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))

@@ -85,7 +85,9 @@ class UserInfo : Object {
             }
         }
         // 다른 유저 정보 가져오기
-        dbCollection.getDocuments { (snapShot, error) in
+        dbCollection
+            .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
+            .getDocuments { (snapShot, error) in
             var newUsers:[UserInfo] = []
             for doc in snapShot?.documents ?? [] {
                 let info = doc.data()

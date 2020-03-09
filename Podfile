@@ -19,5 +19,7 @@ target 'firebaseTest' do
   pod 'NVActivityIndicatorView/AppExtension'
   pod 'CropViewController'
   pod 'Kingfisher'
-  pod "RxRealm"
+  pod 'RxSwift'
+  pod 'RxRealm'
+  pod 'RxCocoa'
 end

@@ -87,11 +87,16 @@ class TalkModel: Object {
                 realm.beginWrite()
                 realm.add(self, update: .all)
                 try! realm.commitWrite()
+                let userInfo = Firestore.firestore().collection("users").document(self.creatorId)
+                userInfo.updateData(["lastTalkTimeIntervalSince1970": self.modifiedTimeIntervalSince1970]) { (err) in
+                    
+                }
                 complete(true)
                 return
             }
             complete(false)
         }
+        
     }
     
     static func syncDatas(complete:@escaping()->Void) {
