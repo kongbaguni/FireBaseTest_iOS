@@ -35,7 +35,7 @@ class UserInfo : Object {
     }
     
     static var info:UserInfo? {
-        return try! Realm().objects(UserInfo.self).first
+        return try! Realm().objects(UserInfo.self).filter("idToken != %@ && accessToken != %@", "", "").first
     }
     
     var profileImageURL:URL? {
@@ -79,6 +79,39 @@ class UserInfo : Object {
                 }
             }
         }
+        // 다른 유저 정보 가져오기
+        dbCollection.getDocuments { (snapShot, error) in
+            var newUsers:[UserInfo] = []
+            for doc in snapShot?.documents ?? [] {
+                let info = doc.data()
+                guard let id = info["id"] as? String,
+                    let name = info["name"] as? String,
+                    let email = info["email"] as? String else {
+                        continue
+                }
+                if id == self.id {
+                    continue
+                }
+                let intro = info["into"] as? String ?? ""
+
+                let isDefaultProfile = info["isDefaultProfile"] as? Bool ?? false
+                let profileImageUrl = info["profileImageUrl"] as? String ?? ""
+                
+                let userInfo = UserInfo()
+                userInfo.email = email
+                userInfo.name = name
+                userInfo.introduce = intro
+                userInfo.isDeleteProfileImage = isDefaultProfile
+                userInfo.profileImageURLfirebase = profileImageUrl
+                newUsers.append(userInfo)
+            }
+            if newUsers.count > 0 {
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.add(newUsers,update: .all)
+                try! realm.commitWrite()
+            }
+        }
     }
     
     /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
@@ -86,7 +119,9 @@ class UserInfo : Object {
         let dbCollection = Firestore.firestore().collection("users")
         let document = dbCollection.document(UserInfo.info!.id)
         let data:[String:Any] = [
+            "id" : self.id,
             "name": self.name,
+            "email" : self.email,
             "intro": self.introduce,
             "isDefaultProfile" : isDeleteProfileImage,
             "profileImageUrl" : profileImageURLfirebase

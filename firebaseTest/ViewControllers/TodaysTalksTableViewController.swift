@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseFirestore
 import RealmSwift
+import AlamofireImage
 
 class TodaysTalksTableViewController: UITableViewController {
     var list:Results<TalkModel> {
@@ -27,6 +28,7 @@ class TodaysTalksTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.onRefreshControl(UIRefreshControl())
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,8 +78,51 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = list[indexPath.row]
-        performSegue(withIdentifier: "showTalk", sender: data.id)
     }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let model = list[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: "like", handler: { (action, view, complete) in
+            model.toggleLike()
+            model.update { (sucess) in
+                complete(true)
+                DispatchQueue.main.async {
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            }
+        })
+        
+        let iconRed =  #imageLiteral(resourceName: "heart").af_imageAspectScaled(toFit: CGSize(width: 20, height: 20))
+                      
+        let iconWhite =  iconRed.withTintColor(.white)
+        action.image = model.isLike ? iconRed : iconWhite
+        
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let data = list[indexPath.row]
+        var actions:[UIContextualAction] = []
+        if data.creatorId == UserInfo.info?.id {
+            actions.append(
+                UIContextualAction(style: .normal, title: "edit", handler: { [weak self](action, view, complete) in
+                    if let data = self?.list[indexPath.row] {
+                        self?.performSegue(withIdentifier: "showTalk", sender: data.id)
+                    }
+                })
+            )
+        }
+        
+        return UISwipeActionsConfiguration(actions: actions)
+    }
+ 
 }
+

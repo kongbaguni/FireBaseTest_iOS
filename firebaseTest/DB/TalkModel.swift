@@ -22,6 +22,7 @@ class TalkModel: Object {
         }
     }
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
+    let likes = List<LikeModel>()
     
     func loadData(id:String, text:String, creatorId:String, regTimeIntervalSince1970:Double) {
         self.id = id
@@ -61,14 +62,23 @@ class TalkModel: Object {
         if text.isEmpty {
             return
         }
+        var likeIds:[String] = []
+        var likeCreators:[String] = []
+        for like in likes {
+            likeIds.append(like.id)
+            likeCreators.append(like.creatorId)
+        }
                 
         let data:[String:Any] = [
             "documentId":id,
             "regTimeIntervalSince1970":regTimeIntervalSince1970,
             "modifiedTimeIntervalSince1970":modifiedTimeIntervalSince1970,
             "creator_id":creatorId,
-            "talk":text
+            "talk":text,
+            "likeIds":likeIds,
+            "likeCreators":likeCreators
         ]
+        
         let collection = Firestore.firestore().collection("talks")
         let document = collection.document(id)
         document.setData(data, merge: true) { (error) in
@@ -108,6 +118,20 @@ class TalkModel: Object {
                         model.creatorId = creatorId
                         model.text = text
                         model.id = id
+                        
+                        if let likeIds = data["likeIds"] as? [String],
+                            let likeCreators = data["likeCreators"] as? [String] {
+                            var cnt = 0
+                            for likeId in likeIds {
+                                let likeModel = LikeModel()
+                                likeModel.id = likeId
+                                likeModel.creatorId = likeCreators[cnt]
+                                likeModel.targetTalkId = id
+                                cnt += 1
+                                model.likes.append(likeModel)
+                            }
+                        }                        
+                        
                         realm.add(model, update: .modified)
                     }
                 }
@@ -117,4 +141,37 @@ class TalkModel: Object {
         
     }
     
+    var creator:UserInfo? {
+        return try! Realm().object(ofType: UserInfo.self, forPrimaryKey:creatorId)
+    }
+    
+    var isLike:Bool {
+        guard let userId = UserInfo.info?.id else {
+            return false
+        }
+        if self.likes.filter("creatorId == %@",userId).first != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func toggleLike(){
+        guard let userId = UserInfo.info?.id else {
+            return
+        }
+        let realm = try! Realm()
+        realm.beginWrite()
+        if let like = self.likes.filter("creatorId == %@",userId).first {
+            realm.delete(like)
+        } else {
+            let likeModel = LikeModel()
+            likeModel.creatorId = userId
+            likeModel.targetTalkId = self.id
+            self.likes.append(likeModel)
+            realm.add(likeModel,update: .all)
+            debugPrint("좋아요 : \(likes.count) 개")
+        }
+        try! realm.commitWrite()
+    }
 }

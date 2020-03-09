@@ -13,16 +13,18 @@ class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel:UILabel!
     @IBOutlet weak var talkLabel:UILabel!
     
+    @IBOutlet weak var nameLabel: UILabel!
     func setData(data:TalkModel) {
-        talkLabel.text = data.text
-        if let user = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: data.creatorId) {
-            self.porfileImageView.kf.setImage(with: user.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-        }
+        talkLabel.text = "\(data.text) + \(data.likes.count)"
+        nameLabel.text = data.creator?.name ?? "unknown people".localized
+        self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+
+        
         if data.regTimeIntervalSince1970 != data.modifiedTimeIntervalSince1970 {
             dateLabel.textColor = .red
             dateLabel.text = "\(data.regDtStr) 수정 : \(data.modifiedDtStr!)"
         } else {
-            dateLabel.textColor = .white
+            dateLabel.textColor = .darkText
             dateLabel.text = data.regDtStr
         }
     }
