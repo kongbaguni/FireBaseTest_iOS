@@ -28,21 +28,24 @@ class PostTalkViewController: UIViewController {
                 textView.text = text
             }
         }
+        textView.becomeFirstResponder()
     }
     
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
-        if textView.text.isEmpty {
+        let text = textView.text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+        
+        if text.isEmpty {
             return
         }
+        view.endEditing(true)
         sender.isEnabled = false
         Loading.show(viewController: self)
         if let id = documentId {
             let realm = try! Realm()
             if let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
                 realm.beginWrite()
-//                document.text = textView.text
                 let editText = TextEditModel()
-                editText.setData(text: textView.text)
+                editText.setData(text: text)
                 document.editList.append(editText)
                 document.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
                 try! realm.commitWrite()

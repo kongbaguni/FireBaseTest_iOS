@@ -290,7 +290,7 @@
         <scene sceneID="JHO-8s-zpz">
             <objects>
                 <tableViewController id="fhw-9x-wS1" customClass="TodaysTalksTableViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ao7-xW-OgG">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ao7-xW-OgG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -299,12 +299,31 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Don-dR-dDV">
+                            <rect key="frame" x="0.0" y="1245" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJN-sd-GWq">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <items>
+                                        <barButtonItem title="write" id="PO1-lh-oU2"/>
+                                    </items>
+                                </toolbar>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstItem="gJN-sd-GWq" firstAttribute="top" secondItem="Don-dR-dDV" secondAttribute="top" symbolic="YES" id="7b9-ss-LsU"/>
+                                <constraint firstAttribute="bottom" secondItem="gJN-sd-GWq" secondAttribute="bottom" symbolic="YES" id="HL8-Ib-UdA"/>
+                                <constraint firstItem="gJN-sd-GWq" firstAttribute="leading" secondItem="Don-dR-dDV" secondAttribute="leading" symbolic="YES" id="XRf-h5-xXv"/>
+                                <constraint firstAttribute="trailing" secondItem="gJN-sd-GWq" secondAttribute="trailing" symbolic="YES" id="cc2-Gr-V87"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="SdK-bw-wM3" customClass="TodayTalksTableViewCell" customModule="firebaseTest" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="240"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="240.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SdK-bw-wM3" id="pQl-gR-jtS">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="240.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="iyh-mW-wBg">
@@ -315,7 +334,7 @@
                                             </constraints>
                                         </imageView>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s9F-Wu-FRV">
-                                            <rect key="frame" x="70" y="40" width="344" height="200"/>
+                                            <rect key="frame" x="65" y="40" width="349" height="200.5"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="4us-80-S8A"/>
@@ -339,13 +358,14 @@
                                         <constraint firstAttribute="trailing" secondItem="s9F-Wu-FRV" secondAttribute="trailing" id="b0y-4d-xcG"/>
                                         <constraint firstAttribute="bottom" secondItem="s9F-Wu-FRV" secondAttribute="bottom" id="oXn-9D-0fm"/>
                                         <constraint firstItem="s9F-Wu-FRV" firstAttribute="top" secondItem="pQl-gR-jtS" secondAttribute="top" constant="40" id="vXF-UA-e7b"/>
-                                        <constraint firstItem="s9F-Wu-FRV" firstAttribute="leading" secondItem="pQl-gR-jtS" secondAttribute="leading" constant="70" id="vv8-vq-Pcg"/>
+                                        <constraint firstItem="s9F-Wu-FRV" firstAttribute="leading" secondItem="pQl-gR-jtS" secondAttribute="leading" constant="65" id="vv8-vq-Pcg"/>
                                         <constraint firstAttribute="trailing" secondItem="Zng-hh-RaY" secondAttribute="trailing" constant="10" id="wzG-WJ-v9y"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <constraints>
                                     <constraint firstItem="iyh-mW-wBg" firstAttribute="leading" secondItem="SdK-bw-wM3" secondAttribute="leading" constant="10" id="f0z-nb-LiL"/>
                                 </constraints>
+                                <inset key="separatorInset" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="nameLabel" destination="Zng-hh-RaY" id="e6x-35-rkx"/>
                                     <outlet property="porfileImageView" destination="iyh-mW-wBg" id="Jlk-A7-RIa"/>
@@ -353,10 +373,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" id="VUJ-mH-VTC" customClass="TodayTalksTableViewCell" customModule="firebaseTest" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="312" width="414" height="240"/>
+                                <rect key="frame" x="0.0" y="312.5" width="414" height="240.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VUJ-mH-VTC" id="0lZ-Nu-9cf">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="240.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="XPU-kE-WSn">
@@ -373,7 +393,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AYs-Ee-yW1">
-                                            <rect key="frame" x="0.0" y="40" width="344" height="200"/>
+                                            <rect key="frame" x="0.0" y="40" width="349" height="200.5"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="sIv-JK-fZa"/>
@@ -385,7 +405,7 @@
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="AYs-Ee-yW1" secondAttribute="trailing" constant="70" id="5DV-lQ-l3m"/>
+                                        <constraint firstAttribute="trailing" secondItem="AYs-Ee-yW1" secondAttribute="trailing" constant="65" id="5DV-lQ-l3m"/>
                                         <constraint firstItem="XPU-kE-WSn" firstAttribute="leading" secondItem="Dst-e9-1uH" secondAttribute="trailing" constant="10" id="8e8-KA-A9B"/>
                                         <constraint firstItem="AYs-Ee-yW1" firstAttribute="leading" secondItem="0lZ-Nu-9cf" secondAttribute="leading" id="K15-D2-fXo"/>
                                         <constraint firstItem="Dst-e9-1uH" firstAttribute="top" secondItem="0lZ-Nu-9cf" secondAttribute="top" constant="10" id="jPy-cL-jex"/>
@@ -398,6 +418,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="XPU-kE-WSn" secondAttribute="trailing" constant="10" id="ZJW-Qg-6gq"/>
                                 </constraints>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="70" maxY="0.0"/>
                                 <connections>
                                     <outlet property="nameLabel" destination="Dst-e9-1uH" id="IE7-OJ-6Ng"/>
                                     <outlet property="porfileImageView" destination="XPU-kE-WSn" id="d29-6K-hUF"/>
@@ -417,6 +438,7 @@
                     </refreshControl>
                     <connections>
                         <outlet property="searchBar" destination="YKK-Ds-gm6" id="36G-Iw-2g8"/>
+                        <outlet property="toolBar" destination="gJN-sd-GWq" id="xJr-Zs-bfF"/>
                         <segue destination="TT4-27-wvf" kind="show" identifier="showTalk" id="mYD-qW-InZ"/>
                         <segue destination="rzk-Ow-uys" kind="show" identifier="showHistory" id="2P4-wP-fB8"/>
                     </connections>
@@ -428,13 +450,13 @@
         <!--Post Talk View Controller-->
         <scene sceneID="SAI-aa-ZbI">
             <objects>
-                <viewController id="TT4-27-wvf" customClass="PostTalkViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="TT4-27-wvf" customClass="PostTalkViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qus-0x-ZGG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lsW-b6-E8j">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -463,16 +485,21 @@
         <scene sceneID="gdL-I3-Sdp">
             <objects>
                 <tableViewController id="rzk-Ow-uys" customClass="TalkDetailTableViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hT5-OP-vTp">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hT5-OP-vTp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="JFl-tZ-x9h">
+                            <rect key="frame" x="0.0" y="361" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userInfo" id="z0U-wt-PQb" customClass="TalkDetailUserInfoTableViewCell" customModule="firebaseTest" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="81.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="81"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z0U-wt-PQb" id="Oq0-NM-uH7">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="81.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="81"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="ypc-Qv-Y4L">
@@ -489,7 +516,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZ7-PG-fea">
-                                            <rect key="frame" x="80" y="50" width="314" height="21.5"/>
+                                            <rect key="frame" x="80" y="50" width="314" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="W1G-zu-Nzg"/>
                                             </constraints>
@@ -510,14 +537,15 @@
                                         <constraint firstItem="ypc-Qv-Y4L" firstAttribute="top" secondItem="Oq0-NM-uH7" secondAttribute="top" constant="20" symbolic="YES" id="bbj-Nf-7mW"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <inset key="separatorInset" minX="80" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="introduceLabel" destination="PZ7-PG-fea" id="PP6-kg-bcy"/>
                                     <outlet property="nameLabel" destination="N9Y-6q-Dot" id="jLi-uH-O4z"/>
                                     <outlet property="profileImageView" destination="ypc-Qv-Y4L" id="61e-GZ-27y"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="editHistory" id="4oA-1c-S8T" customClass="TalkDetailEditHistoryTableViewCell" customModule="firebaseTest" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="109.5" width="414" height="224"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="editHistory" id="4oA-1c-S8T" customClass="TalkDetailEditHistoryTableViewCell" customModule="firebaseTest" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="109" width="414" height="224"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4oA-1c-S8T" id="Ce6-bV-wog">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="224"/>
@@ -551,6 +579,7 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="2qC-6u-rsQ" secondAttribute="trailing" id="vWH-2m-gzi"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dateLabel" destination="2qC-6u-rsQ" id="upm-pt-asa"/>
                                     <outlet property="textView" destination="49L-lk-brM" id="jVl-Kl-gib"/>

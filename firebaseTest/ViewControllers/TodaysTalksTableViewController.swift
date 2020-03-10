@@ -27,6 +27,7 @@ class TodaysTalksTableViewController: UITableViewController {
         return result
     }
     let disposebag = DisposeBag()
+    @IBOutlet weak var toolBar:UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,9 @@ class TodaysTalksTableViewController: UITableViewController {
                 self?.tableView.reloadData()
             }).disposed(by: self.disposebag)
         
+        toolBar.items = [
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupAddBtn(_:)))
+        ]
     }
     
     override func viewDidAppear(_ animated: Bool) {
