@@ -8,43 +8,46 @@
 
 import UIKit
 import RealmSwift
+fileprivate let textStyle1:[NSAttributedString.Key:Any] = [
+    .font               : UIFont.systemFont(ofSize: 14),
+    .foregroundColor    : UIColor.text_color
+]
+fileprivate let textStyle2:[NSAttributedString.Key:Any] = [
+    .font               : UIFont.boldSystemFont(ofSize: 14),
+    .foregroundColor    : UIColor.bold_text_color
+]
+
 class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var porfileImageView:UIImageView!
-    @IBOutlet weak var dateLabel:UILabel!
-    @IBOutlet weak var talkLabel:UILabel!
-    
+    @IBOutlet weak var talkTextView:UITextView!
     @IBOutlet weak var nameLabel: UILabel!
     func setData(data:TalkModel) {
-        let text = NSMutableAttributedString(string: "")
-        if data.modifiedTimeIntervalSince1970 != data.regTimeIntervalSince1970 {
-            text.append(NSAttributedString(string: "edit : ".localized, attributes: [
-                .font               : UIFont.systemFont(ofSize: 10),
-                .foregroundColor    : UIColor.bold_text_color
-            ]))
-            text.append(NSAttributedString(string: "\(data.modifiedDtStr ?? "") \n", attributes: [
-                .font               : UIFont.systemFont(ofSize: 10)
-            ]))
-        }
+        talkTextView.textColor = .text_color
+        let text = NSMutableAttributedString()
+        
         if let txt = data.editList.last?.text {
-            text.append(NSAttributedString(string: txt))
+            text.append(NSAttributedString(string: txt, attributes: textStyle1))
         } else {
-            text.append(NSAttributedString(string: data.text))
+            text.append(NSAttributedString(string: data.text, attributes: textStyle1))
         }
 
         if data.likes.count > 0 {
-            text.append(NSAttributedString(string: "\n"))
-            text.append(NSAttributedString(string: "like : ".localized, attributes: [
-                .font               : UIFont.systemFont(ofSize: 10)
-            ]))
-            text.append(NSAttributedString(string: "\(data.likes.count)", attributes: [
-                .font               : UIFont.boldSystemFont(ofSize: 10),
-                .foregroundColor    : UIColor.bold_text_color
-            ]))
+            text.append(NSAttributedString(string: "\n\n"))
+            text.append(NSAttributedString(string: "like : ".localized, attributes: textStyle2))
+            text.append(NSAttributedString(string: "\(data.likes.count)", attributes: textStyle1))
         }
-        talkLabel.attributedText = text
+        text.append(NSAttributedString(string: "\n\n"))
+        text.append(NSAttributedString(string: "reg : ".localized, attributes: textStyle2))
+        text.append(NSAttributedString(string: "\(data.regDtStr)", attributes: textStyle1))
+
+        if let editDt = data.editList.last?.regDtStr {
+            text.append(NSAttributedString(string: "\n"))
+            text.append(NSAttributedString(string: "edit : ".localized, attributes: textStyle2))
+            text.append(NSAttributedString(string: "\(editDt)", attributes: textStyle1))
+        }
+        
+        talkTextView.attributedText = text
         nameLabel.text = data.creator?.name ?? "unknown people".localized
         self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-        dateLabel.text = data.regDtStr
-        dateLabel.textColor = .text_color
     }
 }

@@ -27,6 +27,10 @@ class TextEditModel : Object {
         return Date(timeIntervalSince1970: interval)
     }
     
+    var regDtStr:String {
+        return  DateFormatter.localizedString(from: regDt, dateStyle: .short, timeStyle: .short)
+    }
+    
     var text:String {
         return id.components(separatedBy: "[__##__]").first!
     }

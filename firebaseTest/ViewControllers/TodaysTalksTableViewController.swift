@@ -63,7 +63,11 @@ class TodaysTalksTableViewController: UITableViewController {
             if let id =  sender as? String, let vc = segue.destination as? PostTalkViewController  {
                 vc.documentId  = id
             }
-            
+        case "showHistory":
+            if let id = sender as? String,
+                let vc = segue.destination as? TalkDetailTableViewController {
+                vc.documentId = id
+            }
         default:
             super.prepare(for: segue, sender: sender)
         }
@@ -107,6 +111,8 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let talk = list[indexPath.row]
+        performSegue(withIdentifier: "showHistory", sender: talk.id)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
