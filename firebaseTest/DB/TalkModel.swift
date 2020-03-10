@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 import FirebaseFirestore
-
+/** talk 수정이력 기록 위한 모델*/
 class TextEditModel : Object {
     @objc dynamic var id:String = ""
     
@@ -18,17 +18,17 @@ class TextEditModel : Object {
     }
     
     func setData(text:String) {
-        id = "\(text)__#__regdt:\(Date().timeIntervalSince1970)"
+        id = "\(text)[__##__]\(UUID().uuidString)[__##__]\(Date().timeIntervalSince1970)"
     }
     
     var regDt:Date {
-        let str = id.components(separatedBy: "__#__regdt:").last
+        let str = id.components(separatedBy: "[__##__]").last
         let interval = TimeInterval(NSString(string: str!).doubleValue)
         return Date(timeIntervalSince1970: interval)
     }
     
     var text:String {
-        return id.components(separatedBy: "__#__regdt:").first!
+        return id.components(separatedBy: "[__##__]").first!
     }
 }
 
