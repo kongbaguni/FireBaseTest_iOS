@@ -82,12 +82,16 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
+        let oldCount = self.tableView.numberOfRows(inSection: 0)
+        
         TalkModel.syncDatas {
             sender.endRefreshing()
             self.tableView.reloadData()
             if self.isNeedScrollToBottomWhenRefresh {
-                let number = self.tableView.numberOfRows(inSection: 0) - 1
-                self.tableView.scrollToRow(at: IndexPath(row: number, section: 0), at: .bottom, animated: true)
+                let number = self.tableView.numberOfRows(inSection: 0)
+                if oldCount != number {
+                    self.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .bottom, animated: true)
+                }
                 self.isNeedScrollToBottomWhenRefresh = false
             }
             if let index = self.needScrolIndex {
