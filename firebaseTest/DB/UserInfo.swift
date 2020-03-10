@@ -97,7 +97,7 @@ class UserInfo : Object {
                 if email == self.email {
                     continue
                 }
-                let intro = info["into"] as? String ?? ""
+                let intro = info["intro"] as? String ?? ""
 
                 let isDefaultProfile = info["isDefaultProfile"] as? Bool ?? false
                 let profileImageUrl = info["profileImageUrl"] as? String ?? ""
