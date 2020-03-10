@@ -129,9 +129,8 @@ class TalkModel: Object {
                             var cnt = 0
                             for likeId in likeIds {
                                 let likeModel = LikeModel()
+                                likeModel.set(creatorId: likeCreators[cnt], targetTalkId: id)
                                 likeModel.id = likeId
-                                likeModel.creatorId = likeCreators[cnt]
-                                likeModel.targetTalkId = id
                                 cnt += 1
                                 model.likes.append(likeModel)
                             }
@@ -171,8 +170,7 @@ class TalkModel: Object {
             realm.delete(like)
         } else {
             let likeModel = LikeModel()
-            likeModel.creatorId = userId
-            likeModel.targetTalkId = self.id
+            likeModel.set(creatorId: creatorId, targetTalkId: self.id)
             self.likes.append(likeModel)
             realm.add(likeModel,update: .all)
             debugPrint("좋아요 : \(likes.count) 개")
