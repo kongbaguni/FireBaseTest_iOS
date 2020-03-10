@@ -13,6 +13,7 @@
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
 		C370C9F92417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */; };
 		C370C9FB2417688A00026E86 /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9FA2417688A00026E86 /* Date+extensions.swift */; };
+		C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */; };
 		C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E59240DDEEC006070CF /* UserInfo.swift */; };
 		C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E5B240DE535006070CF /* String+Extensions.swift */; };
 		C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */; };
@@ -32,7 +33,7 @@
 		C3DC5B91241224E100A028E0 /* TalkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B90241224E100A028E0 /* TalkModel.swift */; };
 		C3DC5B93241234A100A028E0 /* TodayTalksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B92241234A100A028E0 /* TodayTalksTableViewCell.swift */; };
 		C3DC5B95241243D400A028E0 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B94241243D400A028E0 /* Consts.swift */; };
-		C3EF51C3240CE56A00A4C29E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C2240CE56A00A4C29E /* MainViewController.swift */; };
+		C3EF51C3240CE56A00A4C29E /* UserInfoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C2240CE56A00A4C29E /* UserInfoDetailViewController.swift */; };
 		C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */; };
 		C3EF51C8240CEB7700A4C29E /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */; };
 		C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */; };
@@ -49,6 +50,7 @@
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailEditHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		C370C9FA2417688A00026E86 /* Date+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
+		C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTableViewController.swift; sourceTree = "<group>"; };
 		C3780E59240DDEEC006070CF /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C3780E5B240DE535006070CF /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
@@ -70,7 +72,7 @@
 		C3DC5B90241224E100A028E0 /* TalkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkModel.swift; sourceTree = "<group>"; };
 		C3DC5B92241234A100A028E0 /* TodayTalksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTalksTableViewCell.swift; sourceTree = "<group>"; };
 		C3DC5B94241243D400A028E0 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
-		C3EF51C2240CE56A00A4C29E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C3EF51C2240CE56A00A4C29E /* UserInfoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDetailViewController.swift; sourceTree = "<group>"; };
 		C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */,
-				C3EF51C2240CE56A00A4C29E /* MainViewController.swift */,
+				C3EF51C2240CE56A00A4C29E /* UserInfoDetailViewController.swift */,
 				C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */,
 				C3780E66240F44AF006070CF /* LoginViewController.swift */,
 				C3FED0BA240F84BD007A4F4F /* MainTabBarController.swift */,
@@ -123,6 +125,7 @@
 				C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */,
 				C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */,
 				C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */,
+				C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3DC5B95241243D400A028E0 /* Consts.swift in Sources */,
+				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,
 				C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */,
 				C370C9F92417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift in Sources */,
 				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
@@ -366,7 +370,7 @@
 				C370C9F12415F94300026E86 /* LikeModel.swift in Sources */,
 				C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */,
 				C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */,
-				C3EF51C3240CE56A00A4C29E /* MainViewController.swift in Sources */,
+				C3EF51C3240CE56A00A4C29E /* UserInfoDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

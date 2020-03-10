@@ -34,8 +34,18 @@ class TextEditModel : Object {
 
 class TalkModel: Object {
     @objc dynamic var id:String = ""
-    @objc dynamic var text:String = ""
+    @objc dynamic var text:String = "" {
+        didSet {
+            if textForSearch == "" {
+                textForSearch = text
+            }
+        }
+    }
     @objc dynamic var creatorId:String = ""
+
+    // 검색 위한 필드
+    @objc dynamic var textForSearch:String = ""
+
     @objc dynamic var regTimeIntervalSince1970:Double = 0 {
         didSet {
             if modifiedTimeIntervalSince1970 == 0 {
@@ -46,6 +56,11 @@ class TalkModel: Object {
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     let likes = List<LikeModel>()
     let editList = List<TextEditModel>()
+   
+    func insertEdit(data:TextEditModel) {
+        editList.append(data)
+        textForSearch = data.text
+    }
     
     func loadData(id:String, text:String, creatorId:String, regTimeIntervalSince1970:Double) {
         self.id = id
@@ -162,7 +177,7 @@ class TalkModel: Object {
                             for id in editTextIds {
                                 let edit = TextEditModel()
                                 edit.id = id
-                                model.editList.append(edit)
+                                model.insertEdit(data: edit)
                             }
                         }
                         

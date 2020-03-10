@@ -21,7 +21,7 @@ class TodaysTalksTableViewController: UITableViewController {
             .filter("regTimeIntervalSince1970 > %@", Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
         
         if let txt = filterText {
-            result = result.filter("text CONTAINS[c] %@", txt)
+            result = result.filter("textForSearch CONTAINS[c] %@", txt)
         }
         
         return result

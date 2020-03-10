@@ -46,7 +46,7 @@ class PostTalkViewController: UIViewController {
                 realm.beginWrite()
                 let editText = TextEditModel()
                 editText.setData(text: text)
-                document.editList.append(editText)
+                document.insertEdit(data: editText)
                 document.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
                 try! realm.commitWrite()
                 document.update { [weak self] (isSucess) in
