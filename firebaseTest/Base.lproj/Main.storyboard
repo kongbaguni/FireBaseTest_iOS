@@ -290,7 +290,7 @@
         <scene sceneID="JHO-8s-zpz">
             <objects>
                 <tableViewController id="fhw-9x-wS1" customClass="TodaysTalksTableViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ao7-xW-OgG">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ao7-xW-OgG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -343,6 +343,7 @@
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zng-hh-RaY">
                                             <rect key="frame" x="70" y="10" width="334" height="21"/>
@@ -402,6 +403,7 @@
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
                                         </textView>
                                     </subviews>
                                     <constraints>
@@ -440,7 +442,7 @@
                         <outlet property="searchBar" destination="YKK-Ds-gm6" id="36G-Iw-2g8"/>
                         <outlet property="toolBar" destination="gJN-sd-GWq" id="xJr-Zs-bfF"/>
                         <segue destination="TT4-27-wvf" kind="show" identifier="showTalk" id="mYD-qW-InZ"/>
-                        <segue destination="rzk-Ow-uys" kind="show" identifier="showHistory" id="2P4-wP-fB8"/>
+                        <segue destination="rzk-Ow-uys" kind="show" identifier="showDetail" id="2P4-wP-fB8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sf3-h0-e65" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

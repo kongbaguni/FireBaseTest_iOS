@@ -67,7 +67,7 @@ class TodaysTalksTableViewController: UITableViewController {
             if let id =  sender as? String, let vc = segue.destination as? PostTalkViewController  {
                 vc.documentId  = id
             }
-        case "showHistory":
+        case "showDetail":
             if let id = sender as? String,
                 let vc = segue.destination as? TalkDetailTableViewController {
                 vc.documentId = id
@@ -115,8 +115,6 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let talk = list[indexPath.row]
-        performSegue(withIdentifier: "showHistory", sender: talk.id)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -152,14 +150,18 @@ class TodaysTalksTableViewController: UITableViewController {
         var actions:[UIContextualAction] = []
         if data.creatorId == UserInfo.info?.id {
             actions.append(
-                UIContextualAction(style: .normal, title: "edit", handler: { [weak self](action, view, complete) in
+                UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
                     if let data = self?.list[indexPath.row] {
                         self?.performSegue(withIdentifier: "showTalk", sender: data.id)
                     }
                 })
             )
         }
-        
+        actions.append(UIContextualAction(style: .normal, title: "detail View".localized, handler: { [weak self] (action, view, complete)  in
+            if let talk = self?.list[indexPath.row] {
+                self?.performSegue(withIdentifier: "showDetail", sender: talk.id)
+            }
+        }))
         return UISwipeActionsConfiguration(actions: actions)
     }
  
