@@ -12,7 +12,7 @@ class TalkDetailEditHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var textView:UITextView!
     
     func setData(data:TextEditModel) {
-        dateLabel.text = data.regDtStr
+        dateLabel.text = data.regDt.simpleFormatStringValue
         textView.text = data.text
         textView.textColor = .text_color
     }

@@ -48,7 +48,7 @@ class TalkDetailTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "editHistory") as! TalkDetailEditHistoryTableViewCell
             if let editList = talkModel?.editList {
                 if indexPath.row == 0 {
-                    cell.dateLabel.text = talkModel?.regDtStr
+                    cell.dateLabel.text = talkModel?.regDt.simpleFormatStringValue
                     cell.textView.text = talkModel?.text
                 } else {
                     let edit = editList[indexPath.row - 1]

@@ -12,6 +12,7 @@
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
 		C370C9F92417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */; };
+		C370C9FB2417688A00026E86 /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9FA2417688A00026E86 /* Date+extensions.swift */; };
 		C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E59240DDEEC006070CF /* UserInfo.swift */; };
 		C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E5B240DE535006070CF /* String+Extensions.swift */; };
 		C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */; };
@@ -47,6 +48,7 @@
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailEditHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		C370C9FA2417688A00026E86 /* Date+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
 		C3780E59240DDEEC006070CF /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C3780E5B240DE535006070CF /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				C3FED0BC240F9F8E007A4F4F /* AuthDataResult+Extensions.swift */,
 				C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */,
 				C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */,
+				C370C9FA2417688A00026E86 /* Date+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				C3DC5B91241224E100A028E0 /* TalkModel.swift in Sources */,
 				C3FED0B9240F7CB7007A4F4F /* FirebaseStorageHelper.swift in Sources */,
 				C3FED0BD240F9F8E007A4F4F /* AuthDataResult+Extensions.swift in Sources */,
+				C370C9FB2417688A00026E86 /* Date+extensions.swift in Sources */,
 				C370C9F12415F94300026E86 /* LikeModel.swift in Sources */,
 				C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */,
 				C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */,

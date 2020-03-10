@@ -42,7 +42,7 @@ class LikeModel: Object {
 
     @objc dynamic var regDt:Date = Date()
     
-    
+
     override static func primaryKey() -> String? {
         return "id"
     }

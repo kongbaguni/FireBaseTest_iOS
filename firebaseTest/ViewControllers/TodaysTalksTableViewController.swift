@@ -27,6 +27,10 @@ class TodaysTalksTableViewController: UITableViewController {
         return result
     }
     let disposebag = DisposeBag()
+    
+    var isNeedScrollToBottomWhenRefresh = false
+    var needScrolIndex:IndexPath? = nil
+    
     @IBOutlet weak var toolBar:UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
@@ -81,12 +85,21 @@ class TodaysTalksTableViewController: UITableViewController {
         TalkModel.syncDatas {
             sender.endRefreshing()
             self.tableView.reloadData()
+            if self.isNeedScrollToBottomWhenRefresh {
+                let number = self.tableView.numberOfRows(inSection: 0) - 1
+                self.tableView.scrollToRow(at: IndexPath(row: number, section: 0), at: .bottom, animated: true)
+                self.isNeedScrollToBottomWhenRefresh = false
+            }
+            if let index = self.needScrolIndex {
+                self.tableView.scrollToRow(at: index, at: .middle, animated: true)
+                self.needScrolIndex = nil
+            }
         }
     }
     
     @objc func onTouchupAddBtn(_ sender:UIBarButtonItem) {
+        isNeedScrollToBottomWhenRefresh = true
         performSegue(withIdentifier: "showTalk", sender: nil)
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -136,7 +149,7 @@ class TodaysTalksTableViewController: UITableViewController {
                 }
             }
         })
-        
+        action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.15, alpha: 1)
         let iconRed =  #imageLiteral(resourceName: "heart").af_imageAspectScaled(toFit: CGSize(width: 20, height: 20))
                       
         let iconWhite =  iconRed.withTintColor(.white)
@@ -149,19 +162,24 @@ class TodaysTalksTableViewController: UITableViewController {
         let data = list[indexPath.row]
         var actions:[UIContextualAction] = []
         if data.creatorId == UserInfo.info?.id {
+            let action =                 UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
+                if let data = self?.list[indexPath.row] {
+                    self?.needScrolIndex = indexPath
+                    self?.performSegue(withIdentifier: "showTalk", sender: data.id)
+                }
+            })
+            action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
             actions.append(
-                UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
-                    if let data = self?.list[indexPath.row] {
-                        self?.performSegue(withIdentifier: "showTalk", sender: data.id)
-                    }
-                })
+                action
             )
         }
-        actions.append(UIContextualAction(style: .normal, title: "detail View".localized, handler: { [weak self] (action, view, complete)  in
+        let detailAction = UIContextualAction(style: .normal, title: "detail View".localized, handler: { [weak self] (action, view, complete)  in
             if let talk = self?.list[indexPath.row] {
                 self?.performSegue(withIdentifier: "showDetail", sender: talk.id)
             }
-        }))
+        })
+        detailAction.backgroundColor = UIColor(red: 0.9, green: 0.3, blue: 0.6, alpha: 1)
+        actions.append(detailAction)
         return UISwipeActionsConfiguration(actions: actions)
     }
  

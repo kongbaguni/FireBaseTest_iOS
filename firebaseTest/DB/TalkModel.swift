@@ -26,11 +26,7 @@ class TextEditModel : Object {
         let interval = TimeInterval(NSString(string: str!).doubleValue)
         return Date(timeIntervalSince1970: interval)
     }
-    
-    var regDtStr:String {
-        return  DateFormatter.localizedString(from: regDt, dateStyle: .short, timeStyle: .short)
-    }
-    
+        
     var text:String {
         return id.components(separatedBy: "[__##__]").first!
     }
@@ -62,9 +58,6 @@ class TalkModel: Object {
         return Date(timeIntervalSince1970: regTimeIntervalSince1970)
     }
     
-    var regDtStr:String {
-        return  DateFormatter.localizedString(from: regDt, dateStyle: .short, timeStyle: .short)
-    }
     
     var modifiedDt:Date? {
         if modifiedTimeIntervalSince1970 == 0 {
