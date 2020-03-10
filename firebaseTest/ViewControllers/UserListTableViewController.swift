@@ -34,7 +34,9 @@ class UserListTableViewController: UITableViewController {
         title = "users list".localized
         searchBar.placeholder = "name search".localized
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
-        
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
+
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
         searchBar
             .rx.text
@@ -142,5 +144,12 @@ class UserListTableViewController: UITableViewController {
             break
         }
     }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }

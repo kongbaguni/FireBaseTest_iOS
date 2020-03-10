@@ -36,6 +36,7 @@ class TodaysTalksTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "todays talks".localized
+        searchBar.placeholder = "text search".localized
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupAddBtn(_:)))
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -55,7 +56,7 @@ class TodaysTalksTableViewController: UITableViewController {
             }).disposed(by: self.disposebag)
         
         toolBar.items = [
-            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupAddBtn(_:)))
+            UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:)))
         ]
     }
     
@@ -90,7 +91,7 @@ class TodaysTalksTableViewController: UITableViewController {
             if self.isNeedScrollToBottomWhenRefresh {
                 let number = self.tableView.numberOfRows(inSection: 0)
                 if oldCount != number {
-                    self.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .bottom, animated: true)
+                    self.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
                 }
                 self.isNeedScrollToBottomWhenRefresh = false
             }

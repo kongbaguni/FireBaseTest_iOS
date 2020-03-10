@@ -27,6 +27,18 @@ class TalkDetailTableViewController: UITableViewController {
         return 3
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showUserInfoDetail":
+            if
+            let id = sender as? String,
+                let vc = segue.destination as? UserInfoDetailViewController {
+                vc.userId = id
+            }
+        default:
+            break
+        }
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -86,6 +98,20 @@ class TalkDetailTableViewController: UITableViewController {
             return "like peoples".localized
         default:
             return nil
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            performSegue(withIdentifier: "showUserInfoDetail", sender: self.talkModel?.creatorId)
+        case 2:
+            if let likes = talkModel?.likes {
+                let id = likes[indexPath.row].creator?.id
+                performSegue(withIdentifier: "showUserInfoDetail", sender: id)
+            }
+        default:
+            break
         }
     }
 

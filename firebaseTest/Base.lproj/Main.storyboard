@@ -58,7 +58,7 @@
         <!--User Info Detail View Controller-->
         <scene sceneID="JOT-CV-mo4">
             <objects>
-                <viewController storyboardIdentifier="main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kso-so-naL" customClass="UserInfoDetailViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="main" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kso-so-naL" customClass="UserInfoDetailViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Go8-55-Xh7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -574,7 +574,7 @@
         <scene sceneID="gdL-I3-Sdp">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="rzk-Ow-uys" customClass="TalkDetailTableViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hT5-OP-vTp">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hT5-OP-vTp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -681,6 +681,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="AuI-16-RS0"/>
+                    <connections>
+                        <segue destination="Kso-so-naL" kind="show" identifier="showUserInfoDetail" id="99b-1D-AWf"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RyS-kN-Peh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -707,4 +710,7 @@
     <resources>
         <image name="profile" width="300" height="300"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="99b-1D-AWf"/>
+    </inferredMetricsTieBreakers>
 </document>
