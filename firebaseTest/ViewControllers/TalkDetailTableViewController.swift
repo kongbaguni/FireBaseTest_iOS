@@ -18,6 +18,11 @@ class TalkDetailTableViewController: UITableViewController {
         return nil
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "detail View".localized
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }

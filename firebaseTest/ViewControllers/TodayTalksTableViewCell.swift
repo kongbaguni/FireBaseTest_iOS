@@ -8,12 +8,17 @@
 
 import UIKit
 import RealmSwift
+fileprivate let textStyle0:[NSAttributedString.Key:Any] = [
+    .font               : UIFont.systemFont(ofSize: 18),
+    .foregroundColor    : UIColor.text_color
+]
+
 fileprivate let textStyle1:[NSAttributedString.Key:Any] = [
-    .font               : UIFont.systemFont(ofSize: 14),
+    .font               : UIFont.systemFont(ofSize: 10),
     .foregroundColor    : UIColor.text_color
 ]
 fileprivate let textStyle2:[NSAttributedString.Key:Any] = [
-    .font               : UIFont.boldSystemFont(ofSize: 14),
+    .font               : UIFont.boldSystemFont(ofSize: 10),
     .foregroundColor    : UIColor.bold_text_color
 ]
 
@@ -26,9 +31,9 @@ class TodayTalksTableViewCell: UITableViewCell {
         let text = NSMutableAttributedString()
         
         if let txt = data.editList.last?.text {
-            text.append(NSAttributedString(string: txt, attributes: textStyle1))
+            text.append(NSAttributedString(string: txt, attributes: textStyle0))
         } else {
-            text.append(NSAttributedString(string: data.text, attributes: textStyle1))
+            text.append(NSAttributedString(string: data.text, attributes: textStyle0))
         }
 
         if data.likes.count > 0 {

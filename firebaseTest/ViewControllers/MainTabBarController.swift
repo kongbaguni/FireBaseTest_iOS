@@ -11,4 +11,11 @@ class MainTabBarController: UITabBarController {
     class var viewController:MainTabBarController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "mainTabBar") as! MainTabBarController
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let items = tabBar.items {
+            items[1].title = "todays talks".localized
+        }
+    }
 }
