@@ -10,6 +10,28 @@ import Foundation
 import RealmSwift
 import FirebaseFirestore
 
+class TextEditModel : Object {
+    @objc dynamic var id:String = ""
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    func setData(text:String) {
+        id = "\(text)__#__regdt:\(Date().timeIntervalSince1970)"
+    }
+    
+    var regDt:Date {
+        let str = id.components(separatedBy: "__#__regdt:").last
+        let interval = TimeInterval(NSString(string: str!).doubleValue)
+        return Date(timeIntervalSince1970: interval)
+    }
+    
+    var text:String {
+        return id.components(separatedBy: "__#__regdt:").first!
+    }
+}
+
 class TalkModel: Object {
     @objc dynamic var id:String = ""
     @objc dynamic var text:String = ""
@@ -23,6 +45,7 @@ class TalkModel: Object {
     }
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     let likes = List<LikeModel>()
+    let editList = List<TextEditModel>()
     
     func loadData(id:String, text:String, creatorId:String, regTimeIntervalSince1970:Double) {
         self.id = id
@@ -68,6 +91,11 @@ class TalkModel: Object {
             likeIds.append(like.id)
             likeCreators.append(like.creatorId)
         }
+        
+        var editTexts:[String] = []
+        for edit in editList {
+            editTexts.append(edit.id)
+        }
                 
         let data:[String:Any] = [
             "documentId":id,
@@ -76,7 +104,8 @@ class TalkModel: Object {
             "creator_id":creatorId,
             "talk":text,
             "likeIds":likeIds,
-            "likeCreators":likeCreators
+            "likeCreators":likeCreators,
+            "editTextIds":editTexts
         ]
         
         let collection = Firestore.firestore().collection("talks")
@@ -134,7 +163,16 @@ class TalkModel: Object {
                                 cnt += 1
                                 model.likes.append(likeModel)
                             }
-                        }                        
+                        }
+                        
+                        model.editList.removeAll()
+                        if let editTextIds = data["editTextIds"] as? [String] {
+                            for id in editTextIds {
+                                let edit = TextEditModel()
+                                edit.id = id
+                                model.editList.append(edit)
+                            }
+                        }
                         
                         realm.add(model, update: .modified)
                     }

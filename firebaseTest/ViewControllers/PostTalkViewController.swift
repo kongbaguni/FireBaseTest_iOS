@@ -24,6 +24,9 @@ class PostTalkViewController: UIViewController {
         if let id = documentId {
             let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id)
             textView.text = document?.text
+            if let text = document?.editList.last?.text {
+                textView.text = text
+            }
         }
     }
     
@@ -37,7 +40,10 @@ class PostTalkViewController: UIViewController {
             let realm = try! Realm()
             if let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
                 realm.beginWrite()
-                document.text = textView.text
+//                document.text = textView.text
+                let editText = TextEditModel()
+                editText.setData(text: textView.text)
+                document.editList.append(editText)
                 document.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
                 try! realm.commitWrite()
                 document.update { [weak self] (isSucess) in

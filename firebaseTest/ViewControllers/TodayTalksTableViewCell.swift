@@ -25,7 +25,12 @@ class TodayTalksTableViewCell: UITableViewCell {
                 .font               : UIFont.systemFont(ofSize: 10)
             ]))
         }
-        text.append(NSAttributedString(string: data.text))
+        if let txt = data.editList.last?.text {
+            text.append(NSAttributedString(string: txt))
+        } else {
+            text.append(NSAttributedString(string: data.text))
+        }
+
         if data.likes.count > 0 {
             text.append(NSAttributedString(string: "\n"))
             text.append(NSAttributedString(string: "like : ".localized, attributes: [
