@@ -86,10 +86,8 @@ class TalkModel: Object {
             return
         }
         var likeIds:[String] = []
-        var likeCreators:[String] = []
         for like in likes {
             likeIds.append(like.id)
-            likeCreators.append(like.creatorId)
         }
         
         var editTexts:[String] = []
@@ -104,7 +102,6 @@ class TalkModel: Object {
             "creator_id":creatorId,
             "talk":text,
             "likeIds":likeIds,
-            "likeCreators":likeCreators,
             "editTextIds":editTexts
         ]
         
@@ -153,12 +150,10 @@ class TalkModel: Object {
                         model.text = text
                         model.id = id
                         
-                        if let likeIds = data["likeIds"] as? [String],
-                            let likeCreators = data["likeCreators"] as? [String] {
+                        if let likeIds = data["likeIds"] as? [String] {
                             var cnt = 0
                             for likeId in likeIds {
                                 let likeModel = LikeModel()
-                                likeModel.set(creatorId: likeCreators[cnt], targetTalkId: id)
                                 likeModel.id = likeId
                                 cnt += 1
                                 model.likes.append(likeModel)
