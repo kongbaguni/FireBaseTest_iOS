@@ -12,12 +12,11 @@ import FirebaseFirestore
 import RealmSwift
 
 class UserInfo : Object {
-    @objc dynamic var id                        : String    = ""
-    @objc dynamic var email                     : String    = "" {
-        didSet {
-            id = email.sha512
-        }
+    var id:String {
+        return email
     }
+    
+    @objc dynamic var email                     : String    = ""
     @objc dynamic var name                      : String    = ""
     @objc dynamic var introduce                 : String    = ""
     @objc dynamic var profileImageURLgoogle     : String    = ""
@@ -49,13 +48,13 @@ class UserInfo : Object {
     }    
     
     override static func primaryKey() -> String? {
-        return "id"
+        return "email"
     }
     
     /** firebase 에서 데이터를 받아와서 사용자 정보를 갱신합니다.*/
     func syncData(complete:@escaping(_ isNew:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection("users")
-        let document = dbCollection.document(self.id)
+        let document = dbCollection.document(self.email)
         document.getDocument { [weak self](snapshot, error) in
             if let doc = snapshot {
                 var count = 0
@@ -91,12 +90,11 @@ class UserInfo : Object {
             var newUsers:[UserInfo] = []
             for doc in snapShot?.documents ?? [] {
                 let info = doc.data()
-                guard let id = info["id"] as? String,
-                    let name = info["name"] as? String,
+                guard let name = info["name"] as? String,
                     let email = info["email"] as? String else {
                         continue
                 }
-                if id == self.id {
+                if email == self.email {
                     continue
                 }
                 let intro = info["into"] as? String ?? ""
@@ -126,9 +124,8 @@ class UserInfo : Object {
     /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
     func updateData(complete:@escaping()->Void) {
         let dbCollection = Firestore.firestore().collection("users")
-        let document = dbCollection.document(UserInfo.info!.id)
-        let data:[String:Any] = [
-            "id" : self.id,
+        let document = dbCollection.document(UserInfo.info!.email)
+        let data:[String:Any] = [            
             "name": self.name,
             "email" : self.email,
             "intro": self.introduce,
