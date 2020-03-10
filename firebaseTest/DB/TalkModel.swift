@@ -203,7 +203,7 @@ class TalkModel: Object {
             realm.delete(like)
         } else {
             let likeModel = LikeModel()
-            likeModel.set(creatorId: creatorId, targetTalkId: self.id)
+            likeModel.set(creatorId: userId, targetTalkId: self.id)
             self.likes.append(likeModel)
             realm.add(likeModel,update: .all)
             debugPrint("좋아요 : \(likes.count) 개")
