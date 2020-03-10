@@ -60,9 +60,7 @@ class TalkDetailTableViewController: UITableViewController {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo") as! TalkDetailUserInfoTableViewCell
             if let likeList = talkModel?.likes {
-                if let likeUser = likeList[indexPath.row].creator {
-                    cell.setData(info: likeUser)
-                }
+                cell.setData(like: likeList[indexPath.row])
             }
             
             return cell
