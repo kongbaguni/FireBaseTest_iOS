@@ -11,10 +11,14 @@ import FirebaseAuth
 import Kingfisher
 import RealmSwift
 
-class UserInfoDetailViewController: UIViewController {
+class UserInfoDetailViewController: UITableViewController {
     @IBOutlet weak var profileImageView:UIImageView!
     @IBOutlet weak var nameLabel:UILabel!
     @IBOutlet weak var intoduceLabel:UILabel!
+    @IBOutlet weak var profileUpdateDtTitleLabel:UILabel!
+    @IBOutlet weak var profileUpdateDtLabel:UILabel!
+    @IBOutlet weak var lastTalkDtTitleLabel:UILabel!
+    @IBOutlet weak var lastTalkDtLabel:UILabel!
     var userId:String? = nil
     var user:UserInfo? {
         if let id = userId {
@@ -24,7 +28,8 @@ class UserInfoDetailViewController: UIViewController {
     }
     
     class var viewController : UserInfoDetailViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "main") as! UserInfoDetailViewController
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "userInfoDetail") as! UserInfoDetailViewController
+        
     }
  
     deinit {
@@ -34,6 +39,9 @@ class UserInfoDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = user?.name
+        profileUpdateDtTitleLabel.text = "last update profile".localized;
+        lastTalkDtTitleLabel.text = "last talk date".localized
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +53,8 @@ class UserInfoDetailViewController: UIViewController {
         profileImageView.kf.setImage(with: user?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         nameLabel.text = user?.name
         intoduceLabel.text = user?.introduce
+        profileUpdateDtLabel.text = user?.updateDt.simpleFormatStringValue
+        lastTalkDtLabel.text = user?.lastTalkDt?.simpleFormatStringValue ?? "none".localized
 //        userInfo?.syncData { isNew in
 //            self.profileImageView.kf.setImage(with: userInfo?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
 //            self.nameLabel.text = userInfo?.name

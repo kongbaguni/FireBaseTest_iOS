@@ -25,6 +25,15 @@ class UserInfo : Object {
     @objc dynamic var accessToken               : String    = ""
     @objc dynamic var updateDt                  : Date      = Date()
     /** 프로필 이미지 사용하지 않을 경우 true*/
+    @objc dynamic var lastTalkTimeInterval      : Double    = 0
+    
+    var lastTalkDt:Date? {
+        if lastTalkTimeInterval > 0 {
+            return Date(timeIntervalSince1970: lastTalkTimeInterval)
+        }
+        return nil
+    }
+    
     @objc dynamic var isDeleteProfileImage      : Bool      = false {
         didSet {
             if isDeleteProfileImage {
@@ -76,6 +85,9 @@ class UserInfo : Object {
                     if let url = info["profileImageUrlGoogle"] as? String {
                         self?.profileImageURLgoogle = url
                     }
+                    if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
+                        self?.lastTalkTimeInterval = lastTalkTime
+                    }
                     self?.updateDt = Date()
                     try! realm.commitWrite()
                     count += 1
@@ -102,7 +114,7 @@ class UserInfo : Object {
                 let isDefaultProfile = info["isDefaultProfile"] as? Bool ?? false
                 let profileImageUrl = info["profileImageUrl"] as? String ?? ""
                 let profileimageUrlGoogle = info["profileImageUrlGoogle"] as? String ?? ""
-                
+
                 let userInfo = UserInfo()
                 userInfo.email = email
                 userInfo.name = name
@@ -110,6 +122,10 @@ class UserInfo : Object {
                 userInfo.isDeleteProfileImage = isDefaultProfile
                 userInfo.profileImageURLfirebase = profileImageUrl
                 userInfo.profileImageURLgoogle = profileimageUrlGoogle
+                if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
+                    userInfo.lastTalkTimeInterval = lastTalkTime
+                }
+
                 newUsers.append(userInfo)
             }
             if newUsers.count > 0 {
