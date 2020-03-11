@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1053192206022-noj0ibrr4nee5k85s40ncj3mtc3p0svq.apps.googleusercontent.com</string>
+	<string>1053192206022-74cc07pkgoi248g5bg1bo9v7r3ljbn8q.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1053192206022-noj0ibrr4nee5k85s40ncj3mtc3p0svq</string>
+	<string>com.googleusercontent.apps.1053192206022-74cc07pkgoi248g5bg1bo9v7r3ljbn8q</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAwYWwJGrJxJBivYvC2xvH4_HcaYRcepJE</string>
+	<string>AIzaSyAUIFTYm1Ta6jxSZbvIdxlfPCV10Sa8Lq0</string>
 	<key>GCM_SENDER_ID</key>
 	<string>1053192206022</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.narui.firebaseTest</string>
+	<string>net.kongbaguni.masknow</string>
 	<key>PROJECT_ID</key>
 	<string>fir-test-72e23</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1053192206022:ios:b489384bba9a91fa00c9c7</string>
+	<string>1:1053192206022:ios:b59a3998ce71141c00c9c7</string>
 	<key>DATABASE_URL</key>
 	<string>https://fir-test-72e23.firebaseio.com</string>
 </dict>

@@ -41,9 +41,15 @@ class UserInfoDetailViewController: UITableViewController {
         title = user?.name
         profileUpdateDtTitleLabel.text = "last update profile".localized;
         lastTalkDtTitleLabel.text = "last talk date".localized
-        
+        if user?.id == UserInfo.info?.id {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButton(_:)))
+        }
     }
     
+    @objc func onTouchupRightBarButton(_ sender:UIBarButtonItem) {
+        performSegue(withIdentifier: "profileEdit", sender: nil)
+    }
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadData()

@@ -184,6 +184,7 @@
                         <outlet property="profileImageView" destination="SUO-GO-AQV" id="JzE-Mu-x6j"/>
                         <outlet property="profileUpdateDtLabel" destination="QQi-eM-cyS" id="175-Em-HcV"/>
                         <outlet property="profileUpdateDtTitleLabel" destination="Mnf-Es-4GK" id="XFl-f1-l5U"/>
+                        <segue destination="ABD-kk-8hZ" kind="show" identifier="profileEdit" id="1aU-la-qB8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6p-b8-qMn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -195,7 +196,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="myProfile" title="todays talks" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ABD-kk-8hZ" customClass="MyProfileViewController" customModule="firebaseTest" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="loq-6k-dyw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <inset key="separatorInset" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -241,6 +242,7 @@
                                                 <constraint firstItem="fJa-5z-xuf" firstAttribute="top" secondItem="EkU-KA-J8q" secondAttribute="top" constant="20" symbolic="YES" id="mDB-XT-CFe"/>
                                                 <constraint firstItem="fJa-5z-xuf" firstAttribute="leading" secondItem="EkU-KA-J8q" secondAttribute="leading" constant="100" id="q7H-QA-4lL"/>
                                                 <constraint firstItem="86O-wY-VBU" firstAttribute="leading" secondItem="EkU-KA-J8q" secondAttribute="leading" constant="100" id="tft-Sh-W8Q"/>
+                                                <constraint firstItem="fJa-5z-xuf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zrx-R1-MKC" secondAttribute="trailing" constant="8" symbolic="YES" id="xhv-EM-TZw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
@@ -278,28 +280,32 @@
                                             <constraint firstItem="XBJ-gV-guz" firstAttribute="centerY" secondItem="aLg-eD-gq7" secondAttribute="centerY" id="v4c-nB-5FU"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="hvB-fS-rtD">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hvB-fS-rtD">
                                         <rect key="frame" x="0.0" y="171.5" width="414" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hvB-fS-rtD" id="8Kr-0k-flH">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hvB-fS-rtD" id="8Kr-0k-flH">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="자기소개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQU-oz-lWk">
-                                                    <rect key="frame" x="20" y="65" width="59" height="20.5"/>
+                                                    <rect key="frame" x="20" y="12" width="59" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6p-bq-IpB">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6p-bq-IpB">
                                                     <rect key="frame" x="95" y="11" width="299" height="128"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="ytI-bw-8uA"/>
+                                                    </constraints>
                                                     <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="b6p-bq-IpB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IQU-oz-lWk" secondAttribute="trailing" constant="8" symbolic="YES" id="8rf-Ae-Sir"/>
                                                 <constraint firstItem="b6p-bq-IpB" firstAttribute="top" secondItem="8Kr-0k-flH" secondAttribute="topMargin" id="GMo-Xd-9RW"/>
                                                 <constraint firstItem="IQU-oz-lWk" firstAttribute="leading" secondItem="8Kr-0k-flH" secondAttribute="leading" constant="20" symbolic="YES" id="f69-3q-kkT"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="b6p-bq-IpB" secondAttribute="bottom" id="jIK-Xt-RbE"/>
@@ -321,6 +327,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="ZDG-pl-hk0"/>
                     <connections>
+                        <outlet property="introduceCell" destination="hvB-fS-rtD" id="8jY-lz-Zlt"/>
                         <outlet property="introduceLabel" destination="IQU-oz-lWk" id="4b0-uo-L6s"/>
                         <outlet property="introduceTextView" destination="b6p-bq-IpB" id="ivS-cv-4Py"/>
                         <outlet property="nameLabel" destination="XBJ-gV-guz" id="ike-Mp-y2b"/>
@@ -331,7 +338,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ej-OS-qFn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1552" y="706"/>
+            <point key="canvasLocation" x="1550.7246376811595" y="705.80357142857144"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="E9H-7F-iAa">
@@ -795,6 +802,7 @@
         <image name="profile" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="1aU-la-qB8"/>
         <segue reference="CyJ-tB-mFG"/>
     </inferredMetricsTieBreakers>
 </document>

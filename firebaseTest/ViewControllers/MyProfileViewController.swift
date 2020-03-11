@@ -58,6 +58,7 @@ class MyProfileViewController: UITableViewController {
     let storageRef = Storage.storage().reference()
     let indicatorView = NVActivityIndicatorView(frame: UIScreen.main.bounds, type: .ballRotateChase, color: .indicator_color, padding: UIScreen.main.bounds.width)
     
+    @IBOutlet weak var introduceCell: UITableViewCell!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var photoLabel: UILabel!
     @IBOutlet weak var introduceLabel: UILabel!
@@ -74,7 +75,7 @@ class MyProfileViewController: UITableViewController {
         title = "myProfile".localized
         view.addSubview(indicatorView)
         setTitle()
-        
+        introduceTextView.delegate = self
         navigationItem.rightBarButtonItem =
             UIBarButtonItem(title: "save".localized, style: .done, target: self, action: #selector(self.onTouchupSave(_:)))
         
@@ -84,6 +85,9 @@ class MyProfileViewController: UITableViewController {
                 self.loadData()
             }
         }
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
+
     }
     
     private func loadData() {
@@ -197,6 +201,22 @@ class MyProfileViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(ac, animated: true, completion: nil)
     }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+
+}
+
+extension MyProfileViewController : UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        introduceCell.layoutSubviews()
+    }
 }
 
 extension MyProfileViewController : UINavigationControllerDelegate {
@@ -240,4 +260,6 @@ extension MyProfileViewController : CropViewControllerDelegate {
         cropViewController.dismiss(animated: true, completion: nil)
         profileImage = image
     }
+    
+    
 }
