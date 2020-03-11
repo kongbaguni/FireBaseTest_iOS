@@ -12,6 +12,7 @@ import RealmSwift
 import AlamofireImage
 import RxSwift
 import RxCocoa
+import FirebaseAuth
 
 class TodaysTalksTableViewController: UITableViewController {
     var filterText:String? = nil
@@ -103,8 +104,33 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     @objc func onTouchupAddBtn(_ sender:UIBarButtonItem) {
-        isNeedScrollToBottomWhenRefresh = true
-        performSegue(withIdentifier: "showTalk", sender: nil)
+        
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
+            self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
+        }))
+        
+        vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
+            self.isNeedScrollToBottomWhenRefresh = true
+            self.performSegue(withIdentifier: "showTalk", sender: nil)
+        }))
+
+        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+                return
+            }
+            
+            UserInfo.info?.logout()
+        }))
+        
+        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        present(vc, animated: true, completion: nil)
+        
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -167,7 +193,7 @@ class TodaysTalksTableViewController: UITableViewController {
         let data = list[indexPath.row]
         var actions:[UIContextualAction] = []
         if data.creatorId == UserInfo.info?.id {
-            let action =                 UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
+            let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
                 if let data = self?.list[indexPath.row] {
                     self?.needScrolIndex = indexPath
                     self?.performSegue(withIdentifier: "showTalk", sender: data.id)

@@ -33,6 +33,8 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         if stores.count == 1 {
             title = stores.first?.name
+        } else {
+            title = stores.first?.remain_stat.localized
         }
         guard let coordinate = stores.first?.coordinate else {
             return

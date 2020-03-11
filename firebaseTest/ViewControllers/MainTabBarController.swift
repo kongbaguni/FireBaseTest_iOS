@@ -16,8 +16,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         if let items = tabBar.items {
             items[0].title = "mask now".localized
-            items[1].title = "users list".localized
-            items[2].title = "todays talks".localized
+            items[1].title = "todays talks".localized
         }
     }
 }

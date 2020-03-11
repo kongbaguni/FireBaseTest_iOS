@@ -66,7 +66,34 @@ class StoresTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if stores.count == 0 {
+            return nil
+        }
+        if getStoreList(type: getSectionType(section: section)).count == 0 {
+            return nil
+        }
         return getSectionType(section: section).rawValue.localized
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let list = getStoreList(type: getSectionType(section: section))
+        
+        let view = UIButton()
+        view.backgroundColor = .text_color
+        view.setTitleColor(.bg_color, for: .normal)        
+        view.setTitle("\(list.first?.remain_stat.localized ?? "") \(list.count)", for: .normal)
+        view.tag = section
+        view.addTarget(self, action: #selector(self.ontouchupFooterBtn(_:)), for: .touchUpInside)
+        return view
+    }
+    
+    @objc func ontouchupFooterBtn(_ sender:UIButton) {
+        let list = getStoreList(type: getSectionType(section: sender.tag))
+        var ids:[String] = []
+        for shop in list {
+            ids.append(shop.code)
+        }
+        performSegue(withIdentifier: "showMap", sender: ids)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -90,4 +117,5 @@ class StoresTableViewController: UITableViewController {
             break
         }
     }
+        
 }
