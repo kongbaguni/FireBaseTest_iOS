@@ -64,18 +64,11 @@ class StoresTableViewController: UITableViewController {
         cell.setData(data: data)
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if stores.count == 0 {
             return nil
         }
-        if getStoreList(type: getSectionType(section: section)).count == 0 {
-            return nil
-        }
-        return getSectionType(section: section).rawValue.localized
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let list = getStoreList(type: getSectionType(section: section))
         if list.count == 0 {
             return nil
