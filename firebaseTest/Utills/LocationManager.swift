@@ -14,7 +14,7 @@ extension Notification.Name {
 
 class LocationManager: NSObject {
     static let shared = LocationManager()
-    
+    var isAuth = false
     let manager = CLLocationManager()
     
     override init() {
@@ -25,8 +25,12 @@ class LocationManager: NSObject {
     private var complete:(()->Void)? = nil
     
     func requestAuth(complete:@escaping()->Void) {
-        manager.requestWhenInUseAuthorization()
-        self.complete = complete
+        if isAuth {
+            complete()
+        } else {
+            manager.requestWhenInUseAuthorization()
+            self.complete = complete
+        }
     }
     
     var status:Permission.Status {
@@ -45,6 +49,7 @@ class LocationManager: NSObject {
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        isAuth = true
         complete?()
     }
     

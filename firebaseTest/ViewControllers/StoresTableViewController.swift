@@ -30,7 +30,7 @@ class StoresTableViewController: UITableViewController {
     }
     
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
-        ApiManager().getStores { [weak self](count) in
+        ApiManager.shard.getStores { [weak self](count) in
             sender.endRefreshing()
             self?.tableView.reloadData()
         }
@@ -77,7 +77,9 @@ class StoresTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let list = getStoreList(type: getSectionType(section: section))
-        
+        if list.count == 0 {
+            return nil
+        }
         let view = UIButton()
         view.backgroundColor = .text_color
         view.setTitleColor(.bg_color, for: .normal)        
