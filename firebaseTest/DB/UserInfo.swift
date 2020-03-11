@@ -115,7 +115,6 @@ class UserInfo : Object {
                         if let value = info["updateTimeIntervalSince1970"] as? Double {
                             uinfo.updateDt = Date(timeIntervalSince1970: TimeInterval(value))
                         }
-                        uinfo.updateDt = Date()
                         try! realm.commitWrite()
                     }
                     count += 1
