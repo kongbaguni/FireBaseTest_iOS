@@ -152,3 +152,12 @@ extension String {
     }
         
 }
+
+
+extension String {
+    func dateValue(format:String)->Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+}

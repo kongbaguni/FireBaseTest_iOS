@@ -10,6 +10,13 @@
 		313AEA29D63D2AF8108134B0 /* Pods_firebaseTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */; };
 		C33839DB241873D600CADC60 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839DA241873D600CADC60 /* Toast.swift */; };
 		C33839DF2418A1CE00CADC60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C33839DE2418A1CE00CADC60 /* GoogleService-Info.plist */; };
+		C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E02418AC0F00CADC60 /* StoreModel.swift */; };
+		C33839E32418ADD800CADC60 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E22418ADD800CADC60 /* LocationManager.swift */; };
+		C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E42418AE1C00CADC60 /* PermissionData.swift */; };
+		C33839E72418AECD00CADC60 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E62418AECD00CADC60 /* MapViewController.swift */; };
+		C34C6B552418C1BF001D8CF4 /* StoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B542418C1BF001D8CF4 /* StoresTableViewController.swift */; };
+		C34C6B572418C2B1001D8CF4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B562418C2B1001D8CF4 /* ApiManager.swift */; };
+		C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */; };
 		C370C9F12415F94300026E86 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F02415F94300026E86 /* LikeModel.swift */; };
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
@@ -48,6 +55,13 @@
 		8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_firebaseTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33839DA241873D600CADC60 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		C33839DE2418A1CE00CADC60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C33839E02418AC0F00CADC60 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
+		C33839E22418ADD800CADC60 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C33839E42418AE1C00CADC60 /* PermissionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionData.swift; sourceTree = "<group>"; };
+		C33839E62418AECD00CADC60 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C34C6B542418C1BF001D8CF4 /* StoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresTableViewController.swift; sourceTree = "<group>"; };
+		C34C6B562418C2B1001D8CF4 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
 		C370C9F02415F94300026E86 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -117,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				C3EF51C7240CEB7700A4C29E /* MainNavigationController.swift */,
+				C33839E62418AECD00CADC60 /* MapViewController.swift */,
 				C3EF51C2240CE56A00A4C29E /* UserInfoDetailViewController.swift */,
 				C3EF51C9240CF4E100A4C29E /* MyProfileViewController.swift */,
 				C3780E66240F44AF006070CF /* LoginViewController.swift */,
@@ -128,6 +143,8 @@
 				C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */,
 				C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */,
 				C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */,
+				C34C6B542418C1BF001D8CF4 /* StoresTableViewController.swift */,
+				C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -138,6 +155,7 @@
 				C3780E59240DDEEC006070CF /* UserInfo.swift */,
 				C370C9F02415F94300026E86 /* LikeModel.swift */,
 				C3DC5B90241224E100A028E0 /* TalkModel.swift */,
+				C33839E02418AC0F00CADC60 /* StoreModel.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -183,9 +201,12 @@
 		C3DC5B8D241221EE00A028E0 /* Utills */ = {
 			isa = PBXGroup;
 			children = (
+				C33839E42418AE1C00CADC60 /* PermissionData.swift */,
+				C33839E22418ADD800CADC60 /* LocationManager.swift */,
 				C33839DA241873D600CADC60 /* Toast.swift */,
 				C3DC5B8E241221F800A028E0 /* Loading.swift */,
 				C3DC5B94241243D400A028E0 /* Consts.swift */,
+				C34C6B562418C2B1001D8CF4 /* ApiManager.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -349,23 +370,30 @@
 			files = (
 				C3DC5B842412172D00A028E0 /* UIApplication+Extensions.swift in Sources */,
 				C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */,
+				C33839E32418ADD800CADC60 /* LocationManager.swift in Sources */,
 				C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */,
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
+				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3DC5B95241243D400A028E0 /* Consts.swift in Sources */,
 				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,
 				C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */,
 				C370C9F92417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift in Sources */,
 				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
+				C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */,
 				C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */,
 				C3DC5B93241234A100A028E0 /* TodayTalksTableViewCell.swift in Sources */,
+				C34C6B572418C2B1001D8CF4 /* ApiManager.swift in Sources */,
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
+				C33839E72418AECD00CADC60 /* MapViewController.swift in Sources */,
 				C33839DB241873D600CADC60 /* Toast.swift in Sources */,
 				C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */,
+				C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */,
 				C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */,
 				C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */,
 				C3DC5B8F241221F800A028E0 /* Loading.swift in Sources */,
 				C3EF51C8240CEB7700A4C29E /* MainNavigationController.swift in Sources */,
+				C34C6B552418C1BF001D8CF4 /* StoresTableViewController.swift in Sources */,
 				C3DC5B8C24121BA500A028E0 /* PostTalkViewController.swift in Sources */,
 				C3DC5B91241224E100A028E0 /* TalkModel.swift in Sources */,
 				C3FED0B9240F7CB7007A4F4F /* FirebaseStorageHelper.swift in Sources */,
