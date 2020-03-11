@@ -6,6 +6,7 @@ target 'firebaseTest' do
   use_frameworks!
 
   # Pods for firebaseTest
+  pod 'Toast-Swift'
   pod 'PhoneNumberKit'
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'

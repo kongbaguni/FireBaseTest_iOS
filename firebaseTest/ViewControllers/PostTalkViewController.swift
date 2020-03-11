@@ -13,6 +13,13 @@ class PostTalkViewController: UIViewController {
     @IBOutlet weak var textView:UITextView!
     var documentId:String? = nil
     
+    var document:TalkModel? {
+        if let id = documentId {
+            return try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id)
+        }
+        return nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "write talk".localized
@@ -21,20 +28,32 @@ class PostTalkViewController: UIViewController {
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save".localized, style: .plain, target: self, action: #selector(self.onTouchupSaveBtn(_:)))
         
-        if let id = documentId {
-            let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id)
-            textView.text = document?.text
-            if let text = document?.editList.last?.text {
-                textView.text = text
-            }
+        textView.text = document?.text
+        if let text = document?.editList.last?.text {
+            textView.text = text
         }
         textView.becomeFirstResponder()
     }
     
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
         let text = textView.text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
-        
+        print("--------------")
+        print(text)
+        print("--------------")
+        print(document?.text ?? "없네?")
+        print("--------------")
+        var isEdit:Bool {
+            if let edit = document?.editList.last {
+                return text != edit.text
+            }
+            return text != document?.text
+        }
+        if isEdit == false {
+            Toast.makeToast(message: "There are no edits.".localized)
+            return
+        }
         if text.isEmpty {
+            Toast.makeToast(message: "There is no content.".localized)
             return
         }
         view.endEditing(true)

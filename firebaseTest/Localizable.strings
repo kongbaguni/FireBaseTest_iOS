@@ -37,5 +37,14 @@
 "none" = "없음";
 
 "just now" = "방금";
-"%@ minutes ago" = "%@ 분 전";
-"%@ hour ago" = "%@ 시간 전";
+"%@ minutes ago" = "%@분 전";
+"%@ hour ago" = "%@시간 전";
+"Yesterday" = "어저께";
+"Day before yesterday" = "그저께";
+"%@ days ago" = "%@일 전";
+
+"There is no content." = "내용이 없습니다.";
+"There are no edits." = "수정사항이 없습니다.";
+
+
+

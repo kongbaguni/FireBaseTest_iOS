@@ -44,9 +44,9 @@ class TodayTalksTableViewCell: UITableViewCell {
         }
         text.append(NSAttributedString(string: "\n\n"))
         text.append(NSAttributedString(string: "reg : ".localized, attributes: textStyle2))
-        text.append(NSAttributedString(string: "\(data.regDt.simpleFormatStringValue)", attributes: textStyle1))
+        text.append(NSAttributedString(string: "\(data.regDt.relativeTimeStringValue)", attributes: textStyle1))
 
-        if let editDt = data.editList.last?.regDt.simpleFormatStringValue {
+        if let editDt = data.editList.last?.regDt.relativeTimeStringValue {
             text.append(NSAttributedString(string: "\n"))
             text.append(NSAttributedString(string: "edit : ".localized, attributes: textStyle2))
             text.append(NSAttributedString(string: "\(editDt)", attributes: textStyle1))
