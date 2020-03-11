@@ -34,6 +34,7 @@ class ApiManager {
                             
                             let realm = try! Realm()
                             realm.beginWrite()
+                            realm.delete(realm.objects(StoreModel.self))
                             realm.add(stores,update: .all)
                             try! realm.commitWrite()
                             complete(stores.count)
