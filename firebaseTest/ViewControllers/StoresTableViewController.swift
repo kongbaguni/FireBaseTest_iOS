@@ -80,4 +80,21 @@ class StoresTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return getSectionType(section: section).rawValue.localized
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let list = getStoreList(type: getSectionType(section: indexPath.section))
+        let data = list[indexPath.row]
+        performSegue(withIdentifier: "showMap", sender: data.code)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showMap":
+            if let vc = segue.destination as? MapViewController {
+                vc.storeCode = sender as? String
+            }
+        default:
+            break
+        }
+    }
 }
