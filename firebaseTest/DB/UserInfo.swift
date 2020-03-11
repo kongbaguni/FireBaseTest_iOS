@@ -25,14 +25,35 @@ class UserInfo : Object {
     @objc dynamic var accessToken               : String    = ""
     @objc dynamic var updateDt                  : Date      = Date()
     /** 프로필 이미지 사용하지 않을 경우 true*/
-    @objc dynamic var lastTalkTimeInterval      : Double    = 0
+    @objc dynamic var _lastTalkDt                : Date     = Date(timeIntervalSince1970: 0)
     
     var lastTalkDt:Date? {
-        if lastTalkTimeInterval > 0 {
-            return Date(timeIntervalSince1970: lastTalkTimeInterval)
+        get {
+            if _lastTalkDt == Date(timeIntervalSince1970: 0) {
+                return nil
+            }
+            return _lastTalkDt
         }
-        return nil
+        set {
+            if let value = newValue {
+                _lastTalkDt = value
+            } else {
+                _lastTalkDt = Date(timeIntervalSince1970: 0)
+            }
+        }
     }
+    
+    var lastTalkTimeInterval:Double? {
+        get {
+            return lastTalkDt?.timeIntervalSince1970
+        }
+        set {
+            if let value = newValue {
+                lastTalkDt = Date(timeIntervalSince1970: TimeInterval(value))
+            }
+        }
+    }
+    
     
     @objc dynamic var isDeleteProfileImage      : Bool      = false {
         didSet {
@@ -64,32 +85,39 @@ class UserInfo : Object {
     func syncData(complete:@escaping(_ isNew:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection("users")
         let document = dbCollection.document(self.email)
-        document.getDocument { [weak self](snapshot, error) in
+        let userId = self.id
+        document.getDocument { (snapshot, error) in
+            
             if let doc = snapshot {
                 var count = 0
                 doc.data().map { info in
                     let realm = try! Realm()
-                    realm.beginWrite()
-                    if let name = info["name"] as? String {
-                        self?.name = name
+                    if let uinfo = realm.object(ofType: UserInfo.self, forPrimaryKey: userId) {
+                        realm.beginWrite()
+                        if let name = info["name"] as? String {
+                            uinfo.name = name
+                        }
+                        if let intro = info["intro"] as? String {
+                            uinfo.introduce = intro
+                        }
+                        if let url = info["profileImageUrl"] as? String {
+                            uinfo.profileImageURLfirebase = url
+                        }
+                        if let value = info["isDefaultProfile"] as? Bool {
+                            uinfo.isDeleteProfileImage = value
+                        }
+                        if let url = info["profileImageUrlGoogle"] as? String {
+                            uinfo.profileImageURLgoogle = url
+                        }
+                        if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
+                            uinfo.lastTalkTimeInterval = lastTalkTime
+                        }
+                        if let value = info["updateTimeIntervalSince1970"] as? Double {
+                            uinfo.updateDt = Date(timeIntervalSince1970: TimeInterval(value))
+                        }
+                        uinfo.updateDt = Date()
+                        try! realm.commitWrite()
                     }
-                    if let intro = info["intro"] as? String {
-                        self?.introduce = intro
-                    }
-                    if let url = info["profileImageUrl"] as? String {
-                        self?.profileImageURLfirebase = url
-                    }
-                    if let value = info["isDefaultProfile"] as? Bool {
-                        self?.isDeleteProfileImage = value
-                    }
-                    if let url = info["profileImageUrlGoogle"] as? String {
-                        self?.profileImageURLgoogle = url
-                    }
-                    if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
-                        self?.lastTalkTimeInterval = lastTalkTime
-                    }
-                    self?.updateDt = Date()
-                    try! realm.commitWrite()
                     count += 1
                 }
                 complete(count == 0)
@@ -147,7 +175,8 @@ class UserInfo : Object {
             "intro": self.introduce,
             "isDefaultProfile" : isDeleteProfileImage,
             "profileImageUrl" : profileImageURLfirebase,
-            "profileImageUrlGoogle" : profileImageURLgoogle
+            "profileImageUrlGoogle" : profileImageURLgoogle,
+            "updateTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970
         ]
         
         document.updateData(data) {(error) in

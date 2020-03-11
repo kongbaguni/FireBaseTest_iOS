@@ -141,7 +141,7 @@ class MyProfileViewController: UITableViewController {
             userinfo.name = nameTextField.text ?? ""
             userinfo.introduce = introduceTextView.text ?? ""
             userinfo.isDeleteProfileImage = profileImageDeleteMode == .delete
-            
+            userinfo.updateDt = Date()
             if profileImageDeleteMode != nil {
                 userinfo.profileImageURLfirebase = ""
             }

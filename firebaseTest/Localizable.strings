@@ -35,3 +35,7 @@
 "last update profile" = "최근 프로필 갱신시각";
 "last talk date" = "마지막으로 글 쓴 시각";
 "none" = "없음";
+
+"just now" = "방금";
+"%@ minutes ago" = "%@ 분 전";
+"%@ hour ago" = "%@ 시간 전";

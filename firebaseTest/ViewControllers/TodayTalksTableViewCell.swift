@@ -17,6 +17,7 @@ fileprivate let textStyle1:[NSAttributedString.Key:Any] = [
     .font               : UIFont.systemFont(ofSize: 10),
     .foregroundColor    : UIColor.text_color
 ]
+
 fileprivate let textStyle2:[NSAttributedString.Key:Any] = [
     .font               : UIFont.boldSystemFont(ofSize: 10),
     .foregroundColor    : UIColor.bold_text_color

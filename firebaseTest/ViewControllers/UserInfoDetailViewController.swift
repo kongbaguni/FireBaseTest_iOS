@@ -53,8 +53,8 @@ class UserInfoDetailViewController: UITableViewController {
         profileImageView.kf.setImage(with: user?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         nameLabel.text = user?.name
         intoduceLabel.text = user?.introduce
-        profileUpdateDtLabel.text = user?.updateDt.simpleFormatStringValue
-        lastTalkDtLabel.text = user?.lastTalkDt?.simpleFormatStringValue ?? "none".localized
+        profileUpdateDtLabel.text = user?.updateDt.distanceStringValue
+        lastTalkDtLabel.text = user?.lastTalkDt?.distanceStringValue ?? "none".localized
 //        userInfo?.syncData { isNew in
 //            self.profileImageView.kf.setImage(with: userInfo?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
 //            self.nameLabel.text = userInfo?.name
