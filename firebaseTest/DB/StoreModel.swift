@@ -31,12 +31,16 @@ class StoreModel : Object {
     @objc dynamic var code:String = ""
     @objc dynamic var createdDt:Date = Date(timeIntervalSince1970: 0)
     @objc dynamic var lat:Double = 0
-    @objc dynamic var lang:Double = 0
+    @objc dynamic var lng:Double = 0
     @objc dynamic var name:String = ""
     @objc dynamic var remain_stat:String = ""
     @objc dynamic var stockDt:Date = Date(timeIntervalSince1970: 0)
     @objc dynamic var type:String = ""
-    
+
+    /** 위치정보*/
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    }
     /** 스토어 타입*/
     var storeType:StoreType? {
         return StoreType(rawValue: type)
@@ -63,7 +67,7 @@ class StoreModel : Object {
         addr = data["addr"] as? String ?? ""
         createdDt = (data["created_at"] as? String)?.dateValue(format: "yyyy/MM/dd hh:mm:ss") ?? Date(timeIntervalSince1970: 0)
         lat = data["lat"] as? Double ?? 0
-        lang = data["lng"] as? Double ?? 0
+        lng = data["lng"] as? Double ?? 0
         name = data["name"] as? String ?? ""
         remain_stat = data["remain_stat"] as? String ?? ""
         stockDt = (data["stock_at"] as? String)?.dateValue(format: "yyyy/MM/dd hh:mm:ss") ?? Date(timeIntervalSince1970: 0)

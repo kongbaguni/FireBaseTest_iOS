@@ -24,7 +24,7 @@ class StoresTableViewCell: UITableViewCell {
         
         nameLabel.text = data.name
         addrLabel.text = data.addr
-        remainStatLabel.text = data.remain_stat
+        remainStatLabel.text = data.remain_stat.localized
         stockDtLabel.text = "stock at:".localized + " " + data.stockDtStr
     }
 }

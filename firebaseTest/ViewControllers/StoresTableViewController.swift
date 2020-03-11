@@ -36,6 +36,10 @@ class StoresTableViewController: UITableViewController {
         return try! Realm().objects(StoreModel.self).sorted(byKeyPath: "name")
     }
     
+    func getStoreList(type:StoreModel.RemainType)->Results<StoreModel> {
+        return stores.filter("remain_stat == %@",type.rawValue)
+    }
+    
     func requestStoreInfo(coordinate:CLLocationCoordinate2D)  {
         requestCount += 1
         ApiManager().getStores(lat: coordinate.latitude, lng: coordinate.longitude) { [weak self](number) in
@@ -44,18 +48,36 @@ class StoresTableViewController: UITableViewController {
         }
     }
     
+    func getSectionType(section:Int)->StoreModel.RemainType {
+        switch section {
+        case 0:
+            return .plenty
+        case 1:
+            return .some
+        case 2:
+            return .few
+        default:
+            return .empty
+        }
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 4
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stores.count
+        return getStoreList(type: getSectionType(section: section)).count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell") as! StoresTableViewCell
-        let data = stores[indexPath.row]
+        
+        let list = getStoreList(type: getSectionType(section: indexPath.section))
+        let data = list[indexPath.row]
         cell.setData(data: data)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return getSectionType(section: section).rawValue.localized
     }
 }

@@ -13,11 +13,13 @@ import AlamofireImage
 import NVActivityIndicatorView
 
 class LoginViewController: UIViewController {
-    @IBOutlet weak var autologinBgView: UIView!
+    let autologinBgView: UIView = UIView(frame: UIScreen.main.bounds)
+    
     class var viewController : LoginViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! LoginViewController
     }
     @IBOutlet weak var loginGoogleBtn:UIButton!
+    @IBOutlet weak var maskNowBtn: UIButton!
     let indicator = NVActivityIndicatorView(
         frame: UIScreen.main.bounds,
         type: .ballRotateChase,
@@ -26,7 +28,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        maskNowBtn.setTitle("mask now".localized, for: .normal)
         GIDSignIn.sharedInstance()?.presentingViewController = self
+        autologinBgView.backgroundColor = .bg_color
+        view.addSubview(autologinBgView)
         autologinBgView.isHidden = UserInfo.info == nil
         view.addSubview(indicator)
         if UserInfo.info != nil {

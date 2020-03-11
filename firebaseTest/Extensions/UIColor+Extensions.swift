@@ -12,6 +12,10 @@ extension UIColor {
         UIApplication.shared.isDarkMode ? .white : .black
     }
     
+    open class var bg_color:UIColor {
+        UIApplication.shared.isDarkMode ? .black : .white
+    }
+    
     open class var text_color : UIColor {
         UIApplication.shared.isDarkMode ? .white : .black
     }
