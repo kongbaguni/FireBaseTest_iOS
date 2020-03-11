@@ -15,22 +15,11 @@ class StoresTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "mask now".localized
-        LocationManager.shared.requestAuth {
-            LocationManager.shared.manager.startUpdatingLocation()
-            NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) {
-                [weak self] (notification) in
-                if let locations = notification.object as? [CLLocation] {
-                    for location in locations {
-                        if self?.requestCount == 0 {
-                            self?.requestStoreInfo(coordinate: location.coordinate)
-                        }
-                    }
-                    
-                }
-            }
+        if try! Realm().objects(StoreModel.self).count == 0 {
+            onRefreshCongrol(UIRefreshControl())
         }
+        self.refreshControl?.addTarget(self, action: #selector(self.onRefreshCongrol(_:)), for: .valueChanged)
     }
-    var requestCount = 0
     
     var stores:Results<StoreModel> {
         return try! Realm().objects(StoreModel.self).sorted(byKeyPath: "name")
@@ -40,10 +29,9 @@ class StoresTableViewController: UITableViewController {
         return stores.filter("remain_stat == %@",type.rawValue)
     }
     
-    func requestStoreInfo(coordinate:CLLocationCoordinate2D)  {
-        requestCount += 1
-        ApiManager().getStores(lat: coordinate.latitude, lng: coordinate.longitude) { [weak self](number) in
-            print(number ?? "실패")
+    @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
+        ApiManager().getStores { [weak self](count) in
+            sender.endRefreshing()
             self?.tableView.reloadData()
         }
     }
@@ -91,7 +79,12 @@ class StoresTableViewController: UITableViewController {
         switch segue.identifier {
         case "showMap":
             if let vc = segue.destination as? MapViewController {
-                vc.storeCode = sender as? String
+                if let value = sender as? String {
+                    vc.storeCodes = [value]
+                }
+                else if let value = sender as? [String] {
+                    vc.storeCodes = value
+                }
             }
         default:
             break

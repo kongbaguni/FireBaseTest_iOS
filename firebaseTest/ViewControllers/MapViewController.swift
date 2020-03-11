@@ -13,23 +13,44 @@ import RealmSwift
 
 class MapViewController: UIViewController {
     @IBOutlet weak var mapView:MKMapView!
-    var storeCode:String? = nil
-    var store:StoreModel? {
-        if let code = storeCode {
-            return try! Realm().object(ofType: StoreModel.self, forPrimaryKey: code)
+    var storeCodes:[String] = []
+    private var _stores:[StoreModel]? = nil
+    private var stores:[StoreModel] {
+        if let list = _stores {
+            return list
         }
-        return nil
+        var list:[StoreModel] = []
+        for id in storeCodes {
+            if let store = try! Realm().object(ofType: StoreModel.self, forPrimaryKey: id) {
+                list.append(store)
+            }
+        }
+        _stores = list
+        return list
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = store?.name
-        if let store = store {
+        if stores.count == 1 {
+            title = stores.first?.name
+        }
+        guard let coordinate = stores.first?.coordinate else {
+            return
+        }
+        
+        for store in stores {
             let ann = MKPointAnnotation()
             ann.title = store.name
             ann.coordinate = store.coordinate
             mapView.addAnnotation(ann)
         }
+        
+        let camera = MKMapCamera()
+        camera.centerCoordinate = coordinate
+        camera.pitch = 45
+        camera.altitude = 1000
+        camera.heading = 45
+        mapView.camera = camera
     }
     
 }

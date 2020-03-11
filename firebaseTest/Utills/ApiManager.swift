@@ -9,17 +9,17 @@
 import Foundation
 import Alamofire
 import RealmSwift
+import CoreLocation
 
 class ApiManager {
-    func getStores(lat:Double,lng:Double,complete:@escaping(_ count:Int?)->Void) {
-        let url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json"
-        Alamofire
-            .request(url, method: .get, parameters: [
+    func getStores(complete:@escaping(_ count:Int?)->Void) {
+        func request(lat:Double,lng:Double,complete:@escaping(_ count:Int?)->Void) {
+            let url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json"
+            AF.request(url, method: .get, parameters: [
                 "lat" : lat,
                 "lng" : lng,
                 "m" : 1000
-            ])
-            .response { (response) in
+            ]).response { (response) in
                 if let data = response.data {
                     print("-------------------")
                     print(data)
@@ -44,6 +44,23 @@ class ApiManager {
                     print("-------------------")
                 }
                 complete(nil)
+            }
+        }
+                
+        LocationManager.shared.requestAuth {
+            LocationManager.shared.manager.startUpdatingLocation()
+            NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) {(notification) in
+                LocationManager.shared.manager.stopUpdatingLocation()
+                if let locations = notification.object as? [CLLocation] {
+                    for location in locations {
+                        request(lat: location.coordinate.latitude, lng: location.coordinate.longitude) { (count) in
+                            complete(count)
+                        }
+                    }
+                    return
+                }
+                complete(nil)
+            }
         }
     }
 }
