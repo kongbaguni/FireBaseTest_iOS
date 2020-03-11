@@ -198,6 +198,8 @@ class UserInfo : Object {
     }
     
     func logout() {
+        UIApplication.shared.windows.first?.rootViewController = UIViewController()
+        
         let realm = try! Realm()
         realm.beginWrite()
         realm.deleteAll()
