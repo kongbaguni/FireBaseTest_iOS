@@ -24,6 +24,9 @@ class TalkDetailTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if talkModel?.cordinate != nil {
+            return 4
+        }
         return 3
     }
     
@@ -48,6 +51,8 @@ class TalkDetailTableViewController: UITableViewController {
             return (talkModel?.editList.count ?? 0) + 1
         case 2:
             return talkModel?.likes.count ?? 0
+        case 3:
+            return 1
         default:
             return 0
         }
@@ -82,6 +87,10 @@ class TalkDetailTableViewController: UITableViewController {
                 cell.setData(like: likeList[indexPath.row])
             }
             
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "map") as! TalkDetailMapTableViewCell
+            cell.location = talkModel?.location
             return cell
         default:
             abort()

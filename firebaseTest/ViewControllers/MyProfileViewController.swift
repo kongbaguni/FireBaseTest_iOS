@@ -68,6 +68,12 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var searchDistanceLabel: UILabel!
     @IBOutlet weak var searchDistanceTextField: UITextField!
     
+    var selectSearchDistance:Int = 0 {
+        didSet {
+            searchDistanceTextField.text = "\(selectSearchDistance)m"
+        }
+    }
+    
     let distanceList:[Int] = [500,1000,2000]
     
     deinit {
@@ -106,7 +112,7 @@ class MyProfileViewController: UITableViewController {
             self.nameTextField.text = userInfo.name
             self.introduceTextView.text = userInfo.introduce
             self.profileImageView.kf.setImage(with: userInfo.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-            self.searchDistanceTextField.text = "\(userInfo.distanceForSearch)"
+            self.selectSearchDistance = userInfo.distanceForSearch
             if let index = distanceList.lastIndex(of: userInfo.distanceForSearch) {
                 self.pickerView.selectRow(index, inComponent: 0, animated: false)
             }
@@ -161,7 +167,7 @@ class MyProfileViewController: UITableViewController {
             userinfo.name = nameTextField.text ?? ""
             userinfo.introduce = introduceTextView.text ?? ""
             userinfo.isDeleteProfileImage = profileImageDeleteMode == .delete
-            userinfo.distanceForSearch = NSString(string:searchDistanceTextField.text!).integerValue
+            userinfo.distanceForSearch = selectSearchDistance
             userinfo.updateDt = Date()
             if profileImageDeleteMode != nil {
                 userinfo.profileImageURLfirebase = ""
@@ -298,6 +304,6 @@ extension MyProfileViewController : UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        searchDistanceTextField.text = "\(distanceList[row])"
+        selectSearchDistance = distanceList[row]
     }
 }

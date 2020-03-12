@@ -9,6 +9,8 @@
 import Foundation
 import RealmSwift
 import FirebaseFirestore
+import CoreLocation
+
 /** talk 수정이력 기록 위한 모델*/
 class TextEditModel : Object {
     @objc dynamic var id:String = ""
@@ -42,6 +44,22 @@ class TalkModel: Object {
         }
     }
     @objc dynamic var creatorId:String = ""
+    @objc dynamic var lng:Double = UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
+    @objc dynamic var lat:Double = UserDefaults.standard.lastMyCoordinate?.latitude ?? 0
+    
+    var cordinate:CLLocationCoordinate2D? {
+        if lat != 0 && lng != 0 {
+            return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        }
+        return nil
+    }
+    
+    var location:CLLocation? {
+        if lat != 0 && lng != 0 {
+            return CLLocation(latitude: lat, longitude: lng)
+        }
+        return nil
+    }
 
     // 검색 위한 필드
     @objc dynamic var textForSearch:String = ""
@@ -114,7 +132,9 @@ class TalkModel: Object {
             "creator_id":creatorId,
             "talk":text,
             "likeIds":likeIds,
-            "editTextIds":editTexts
+            "editTextIds":editTexts,
+            "lat":lat,
+            "lng":lng
         ]
         
         let collection = Firestore.firestore().collection("talks")
@@ -156,6 +176,9 @@ class TalkModel: Object {
                         let text = data["talk"] as? String,
                         let id = data["documentId"] as? String {
                         let model = TalkModel()
+                        
+                        model.lng = data["lng"] as? Double ?? 0
+                        model.lat = data["lat"] as? Double ?? 0
                         model.regTimeIntervalSince1970 = regTimeIntervalSince1970
                         model.modifiedTimeIntervalSince1970 = modifiedTimeIntervalSince1970
                         model.creatorId = creatorId

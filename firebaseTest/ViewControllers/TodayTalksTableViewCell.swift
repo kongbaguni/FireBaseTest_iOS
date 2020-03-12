@@ -24,10 +24,19 @@ fileprivate let textStyle2:[NSAttributedString.Key:Any] = [
 ]
 
 class TodayTalksTableViewCell: UITableViewCell {
+    @IBOutlet weak var bubbleImageView:UIImageView!
     @IBOutlet weak var porfileImageView:UIImageView!
     @IBOutlet weak var talkTextView:UITextView!
     @IBOutlet weak var nameLabel: UILabel!
+    
     func setData(data:TalkModel) {
+        switch reuseIdentifier {
+        case "myCell":
+            bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "myBubble_dark") : #imageLiteral(resourceName: "myBubble_light")
+        default:
+            bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
+        }
+        
         talkTextView.textColor = .text_color
         let text = NSMutableAttributedString()
         
