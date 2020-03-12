@@ -16,10 +16,13 @@ class StoresTableViewController: UITableViewController {
     @IBOutlet weak var updateDtLabel: UILabel!
     @IBOutlet weak var tableViewHeaderTitleLabel: UILabel!
     @IBOutlet weak var tableViewHeaderButton: UIButton!
+    var requestCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "mask now".localized
+        emptyView.type = .wait
+        emptyView.setTitle()
         if try! Realm().objects(StoreModel.self).count == 0 {
             onRefreshCongrol(UIRefreshControl())
         }
@@ -51,6 +54,7 @@ class StoresTableViewController: UITableViewController {
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
         ApiManager.shard.getStores { [weak self](count) in
             sender.endRefreshing()
+            self?.requestCount += 1
             self?.emptyView.type = count == nil ? .locationNotAllow : .empty
             self?.setTableStyle()
             self?.tableView.reloadData()
@@ -165,6 +169,8 @@ class StoresTableViewController: UITableViewController {
 extension StoresTableViewController : EmptyViewDelegate {
     func onTouchupButton(viewType: EmptyView.ViewType) {
         switch viewType {
+        case .wait:
+            break
         case .empty:
             self.onRefreshCongrol(self.refreshControl!)
         case .locationNotAllow:

@@ -69,3 +69,4 @@
 "Store location" = "상점 위치";
 "Point" = "포인트";
 "Not enough points Current Point: %@" = "포인트가 부족합니다. 현재포인트 : %@";
+"Waiting for server to respond." = "서버의 응답을 기다리는 중입니다.";

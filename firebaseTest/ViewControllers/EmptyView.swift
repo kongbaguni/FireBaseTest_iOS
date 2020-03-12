@@ -15,6 +15,7 @@ class EmptyView: UIView {
     enum ViewType {
         case locationNotAllow
         case empty
+        case wait
     }
     
     var type:ViewType = .empty {
@@ -39,15 +40,21 @@ class EmptyView: UIView {
     
     func setTitle() {
         switch type {
+        case .wait:
+            imageView.image = nil
+            label.text = "Waiting for server to respond.".localized
+            button.isHidden = true
         case .empty:
             imageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate).withTintColor(.bold_text_color)
             label.text = "There are no public mask vendors nearby.".localized
             button.setTitle("retry".localized, for: .normal)
+            button.isHidden = false
             
         case .locationNotAllow:
             imageView.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate).withTintColor(.bold_text_color)
             label.text = "Location information access is required.\nPlease make your location accessible.".localized
             button.setTitle("Setting up".localized, for: .normal)
+            button.isHidden = false
         }
     }
     
