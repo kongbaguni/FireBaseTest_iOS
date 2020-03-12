@@ -108,6 +108,8 @@ class TalkDetailTableViewController: UITableViewController {
                 return nil
             }
             return "like peoples".localized
+        case 3:
+            return "posting location".localized
         default:
             return nil
         }
