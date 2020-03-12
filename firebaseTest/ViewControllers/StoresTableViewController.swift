@@ -41,9 +41,8 @@ class StoresTableViewController: UITableViewController {
     }
     
     @IBAction func onTouchupViewOnMap(_ sender:UIButton) {
-        let list = self.stores.filter("remain_stat != %@","empty")
         var codes:[String] = []
-        for store in list {
+        for store in stores {
             codes.append(store.code)
         }
         performSegue(withIdentifier: "showMap", sender: codes)
