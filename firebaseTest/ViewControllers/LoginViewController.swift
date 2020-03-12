@@ -18,8 +18,10 @@ class LoginViewController: UIViewController {
     class var viewController : LoginViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! LoginViewController
     }
+    
     @IBOutlet weak var loginGoogleBtn:UIButton!
     @IBOutlet weak var maskNowBtn: UIButton!
+    
     let indicator = NVActivityIndicatorView(
         frame: UIScreen.main.bounds,
         type: .ballRotateChase,
@@ -29,6 +31,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         maskNowBtn.setTitle("mask now".localized, for: .normal)
+        loginGoogleBtn.setTitle("login with google".localized, for: .normal)
         GIDSignIn.sharedInstance()?.presentingViewController = self
         autologinBgView.backgroundColor = .bg_color
         view.addSubview(autologinBgView)
@@ -38,13 +41,15 @@ class LoginViewController: UIViewController {
             indicator.startAnimating()
         }
         
-        let icon =
-        #imageLiteral(resourceName: "google").af_imageAspectScaled(toFit: CGSize(width: 50, height: 50))
+        let icon = #imageLiteral(resourceName: "google").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
         loginGoogleBtn.setImage(icon, for: .normal)
+        
+        let maskIcon = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width:30,height:30))
+            .withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
+        maskNowBtn.setImage(maskIcon, for: .normal)
     }
     
     @IBAction func onTouchupLoginGoogleBtn(_ sender:UIButton) {
         GIDSignIn.sharedInstance().signIn()
-
     }
 }

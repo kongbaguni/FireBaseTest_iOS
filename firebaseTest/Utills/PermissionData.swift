@@ -135,7 +135,7 @@ class Permission : NSObject {
                 }
             }
         case .location:
-            LocationManager.shared.requestAuth {
+            LocationManager.shared.requestAuth { _ in
                 complete()
             }
         case .contact:

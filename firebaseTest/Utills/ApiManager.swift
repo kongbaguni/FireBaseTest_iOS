@@ -48,19 +48,28 @@ class ApiManager {
             }
         }
                 
-        LocationManager.shared.requestAuth {
-            LocationManager.shared.manager.startUpdatingLocation()
-            NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) {(notification) in
-                LocationManager.shared.manager.stopUpdatingLocation()
-                if let locations = notification.object as? [CLLocation] {
-                    for location in locations {
-                        request(lat: location.coordinate.latitude, lng: location.coordinate.longitude) { (count) in
-                            complete(count)
-                        }
-                    }
-                    return
-                }
+        LocationManager.shared.requestAuth { status in
+            switch status {
+            case .denied:                
                 complete(nil)
+            case .none:
+                complete(nil)
+
+            default:
+                LocationManager.shared.manager.startUpdatingLocation()
+                NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) {(notification) in
+                    LocationManager.shared.manager.stopUpdatingLocation()
+                    if let locations = notification.object as? [CLLocation] {
+                        for location in locations {
+                            UserDefaults.standard.lastMyCoordinate = location.coordinate
+                            request(lat: location.coordinate.latitude, lng: location.coordinate.longitude) { (count) in
+                                complete(count)
+                            }
+                        }
+                        return
+                    }
+                    complete(nil)
+                }
             }
         }
     }

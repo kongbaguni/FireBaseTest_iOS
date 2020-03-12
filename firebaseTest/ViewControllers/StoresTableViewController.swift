@@ -12,6 +12,8 @@ import Alamofire
 import RealmSwift
 
 class StoresTableViewController: UITableViewController {
+    @IBOutlet weak var emptyView:EmptyView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "mask now".localized
@@ -19,6 +21,10 @@ class StoresTableViewController: UITableViewController {
             onRefreshCongrol(UIRefreshControl())
         }
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshCongrol(_:)), for: .valueChanged)
+        setTableStyle()
+        emptyView.delegate = self
+        emptyView.frame = view.frame
+        emptyView.frame.size.height = view.frame.height - 100
     }
     
     var stores:Results<StoreModel> {
@@ -32,8 +38,21 @@ class StoresTableViewController: UITableViewController {
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
         ApiManager.shard.getStores { [weak self](count) in
             sender.endRefreshing()
+            self?.emptyView.type = count == nil ? .locationNotAllow : .empty
+            self?.setTableStyle()
             self?.tableView.reloadData()
         }
+    }
+    
+    private func setTableStyle() {
+        if stores.count == 0 {
+            tableView.separatorStyle = .none
+            view.addSubview(emptyView)
+        } else {
+            tableView.separatorStyle = .singleLine
+            emptyView.removeFromSuperview()
+        }
+
     }
     
     func getSectionType(section:Int)->StoreModel.RemainType {
@@ -48,7 +67,11 @@ class StoresTableViewController: UITableViewController {
             return .empty
         }
     }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if stores.count == 0 {
+            return 0
+        }
         return 4
     }
     
@@ -113,4 +136,16 @@ class StoresTableViewController: UITableViewController {
         }
     }
         
+}
+
+extension StoresTableViewController : EmptyViewDelegate {
+    func onTouchupButton(viewType: EmptyView.ViewType) {
+        switch viewType {
+        case .empty:
+            self.onRefreshCongrol(self.refreshControl!)
+        case .locationNotAllow:
+            UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+
+        }
+    }
 }

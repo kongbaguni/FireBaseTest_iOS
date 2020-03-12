@@ -36,6 +36,7 @@ class StoreModel : Object {
     @objc dynamic var remain_stat:String = ""
     @objc dynamic var stockDt:Date = Date(timeIntervalSince1970: 0)
     @objc dynamic var type:String = ""
+    @objc dynamic var updateDt:Date = Date()
 
     /** 위치정보*/
     var coordinate: CLLocationCoordinate2D {

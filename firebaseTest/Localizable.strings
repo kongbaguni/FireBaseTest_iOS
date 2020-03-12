@@ -5,6 +5,8 @@
   Created by Changyul Seo on 2020/03/04.
   Copyright © 2020 Changyul Seo. All rights reserved.
 */
+
+"login with google" = "Google 계정으로 로그인";
 "camera" = "카메라";
 "photoLibrary" = "사진 앨범";
 "cancel" = "취소";
@@ -55,3 +57,8 @@
 "plenty" = "많음";
 "some" = "약간"; 
 "few" = "적음";
+"Location information access is required.\nPlease make your location accessible." = "위치정보 접근이 필요합니다.\n사용자의 위치에 접근 가능하도록 설정해주세요.";
+"Setting up" = "설정하기";
+
+"There are no public mask vendors nearby." = "근처에 공적마스크 판매처가 없습니다.";
+"retry" = "다시 시도하기";

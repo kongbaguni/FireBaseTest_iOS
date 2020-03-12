@@ -14,7 +14,7 @@ extension Notification.Name {
 
 class LocationManager: NSObject {
     static let shared = LocationManager()
-    var isAuth = false
+    var authStatus:CLAuthorizationStatus? = nil
     let manager = CLLocationManager()
     
     override init() {
@@ -22,11 +22,11 @@ class LocationManager: NSObject {
         manager.delegate = self
     }
     
-    private var complete:(()->Void)? = nil
+    private var complete:((_ status:CLAuthorizationStatus?)->Void)? = nil
     
-    func requestAuth(complete:@escaping()->Void) {
-        if isAuth {
-            complete()
+    func requestAuth(complete:@escaping(_ status:CLAuthorizationStatus?)->Void) {
+        if let status = authStatus {
+            complete(status)
         } else {
             manager.requestWhenInUseAuthorization()
             self.complete = complete
@@ -49,8 +49,8 @@ class LocationManager: NSObject {
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        isAuth = true
-        complete?()
+        authStatus = status
+        complete?(status)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
