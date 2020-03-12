@@ -197,6 +197,7 @@ class UserInfo : Object {
                 document.setData(data, merge: true) { (error) in
                     if let e = error {
                         print(e.localizedDescription)
+                        complete(false)
                     }
                     else {
                         complete(true)
@@ -204,7 +205,7 @@ class UserInfo : Object {
                 }
             }
             else {
-                complete(false)
+                complete(true)
             }
         }
     }
