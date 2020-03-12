@@ -68,14 +68,22 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var searchDistanceLabel: UILabel!
     @IBOutlet weak var searchDistanceTextField: UITextField!
     
+    let distanceList:[Int] = [500,1000,2000]
+    
     deinit {
         debugPrint("deinit \(#file)")
     }
+    let pickerView = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "myProfile".localized
         view.addSubview(indicatorView)
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        searchDistanceTextField.inputView = pickerView
+
         setTitle()
         introduceTextView.delegate = self
         navigationItem.rightBarButtonItem =
@@ -87,10 +95,6 @@ class MyProfileViewController: UITableViewController {
                 self.loadData()
             }
         }
-        let pickerView = UIPickerView()
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        searchDistanceTextField.inputView = pickerView
         
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
@@ -102,6 +106,10 @@ class MyProfileViewController: UITableViewController {
             self.nameTextField.text = userInfo.name
             self.introduceTextView.text = userInfo.introduce
             self.profileImageView.kf.setImage(with: userInfo.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+            self.searchDistanceTextField.text = "\(userInfo.distanceForSearch)"
+            if let index = distanceList.lastIndex(of: userInfo.distanceForSearch) {
+                self.pickerView.selectRow(index, inComponent: 0, animated: false)
+            }
         }
     }
     
@@ -270,7 +278,6 @@ extension MyProfileViewController : CropViewControllerDelegate {
         profileImage = image
     }
     
-    
 }
 
 extension MyProfileViewController : UIPickerViewDataSource {
@@ -279,31 +286,18 @@ extension MyProfileViewController : UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 3
+        return distanceList.count
     }
-    
     
 }
 
 extension MyProfileViewController : UIPickerViewDelegate {
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch row {
-        case 0:
-            return "500m"
-        case 1:
-            return "1000m"
-        default:
-            return "2000m"
-        }
+        return "\(distanceList[row])m"
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch row {
-            case 0:
-                searchDistanceTextField.text = "\(500)"
-            case 1:
-                searchDistanceTextField.text = "\(1000)"
-            default:
-                searchDistanceTextField.text = "\(2000)"
-        }
+        searchDistanceTextField.text = "\(distanceList[row])"
     }
 }
