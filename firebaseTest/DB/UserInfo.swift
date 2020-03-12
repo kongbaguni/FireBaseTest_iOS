@@ -25,7 +25,8 @@ class UserInfo : Object {
     @objc dynamic var accessToken               : String    = ""
     @objc dynamic var updateDt                  : Date      = Date()
     /** 프로필 이미지 사용하지 않을 경우 true*/
-    @objc dynamic var _lastTalkDt                : Date     = Date(timeIntervalSince1970: 0)
+    @objc dynamic var _lastTalkDt               : Date      = Date(timeIntervalSince1970: 0)
+    @objc dynamic var point                     : Int       = 0
     
     var lastTalkDt:Date? {
         get {

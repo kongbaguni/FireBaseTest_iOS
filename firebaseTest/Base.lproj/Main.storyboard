@@ -146,30 +146,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="f22-b3-ngI" detailTextLabel="Hg2-Ff-sGt" style="IBUITableViewCellStyleValue1" id="KCT-r5-Wsq">
-                                        <rect key="frame" x="0.0" y="459.5" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KCT-r5-Wsq" id="5nF-UV-lgn">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f22-b3-ngI">
-                                                    <rect key="frame" x="20" y="12" width="33.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hg2-Ff-sGt">
-                                                    <rect key="frame" x="350" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -181,18 +157,16 @@
                     <navigationItem key="navigationItem" id="cM3-VH-CTn"/>
                     <connections>
                         <outlet property="intoduceLabel" destination="C8K-lr-zjS" id="KRP-kz-5m9"/>
-                        <outlet property="lastTalkDtLabel" destination="Hg2-Ff-sGt" id="xAN-oc-2BC"/>
-                        <outlet property="lastTalkDtTitleLabel" destination="f22-b3-ngI" id="oq5-rx-F1J"/>
                         <outlet property="nameLabel" destination="aRP-bb-Xak" id="44K-Lu-blL"/>
+                        <outlet property="pointLabel" destination="QQi-eM-cyS" id="3pf-Lu-gGC"/>
+                        <outlet property="pointTitleLabel" destination="Mnf-Es-4GK" id="fFB-8u-E7e"/>
                         <outlet property="profileImageView" destination="SUO-GO-AQV" id="JzE-Mu-x6j"/>
-                        <outlet property="profileUpdateDtLabel" destination="QQi-eM-cyS" id="175-Em-HcV"/>
-                        <outlet property="profileUpdateDtTitleLabel" destination="Mnf-Es-4GK" id="XFl-f1-l5U"/>
                         <segue destination="ABD-kk-8hZ" kind="show" identifier="profileEdit" id="1aU-la-qB8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6p-b8-qMn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="619" y="681"/>
+            <point key="canvasLocation" x="704" y="682"/>
         </scene>
         <!--todays talks-->
         <scene sceneID="cW0-Sl-0N7">

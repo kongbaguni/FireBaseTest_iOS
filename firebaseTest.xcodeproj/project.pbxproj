@@ -29,6 +29,7 @@
 		C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */; };
 		C3780E63240F361A006070CF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3780E62240F361A006070CF /* Localizable.strings */; };
 		C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E66240F44AF006070CF /* LoginViewController.swift */; };
+		C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386C791241A0B1C0034132B /* Int+Extensions.swift */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
@@ -75,6 +76,7 @@
 		C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		C3780E62240F361A006070CF /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		C3780E66240F44AF006070CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C386C791241A0B1C0034132B /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* mask now.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask now.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		C3EF51C4240CEAA700A4C29E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C386C791241A0B1C0034132B /* Int+Extensions.swift */,
 				C3EF51C5240CEABE00A4C29E /* UserDefault+Extensions.swift */,
 				C3780E5B240DE535006070CF /* String+Extensions.swift */,
 				C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */,
@@ -377,6 +380,7 @@
 				C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */,
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
 				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
+				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3DC5B95241243D400A028E0 /* Consts.swift in Sources */,
 				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,

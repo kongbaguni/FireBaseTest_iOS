@@ -15,10 +15,8 @@ class UserInfoDetailViewController: UITableViewController {
     @IBOutlet weak var profileImageView:UIImageView!
     @IBOutlet weak var nameLabel:UILabel!
     @IBOutlet weak var intoduceLabel:UILabel!
-    @IBOutlet weak var profileUpdateDtTitleLabel:UILabel!
-    @IBOutlet weak var profileUpdateDtLabel:UILabel!
-    @IBOutlet weak var lastTalkDtTitleLabel:UILabel!
-    @IBOutlet weak var lastTalkDtLabel:UILabel!
+    @IBOutlet weak var pointTitleLabel:UILabel!
+    @IBOutlet weak var pointLabel:UILabel!
     var userId:String? = nil
     var user:UserInfo? {
         if let id = userId {
@@ -39,8 +37,10 @@ class UserInfoDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = user?.name
-        profileUpdateDtTitleLabel.text = "last update profile".localized;
-        lastTalkDtTitleLabel.text = "last talk date".localized
+        pointTitleLabel.text = "Point".localized
+        pointLabel.text = "\(user?.point ?? 0)"
+        loadData()
+        
         if user?.id == UserInfo.info?.id {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButton(_:)))
         }
@@ -59,13 +59,7 @@ class UserInfoDetailViewController: UITableViewController {
         profileImageView.kf.setImage(with: user?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         nameLabel.text = user?.name
         intoduceLabel.text = user?.introduce
-        profileUpdateDtLabel.text = user?.updateDt.relativeTimeStringValue
-        lastTalkDtLabel.text = user?.lastTalkDt?.relativeTimeStringValue ?? "none".localized
-//        userInfo?.syncData { isNew in
-//            self.profileImageView.kf.setImage(with: userInfo?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-//            self.nameLabel.text = userInfo?.name
-//            self.intoduceLabel.text = userInfo?.introduce
-//        }
+        pointLabel.text = user?.point.decimalForamtString
     }
     
     

@@ -85,22 +85,24 @@ class TodaysTalksTableViewController: UITableViewController {
     
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
         let oldCount = self.tableView.numberOfRows(inSection: 0)
-        
-        TalkModel.syncDatas {
-            sender.endRefreshing()
-            self.tableView.reloadData()
-            if self.isNeedScrollToBottomWhenRefresh {
-                let number = self.tableView.numberOfRows(inSection: 0)
-                if oldCount != number {
-                    self.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
+        UserInfo.info?.syncData(complete: { (_) in
+            TalkModel.syncDatas {
+                sender.endRefreshing()
+                self.tableView.reloadData()
+                if self.isNeedScrollToBottomWhenRefresh {
+                    let number = self.tableView.numberOfRows(inSection: 0)
+                    if oldCount != number {
+                        self.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
+                    }
+                    self.isNeedScrollToBottomWhenRefresh = false
                 }
-                self.isNeedScrollToBottomWhenRefresh = false
+                if let index = self.needScrolIndex {
+                    self.tableView.scrollToRow(at: index, at: .middle, animated: true)
+                    self.needScrolIndex = nil
+                }
             }
-            if let index = self.needScrolIndex {
-                self.tableView.scrollToRow(at: index, at: .middle, animated: true)
-                self.needScrolIndex = nil
-            }
-        }
+        })
+
     }
     
     @objc func onTouchupAddBtn(_ sender:UIBarButtonItem) {
