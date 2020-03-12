@@ -8,5 +8,12 @@
 
 import Foundation
 struct Consts {
+    /** 이야기 표시 기간*/
     static let LIMIT_TALK_TIME_INTERVAL:TimeInterval = 86400
+    /** 상점 검색 범의 (미터 단위)*/
+    static let DISTANCE_STORE_SEARCH:Int = 500
+    /** 글 쓰기 위한 포인트 소모량*/
+    static let POINT_FOR_WRITE:Int = 100
+    /** 광고 시청 1회당 받는 포인트*/
+    static let POINT_BY_AD:Int = 500
 }

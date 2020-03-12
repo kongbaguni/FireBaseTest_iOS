@@ -19,7 +19,7 @@ class ApiManager {
             AF.request(url, method: .get, parameters: [
                 "lat" : lat,
                 "lng" : lng,
-                "m" : 1000
+                "m" : Consts.DISTANCE_STORE_SEARCH
             ]).response { (response) in
                 if let data = response.data {
                     print("-------------------")

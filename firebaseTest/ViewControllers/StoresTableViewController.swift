@@ -65,7 +65,7 @@ class StoresTableViewController: UITableViewController {
     private func setHeaderTitle() {
         updateDtLabel.text = String(format: "update : %@".localized, stores.first?.updateDt.relativeTimeStringValue ?? "0")
         let number = stores.filter("remain_stat != %@","empty").count
-        tableViewHeaderTitleLabel.text = String(format:"Where to buy masks near %@ meters: %@ places".localized, "1000", "\(number)")
+        tableViewHeaderTitleLabel.text = String(format:"Where to buy masks near %@ meters: %@ places".localized, "\(Consts.DISTANCE_STORE_SEARCH)", "\(number)")
     }
     
     private func setTableStyle() {

@@ -105,7 +105,7 @@ class PostTalkViewController: UIViewController {
                 let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
                 vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
                     //TODO 광고보기 넣을것.
-                    UserInfo.info?.addPoint(point: 1000, complete: { (isSucess) in
+                    UserInfo.info?.addPoint(point: Consts.POINT_BY_AD, complete: { (isSucess) in
                         self.onTouchupSaveBtn(sender)
                     })
                 }))
@@ -113,7 +113,7 @@ class PostTalkViewController: UIViewController {
                 self.present(vc, animated: true, completion: nil)
                 return
             }
-            UserInfo.info?.addPoint(point: -100, complete: { (issucess) in
+            UserInfo.info?.addPoint(point: -Consts.POINT_FOR_WRITE, complete: { (issucess) in
                 write()
             })
         })
