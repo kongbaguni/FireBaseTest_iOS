@@ -25,7 +25,22 @@ class StoreModel : Object {
         case some = "some"
         /** 적음*/
         case few = "few"
+        
+        var colorValue:UIColor {
+            switch self {
+            case .plenty:
+                return UIColor(red: 0, green: 0.6, blue: 0, alpha: 1)
+            case .some:
+                return UIColor(red: 0.9, green: 0.7, blue: 0, alpha: 1)
+            case .few:
+                return UIColor(red: 0.6, green: 0.0, blue: 0, alpha: 1)
+            default:
+                return .gray
+            }
+        }
     }
+    
+    
     
     @objc dynamic var addr:String = ""
     @objc dynamic var code:String = ""

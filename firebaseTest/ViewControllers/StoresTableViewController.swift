@@ -92,7 +92,8 @@ class StoresTableViewController: UITableViewController {
         if stores.count == 0 {
             return nil
         }
-        let list = getStoreList(type: getSectionType(section: section))
+        let type = getSectionType(section: section)
+        let list = getStoreList(type: type)
         if list.count == 0 {
             return nil
         }
@@ -101,6 +102,7 @@ class StoresTableViewController: UITableViewController {
         view.setTitleColor(.bg_color, for: .normal)        
         view.setTitle("\(list.first?.remain_stat.localized ?? "") \(list.count)", for: .normal)
         view.tag = section
+        view.backgroundColor = type.colorValue
         view.addTarget(self, action: #selector(self.ontouchupFooterBtn(_:)), for: .touchUpInside)
         return view
     }
