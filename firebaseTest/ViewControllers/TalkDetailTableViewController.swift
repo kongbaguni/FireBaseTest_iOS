@@ -39,6 +39,7 @@ class TalkDetailTableViewController: UITableViewController {
             break
         }
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -51,6 +52,7 @@ class TalkDetailTableViewController: UITableViewController {
             return 0
         }
     }
+        
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -85,6 +87,7 @@ class TalkDetailTableViewController: UITableViewController {
             abort()
         }
     }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:

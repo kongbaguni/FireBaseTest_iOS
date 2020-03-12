@@ -27,7 +27,7 @@ class UserInfo : Object {
     /** 프로필 이미지 사용하지 않을 경우 true*/
     @objc dynamic var _lastTalkDt               : Date      = Date(timeIntervalSince1970: 0)
     @objc dynamic var point                     : Int       = 0
-    
+    @objc dynamic var distanceForSearch         : Int       = Consts.DISTANCE_STORE_SEARCH
     var lastTalkDt:Date? {
         get {
             if _lastTalkDt == Date(timeIntervalSince1970: 0) {
@@ -119,6 +119,9 @@ class UserInfo : Object {
                         if let point = info["point"] as? Int {
                             uinfo.point = point
                         }
+                        if let value = info["distanceForSearch"] as? Int {
+                            uinfo.distanceForSearch = value
+                        }
                         try! realm.commitWrite()
                     }
                     count += 1
@@ -152,6 +155,8 @@ class UserInfo : Object {
                 let profileImageUrl = info["profileImageUrl"] as? String ?? ""
                 let profileimageUrlGoogle = info["profileImageUrlGoogle"] as? String ?? ""
                 let point = info["point"] as? Int ?? 0
+                let distanceForSearch = info["distanceForSearch"] as? Int ?? Consts.DISTANCE_STORE_SEARCH
+
                 let userInfo = UserInfo()
                 userInfo.email = email
                 userInfo.name = name
@@ -159,6 +164,7 @@ class UserInfo : Object {
                 userInfo.isDeleteProfileImage = isDefaultProfile
                 userInfo.profileImageURLfirebase = profileImageUrl
                 userInfo.profileImageURLgoogle = profileimageUrlGoogle
+                userInfo.distanceForSearch = distanceForSearch
                 userInfo.point = point
                 if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
                     userInfo.lastTalkTimeInterval = lastTalkTime
@@ -188,6 +194,7 @@ class UserInfo : Object {
             "profileImageUrl" : profileImageURLfirebase,
             "profileImageUrlGoogle" : profileImageURLgoogle,
             "updateTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970,
+            "distanceForSearch" : distanceForSearch,
             "point" : point
         ]
         

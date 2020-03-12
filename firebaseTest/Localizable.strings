@@ -50,7 +50,7 @@
 
 
 "mask now" = "마스크 현황";
-"stock at:" = "입고 시각:";
+"stock at : " = "입고 시각 : ";
 
 
 "empty" = "없음";
@@ -73,3 +73,4 @@
 
 "send email" = "이메일 보내기";
 "Send an email to %@" = "%@에게 이메일을 보냅니다.";
+"search distance" = "검색 거리";

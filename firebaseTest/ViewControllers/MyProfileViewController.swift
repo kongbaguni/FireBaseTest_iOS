@@ -65,6 +65,8 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var nameTextField : UITextField!
     @IBOutlet weak var introduceTextView : UITextView!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var searchDistanceLabel: UILabel!
+    @IBOutlet weak var searchDistanceTextField: UITextField!
     
     deinit {
         debugPrint("deinit \(#file)")
@@ -85,6 +87,11 @@ class MyProfileViewController: UITableViewController {
                 self.loadData()
             }
         }
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        searchDistanceTextField.inputView = pickerView
+        
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
 
@@ -102,6 +109,7 @@ class MyProfileViewController: UITableViewController {
         introduceLabel.text = "introduce".localized
         photoLabel.text = "photo".localized
         nameLabel.text = "name".localized
+        searchDistanceLabel.text = "search distance".localized
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
@@ -145,6 +153,7 @@ class MyProfileViewController: UITableViewController {
             userinfo.name = nameTextField.text ?? ""
             userinfo.introduce = introduceTextView.text ?? ""
             userinfo.isDeleteProfileImage = profileImageDeleteMode == .delete
+            userinfo.distanceForSearch = NSString(string:searchDistanceTextField.text!).integerValue
             userinfo.updateDt = Date()
             if profileImageDeleteMode != nil {
                 userinfo.profileImageURLfirebase = ""
@@ -262,4 +271,39 @@ extension MyProfileViewController : CropViewControllerDelegate {
     }
     
     
+}
+
+extension MyProfileViewController : UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 3
+    }
+    
+    
+}
+
+extension MyProfileViewController : UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch row {
+        case 0:
+            return "500m"
+        case 1:
+            return "1000m"
+        default:
+            return "2000m"
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch row {
+            case 0:
+                searchDistanceTextField.text = "\(500)"
+            case 1:
+                searchDistanceTextField.text = "\(1000)"
+            default:
+                searchDistanceTextField.text = "\(2000)"
+        }
+    }
 }

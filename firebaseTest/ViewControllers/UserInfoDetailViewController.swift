@@ -45,7 +45,7 @@ class UserInfoDetailViewController: UITableViewController {
         loadData()
         
         if user?.id == UserInfo.info?.id {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButton(_:)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.onTouchupRightBarButton(_:)))
             emailCell.selectionStyle = .none
             pointCell.selectionStyle = .default
         }

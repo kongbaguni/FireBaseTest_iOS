@@ -22,6 +22,6 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
     func setData(like:LikeModel) {
         profileImageView.kf.setImage(with: like.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         nameLabel.text = like.creator?.name
-        introduceLabel.text = like.regDt.simpleFormatStringValue
+        introduceLabel.text = like.regDt.relativeTimeStringValue
     }
 }

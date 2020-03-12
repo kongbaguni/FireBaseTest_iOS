@@ -165,6 +165,8 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let talk = list[indexPath.row]
+        performSegue(withIdentifier: "showDetail", sender: talk.id)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -182,7 +184,8 @@ class TodaysTalksTableViewController: UITableViewController {
             model.update { (sucess) in
                 complete(true)
                 DispatchQueue.main.async {
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    self.tableView.reloadData()
+//                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
             }
         })

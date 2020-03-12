@@ -65,7 +65,7 @@ class StoresTableViewController: UITableViewController {
     private func setHeaderTitle() {
         updateDtLabel.text = String(format: "update : %@".localized, stores.first?.updateDt.relativeTimeStringValue ?? "0")
         let number = stores.filter("remain_stat != %@","empty").count
-        tableViewHeaderTitleLabel.text = String(format:"Where to buy masks near %@ meters: %@ places".localized, "\(Consts.DISTANCE_STORE_SEARCH)", "\(number)")
+        tableViewHeaderTitleLabel.text = String(format:"Where to buy masks near %@ meters: %@ places".localized, "\( UserInfo.info?.distanceForSearch ?? Consts.DISTANCE_STORE_SEARCH)", "\(number)")
     }
     
     private func setTableStyle() {
@@ -131,6 +131,18 @@ class StoresTableViewController: UITableViewController {
         view.backgroundColor = type.colorValue
         view.addTarget(self, action: #selector(self.ontouchupFooterBtn(_:)), for: .touchUpInside)
         return view
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if stores.count == 0 {
+            return CGFloat.leastNormalMagnitude
+        }
+        let type = getSectionType(section: section)
+        let list = getStoreList(type: type)
+        if list.count == 0 {
+            return CGFloat.leastNormalMagnitude
+        }        
+        return 30
     }
     
     @objc func ontouchupFooterBtn(_ sender:UIButton) {
