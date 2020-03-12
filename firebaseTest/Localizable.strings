@@ -62,3 +62,7 @@
 
 "There are no public mask vendors nearby." = "근처에 공적마스크 판매처가 없습니다.";
 "retry" = "다시 시도하기";
+
+"update : %@" = "업데이트 : %@";
+"Where to buy masks near %@ meters: %@ places" = "%@미터 근처에서 마스크 살 수 있는 곳 : %@곳";
+"view on map" = "지도에서 보기";

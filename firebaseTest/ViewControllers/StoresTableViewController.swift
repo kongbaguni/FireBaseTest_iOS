@@ -13,6 +13,9 @@ import RealmSwift
 
 class StoresTableViewController: UITableViewController {
     @IBOutlet weak var emptyView:EmptyView!
+    @IBOutlet weak var updateDtLabel: UILabel!
+    @IBOutlet weak var tableViewHeaderTitleLabel: UILabel!
+    @IBOutlet weak var tableViewHeaderButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,8 @@ class StoresTableViewController: UITableViewController {
         emptyView.delegate = self
         emptyView.frame = view.frame
         emptyView.frame.size.height = view.frame.height - 100
+        tableViewHeaderButton.setTitle("view on map".localized, for: .normal)
+        setHeaderTitle()
     }
     
     var stores:Results<StoreModel> {
@@ -35,21 +40,39 @@ class StoresTableViewController: UITableViewController {
         return stores.filter("remain_stat == %@",type.rawValue)
     }
     
+    @IBAction func onTouchupViewOnMap(_ sender:UIButton) {
+        let list = self.stores.filter("remain_stat != %@","empty")
+        var codes:[String] = []
+        for store in list {
+            codes.append(store.code)
+        }
+        performSegue(withIdentifier: "showMap", sender: codes)
+    }
+    
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
         ApiManager.shard.getStores { [weak self](count) in
             sender.endRefreshing()
             self?.emptyView.type = count == nil ? .locationNotAllow : .empty
             self?.setTableStyle()
             self?.tableView.reloadData()
+            self?.setHeaderTitle()
         }
+    }
+    
+    private func setHeaderTitle() {
+        updateDtLabel.text = String(format: "update : %@".localized, stores.first?.updateDt.relativeTimeStringValue ?? "0")
+        let number = stores.filter("remain_stat != %@","empty").count
+        tableViewHeaderTitleLabel.text = String(format:"Where to buy masks near %@ meters: %@ places".localized, "1000", "\(number)")
     }
     
     private func setTableStyle() {
         if stores.count == 0 {
             tableView.separatorStyle = .none
+            tableView.tableHeaderView?.isHidden = true
             view.addSubview(emptyView)
         } else {
             tableView.separatorStyle = .singleLine
+            tableView.tableHeaderView?.isHidden = false
             emptyView.removeFromSuperview()
         }
 

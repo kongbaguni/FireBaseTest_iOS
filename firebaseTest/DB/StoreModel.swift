@@ -14,6 +14,16 @@ class StoreModel : Object {
     enum StoreType:String {
         case pharmacy = "01"
         case postoffice = "02"
+        
+        var image:UIImage {
+            switch self {
+            case .pharmacy:
+                return #imageLiteral(resourceName: "pharmacy").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
+            case .postoffice:
+                return #imageLiteral(resourceName: "postoffice").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
+
+            }
+        }
     }
     
     enum RemainType:String {
