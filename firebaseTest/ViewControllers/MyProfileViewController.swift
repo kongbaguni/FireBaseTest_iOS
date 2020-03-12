@@ -151,7 +151,7 @@ class MyProfileViewController: UITableViewController {
             }
             try! realm.commitWrite()
             
-            userinfo.updateData() {
+            userinfo.updateData() { _ in
                 complete()
             }
         }

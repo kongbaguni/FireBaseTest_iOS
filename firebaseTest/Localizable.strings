@@ -68,3 +68,4 @@
 "view on map" = "지도에서 보기";
 "Store location" = "상점 위치";
 "Point" = "포인트";
+"Not enough points Current Point: %@" = "포인트가 부족합니다. 현재포인트 : %@";

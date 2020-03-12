@@ -83,12 +83,12 @@ class UserInfo : Object {
     }
     
     /** firebase 에서 데이터를 받아와서 사용자 정보를 갱신합니다.*/
-    func syncData(complete:@escaping(_ isNew:Bool)->Void) {
+    func syncData(syncAll:Bool = true,complete:@escaping(_ isNew:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection("users")
         let document = dbCollection.document(self.email)
         let userId = self.id
+        var isNew = false
         document.getDocument { (snapshot, error) in
-            
             if let doc = snapshot {
                 var count = 0
                 doc.data().map { info in
@@ -116,12 +116,21 @@ class UserInfo : Object {
                         if let value = info["updateTimeIntervalSince1970"] as? Double {
                             uinfo.updateDt = Date(timeIntervalSince1970: TimeInterval(value))
                         }
+                        if let point = info["point"] as? Int {
+                            uinfo.point = point
+                        }
                         try! realm.commitWrite()
                     }
                     count += 1
                 }
-                complete(count == 0)
+                isNew = count == 0
+                if syncAll == false {
+                    complete(isNew)
+                }
             }
+        }
+        if syncAll == false {
+            return
         }
         // 다른 유저 정보 가져오기
         dbCollection
@@ -142,7 +151,7 @@ class UserInfo : Object {
                 let isDefaultProfile = info["isDefaultProfile"] as? Bool ?? false
                 let profileImageUrl = info["profileImageUrl"] as? String ?? ""
                 let profileimageUrlGoogle = info["profileImageUrlGoogle"] as? String ?? ""
-
+                let point = info["point"] as? Int ?? 0
                 let userInfo = UserInfo()
                 userInfo.email = email
                 userInfo.name = name
@@ -150,6 +159,7 @@ class UserInfo : Object {
                 userInfo.isDeleteProfileImage = isDefaultProfile
                 userInfo.profileImageURLfirebase = profileImageUrl
                 userInfo.profileImageURLgoogle = profileimageUrlGoogle
+                userInfo.point = point
                 if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
                     userInfo.lastTalkTimeInterval = lastTalkTime
                 }
@@ -162,11 +172,12 @@ class UserInfo : Object {
                 realm.add(newUsers,update: .all)
                 try! realm.commitWrite()
             }
+            complete(isNew)
         }
     }
     
     /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
-    func updateData(complete:@escaping()->Void) {
+    func updateData(complete:@escaping(_ isSucess:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection("users")
         let document = dbCollection.document(UserInfo.info!.email)
         let data:[String:Any] = [            
@@ -176,7 +187,8 @@ class UserInfo : Object {
             "isDefaultProfile" : isDeleteProfileImage,
             "profileImageUrl" : profileImageURLfirebase,
             "profileImageUrlGoogle" : profileImageURLgoogle,
-            "updateTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970
+            "updateTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970,
+            "point" : point
         ]
         
         document.updateData(data) {(error) in
@@ -187,12 +199,12 @@ class UserInfo : Object {
                         print(e.localizedDescription)
                     }
                     else {
-                        complete()
+                        complete(true)
                     }
                 }
             }
             else {
-                complete()
+                complete(false)
             }
         }
     }
@@ -206,5 +218,24 @@ class UserInfo : Object {
         try! realm.commitWrite()
         
         UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
+    }
+    
+    func addPoint(point:Int, complete:@escaping(_ isSucess:Bool)->Void) {
+        func addPoint(point:Int) {
+            let realm = try! Realm()
+            realm.beginWrite()
+            self.point += point
+            try! realm.commitWrite()
+        }
+        addPoint(point: point)
+        updateData { isSucess in
+            if isSucess {
+                complete(true)
+            } else {
+                addPoint(point: -point)
+                complete(false)
+            }
+        }
+        
     }
 }

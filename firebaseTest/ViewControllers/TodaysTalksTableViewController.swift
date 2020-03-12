@@ -38,7 +38,7 @@ class TodaysTalksTableViewController: UITableViewController {
         super.viewDidLoad()
         title = "todays talks".localized
         searchBar.placeholder = "text search".localized
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupAddBtn(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
@@ -105,8 +105,7 @@ class TodaysTalksTableViewController: UITableViewController {
 
     }
     
-    @objc func onTouchupAddBtn(_ sender:UIBarButtonItem) {
-        
+    @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
             self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
@@ -116,7 +115,7 @@ class TodaysTalksTableViewController: UITableViewController {
             self.isNeedScrollToBottomWhenRefresh = true
             self.performSegue(withIdentifier: "showTalk", sender: nil)
         }))
-
+        
         vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
             let firebaseAuth = Auth.auth()
             do {
@@ -131,7 +130,12 @@ class TodaysTalksTableViewController: UITableViewController {
         
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func onTouchupAddBtn(_ sender:UIBarButtonItem) {
         
+        self.isNeedScrollToBottomWhenRefresh = true
+        self.performSegue(withIdentifier: "showTalk", sender: nil)
         
     }
     
