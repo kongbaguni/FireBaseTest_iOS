@@ -23,21 +23,15 @@ class StoresTableViewCell: UITableViewCell {
         default:
             storeImageView.image = #imageLiteral(resourceName: "postoffice").withTintColor(.text_color)
         }
-        distanceLabel.text = nil
-        if let last = UserDefaults.standard.lastMyCoordinate {
-            let a = CLLocation(latitude: data.coordinate.latitude, longitude: data.coordinate.longitude)
-            let b = CLLocation(latitude: last.latitude, longitude: last.longitude)
-            let distance = a.distance(from: b)
-            
-            distanceLabel.text = "\(Int(distance))m"
-            if distance > 700 {
-                distanceLabel.textColor = .red
-            } else if distance > 400 {
-                distanceLabel.textColor = UIColor(red: 0, green: 0.5, blue: 1, alpha: 1)
-            } else {
-                distanceLabel.textColor = UIColor(red: 0, green: 1, blue: 0.5, alpha: 1)
-            }
+        distanceLabel.text = "\(Double(Int(data.distance * 100))/100)m"
+        if data.distance > 700 {
+            distanceLabel.textColor = .red
+        } else if data.distance > 400 {
+            distanceLabel.textColor = UIColor(red: 0, green: 0.5, blue: 1, alpha: 1)
+        } else {
+            distanceLabel.textColor = UIColor(red: 0, green: 0.8, blue: 0.3, alpha: 1)
         }
+        
         nameLabel.text = data.name
         addrLabel.text = data.addr
         stockDtLabel.text = "stock at:".localized + " " + data.stockDtStr

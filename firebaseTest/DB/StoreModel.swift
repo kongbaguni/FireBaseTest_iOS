@@ -62,7 +62,15 @@ class StoreModel : Object {
     @objc dynamic var stockDt:Date = Date(timeIntervalSince1970: 0)
     @objc dynamic var type:String = ""
     @objc dynamic var updateDt:Date = Date()
+    @objc dynamic var distance:Double = 0
 
+    /** 거리 구하기*/
+    func getLiveDistance(coodinate:CLLocationCoordinate2D)->Double {
+        let a = CLLocation(latitude: lat, longitude: lng)
+        let b = CLLocation(latitude: coodinate.latitude, longitude: coodinate.longitude)
+        return a.distance(from: b)
+    }
+    
     /** 위치정보*/
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: lat, longitude: lng)
@@ -98,5 +106,11 @@ class StoreModel : Object {
         remain_stat = data["remain_stat"] as? String ?? ""
         stockDt = (data["stock_at"] as? String)?.dateValue(format: "yyyy/MM/dd hh:mm:ss") ?? Date(timeIntervalSince1970: 0)
         type = data["type"] as? String ?? ""
+        
+        if let last = UserDefaults.standard.lastMyCoordinate {
+            let a = CLLocation(latitude: lat, longitude: lng)
+            let b = CLLocation(latitude: last.latitude, longitude: last.longitude)
+            distance = a.distance(from: b)
+        }
     }
 }

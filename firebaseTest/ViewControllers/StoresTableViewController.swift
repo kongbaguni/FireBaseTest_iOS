@@ -37,7 +37,7 @@ class StoresTableViewController: UITableViewController {
     }
     
     func getStoreList(type:StoreModel.RemainType)->Results<StoreModel> {
-        return stores.filter("remain_stat == %@",type.rawValue)
+        return stores.filter("remain_stat == %@",type.rawValue).sorted(byKeyPath: "distance")
     }
     
     @IBAction func onTouchupViewOnMap(_ sender:UIButton) {
