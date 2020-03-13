@@ -9,6 +9,9 @@
 import Foundation
 import RealmSwift
 import CoreLocation
+extension Notification.Name {
+    static let deletedStoreModel = Notification.Name(rawValue: "deletedStoreModelObserver")
+}
 
 class StoreModel : Object {
     enum StoreType:String {
@@ -112,5 +115,13 @@ class StoreModel : Object {
             let b = CLLocation(latitude: last.latitude, longitude: last.longitude)
             distance = a.distance(from: b)
         }
+    }
+    /** 로컬DB에서 스토어 정보를 전부 삭제함*/
+    static func deleteAll() {
+        let realm = try! Realm()
+        realm.beginWrite()
+        realm.delete(realm.objects(StoreModel.self))
+        try! realm.commitWrite()
+        NotificationCenter.default.post(name: .deletedStoreModel, object: nil, userInfo: nil)
     }
 }

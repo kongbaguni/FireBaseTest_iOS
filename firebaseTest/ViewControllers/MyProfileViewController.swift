@@ -162,6 +162,10 @@ class MyProfileViewController: UITableViewController {
             guard let userinfo = UserInfo.info else {
                 return
             }
+            if userinfo.distanceForSearch != selectSearchDistance {
+                StoreModel.deleteAll()
+            }
+            
             let realm = try! Realm()
             realm.beginWrite()
             userinfo.name = nameTextField.text ?? ""

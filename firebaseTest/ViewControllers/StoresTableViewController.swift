@@ -33,6 +33,10 @@ class StoresTableViewController: UITableViewController {
         emptyView.frame.size.height = view.frame.height - 100
         tableViewHeaderButton.setTitle("view on map".localized, for: .normal)
         setHeaderTitle()
+        NotificationCenter.default.addObserver(forName: .deletedStoreModel, object: nil, queue: nil) { [weak self](_) in
+            self?.tableView.reloadData()
+            self?.onRefreshCongrol(UIRefreshControl())
+        }
     }
     
     var stores:Results<StoreModel> {

@@ -90,6 +90,7 @@ extension AppDelegate : GIDSignInDelegate {
             if error == nil {
                 if UserInfo.info == nil {
                     authResult?.saveUserInfo(idToken: authentication.idToken, accessToken: authentication.accessToken)
+                    StoreModel.deleteAll()
                     UserInfo.info?.syncData(complete: { (isNew) in
                         if isNew {
                             UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
