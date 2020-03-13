@@ -10,13 +10,13 @@ import UIKit
 extension UIApplication {
     var isDarkMode:Bool {
         if #available(iOS 12.0, *) {
-            return lastViewController?.traitCollection.userInterfaceStyle == .dark
+            return windows.first?.rootViewController?.traitCollection.userInterfaceStyle == .dark
         }
         return false
     }
     
     var lastViewController:UIViewController? {
-        if var vc = windows.last?.rootViewController {
+        if var vc = windows.first?.rootViewController {
             while vc.presentedViewController != nil {
                 vc = vc.presentedViewController!
             }

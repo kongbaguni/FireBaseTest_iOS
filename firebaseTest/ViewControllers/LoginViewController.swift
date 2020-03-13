@@ -15,6 +15,8 @@ import NVActivityIndicatorView
 class LoginViewController: UIViewController {
     let autologinBgView: UIView = UIView(frame: UIScreen.main.bounds)
     
+    @IBOutlet weak var versionLabel: UILabel!
+    
     class var viewController : LoginViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! LoginViewController
     }
@@ -47,6 +49,7 @@ class LoginViewController: UIViewController {
         let maskIcon = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width:30,height:30))
             .withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
         maskNowBtn.setImage(maskIcon, for: .normal)
+        versionLabel.text = "ver : \(UIApplication.shared.version)"
     }
     
     @IBAction func onTouchupLoginGoogleBtn(_ sender:UIButton) {

@@ -93,7 +93,7 @@ class StoresTableViewController: UITableViewController {
     
     private func setHeaderTitle() {
         updateDtLabel.text = String(format: "update : %@".localized, stores.first?.updateDt.relativeTimeStringValue ?? "0")
-        let number = stores.filter("remain_stat != %@","empty").count
+        let number = stores.filter("remain_stat != %@ && remain_stat != %@ ","empty","break").count
         tableViewHeaderTitleLabel.text = String(format:"Where to buy masks near %@ meters: %@ places".localized, "\( UserInfo.info?.distanceForSearch ?? Consts.DISTANCE_STORE_SEARCH)", "\(number)")
     }
     
@@ -118,8 +118,10 @@ class StoresTableViewController: UITableViewController {
             return .some
         case 2:
             return .few
-        default:
+        case 3:
             return .empty
+        default:
+            return .break
         }
     }
     
@@ -127,7 +129,7 @@ class StoresTableViewController: UITableViewController {
         if stores.count == 0 {
             return 0
         }
-        return 4
+        return 5
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

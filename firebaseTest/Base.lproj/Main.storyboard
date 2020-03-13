@@ -37,6 +37,12 @@
                                     <segue destination="8RS-YL-7rv" kind="show" id="qKc-Bh-NmP"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version:1.0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eE8-TJ-b0P">
+                                <rect key="frame" x="335" y="837.5" width="69" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -46,12 +52,15 @@
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="Yix-rA-O0y" secondAttribute="bottom" constant="50" id="cvm-2o-RZv"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="Urd-op-hvF" secondAttribute="trailing" constant="30" id="dSr-Tb-3V2"/>
                             <constraint firstItem="Urd-op-hvF" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="dkb-Kq-nR5"/>
+                            <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="eE8-TJ-b0P" secondAttribute="trailing" constant="10" id="fY1-h6-Gn6"/>
+                            <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="eE8-TJ-b0P" secondAttribute="bottom" constant="10" id="qsE-b3-800"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="apL-ZA-0RF"/>
                     </view>
                     <connections>
                         <outlet property="loginGoogleBtn" destination="Yix-rA-O0y" id="z5I-xX-8kT"/>
                         <outlet property="maskNowBtn" destination="Urd-op-hvF" id="Oad-Y3-BIH"/>
+                        <outlet property="versionLabel" destination="eE8-TJ-b0P" id="VXc-gP-iV5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aw-CK-01d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -837,7 +846,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myBubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="V5W-97-7LQ">
-                                            <rect key="frame" x="51.5" y="25" width="312.5" height="126.5"/>
+                                            <rect key="frame" x="51.5" y="25" width="317.5" height="126.5"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dst-e9-1uH">
                                             <rect key="frame" x="10" y="0.0" width="334" height="21"/>
@@ -861,7 +870,7 @@
                                         <constraint firstAttribute="trailing" secondItem="AYs-Ee-yW1" secondAttribute="trailing" constant="70" id="5DV-lQ-l3m"/>
                                         <constraint firstItem="XPU-kE-WSn" firstAttribute="leading" secondItem="Dst-e9-1uH" secondAttribute="trailing" constant="10" id="8e8-KA-A9B"/>
                                         <constraint firstItem="V5W-97-7LQ" firstAttribute="bottom" secondItem="AYs-Ee-yW1" secondAttribute="bottom" constant="5" id="CY3-RU-1WI"/>
-                                        <constraint firstItem="V5W-97-7LQ" firstAttribute="trailing" secondItem="AYs-Ee-yW1" secondAttribute="trailing" constant="20" id="EVs-A5-zQx"/>
+                                        <constraint firstItem="V5W-97-7LQ" firstAttribute="trailing" secondItem="AYs-Ee-yW1" secondAttribute="trailing" constant="25" id="EVs-A5-zQx"/>
                                         <constraint firstItem="AYs-Ee-yW1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0lZ-Nu-9cf" secondAttribute="leading" constant="50" id="K15-D2-fXo"/>
                                         <constraint firstItem="V5W-97-7LQ" firstAttribute="top" secondItem="AYs-Ee-yW1" secondAttribute="top" constant="-5" id="fOa-iZ-RCJ"/>
                                         <constraint firstItem="Dst-e9-1uH" firstAttribute="top" secondItem="0lZ-Nu-9cf" secondAttribute="top" id="jPy-cL-jex"/>

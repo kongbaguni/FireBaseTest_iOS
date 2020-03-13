@@ -60,6 +60,8 @@
 "plenty" = "많음";
 "some" = "약간"; 
 "few" = "적음";
+"break" = "문닫음";
+
 "Location information access is required.\nPlease make your location accessible." = "위치정보 접근이 필요합니다.\n사용자의 위치에 접근 가능하도록 설정해주세요.";
 "Setting up" = "설정하기";
 

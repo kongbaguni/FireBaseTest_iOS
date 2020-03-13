@@ -38,6 +38,8 @@ class StoreModel : Object {
         case some = "some"
         /** 적음*/
         case few = "few"
+        /** 문닫음*/
+        case `break` = "break"
         
         var colorValue:UIColor {
             switch self {
@@ -47,8 +49,10 @@ class StoreModel : Object {
                 return UIColor(red: 0.9, green: 0.7, blue: 0, alpha: 1)
             case .few:
                 return UIColor(red: 0.6, green: 0.0, blue: 0, alpha: 1)
-            default:
-                return .gray
+            case .empty:
+                return UIColor(white: 0.6, alpha: 1)
+            case .break:
+                return UIColor(white: 0.4, alpha: 1)
             }
         }
     }
