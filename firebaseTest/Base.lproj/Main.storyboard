@@ -1001,8 +1001,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFc-Pd-u2A">
+                                <rect key="frame" x="0.0" y="88" width="414" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lsW-b6-E8j">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="118" width="414" height="744"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1011,15 +1017,19 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="lsW-b6-E8j" firstAttribute="leading" secondItem="t6u-Yu-QR8" secondAttribute="leading" id="4dX-Nc-E5V"/>
-                            <constraint firstItem="t6u-Yu-QR8" firstAttribute="trailing" secondItem="lsW-b6-E8j" secondAttribute="trailing" id="d4p-jB-niJ"/>
-                            <constraint firstItem="lsW-b6-E8j" firstAttribute="top" secondItem="t6u-Yu-QR8" secondAttribute="top" id="jf5-10-1uA"/>
-                            <constraint firstItem="t6u-Yu-QR8" firstAttribute="bottom" secondItem="lsW-b6-E8j" secondAttribute="bottom" id="oPl-vp-AYg"/>
+                            <constraint firstItem="pFc-Pd-u2A" firstAttribute="top" secondItem="t6u-Yu-QR8" secondAttribute="top" id="7PK-jx-ee9"/>
+                            <constraint firstItem="lsW-b6-E8j" firstAttribute="top" secondItem="pFc-Pd-u2A" secondAttribute="bottom" constant="9" id="NHZ-Rt-i1x"/>
+                            <constraint firstItem="lsW-b6-E8j" firstAttribute="leading" secondItem="t6u-Yu-QR8" secondAttribute="leading" id="OoF-Xb-qEO"/>
+                            <constraint firstItem="pFc-Pd-u2A" firstAttribute="leading" secondItem="t6u-Yu-QR8" secondAttribute="leading" id="PQB-Uf-LlV"/>
+                            <constraint firstItem="t6u-Yu-QR8" firstAttribute="bottom" secondItem="lsW-b6-E8j" secondAttribute="bottom" id="v4r-5E-Feg"/>
+                            <constraint firstItem="t6u-Yu-QR8" firstAttribute="trailing" secondItem="lsW-b6-E8j" secondAttribute="trailing" id="vwW-98-nw0"/>
+                            <constraint firstItem="t6u-Yu-QR8" firstAttribute="trailing" secondItem="pFc-Pd-u2A" secondAttribute="trailing" id="xsG-xg-IDS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t6u-Yu-QR8"/>
                     </view>
                     <navigationItem key="navigationItem" id="Xbh-DX-G3o"/>
                     <connections>
+                        <outlet property="textCountLabel" destination="pFc-Pd-u2A" id="QDq-tx-ACg"/>
                         <outlet property="textView" destination="lsW-b6-E8j" id="5GV-JV-2IL"/>
                     </connections>
                 </viewController>

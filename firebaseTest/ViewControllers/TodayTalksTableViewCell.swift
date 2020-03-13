@@ -8,20 +8,26 @@
 
 import UIKit
 import RealmSwift
-fileprivate let textStyle0:[NSAttributedString.Key:Any] = [
-    .font               : UIFont.systemFont(ofSize: 18),
-    .foregroundColor    : UIColor.text_color
-]
+fileprivate var textStyle0:[NSAttributedString.Key:Any] {
+    [
+        .font               : UIFont.systemFont(ofSize: 18),
+        .foregroundColor    : UIColor.text_color
+    ]
+}
 
-fileprivate let textStyle1:[NSAttributedString.Key:Any] = [
-    .font               : UIFont.systemFont(ofSize: 10),
-    .foregroundColor    : UIColor.text_color
-]
+fileprivate var textStyle1:[NSAttributedString.Key:Any] {
+    [
+        .font               : UIFont.systemFont(ofSize: 10),
+        .foregroundColor    : UIColor.text_color
+    ]
+}
 
-fileprivate let textStyle2:[NSAttributedString.Key:Any] = [
-    .font               : UIFont.boldSystemFont(ofSize: 10),
-    .foregroundColor    : UIColor.bold_text_color
-]
+fileprivate var textStyle2:[NSAttributedString.Key:Any] {
+    [
+        .font               : UIFont.boldSystemFont(ofSize: 10),
+        .foregroundColor    : UIColor.bold_text_color
+    ]
+}
 
 class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var bubbleImageView:UIImageView!

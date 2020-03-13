@@ -13,7 +13,19 @@ class GameManager {
     let info = UserInfo.info!
     /** 포인트 사용하기*/
     func usePoint(point:Int,complete:@escaping(_ sucess:Bool)->Void) {
-        info.addPoint(point: -point, complete: complete)
+        info.addPoint(point: -point) { (sucess) in
+            if sucess {
+                DispatchQueue.main.async {
+                    let msg = String(format:"%@ point used\nexp get : %@\nexp : %@\nlevel : %@".localized
+                        ,point.decimalForamtString
+                        ,point.decimalForamtString
+                        ,UserInfo.info?.exp.decimalForamtString ?? "0"
+                        ,((UserInfo.info?.level ?? 0)+1).decimalForamtString)
+                    Toast.makeToast(message: msg)
+                }
+            }
+            complete(sucess)
+        }
     }
     /** 포인트 더하기*/
     func addPoint(point:Int,complete:@escaping(_ sucess:Bool)->Void) {

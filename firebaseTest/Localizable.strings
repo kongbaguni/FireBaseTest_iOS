@@ -81,3 +81,7 @@
 "It cannot exceed 1000 characters." = "1000자 넘을 수 없습니다.";
 "level" = "레벨";
 "exp" = "경험치";
+"Receive points" = "광고 보고 포인트 받기";
+
+"need point: %@, my point: %@" = "필요한 포인트 : %@, 나의 포인트 : %@";
+"%@ point used\nexp get : %@\nexp : %@\nlevel : %@" = "%@ 포인트 사용\n경험치 획득 : %@\n경험치 : %@\n레벨 : %@";

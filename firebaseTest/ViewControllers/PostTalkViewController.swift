@@ -8,10 +8,14 @@
 
 import UIKit
 import RealmSwift
+import RxCocoa
+import RxSwift
 
 class PostTalkViewController: UIViewController {
     @IBOutlet weak var textView:UITextView!
+    @IBOutlet weak var textCountLabel: UILabel!
     var documentId:String? = nil
+    let disposebag = DisposeBag()
     
     var document:TalkModel? {
         if let id = documentId {
@@ -33,6 +37,22 @@ class PostTalkViewController: UIViewController {
             textView.text = text
         }
         textView.becomeFirstResponder()
+        textView
+                  .rx.text
+                  .orEmpty
+                  .subscribe(onNext: { [weak self](query) in
+                      print(query)
+                    let point = query.count.decimalForamtString
+                    let myPoint = UserInfo.info?.point.decimalForamtString ?? "0"
+                    let msg = String(format:"need point: %@, my point: %@".localized, point ,myPoint)
+                    if UserInfo.info?.point ?? 0 < query.count {
+                        self?.textCountLabel.textColor = .red
+                    } else {
+                        self?.textCountLabel.textColor = .text_color
+                    }
+                    self?.textCountLabel.text = msg
+                    
+                  }).disposed(by: self.disposebag)
     }
     
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
@@ -105,23 +125,27 @@ class PostTalkViewController: UIViewController {
         }
         
         UserInfo.info?.syncData(syncAll: false, complete: { (_) in
-            if UserInfo.info?.point ?? 0 < 100 {
+            if UserInfo.info?.point ?? 0 < text.count {
                 let msg = String(format:"Not enough points Current Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
                 let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
                 vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
                     //TODO 광고보기 넣을것.
-                    UserInfo.info?.addPoint(point: Consts.POINT_BY_AD, complete: { (isSucess) in
-                        self.onTouchupSaveBtn(sender)
-                    })
+                    GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in
+                        if isSucess {
+                            self.onTouchupSaveBtn(sender)
+                        }
+                    }
                 }))
                 vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
                 self.present(vc, animated: true, completion: nil)
                 sender.isEnabled = true
                 return
             }
-            UserInfo.info?.addPoint(point: -Consts.POINT_FOR_WRITE, complete: { (issucess) in
-                write()
-            })
+            GameManager.shared.usePoint(point: text.count) { (isSucess) in
+                if isSucess {
+                    write()
+                }
+            }
         })
         
     }

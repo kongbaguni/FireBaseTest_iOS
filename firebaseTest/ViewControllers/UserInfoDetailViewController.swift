@@ -102,11 +102,12 @@ class UserInfoDetailViewController: UITableViewController {
             vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
             present(vc, animated: true, completion: nil)
         case pointTitleLabel:
-            // TODO:광고보기
-            UserInfo.info?.addPoint(point: Consts.POINT_BY_AD, complete: { (isSucess) in
-                cell?.detailTextLabel?.text = UserInfo.info?.point.decimalForamtString
-            })
-            break
+            // TODO:광고보기 
+            GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in
+                if isSucess {
+                    cell?.detailTextLabel?.text = UserInfo.info?.point.decimalForamtString
+                }
+            }
         default:
             break
         }

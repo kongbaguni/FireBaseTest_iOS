@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 import FirebaseFirestore
 import RealmSwift
-
+extension Notification.Name {
+    static let levelupNotification = Notification.Name("levelupNotificationObserver")
+}
 class UserInfo : Object {
     var id:String {
         return email
@@ -31,9 +33,10 @@ class UserInfo : Object {
     /** 경험치*/
     @objc dynamic var exp                       : Int       = 0 {
         didSet {
-            if exp > 100000 {
-                exp -= 100000
+            if exp > Consts.LEVELUP_REQ_EXP {
+                exp -= Consts.LEVELUP_REQ_EXP
                 level += 1
+                NotificationCenter.default.post(name: .levelupNotification, object: level)
             }
         }
     }
@@ -153,8 +156,7 @@ class UserInfo : Object {
             var newUsers:[UserInfo] = []
             for doc in snapShot?.documents ?? [] {
                 let info = doc.data()
-                guard let name = info["name"] as? String,
-                    let email = info["email"] as? String else {
+                guard let email = info["email"] as? String else {
                         continue
                 }
                 if email == self.email {
