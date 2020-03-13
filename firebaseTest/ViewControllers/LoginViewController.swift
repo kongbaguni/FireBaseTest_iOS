@@ -15,6 +15,9 @@ import NVActivityIndicatorView
 class LoginViewController: UIViewController {
     let autologinBgView: UIView = UIView(frame: UIScreen.main.bounds)
     
+    @IBOutlet weak var titleBubbleImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleImageView: UIImageView!
     @IBOutlet weak var versionLabel: UILabel!
     
     class var viewController : LoginViewController {
@@ -43,6 +46,8 @@ class LoginViewController: UIViewController {
             indicator.startAnimating()
         }
         
+        titleBubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
+        
         let icon = #imageLiteral(resourceName: "google").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
         loginGoogleBtn.setImage(icon, for: .normal)
         
@@ -50,6 +55,8 @@ class LoginViewController: UIViewController {
             .withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
         maskNowBtn.setImage(maskIcon, for: .normal)
         versionLabel.text = "ver : \(UIApplication.shared.version)"
+        
+        titleImageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate).withTintColor(.bold_text_color)
     }
     
     @IBAction func onTouchupLoginGoogleBtn(_ sender:UIButton) {

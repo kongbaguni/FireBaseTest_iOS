@@ -15,6 +15,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dentist-mask" translatesAutoresizingMaskIntoConstraints="NO" id="5TE-DS-aKV">
+                                <rect key="frame" x="57" y="373" width="300" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5TE-DS-aKV" secondAttribute="height" multiplier="15:8" id="Hu0-ia-W7P"/>
+                                    <constraint firstAttribute="width" constant="300" id="cYE-X6-DG5"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="8Uw-il-gAW">
+                                <rect key="frame" x="237" y="473" width="147" height="52.5"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yix-rA-O0y">
                                 <rect key="frame" x="30" y="762" width="354" height="50"/>
                                 <constraints>
@@ -38,8 +48,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version:1.0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eE8-TJ-b0P">
-                                <rect key="frame" x="335" y="837.5" width="69" height="14.5"/>
+                                <rect key="frame" x="315" y="837.5" width="69" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mask Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJp-i9-wSo">
+                                <rect key="frame" x="267" y="473" width="102" height="52.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -47,25 +63,37 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Yix-rA-O0y" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="6Qp-LX-5Ws"/>
+                            <constraint firstItem="eE8-TJ-b0P" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="315" id="IeA-qa-va5"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="Yix-rA-O0y" secondAttribute="trailing" constant="30" id="J0o-Hy-izn"/>
+                            <constraint firstItem="8Uw-il-gAW" firstAttribute="top" secondItem="nJp-i9-wSo" secondAttribute="top" id="MoJ-nd-HRM"/>
+                            <constraint firstItem="8Uw-il-gAW" firstAttribute="bottom" secondItem="nJp-i9-wSo" secondAttribute="bottom" id="NGU-Hv-H1f"/>
+                            <constraint firstItem="8Uw-il-gAW" firstAttribute="leading" secondItem="nJp-i9-wSo" secondAttribute="leading" constant="-30" id="TKE-wp-kTE"/>
+                            <constraint firstItem="5TE-DS-aKV" firstAttribute="centerY" secondItem="apL-ZA-0RF" secondAttribute="centerY" id="U1j-a9-49f"/>
+                            <constraint firstItem="5TE-DS-aKV" firstAttribute="centerX" secondItem="apL-ZA-0RF" secondAttribute="centerX" id="V2a-ff-3Oi"/>
                             <constraint firstItem="Yix-rA-O0y" firstAttribute="top" secondItem="Urd-op-hvF" secondAttribute="bottom" constant="30" id="YpU-Uy-DLb"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="Yix-rA-O0y" secondAttribute="bottom" constant="50" id="cvm-2o-RZv"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="Urd-op-hvF" secondAttribute="trailing" constant="30" id="dSr-Tb-3V2"/>
                             <constraint firstItem="Urd-op-hvF" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="dkb-Kq-nR5"/>
-                            <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="eE8-TJ-b0P" secondAttribute="trailing" constant="10" id="fY1-h6-Gn6"/>
+                            <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eE8-TJ-b0P" secondAttribute="trailing" id="fY1-h6-Gn6"/>
+                            <constraint firstItem="nJp-i9-wSo" firstAttribute="leading" secondItem="5TE-DS-aKV" secondAttribute="trailing" constant="-90" id="lFB-Zy-jW3"/>
+                            <constraint firstItem="8Uw-il-gAW" firstAttribute="trailing" secondItem="nJp-i9-wSo" secondAttribute="trailing" constant="15" id="mZ0-0Z-R16"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="eE8-TJ-b0P" secondAttribute="bottom" constant="10" id="qsE-b3-800"/>
+                            <constraint firstItem="nJp-i9-wSo" firstAttribute="top" secondItem="5TE-DS-aKV" secondAttribute="bottom" constant="-60" id="v3h-8d-Yv8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="apL-ZA-0RF"/>
                     </view>
                     <connections>
                         <outlet property="loginGoogleBtn" destination="Yix-rA-O0y" id="z5I-xX-8kT"/>
                         <outlet property="maskNowBtn" destination="Urd-op-hvF" id="Oad-Y3-BIH"/>
+                        <outlet property="titleBubbleImageView" destination="8Uw-il-gAW" id="RoY-Ed-HAE"/>
+                        <outlet property="titleImageView" destination="5TE-DS-aKV" id="LuM-BJ-VOE"/>
+                        <outlet property="titleLabel" destination="nJp-i9-wSo" id="mW1-04-bmE"/>
                         <outlet property="versionLabel" destination="eE8-TJ-b0P" id="VXc-gP-iV5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aw-CK-01d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-996" y="-1634"/>
+            <point key="canvasLocation" x="-997.10144927536237" y="-1634.5982142857142"/>
         </scene>
         <!--User Info Detail View Controller-->
         <scene sceneID="Ebd-Ej-Pzs">
@@ -1113,6 +1141,7 @@
     </scenes>
     <resources>
         <image name="bubble_light" width="37.5" height="52.5"/>
+        <image name="dentist-mask" width="256" height="256"/>
         <image name="location" width="293.5" height="427"/>
         <image name="myBubble_light" width="37.5" height="52.5"/>
         <image name="profile" width="300" height="300"/>
