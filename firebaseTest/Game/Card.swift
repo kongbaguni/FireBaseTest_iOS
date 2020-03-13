@@ -394,6 +394,12 @@ struct CardSet {
     }
     
     func getGameResult(targetCardSet:CardSet)->GameResult {
+        if cardValue.rawValue > targetCardSet.cardValue.rawValue {
+            return .win
+        }
+        if cardValue.rawValue < targetCardSet.cardValue.rawValue {
+            return .lose
+        }
         if point > targetCardSet.point {
             return .win
         } else if point < targetCardSet.point {

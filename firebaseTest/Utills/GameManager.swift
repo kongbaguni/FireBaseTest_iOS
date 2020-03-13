@@ -18,7 +18,7 @@ class GameManager {
         info.addPoint(point: -point) { (sucess) in
             if sucess {
                 DispatchQueue.main.async {
-                    let msg = String(format:"%@ point used\npoint : %@\nexp get : %@\nexp : %@\nlevel : %@".localized
+                    let msg = String(format:"%@ point used\n\npoint : %@\nexp get : %@\nexp : %@\nlevel : %@".localized
                         ,point.decimalForamtString
                         ,UserInfo.info?.point.decimalForamtString ?? "0"
                         ,point.decimalForamtString
@@ -93,27 +93,53 @@ class GameManager {
             let documentId = "card\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)"
             let creatorId = UserInfo.info!.id
             let regTimeIntervalSince1970 = Date().timeIntervalSince1970
-            talkModel.loadData(id: documentId, text: "\(cards.stringValue)\n\(cards.cardValue)", creatorId: creatorId, regTimeIntervalSince1970: regTimeIntervalSince1970)
+            talkModel.loadData(id: documentId, text: "", creatorId: creatorId, regTimeIntervalSince1970: regTimeIntervalSince1970)
             talkModel.cardSet = cards
             talkModel.delarCardSet = d_cards
             talkModel.bettingPoint = bettingPoint
+            var gameResult:CardSet.GameResult = .tie
+            
+            if let card1 = talkModel.cardSet, let card2 = talkModel.delarCardSet {
+                gameResult = card1.getGameResult(targetCardSet: card2)
+            }
+            
+            var pointGetStr = ""
+            var resultPoint = talkModel.creator?.point ?? 0
+            switch gameResult {
+            case .win:
+                pointGetStr = "+" + (bettingPoint).decimalForamtString
+                resultPoint += (bettingPoint * 2)
+            case .lose:
+                pointGetStr = "-" + (bettingPoint).decimalForamtString
+            case .tie:
+                pointGetStr = "+0"
+                resultPoint += bettingPoint
+            }
+            
+            let format = "%@ point betting %@ %@\n%@ point %@ point".localized
+            let msg = String(
+                format: format
+                , bettingPoint.decimalForamtString
+                , cards.cardValue.stringValue.localized
+                , gameResult.rawValue.localized
+                , pointGetStr
+                , resultPoint.decimalForamtString
+            )
+            talkModel.text = msg
+            
             talkModel.update {(isSucess) in
-                if let talk = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: documentId) {
-                    if let card1 = talk.cardSet, let card2 = talk.delarCardSet {
-                        switch card1.getGameResult(targetCardSet: card2) {
-                        case .win:
-                            self.addPoint(point: talk.bettingPoint * 2) { (sucess) in
-                                complete(sucess)
-                            }
-                        case .tie:
-                            self.addPoint(point: talk.bettingPoint) { (sucess) in
-                                complete(sucess)
-                            }
-                        default :
-                            complete(isSucess)
-                            break
-                        }
+                switch gameResult {
+                case .win:
+                    self.addPoint(point: bettingPoint * 2) { (sucess) in
+                        complete(sucess)
                     }
+                case .tie:
+                    self.addPoint(point: bettingPoint) { (sucess) in
+                        complete(sucess)
+                    }
+                default :
+                    complete(isSucess)
+                    break
                 }
             }
         }

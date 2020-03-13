@@ -107,13 +107,41 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     @objc func onTouchupCardGame(_ sender:UIBarButtonItem) {
-        GameManager.shared.playPokerGame(useJoker: false, bettingPoint: 1000) { [weak self](isSucess) in
-            if let s = self {
-                s.tableView.reloadData()
-                let number = s.tableView.numberOfRows(inSection: 0)
-                s.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
-            }
+        let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
+        let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
+        let lastBetting = try! Realm().objects(TalkModel.self).filter("creatorId = %@ && bettingPoint > 0",UserInfo.info!.id).last?.bettingPoint ?? UserInfo.info!.point / 10
+        vc.addTextField { (textFiled) in
+            textFiled.text = "\(lastBetting)"
+            textFiled.keyboardType = .numberPad
+            textFiled
+                .rx.text.orEmpty.subscribe(onNext: { (query) in
+                    let up = UserInfo.info?.point ?? 0
+                    let number = NSString(string: query).integerValue
+                    if number > up {
+                        textFiled.text = "\(up)"
+                    } else {
+                        textFiled.text = "\(number)"
+                    }
+                }).disposed(by: self.disposebag)
         }
+        vc.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { [weak vc] (action) in
+            guard let text = vc?.textFields?.first?.text else {
+                return
+            }
+            let betting = NSString(string:text).integerValue
+            if betting == 0 {
+                return
+            }
+            GameManager.shared.playPokerGame(useJoker: false, bettingPoint: betting) { [weak self](isSucess) in
+                if let s = self {
+                    s.tableView.reloadData()
+                    let number = s.tableView.numberOfRows(inSection: 0)
+                    s.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
+                }
+            }
+        }))
+        vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        present(vc, animated: true, completion: nil)
     }
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {

@@ -40,19 +40,7 @@ class TalkDetailCardTableViewCell: UITableViewCell {
         nameLabel.text = talk.creator?.name
         cardDack.myCards = cardset
         cardDack.delarCards = d_cardSet
-        let gameResult = cardset.getGameResult(targetCardSet: d_cardSet)
-        let result = cardset.getGameResult(targetCardSet: d_cardSet).rawValue.localized
-        var point = 0
-        switch gameResult {
-        case .win:
-            point = talk.bettingPoint
-        case .lose:
-            point = -talk.bettingPoint
-        default:
-            point = 0
-        }
-        let msg = String(format:"[result] %@ %@point".localized, result, point.decimalForamtString)
-        cardDack.gameResultLabel.text = msg
+        cardDack.gameResultLabel.text = talk.text
     }
     
 }

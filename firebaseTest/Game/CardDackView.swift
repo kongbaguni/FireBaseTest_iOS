@@ -26,7 +26,7 @@ class CardDackView : UIView {
             for (index,card) in (delarCards?.cards ?? []).enumerated() {
                 imageViews?[index].image = card.image
             }
-            dealerValueLabel.text = delarCards?.cardValue.stringValue
+            dealerValueLabel.text = "\(delarCards?.cardValue.stringValue ?? "") \(delarCards?.point.decimalForamtString ?? "")"            
         }
     }
     
@@ -36,7 +36,7 @@ class CardDackView : UIView {
             for (index,card) in (myCards?.cards ?? []).enumerated() {
                 imageViews?[index].image = card.image
             }
-            myValueLabel.text = myCards?.cardValue.stringValue
+            myValueLabel.text = "\(myCards?.cardValue.stringValue ?? "") \(myCards?.point.decimalForamtString ?? "")"
         }
     }
 

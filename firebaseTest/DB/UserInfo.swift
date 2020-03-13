@@ -31,15 +31,7 @@ class UserInfo : Object {
     @objc dynamic var point                     : Int       = 0
     @objc dynamic var distanceForSearch         : Int       = Consts.DISTANCE_STORE_SEARCH
     /** 경험치*/
-    @objc dynamic var exp                       : Int       = 0 {
-        didSet {
-            if exp > Consts.LEVELUP_REQ_EXP {
-                exp -= Consts.LEVELUP_REQ_EXP
-                level += 1
-                NotificationCenter.default.post(name: .levelupNotification, object: level)
-            }
-        }
-    }
+    @objc dynamic var exp                       : Int       = 0
     /** 레벨*/
     @objc dynamic var level                     : Int       = 0
     var lastTalkDt:Date? {
@@ -234,7 +226,12 @@ class UserInfo : Object {
             let realm = try! Realm()
             realm.beginWrite()
             self.point += point
-            self.exp += abs(point)
+            exp += abs(point)
+            if exp > Consts.LEVELUP_REQ_EXP {
+                exp -= Consts.LEVELUP_REQ_EXP
+                level += 1
+                NotificationCenter.default.post(name: .levelupNotification, object: level)
+            }
             try! realm.commitWrite()
         }
         addPoint(point: point)
