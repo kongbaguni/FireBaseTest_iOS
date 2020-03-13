@@ -38,25 +38,27 @@ class PostTalkViewController: UIViewController {
         }
         textView.becomeFirstResponder()
         textView
-                  .rx.text
-                  .orEmpty
-                  .subscribe(onNext: { [weak self](query) in
-                      print(query)
-                    let point = query.count.decimalForamtString
-                    let myPoint = UserInfo.info?.point.decimalForamtString ?? "0"
-                    let msg = String(format:"need point: %@, my point: %@".localized, point ,myPoint)
-                    if UserInfo.info?.point ?? 0 < query.count {
-                        self?.textCountLabel.textColor = .red
-                    } else {
-                        self?.textCountLabel.textColor = .text_color
-                    }
-                    self?.textCountLabel.text = msg
-                    
-                  }).disposed(by: self.disposebag)
+            .rx.text
+            .orEmpty
+            .subscribe(onNext: { [weak self](query) in
+                print(query)
+                let text = query.trimForPostValue
+                let point = text.count.decimalForamtString
+                let myPoint = UserInfo.info?.point.decimalForamtString ?? "0"
+                let msg = String(format:"need point: %@, my point: %@".localized, point ,myPoint)
+                if UserInfo.info?.point ?? 0 < query.count {
+                    self?.textCountLabel.textColor = .red
+                } else {
+                    self?.textCountLabel.textColor = .text_color
+                }
+                self?.textCountLabel.text = msg
+                
+            }).disposed(by: self.disposebag)
     }
     
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
-        let text = textView.text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+        let text = textView.text.trimForPostValue
+        textView.text = text
         var isEdit:Bool {
             if let edit = document?.editList.last {
                 return text != edit.text
@@ -110,7 +112,7 @@ class PostTalkViewController: UIViewController {
             let documentId = "\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)"
             let regTimeIntervalSince1970 = Date().timeIntervalSince1970
             let creatorId = UserInfo.info!.id
-            let talk = textView.text ?? ""
+            let talk = text
             let talkModel = TalkModel()
             talkModel.loadData(id: documentId, text: talk, creatorId: creatorId, regTimeIntervalSince1970: regTimeIntervalSince1970)
             talkModel.update { [weak self](sucess) in

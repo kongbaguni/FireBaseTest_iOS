@@ -160,4 +160,19 @@ extension String {
         formatter.dateFormat = format
         return formatter.date(from: self)
     }
+    
+    /** 앞뒤로 공백및 줄바꾸기 제거*/
+    var trimForPostValue:String {
+        func trim(_ value:String)->String {
+            return self.replacingOccurrences(of: "    ", with: " ")
+            .replacingOccurrences(of: "   ", with: " ")
+            .replacingOccurrences(of: "  ", with: " ")
+            .replacingOccurrences(of: "\n\n\n\n\n", with: "\n\n")
+            .replacingOccurrences(of: "\n\n\n\n", with: "\n\n")
+            .replacingOccurrences(of: "\n\n\n", with: "\n\n")
+        }
+        
+        let value = self.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+        return trim(trim(value))
+    }
 }
