@@ -28,6 +28,17 @@ class UserInfo : Object {
     @objc dynamic var _lastTalkDt               : Date      = Date(timeIntervalSince1970: 0)
     @objc dynamic var point                     : Int       = 0
     @objc dynamic var distanceForSearch         : Int       = Consts.DISTANCE_STORE_SEARCH
+    /** 경험치*/
+    @objc dynamic var exp                       : Int       = 0 {
+        didSet {
+            if exp > 100000 {
+                exp -= 100000
+                level += 1
+            }
+        }
+    }
+    /** 레벨*/
+    @objc dynamic var level                     : Int       = 0
     var lastTalkDt:Date? {
         get {
             if _lastTalkDt == Date(timeIntervalSince1970: 0) {
@@ -82,6 +93,32 @@ class UserInfo : Object {
         return "email"
     }
     
+    func setData(info:[String:Any]) {
+        if let name = info["name"] as? String {
+            self.name = name
+        }
+        if let intro = info["intro"] as? String {
+            self.introduce = intro
+        }
+        if let url = info["profileImageUrl"] as? String {
+            self.profileImageURLfirebase = url
+        }
+        if let value = info["isDefaultProfile"] as? Bool {
+            self.isDeleteProfileImage = value
+        }
+        if let url = info["profileImageUrlGoogle"] as? String {
+            self.profileImageURLgoogle = url
+        }
+        if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
+            self.lastTalkTimeInterval = lastTalkTime
+        }
+        updateDt = Date(timeIntervalSince1970: (info["updateTimeIntervalSince1970"] as? Double ?? 0))
+        point = info["point"] as? Int ?? 0
+        distanceForSearch = info["distanceForSearch"] as? Int ?? Consts.DISTANCE_STORE_SEARCH
+        level = info["level"] as? Int ?? 0
+        exp = info["exp"] as? Int ?? 0
+    }
+    
     /** firebase 에서 데이터를 받아와서 사용자 정보를 갱신합니다.*/
     func syncData(syncAll:Bool = true,complete:@escaping(_ isNew:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection("users")
@@ -95,33 +132,7 @@ class UserInfo : Object {
                     let realm = try! Realm()
                     if let uinfo = realm.object(ofType: UserInfo.self, forPrimaryKey: userId) {
                         realm.beginWrite()
-                        if let name = info["name"] as? String {
-                            uinfo.name = name
-                        }
-                        if let intro = info["intro"] as? String {
-                            uinfo.introduce = intro
-                        }
-                        if let url = info["profileImageUrl"] as? String {
-                            uinfo.profileImageURLfirebase = url
-                        }
-                        if let value = info["isDefaultProfile"] as? Bool {
-                            uinfo.isDeleteProfileImage = value
-                        }
-                        if let url = info["profileImageUrlGoogle"] as? String {
-                            uinfo.profileImageURLgoogle = url
-                        }
-                        if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
-                            uinfo.lastTalkTimeInterval = lastTalkTime
-                        }
-                        if let value = info["updateTimeIntervalSince1970"] as? Double {
-                            uinfo.updateDt = Date(timeIntervalSince1970: TimeInterval(value))
-                        }
-                        if let point = info["point"] as? Int {
-                            uinfo.point = point
-                        }
-                        if let value = info["distanceForSearch"] as? Int {
-                            uinfo.distanceForSearch = value
-                        }
+                        uinfo.setData(info: info)
                         try! realm.commitWrite()
                     }
                     count += 1
@@ -149,23 +160,8 @@ class UserInfo : Object {
                 if email == self.email {
                     continue
                 }
-                let intro = info["intro"] as? String ?? ""
-
-                let isDefaultProfile = info["isDefaultProfile"] as? Bool ?? false
-                let profileImageUrl = info["profileImageUrl"] as? String ?? ""
-                let profileimageUrlGoogle = info["profileImageUrlGoogle"] as? String ?? ""
-                let point = info["point"] as? Int ?? 0
-                let distanceForSearch = info["distanceForSearch"] as? Int ?? Consts.DISTANCE_STORE_SEARCH
-
                 let userInfo = UserInfo()
-                userInfo.email = email
-                userInfo.name = name
-                userInfo.introduce = intro
-                userInfo.isDeleteProfileImage = isDefaultProfile
-                userInfo.profileImageURLfirebase = profileImageUrl
-                userInfo.profileImageURLgoogle = profileimageUrlGoogle
-                userInfo.distanceForSearch = distanceForSearch
-                userInfo.point = point
+                userInfo.setData(info: info)
                 if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
                     userInfo.lastTalkTimeInterval = lastTalkTime
                 }
@@ -195,7 +191,9 @@ class UserInfo : Object {
             "profileImageUrlGoogle" : profileImageURLgoogle,
             "updateTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970,
             "distanceForSearch" : distanceForSearch,
-            "point" : point
+            "point" : point,
+            "level" : level,
+            "exp" : exp
         ]
         
         document.updateData(data) {(error) in
@@ -233,6 +231,7 @@ class UserInfo : Object {
             let realm = try! Realm()
             realm.beginWrite()
             self.point += point
+            self.exp += abs(point)
             try! realm.commitWrite()
         }
         addPoint(point: point)

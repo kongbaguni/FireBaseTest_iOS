@@ -18,6 +18,7 @@
 		C34C6B572418C2B1001D8CF4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B562418C2B1001D8CF4 /* ApiManager.swift */; };
 		C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */; };
 		C34C6B5B2419CC77001D8CF4 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */; };
+		C3630FD0241B339E003479C2 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FCF241B339E003479C2 /* GameManager.swift */; };
 		C370C9F12415F94300026E86 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F02415F94300026E86 /* LikeModel.swift */; };
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
@@ -66,6 +67,7 @@
 		C34C6B562418C2B1001D8CF4 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
 		C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		C3630FCF241B339E003479C2 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		C370C9F02415F94300026E86 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				C3DC5B8E241221F800A028E0 /* Loading.swift */,
 				C3DC5B94241243D400A028E0 /* Consts.swift */,
 				C34C6B562418C2B1001D8CF4 /* ApiManager.swift */,
+				C3630FCF241B339E003479C2 /* GameManager.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */,
 				C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */,
 				C3C43A1C241A6E95002788B1 /* TalkDetailMapTableViewCell.swift in Sources */,
+				C3630FD0241B339E003479C2 /* GameManager.swift in Sources */,
 				C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */,
 				C3DC5B8F241221F800A028E0 /* Loading.swift in Sources */,
 				C3EF51C8240CEB7700A4C29E /* MainNavigationController.swift in Sources */,

@@ -58,6 +58,10 @@ class StoresTableViewController: UITableViewController {
                 }
                 self?.tableView.reloadData()
             }).disposed(by: self.disposebag)
+        
+        if UserInfo.info != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNavigationBarButton(_:)))
+        }
     }
     
     var stores:Results<StoreModel> {
@@ -89,6 +93,18 @@ class StoresTableViewController: UITableViewController {
             self?.tableView.reloadData()
             self?.setHeaderTitle()
         }
+    }
+    
+    @objc func onTouchupNavigationBarButton(_ sender:UIBarButtonItem) {
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (_) in
+            self.performSegue(withIdentifier: "showProfile", sender: nil)
+        }))
+        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (_) in
+            UserInfo.info?.logout()
+        }))
+        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        present(vc, animated: true, completion: nil)        
     }
     
     private func setHeaderTitle() {

@@ -79,3 +79,5 @@
 "Send an email to %@" = "%@에게 이메일을 보냅니다.";
 "search distance" = "검색 거리";
 "It cannot exceed 1000 characters." = "1000자 넘을 수 없습니다.";
+"level" = "레벨";
+"exp" = "경험치";

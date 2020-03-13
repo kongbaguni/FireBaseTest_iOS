@@ -20,6 +20,11 @@ class UserInfoDetailViewController: UITableViewController {
     @IBOutlet weak var pointTitleLabel:UILabel!
     @IBOutlet weak var pointLabel:UILabel!
     @IBOutlet weak var pointCell:UITableViewCell!
+    @IBOutlet weak var levelTitleLabel:UILabel!
+    @IBOutlet weak var levelLabel:UILabel!
+    @IBOutlet weak var expTitleLabel:UILabel!
+    @IBOutlet weak var expLabel:UILabel!
+    
     var userId:String? = nil
     var user:UserInfo? {
         if let id = userId {
@@ -41,6 +46,9 @@ class UserInfoDetailViewController: UITableViewController {
         super.viewDidLoad()
         title = user?.name
         pointTitleLabel.text = "Point".localized
+        levelTitleLabel.text = "level".localized
+        expTitleLabel.text = "exp".localized
+        
         pointLabel.text = "\(user?.point ?? 0)"
         loadData()
         
@@ -66,6 +74,8 @@ class UserInfoDetailViewController: UITableViewController {
         emailLabel.text = user?.email
         intoduceLabel.text = user?.introduce
         pointLabel.text = user?.point.decimalForamtString
+        levelLabel.text = ((user?.level ?? 0) + 1).decimalForamtString
+        expLabel.text = user?.exp.decimalForamtString
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
