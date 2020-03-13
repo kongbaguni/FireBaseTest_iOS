@@ -157,12 +157,13 @@ class UserInfo : Object {
             for doc in snapShot?.documents ?? [] {
                 let info = doc.data()
                 guard let email = info["email"] as? String else {
-                        continue
+                    continue
                 }
                 if email == self.email {
                     continue
                 }
                 let userInfo = UserInfo()
+                userInfo.email = email
                 userInfo.setData(info: info)
                 if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
                     userInfo.lastTalkTimeInterval = lastTalkTime
