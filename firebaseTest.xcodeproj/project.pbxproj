@@ -29,6 +29,7 @@
 		C370C9F92417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */; };
 		C370C9FB2417688A00026E86 /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9FA2417688A00026E86 /* Date+extensions.swift */; };
 		C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */; };
+		C3757AF8241BC76500FB1819 /* GoogleAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3757AF7241BC76500FB1819 /* GoogleAd.swift */; };
 		C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E59240DDEEC006070CF /* UserInfo.swift */; };
 		C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E5B240DE535006070CF /* String+Extensions.swift */; };
 		C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */; };
@@ -82,6 +83,7 @@
 		C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailEditHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		C370C9FA2417688A00026E86 /* Date+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
 		C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTableViewController.swift; sourceTree = "<group>"; };
+		C3757AF7241BC76500FB1819 /* GoogleAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAd.swift; sourceTree = "<group>"; };
 		C3780E59240DDEEC006070CF /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C3780E5B240DE535006070CF /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 		C3DC5B8D241221EE00A028E0 /* Utills */ = {
 			isa = PBXGroup;
 			children = (
+				C3757AF7241BC76500FB1819 /* GoogleAd.swift */,
 				C33839E42418AE1C00CADC60 /* PermissionData.swift */,
 				C33839E22418ADD800CADC60 /* LocationManager.swift */,
 				C33839DA241873D600CADC60 /* Toast.swift */,
@@ -437,6 +440,7 @@
 				C3DC5B91241224E100A028E0 /* TalkModel.swift in Sources */,
 				C3FED0B9240F7CB7007A4F4F /* FirebaseStorageHelper.swift in Sources */,
 				C3FED0BD240F9F8E007A4F4F /* AuthDataResult+Extensions.swift in Sources */,
+				C3757AF8241BC76500FB1819 /* GoogleAd.swift in Sources */,
 				C370C9FB2417688A00026E86 /* Date+extensions.swift in Sources */,
 				C370C9F12415F94300026E86 /* LikeModel.swift in Sources */,
 				C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */,

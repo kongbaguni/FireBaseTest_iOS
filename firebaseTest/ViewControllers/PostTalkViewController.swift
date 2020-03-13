@@ -16,7 +16,7 @@ class PostTalkViewController: UIViewController {
     @IBOutlet weak var textCountLabel: UILabel!
     var documentId:String? = nil
     let disposebag = DisposeBag()
-    
+    let googleAd = GoogleAd()
     var document:TalkModel? {
         if let id = documentId {
             return try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id)
@@ -128,13 +128,23 @@ class PostTalkViewController: UIViewController {
         
         UserInfo.info?.syncData(syncAll: false, complete: { (_) in
             if UserInfo.info?.point ?? 0 < text.count {
-                let msg = String(format:"Not enough points Current Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
+                let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
                 let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
                 vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
                     //TODO 광고보기 넣을것.
-                    GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in
+                    self.googleAd.showAd(targetViewController: self) { (isSucess) in
                         if isSucess {
-                            self.onTouchupSaveBtn(sender)
+                            GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in
+                                if isSucess {
+                                    let msg = String(format:"%@ point get!".localized, Consts.POINT_BY_AD.decimalForamtString)
+                                    Toast.makeToast(message: msg)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                                        self.onTouchupSaveBtn(sender)
+                                    }
+                                }
+                            }
+                        } else {
+                             self.onTouchupSaveBtn(sender)
                         }
                     }
                 }))

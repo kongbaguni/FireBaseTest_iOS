@@ -24,6 +24,8 @@ struct Consts {
         let level = UserInfo.info?.level ?? 0
         return 10000 + (level * 100)
     }
-    
+    /** 검색 거리 목록*/
     static let SEARCH_DISTANCE_LIST:[Int] = [500,1000,2000]
+    /** 구글 광고 아이디*/
+    static let GADID = "ca-app-pub-7714069006629518/9754456852"
 }

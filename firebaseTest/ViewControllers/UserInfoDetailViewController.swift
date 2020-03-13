@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import Kingfisher
 import RealmSwift
+import GoogleMobileAds
 
 class UserInfoDetailViewController: UITableViewController {
     @IBOutlet weak var profileImageView:UIImageView!
@@ -33,6 +34,7 @@ class UserInfoDetailViewController: UITableViewController {
         return nil
     }
     
+    let googlead = GoogleAd()
     class var viewController : UserInfoDetailViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "userInfoDetail") as! UserInfoDetailViewController
         
@@ -102,15 +104,22 @@ class UserInfoDetailViewController: UITableViewController {
             vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
             present(vc, animated: true, completion: nil)
         case pointTitleLabel:
-            // TODO:광고보기 
-            GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in
+            googlead.showAd(targetViewController: self) { (isSucess) in
                 if isSucess {
-                    cell?.detailTextLabel?.text = UserInfo.info?.point.decimalForamtString
+                    GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in
+                        if isSucess {
+                            let msg = String(format:"%@ point get!".localized, Consts.POINT_BY_AD.decimalForamtString)
+                            Toast.makeToast(message: msg)
+                            self.loadData()
+                        }
+                    }
                 }
             }
+
         default:
             break
         }
     }
     
 }
+

@@ -34,6 +34,7 @@ class GameManager {
     func addPoint(point:Int,complete:@escaping(_ sucess:Bool)->Void) {
         info.addPoint(point: point, complete: complete)
     }
+    let googleAd = GoogleAd()
     
     fileprivate var cardDack:[Card] = []
     fileprivate var isUseJoker = false
@@ -73,14 +74,7 @@ class GameManager {
         return CardSet(cards: list)
     }
     
-    func playPokerGame(useJoker:Bool,bettingPoint:Int,complete:@escaping(_ isSucess:Bool)->Void) {
-        if UserInfo.info?.point ?? 0 < bettingPoint {
-            let msg = String(format:"Not enough points Current Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
-            Toast.makeToast(message: msg)
-            complete(false)
-            //TODO :  광고보기 구현할것
-            return
-        }
+    func playPokerGame(useJoker:Bool,bettingPoint:Int,complete:@escaping(_ isSucess:Bool)->Void) {      
         func playGame() {
             if self.cardDack.isEmpty {
                 insertCardAndShuffle(useJoker: useJoker)

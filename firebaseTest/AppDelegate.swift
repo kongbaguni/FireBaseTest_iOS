@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import RealmSwift
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         signin()
+        
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
     }
 
