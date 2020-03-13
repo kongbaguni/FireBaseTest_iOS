@@ -55,12 +55,11 @@
 "mask now" = "마스크 현황";
 "stock at : " = "입고 시각 : ";
 
-
-"empty" = "없음";
-"plenty" = "많음";
-"some" = "약간"; 
-"few" = "적음";
-"break" = "문닫음";
+"plenty" = "많음 (100개 이상)";
+"some" = "약간 (30개 이상 100개 미만)";
+"few" = "적음 (2개이상 30개 미만)";
+"empty" = "없음 (1개 이하)";
+"break" = "판매 중지";
 
 "Location information access is required.\nPlease make your location accessible." = "위치정보 접근이 필요합니다.\n사용자의 위치에 접근 가능하도록 설정해주세요.";
 "Setting up" = "설정하기";

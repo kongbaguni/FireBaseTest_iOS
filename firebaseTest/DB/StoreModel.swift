@@ -15,8 +15,12 @@ extension Notification.Name {
 
 class StoreModel : Object {
     enum StoreType:String {
+        /** 약국*/
         case pharmacy = "01"
+        /** 우체국*/
         case postoffice = "02"
+        /** 농협*/
+        case nh = "03"
         
         var image:UIImage {
             switch self {
@@ -24,21 +28,25 @@ class StoreModel : Object {
                 return #imageLiteral(resourceName: "pharmacy").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
             case .postoffice:
                 return #imageLiteral(resourceName: "postoffice").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
+            case .nh:
+                return #imageLiteral(resourceName: "NH_icon").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
 
             }
         }
     }
     
     enum RemainType:String {
+//        재고 상태[100개 이상(녹색): 'plenty' / 30개 이상 100개미만(노랑색): 'some' / 2개 이상 30개 미만(빨강색): 'few' / 1개 이하(회색): 'empty' / 판매중지: 'break']
 //        녹색(100개 이상)/노랑색(30~99개)/빨강색(2~29개)/회색(0~1개)
+        /** 1개 이하*/
         case empty = "empty"
-        /** 많음*/
+        /** 많음 100개 이상*/
         case plenty = "plenty"
-        /** 약간*/
+        /** 약간 30개 이상*/
         case some = "some"
-        /** 적음*/
+        /** 2개 이상 30개 미만 */
         case few = "few"
-        /** 문닫음*/
+        /** 중지*/
         case `break` = "break"
         
         var colorValue:UIColor {
