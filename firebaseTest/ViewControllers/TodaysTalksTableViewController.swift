@@ -57,8 +57,9 @@ class TodaysTalksTableViewController: UITableViewController {
             }).disposed(by: self.disposebag)
         
         toolBar.items = [
-            UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:)))
-        ]
+            UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:))),
+            UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:)))
+        ]        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,6 +106,16 @@ class TodaysTalksTableViewController: UITableViewController {
 
     }
     
+    @objc func onTouchupCardGame(_ sender:UIBarButtonItem) {
+        GameManager.shared.playPokerGame(useJoker: false, bettingPoint: 1000) { [weak self](isSucess) in
+            if let s = self {
+                s.tableView.reloadData()
+                let number = s.tableView.numberOfRows(inSection: 0)
+                s.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
+            }
+        }
+    }
+    
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
@@ -149,11 +160,18 @@ class TodaysTalksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = list[indexPath.row]
-        
-        let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
-        cell.setData(data: list[indexPath.row])
-        return cell
+        if data.cardSet != nil {
+            let cellId = data.creatorId == UserInfo.info?.id ? "myCardCell" : "cardCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TalkDetailCardTableViewCell
+            cell.talkId = data.id            
+            return cell
+        }
+        else {
+            let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
+            cell.setData(data: list[indexPath.row])
+            return cell
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -201,7 +219,7 @@ class TodaysTalksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let data = list[indexPath.row]
         var actions:[UIContextualAction] = []
-        if data.creatorId == UserInfo.info?.id {
+        if data.creatorId == UserInfo.info?.id && data.cardSet == nil {
             let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
                 if let data = self?.list[indexPath.row] {
                     self?.needScrolIndex = indexPath

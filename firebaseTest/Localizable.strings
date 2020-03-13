@@ -84,4 +84,10 @@
 "Receive points" = "광고 보고 포인트 받기";
 
 "need point: %@, my point: %@" = "필요한 포인트 : %@, 나의 포인트 : %@";
-"%@ point used\nexp get : %@\nexp : %@\nlevel : %@" = "%@ 포인트 사용\n경험치 획득 : %@\n경험치 : %@\n레벨 : %@";
+"%@ point used\npoint : %@\nexp get : %@\nexp : %@\nlevel : %@" = "%@ 포인트 사용\n남은 포인트 : %@\n경험치 획득 : %@\n경험치 : %@\n레벨 : %@";
+
+"[result] %@ %@point" = "[결과] %@ %@포인트";
+
+"win" = "이겼다!";
+"lose" = "졌다...";
+"tie" = "비겼다...";

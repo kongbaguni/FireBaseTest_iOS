@@ -46,6 +46,34 @@ class TalkModel: Object {
     @objc dynamic var creatorId:String = ""
     @objc dynamic var lng:Double = UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
     @objc dynamic var lat:Double = UserDefaults.standard.lastMyCoordinate?.latitude ?? 0
+    @objc dynamic var cards:String = ""
+    var cardSet:CardSet?  {
+        set {
+            if let set = newValue {
+                cards = set.stringValue
+            } else {
+                cards = ""
+            }
+        }
+        get {
+            return CardSet.makeCardsWithString(string: cards) 
+        }
+    }
+    @objc dynamic var delarCards:String = ""
+    var delarCardSet:CardSet?  {
+        set {
+            if let set = newValue {
+                delarCards = set.stringValue
+            } else {
+                delarCards = ""
+            }
+        }
+        get {
+            return CardSet.makeCardsWithString(string: delarCards)
+        }
+    }
+    @objc dynamic var bettingPoint:Int = 0
+
     
     var cordinate:CLLocationCoordinate2D? {
         if lat != 0 && lng != 0 {
@@ -134,7 +162,10 @@ class TalkModel: Object {
             "likeIds":likeIds,
             "editTextIds":editTexts,
             "lat":lat,
-            "lng":lng
+            "lng":lng,
+            "cards":cards,
+            "delarCards":delarCards,
+            "bettingPoint":bettingPoint
         ]
         
         let collection = Firestore.firestore().collection("talks")
@@ -184,7 +215,9 @@ class TalkModel: Object {
                         model.creatorId = creatorId
                         model.text = text
                         model.id = id
-                        
+                        model.cards = data["cards"] as? String ?? ""
+                        model.delarCards = data["delarCards"] as? String ?? ""
+                        model.bettingPoint = data["bettingPoint"] as? Int ?? 0
                         if let likeIds = data["likeIds"] as? [String] {
                             var cnt = 0
                             for likeId in likeIds {

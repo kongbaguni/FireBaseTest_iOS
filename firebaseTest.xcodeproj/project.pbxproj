@@ -19,6 +19,10 @@
 		C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */; };
 		C34C6B5B2419CC77001D8CF4 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */; };
 		C3630FD0241B339E003479C2 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FCF241B339E003479C2 /* GameManager.swift */; };
+		C3630FD3241B51CE003479C2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FD2241B51CE003479C2 /* Card.swift */; };
+		C3630FD6241B5C7C003479C2 /* CardDackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FD4241B5C7B003479C2 /* CardDackView.swift */; };
+		C3630FD7241B5C7C003479C2 /* CardDackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3630FD5241B5C7C003479C2 /* CardDackView.xib */; };
+		C3630FD9241B5F31003479C2 /* TalkDetailCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FD8241B5F31003479C2 /* TalkDetailCardTableViewCell.swift */; };
 		C370C9F12415F94300026E86 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F02415F94300026E86 /* LikeModel.swift */; };
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
@@ -68,6 +72,10 @@
 		C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
 		C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		C3630FCF241B339E003479C2 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		C3630FD2241B51CE003479C2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		C3630FD4241B5C7B003479C2 /* CardDackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDackView.swift; sourceTree = "<group>"; };
+		C3630FD5241B5C7C003479C2 /* CardDackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardDackView.xib; sourceTree = "<group>"; };
+		C3630FD8241B5F31003479C2 /* TalkDetailCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailCardTableViewCell.swift; sourceTree = "<group>"; };
 		C370C9F02415F94300026E86 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -135,6 +143,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C3630FD1241B51C1003479C2 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				C3630FD4241B5C7B003479C2 /* CardDackView.swift */,
+				C3630FD5241B5C7C003479C2 /* CardDackView.xib */,
+				C3630FD2241B51CE003479C2 /* Card.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
 		C3780E5F240E15D0006070CF /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +168,7 @@
 				C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */,
 				C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */,
 				C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */,
+				C3630FD8241B5F31003479C2 /* TalkDetailCardTableViewCell.swift */,
 				C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */,
 				C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */,
 				C34C6B542418C1BF001D8CF4 /* StoresTableViewController.swift */,
@@ -191,6 +210,7 @@
 		C3BDFBFD240CD79D006AE2B3 /* firebaseTest */ = {
 			isa = PBXGroup;
 			children = (
+				C3630FD1241B51C1003479C2 /* Game */,
 				C3DC5B8D241221EE00A028E0 /* Utills */,
 				C3FED0B7240F7C90007A4F4F /* firebaseUtil */,
 				C3780E68240F5B94006070CF /* DB */,
@@ -307,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3780E63240F361A006070CF /* Localizable.strings in Resources */,
+				C3630FD7241B5C7C003479C2 /* CardDackView.xib in Resources */,
 				C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */,
 				C33839DF2418A1CE00CADC60 /* GoogleService-Info.plist in Resources */,
 				C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */,
@@ -387,6 +408,7 @@
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
 				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
+				C3630FD3241B51CE003479C2 /* Card.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3DC5B95241243D400A028E0 /* Consts.swift in Sources */,
 				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,
@@ -401,6 +423,7 @@
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
 				C33839E72418AECD00CADC60 /* MapViewController.swift in Sources */,
 				C33839DB241873D600CADC60 /* Toast.swift in Sources */,
+				C3630FD9241B5F31003479C2 /* TalkDetailCardTableViewCell.swift in Sources */,
 				C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */,
 				C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */,
 				C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */,
@@ -418,6 +441,7 @@
 				C370C9F12415F94300026E86 /* LikeModel.swift in Sources */,
 				C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */,
 				C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */,
+				C3630FD6241B5C7C003479C2 /* CardDackView.swift in Sources */,
 				C3EF51C3240CE56A00A4C29E /* UserInfoDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
