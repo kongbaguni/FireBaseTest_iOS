@@ -190,7 +190,7 @@ class TodaysTalksTableViewController: UITableViewController {
             }
         })
         action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.15, alpha: 1)
-        let iconRed =  #imageLiteral(resourceName: "heart").af_imageAspectScaled(toFit: CGSize(width: 20, height: 20))
+        let iconRed =  #imageLiteral(resourceName: "heart").af.imageAspectScaled(toFit: CGSize(width: 20, height: 20))
                       
         let iconWhite =  iconRed.withTintColor(.white)
         action.image = model.isLike ? iconRed : iconWhite

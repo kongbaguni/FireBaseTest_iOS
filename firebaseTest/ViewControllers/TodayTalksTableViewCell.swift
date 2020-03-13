@@ -46,12 +46,12 @@ class TodayTalksTableViewCell: UITableViewCell {
             text.append(NSAttributedString(string: data.text, attributes: textStyle0))
         }
 
+        text.append(NSAttributedString(string: "\n\n"))
         if data.likes.count > 0 {
-            text.append(NSAttributedString(string: "\n\n"))
             text.append(NSAttributedString(string: "like : ".localized, attributes: textStyle2))
             text.append(NSAttributedString(string: "\(data.likes.count)", attributes: textStyle1))
+            text.append(NSAttributedString(string: "\n"))
         }
-        text.append(NSAttributedString(string: "\n\n"))
         text.append(NSAttributedString(string: "reg : ".localized, attributes: textStyle2))
         text.append(NSAttributedString(string: "\(data.regDt.relativeTimeStringValue)", attributes: textStyle1))
 

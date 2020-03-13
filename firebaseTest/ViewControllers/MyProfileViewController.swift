@@ -44,7 +44,7 @@ class MyProfileViewController: UITableViewController {
             return nil
         }
         set {
-            let image = newValue?.af_imageAspectScaled(toFit: CGSize(width: 100, height: 100))
+            let image = newValue?.af.imageAspectScaled(toFit: CGSize(width: 100, height: 100))
             profileImageBase64String = image?.pngData()?.base64EncodedString()
             profileImageView.setImage(image: image, placeHolder: #imageLiteral(resourceName: "profile"))
             if image != nil {
@@ -74,7 +74,7 @@ class MyProfileViewController: UITableViewController {
         }
     }
     
-    let distanceList:[Int] = [500,1000,2000]
+    
     
     deinit {
         debugPrint("deinit \(#file)")
@@ -113,7 +113,7 @@ class MyProfileViewController: UITableViewController {
             self.introduceTextView.text = userInfo.introduce
             self.profileImageView.kf.setImage(with: userInfo.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
             self.selectSearchDistance = userInfo.distanceForSearch
-            if let index = distanceList.lastIndex(of: userInfo.distanceForSearch) {
+            if let index = Consts.SEARCH_DISTANCE_LIST.lastIndex(of: userInfo.distanceForSearch) {
                 self.pickerView.selectRow(index, inComponent: 0, animated: false)
             }
         }
@@ -296,7 +296,7 @@ extension MyProfileViewController : UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return distanceList.count
+        return Consts.SEARCH_DISTANCE_LIST.count
     }
     
 }
@@ -304,10 +304,10 @@ extension MyProfileViewController : UIPickerViewDataSource {
 extension MyProfileViewController : UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(distanceList[row])m"
+        return "\(Consts.SEARCH_DISTANCE_LIST[row])m"
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectSearchDistance = distanceList[row]
+        selectSearchDistance = Consts.SEARCH_DISTANCE_LIST[row]
     }
 }

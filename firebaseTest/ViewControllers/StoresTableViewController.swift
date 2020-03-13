@@ -10,17 +10,24 @@ import UIKit
 import CoreLocation
 import Alamofire
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class StoresTableViewController: UITableViewController {
     @IBOutlet weak var emptyView:EmptyView!
     @IBOutlet weak var updateDtLabel: UILabel!
     @IBOutlet weak var tableViewHeaderTitleLabel: UILabel!
     @IBOutlet weak var tableViewHeaderButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
+    let disposebag = DisposeBag()
+    var filterText:String? = nil
+
     var requestCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "mask now".localized
+        searchBar.placeholder = "Search Store".localized
         emptyView.type = .wait
         emptyView.setTitle()
         if try! Realm().objects(StoreModel.self).count == 0 {
@@ -37,10 +44,28 @@ class StoresTableViewController: UITableViewController {
             self?.tableView.reloadData()
             self?.onRefreshCongrol(UIRefreshControl())
         }
+        
+        searchBar
+            .rx.text
+            .orEmpty
+            .subscribe(onNext: { [weak self](query) in
+                print(query)
+                let q = query.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+                if q.isEmpty == false {
+                    self?.filterText = q
+                } else {
+                    self?.filterText = nil
+                }
+                self?.tableView.reloadData()
+            }).disposed(by: self.disposebag)
     }
     
     var stores:Results<StoreModel> {
-        return try! Realm().objects(StoreModel.self).sorted(byKeyPath: "name")
+        var result = try! Realm().objects(StoreModel.self).sorted(byKeyPath: "name")
+        if let txt = filterText {
+            result = result.filter("name CONTAINS[c] %@ || addr CONTAINS[c] %@",txt,txt)
+        }
+        return result
     }
     
     func getStoreList(type:StoreModel.RemainType)->Results<StoreModel> {

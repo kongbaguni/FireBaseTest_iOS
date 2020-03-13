@@ -16,4 +16,6 @@ struct Consts {
     static let POINT_FOR_WRITE:Int = 100
     /** 광고 시청 1회당 받는 포인트*/
     static let POINT_BY_AD:Int = 500
+    
+    static let SEARCH_DISTANCE_LIST:[Int] = [500,1000,2000]
 }
