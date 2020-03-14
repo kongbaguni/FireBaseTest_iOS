@@ -18,21 +18,17 @@ class TextEditModel : Object {
             if let str = imageUrl?.absoluteString {
                 imageURLstr = str
             }
-            isDeleteImage = isImageDeleted
+            _regDt = regDt
         }
     }
     @objc dynamic var imageURLstr:String = ""
-    @objc dynamic var isDeleteImage:Bool = false
+    @objc dynamic var _regDt:Date = Date(timeIntervalSince1970: 0)
     override static func primaryKey() -> String? {
         return "id"
     }
     
-    func setData(text:String,imageURL:String?,isDeleteImage:Bool) {
-        var imgUrl:String = imageURL ?? "none"
-        if isDeleteImage {
-            imgUrl = "deleted"
-        }
-        self.isDeleteImage = isDeleteImage
+    func setData(text:String,imageURL:String?) {
+        let imgUrl:String = imageURL ?? "none"
         id = "\(text)[__##__]\(imgUrl)[__##__]\(UUID().uuidString)[__##__]\(Date().timeIntervalSince1970)"
     }
     
@@ -90,11 +86,8 @@ class TalkModel: Object {
         if editList.count == 0 {
             return URL(string: imageUrl)
         }
-        if editList.filter("imageURLstr != %@ || isDeleteImage = %@","",true).last?.isImageDeleted == true {
-            return nil
-        }
-        if let model = editList.filter("imageURLstr != %@","").last {
-            return model.imageUrl
+        if let url = editList.last?.imageUrl {
+            return url
         }
         return nil
     }

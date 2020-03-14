@@ -129,7 +129,11 @@ class PostTalkViewController: UITableViewController {
                 if let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
                     realm.beginWrite()
                     let editText = TextEditModel()
-                    editText.setData(text: text, imageURL: imageUrl, isDeleteImage: self.imageWillDelete)
+                    var img = imageUrl
+                    if self.imageWillDelete == false && img == nil {
+                        img = document.imageURL?.absoluteString
+                    }
+                    editText.setData(text: text, imageURL: img)
                     document.insertEdit(data: editText)
                     document.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
                     try! realm.commitWrite()
@@ -242,6 +246,17 @@ class PostTalkViewController: UITableViewController {
             present(ac, animated: true, completion: nil)
         }
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1:
+            return "Contents".localized
+        case 2:
+            return "Attach pictures".localized
+        default:
+            return nil
+        }
+    }    
     
 }
 

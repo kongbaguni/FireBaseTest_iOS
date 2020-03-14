@@ -1321,7 +1321,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
-                            <tableViewSection id="FIU-HH-oAM">
+                            <tableViewSection id="7Gl-7I-S4M">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="Pfx-Ip-jeq" style="IBUITableViewCellStyleDefault" id="hhW-T7-yUQ">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
@@ -1340,8 +1340,12 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="내용" id="FIU-HH-oAM">
+                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="200" id="fue-Kc-OFL">
-                                        <rect key="frame" x="0.0" y="71.5" width="414" height="200"/>
+                                        <rect key="frame" x="0.0" y="127.5" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fue-Kc-OFL" id="5lc-b7-lLv">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
@@ -1364,8 +1368,12 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="사진첨부" id="QeA-rq-rLW">
+                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="200" id="zde-xk-amo">
-                                        <rect key="frame" x="0.0" y="271.5" width="414" height="200"/>
+                                        <rect key="frame" x="0.0" y="383.5" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zde-xk-amo" id="rHc-bW-CWB">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
