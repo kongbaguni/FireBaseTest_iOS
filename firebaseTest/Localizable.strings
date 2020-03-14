@@ -70,6 +70,7 @@
 "update : %@" = "업데이트 : %@";
 "Where to buy masks near %@ meters: %@ places" = "%@m 근처에서 마스크 살 수 있는 곳 : %@곳";
 "view on map" = "지도에서 보기";
+"show stock log" = "재고 상황";
 "Store location" = "상점 위치";
 "Point" = "포인트";
 "Not enough points.\nCurrent Point: %@" = "포인트가 부족합니다.\n현재 포인트 : %@";
@@ -93,3 +94,5 @@
 "win" = "이겼다!";
 "lose" = "졌다...";
 "tie" = "비겼다...";
+
+"stockTable_desc" = "사용자의 검색이력에서 마스크 재고 상황 변화를 보여줍니다. 실제 입고시각과 차이가 있을 수 있습니다.";

@@ -29,6 +29,9 @@ struct Consts {
     /** 검색 거리 목록*/
     static var SEARCH_DISTANCE_LIST:[Int] {
         if let userInfo = UserInfo.info {
+            if userInfo.email == "kongbaguni@gmail.com" {
+                return [500,1000,2000,3000,4000,5000,6000]
+            }
             if userInfo.level < 10 {
                 return [500,1000]
             }

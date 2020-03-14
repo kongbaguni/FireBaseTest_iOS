@@ -219,9 +219,29 @@ class StoresTableViewController: UITableViewController {
                     vc.storeCodes = value
                 }
             }
+        case "showStoreStockLogs":
+            if let vc = segue.destination as? StoreStockLogTableViewController {
+                vc.code = sender as? String
+            }
         default:
             break
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        "view on map" = "지도에서 보기";
+//        "show stock log" = "재고 상황";
+        let list = getStoreList(type: getSectionType(section: indexPath.section))
+        let data = list[indexPath.row]
+        let action1 = UIContextualAction(style: .normal, title: "view on map".localized) { (action, view, complete) in
+            self.performSegue(withIdentifier: "showMap", sender: data.code)
+        }
+        action1.backgroundColor = UIColor(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
+        let action2 = UIContextualAction(style: .normal, title: "show stock log".localized) { (action, view, complete) in
+            self.performSegue(withIdentifier: "showStoreStockLogs", sender: data.code)
+        }
+        action2.backgroundColor = UIColor(red: 0.8, green: 0.6, blue: 0.2, alpha: 1)
+        return UISwipeActionsConfiguration(actions: [action1,action2])
     }
         
 }

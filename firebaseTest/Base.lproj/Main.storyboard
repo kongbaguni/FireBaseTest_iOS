@@ -720,6 +720,7 @@
                         <outlet property="updateDtLabel" destination="MaA-hW-Bua" id="4RG-ux-gog"/>
                         <segue destination="cLq-Zf-QUF" kind="show" identifier="showMap" id="Tmf-Fi-hQn"/>
                         <segue destination="ABD-kk-8hZ" kind="show" identifier="showProfile" id="IOd-bS-gNt"/>
+                        <segue destination="Bgj-rV-ji4" kind="show" identifier="showStoreStockLogs" id="FyS-ee-ii9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLw-Ca-xTd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1398,6 +1399,7 @@
         <image name="profile" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="FyS-ee-ii9"/>
         <segue reference="qKc-Bh-NmP"/>
         <segue reference="IOd-bS-gNt"/>
         <segue reference="CyJ-tB-mFG"/>

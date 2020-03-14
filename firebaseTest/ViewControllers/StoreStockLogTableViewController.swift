@@ -30,7 +30,7 @@ class StoreStockLogTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = store?.name        
+        title = store?.name
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,7 +40,7 @@ class StoreStockLogTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1
+            return 2
         case 1:
             return logs?.count ?? 0
         default:
@@ -53,7 +53,16 @@ class StoreStockLogTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "addressCell", for: indexPath)
-            cell.textLabel?.text = store?.addr
+            switch indexPath.row {
+            case 0:
+                cell.textLabel?.text = store?.addr
+            case 1:
+                cell.textLabel?.text = "stockTable_desc".localized
+                cell.textLabel?.textColor = .weak_text_color
+                cell.textLabel?.font = UIFont.systemFont(ofSize: 10)
+            default:
+                break
+            }
             return cell
         case 1:
             guard let log = logs?[indexPath.row] else {
@@ -68,5 +77,5 @@ class StoreStockLogTableViewController: UITableViewController {
             return UITableViewCell()
         }
     }
-    
+        
 }
