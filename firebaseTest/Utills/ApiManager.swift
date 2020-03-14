@@ -16,6 +16,7 @@ class ApiManager {
     func getStores(complete:@escaping(_ count:Int?)->Void) {
         func request(lat:Double,lng:Double,complete:@escaping(_ count:Int?)->Void) {
             let url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json"
+            print( UserInfo.info?.distanceForSearch )
             let distanc = UserInfo.info?.distanceForSearch ?? Consts.DISTANCE_STORE_SEARCH
             AF.request(url, method: .get, parameters: [
                 "lat" : lat,
@@ -26,11 +27,18 @@ class ApiManager {
                     print("-------------------")
                     if let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] {
                         if let array = json["stores"] as? [[String:Any]] {
-                            var stores:[StoreModel] = []
+                            var stores:[Object] = []
                             for storeInfo in array {
                                 let store = StoreModel()
                                 store.setJson(data: storeInfo)
                                 stores.append(store)
+                                
+                                if StoreStockLogModel.getLastStat(shopcode: store.code) != store.remain_stat {
+                                    let log = StoreStockLogModel()
+                                    log.code = store.code
+                                    log.remain_stat = store.remain_stat
+                                    stores.append(log)
+                                }
                             }
                             
                             let realm = try! Realm()
@@ -61,12 +69,13 @@ class ApiManager {
                 NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) {(notification) in
                     LocationManager.shared.manager.stopUpdatingLocation()
                     if let locations = notification.object as? [CLLocation] {
-                        for location in locations {
+                        if let location = locations.first {
                             UserDefaults.standard.lastMyCoordinate = location.coordinate
                             request(lat: location.coordinate.latitude, lng: location.coordinate.longitude) { (count) in
                                 complete(count)
                             }
                         }
+
                         return
                     }
                     complete(nil)

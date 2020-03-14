@@ -47,5 +47,7 @@ class LikeModel: Object {
         return "id"
     }
         
-    
+    override static func indexedProperties() -> [String] {
+        return ["creatorId"]
+    }
 }

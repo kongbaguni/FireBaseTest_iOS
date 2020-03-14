@@ -17,16 +17,20 @@ extension AuthDataResult {
             if let name = profile["name"] as? String,
                 let email = profile["email"] as? String,
                 let profileUrl = profile["picture"] as? String {
-                
-                let userInfo = UserInfo()
-                userInfo.name = name
-                userInfo.profileImageURLgoogle = profileUrl
-                userInfo.email = email
-                userInfo.idToken = idToken
-                userInfo.accessToken = accessToken
                 let realm = try! Realm()
                 realm.beginWrite()
-                realm.add(userInfo)
+                if let userInfo = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: email) {
+                    userInfo.idToken = idToken
+                    userInfo.accessToken = accessToken
+                } else {
+                    let userInfo = UserInfo()
+                    userInfo.name = name
+                    userInfo.profileImageURLgoogle = profileUrl
+                    userInfo.email = email
+                    userInfo.idToken = idToken
+                    userInfo.accessToken = accessToken
+                    realm.add(userInfo, update: .modified)
+                }
                 try! realm.commitWrite()
             }
         }

@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        migrationRealm()
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
@@ -68,6 +69,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UserInfo.info?.logout()
             }
         }
+    }
+    
+    private func migrationRealm() {
+
+        Realm.Configuration.defaultConfiguration =  Realm.Configuration(
+            schemaVersion: Consts.REALM_VERSION,
+
+            migrationBlock: { migration, oldSchemaVersion in
+//                if (oldSchemaVersion < 1) {
+//                }
+            })
+
     }
 
 }

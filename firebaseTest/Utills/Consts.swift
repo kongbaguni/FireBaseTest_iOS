@@ -28,4 +28,6 @@ struct Consts {
     static let SEARCH_DISTANCE_LIST:[Int] = [500,1000,2000]
     /** 구글 광고 아이디*/
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
+    
+    static let REALM_VERSION:UInt64 = 1
 }

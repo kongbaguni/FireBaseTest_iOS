@@ -138,6 +138,10 @@ class TalkModel: Object {
            return "id"
     }
     
+    override static func indexedProperties() -> [String] {
+        return ["creatorId", "cards"]
+    }
+    
     /** fireBaseStore 에 생성된 데이터 갱신하기*/
     func update(complete:@escaping(_ isSucess:Bool)->Void) {
         if text.isEmpty {

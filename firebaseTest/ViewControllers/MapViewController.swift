@@ -71,6 +71,16 @@ class MapViewController: UIViewController {
         camera.heading = 45
         mapView.camera = camera
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showStoreStockLogs":
+            if let vc = segue.destination as? StoreStockLogTableViewController {
+                vc.code = sender as? String
+            }
+        default:
+            break
+        }
+    }
         
 }
 
@@ -90,5 +100,11 @@ extension MapViewController : MKMapViewDelegate {
         }
         
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let code = (view.annotation as? MyPointAnnotation)?.storeCode {
+            performSegue(withIdentifier: "showStoreStockLogs", sender: code)
+        }
     }
 }

@@ -24,6 +24,15 @@ class StoresTableViewController: UITableViewController {
 
     var requestCount = 0
     
+    var stores:Results<StoreModel> {
+        var result = try! Realm().objects(StoreModel.self).sorted(byKeyPath: "name")
+        if let txt = filterText {
+            result = result.filter("name CONTAINS[c] %@ || addr CONTAINS[c] %@",txt,txt)
+        }
+        return result
+    }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "mask now".localized
@@ -44,7 +53,7 @@ class StoresTableViewController: UITableViewController {
             self?.tableView.reloadData()
             self?.onRefreshCongrol(UIRefreshControl())
         }
-        
+        try! Realm().refresh()
         searchBar
             .rx.text
             .orEmpty
@@ -62,14 +71,6 @@ class StoresTableViewController: UITableViewController {
         if UserInfo.info != nil {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNavigationBarButton(_:)))
         }
-    }
-    
-    var stores:Results<StoreModel> {
-        var result = try! Realm().objects(StoreModel.self).sorted(byKeyPath: "name")
-        if let txt = filterText {
-            result = result.filter("name CONTAINS[c] %@ || addr CONTAINS[c] %@",txt,txt)
-        }
-        return result
     }
     
     func getStoreList(type:StoreModel.RemainType)->Results<StoreModel> {

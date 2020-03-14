@@ -88,6 +88,8 @@ class UserInfo : Object {
         return "email"
     }
     
+
+    
     func setData(info:[String:Any]) {
         if let name = info["name"] as? String {
             self.name = name
@@ -215,7 +217,8 @@ class UserInfo : Object {
         
         let realm = try! Realm()
         realm.beginWrite()
-        realm.deleteAll()
+        UserInfo.info?.idToken = ""
+        UserInfo.info?.accessToken = ""
         try! realm.commitWrite()
         
         UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
