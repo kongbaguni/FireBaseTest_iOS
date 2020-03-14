@@ -194,11 +194,18 @@ class TodaysTalksTableViewController: UITableViewController {
             cell.talkId = data.id            
             return cell
         }
-        else {
-            let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
-            cell.setData(data: list[indexPath.row])
-            return cell
+        else {            
+            if data.imageURL != nil {
+                let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableImageViewCell
+                cell.setData(data: list[indexPath.row])
+                return cell
+            } else {
+                let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
+                cell.setData(data: list[indexPath.row])
+                return cell
+            }
         }
     }
     

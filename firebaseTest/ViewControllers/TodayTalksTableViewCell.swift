@@ -37,7 +37,7 @@ class TodayTalksTableViewCell: UITableViewCell {
     
     func setData(data:TalkModel) {
         switch reuseIdentifier {
-        case "myCell":
+        case "myCell","myImageCell":
             bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "myBubble_dark") : #imageLiteral(resourceName: "myBubble_light")
         default:
             bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
@@ -71,4 +71,25 @@ class TodayTalksTableViewCell: UITableViewCell {
         nameLabel.text = data.creator?.name ?? "unknown people".localized
         self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
     }
+}
+
+class TodayTalksTableImageViewCell :TodayTalksTableViewCell {
+    @IBOutlet weak var attachmentImageView:UIImageView!
+    
+    override func setData(data: TalkModel) {
+        super.setData(data: data)
+        if data.editList.count == 0 {
+            attachmentImageView.setImageUrl(url: data.imageUrl, placeHolder: #imageLiteral(resourceName: "placeholder"))
+        }
+        else {
+            if let url = data.editList.last?.imageUrl {
+                if data.editList.last?.isImageDeleted == true {
+                    attachmentImageView.image = #imageLiteral(resourceName: "placeholder")
+                } else {
+                    attachmentImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"))
+                }
+            }
+        }
+    }
+    
 }

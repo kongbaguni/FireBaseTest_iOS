@@ -13,14 +13,27 @@ import CoreLocation
 
 /** talk 수정이력 기록 위한 모델*/
 class TextEditModel : Object {
-    @objc dynamic var id:String = ""
-    
+    @objc dynamic var id:String = "" {
+        didSet {
+            if let str = imageUrl?.absoluteString {
+                imageURLstr = str
+            }
+            isDeleteImage = isImageDeleted
+        }
+    }
+    @objc dynamic var imageURLstr:String = ""
+    @objc dynamic var isDeleteImage:Bool = false
     override static func primaryKey() -> String? {
         return "id"
     }
     
-    func setData(text:String) {
-        id = "\(text)[__##__]\(UUID().uuidString)[__##__]\(Date().timeIntervalSince1970)"
+    func setData(text:String,imageURL:String?,isDeleteImage:Bool) {
+        var imgUrl:String = imageURL ?? "none"
+        if isDeleteImage {
+            imgUrl = "deleted"
+        }
+        self.isDeleteImage = isDeleteImage
+        id = "\(text)[__##__]\(imgUrl)[__##__]\(UUID().uuidString)[__##__]\(Date().timeIntervalSince1970)"
     }
     
     var regDt:Date {
@@ -32,6 +45,30 @@ class TextEditModel : Object {
     var text:String {
         return id.components(separatedBy: "[__##__]").first!
     }
+    
+    var imageUrl:URL? {
+        if id.components(separatedBy: "[__##__]").count < 2 {
+            return nil
+        }
+        let str = id.components(separatedBy: "[__##__]")[1]
+        if str == "none" || str == "deleted" {
+            return nil
+        }
+        return URL(string: str)
+    }
+    
+    var isImageDeleted:Bool {
+        if id.components(separatedBy: "[__##__]").count < 2 {
+            return false
+        }
+        let str = id.components(separatedBy: "[__##__]")[1]
+        if str == "deleted" {
+            return true
+        }
+        return false
+    }
+    
+    
 }
 
 class TalkModel: Object {
@@ -46,6 +83,22 @@ class TalkModel: Object {
     @objc dynamic var creatorId:String = ""
     @objc dynamic var lng:Double = UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
     @objc dynamic var lat:Double = UserDefaults.standard.lastMyCoordinate?.latitude ?? 0
+    @objc dynamic var imageUrl:String = ""
+    
+    /** 최종 이미지 URL 구하기.*/
+    var imageURL:URL? {
+        if editList.count == 0 {
+            return URL(string: imageUrl)
+        }
+        if editList.filter("imageURLstr != %@ || isDeleteImage = %@","",true).last?.isImageDeleted == true {
+            return nil
+        }
+        if let model = editList.filter("imageURLstr != %@","").last {
+            return model.imageUrl
+        }
+        return nil
+    }
+    
     @objc dynamic var cards:String = ""
     var cardSet:CardSet?  {
         set {
@@ -169,7 +222,8 @@ class TalkModel: Object {
             "lng":lng,
             "cards":cards,
             "delarCards":delarCards,
-            "bettingPoint":bettingPoint
+            "bettingPoint":bettingPoint,
+            "imageUrl":imageUrl
         ]
         
         let collection = Firestore.firestore().collection("talks")
@@ -211,7 +265,7 @@ class TalkModel: Object {
                         let text = data["talk"] as? String,
                         let id = data["documentId"] as? String {
                         let model = TalkModel()
-                        
+                        model.imageUrl = data["imageUrl"] as? String ?? ""
                         model.lng = data["lng"] as? Double ?? 0
                         model.lat = data["lat"] as? Double ?? 0
                         model.regTimeIntervalSince1970 = regTimeIntervalSince1970

@@ -56,7 +56,6 @@ class LoginViewController: UIViewController {
         maskNowBtn.setImage(maskIcon, for: .normal)
         versionLabel.text = "ver : \(UIApplication.shared.version)"
         
-        titleImageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate).withTintColor(.bold_text_color)
     }
     
     @IBAction func onTouchupLoginGoogleBtn(_ sender:UIButton) {
