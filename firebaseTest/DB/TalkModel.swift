@@ -241,6 +241,23 @@ class TalkModel: Object {
     
     static func syncDatas(complete:@escaping()->Void) {
         let collection = Firestore.firestore().collection("talks")
+        guard let myLocation = UserDefaults.standard.lastMyCoordinate else {
+            complete()
+            return
+        }
+        
+        
+        let minlat = myLocation.latitude - 0.005
+        let maxlat = myLocation.latitude + 0.005
+        let minlng = myLocation.longitude - 0.005
+        let maxlng = myLocation.longitude + 0.005
+        
+        collection
+            .whereField("lat", isGreaterThan: minlat)
+            .whereField("lat", isLessThan: maxlat)
+        collection
+            .whereField("lng", isGreaterThan: minlng)
+            .whereField("lng", isLessThan: maxlng)
         collection
             .whereField("regTimeIntervalSince1970", isGreaterThan: Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
             .getDocuments { (shot, error) in

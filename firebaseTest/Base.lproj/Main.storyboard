@@ -1573,7 +1573,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="240.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <mapView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nli-Ij-xKs">
+                                        <mapView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nli-Ij-xKs">
                                             <rect key="frame" x="20" y="20" width="374" height="200.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="byf-sr-O76"/>

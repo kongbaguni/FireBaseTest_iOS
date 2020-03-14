@@ -29,7 +29,7 @@ class TalkDetailMapTableViewCell: UITableViewCell {
         
         let camera = MKMapCamera()
         camera.pitch = 45
-        camera.altitude = 80000
+        camera.altitude = 400
         camera.heading = 45
         self.mapView.camera = camera
     }
