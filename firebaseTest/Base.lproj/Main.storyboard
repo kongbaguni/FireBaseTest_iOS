@@ -1411,7 +1411,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="JFl-tZ-x9h">
-                            <rect key="frame" x="0.0" y="586" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="845" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </view>
@@ -1506,8 +1506,60 @@
                                     <outlet property="textView" destination="49L-lk-brM" id="jVl-Kl-gib"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="editHistoryImage" id="GsF-So-0VR" customClass="TalkDetailEditHistoryImageTableViewCell" customModule="mask_now" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="317.5" width="414" height="259"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GsF-So-0VR" id="5au-Oo-yHA">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="259"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lcs-TV-6FZ">
+                                            <rect key="frame" x="20" y="11" width="374" height="12"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lMv-li-xf9">
+                                            <rect key="frame" x="15" y="25" width="299" height="234"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="lE6-9T-Y0Q"/>
+                                            </constraints>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FsB-Yu-dkg">
+                                            <rect key="frame" x="314" y="41" width="80" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="80" id="7VY-fj-NZw"/>
+                                                <constraint firstAttribute="width" constant="80" id="Tml-S9-Xro"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Lcs-TV-6FZ" firstAttribute="top" secondItem="5au-Oo-yHA" secondAttribute="topMargin" id="CVC-fo-FR9"/>
+                                        <constraint firstItem="FsB-Yu-dkg" firstAttribute="top" secondItem="5au-Oo-yHA" secondAttribute="top" constant="41" id="Cpf-md-XL5"/>
+                                        <constraint firstAttribute="trailing" secondItem="FsB-Yu-dkg" secondAttribute="trailing" constant="20" id="GQg-6b-veP"/>
+                                        <constraint firstAttribute="bottom" secondItem="lMv-li-xf9" secondAttribute="bottom" id="ODw-xW-DSP"/>
+                                        <constraint firstItem="Lcs-TV-6FZ" firstAttribute="leading" secondItem="5au-Oo-yHA" secondAttribute="leadingMargin" id="Ppd-ip-qsb"/>
+                                        <constraint firstItem="lMv-li-xf9" firstAttribute="top" secondItem="5au-Oo-yHA" secondAttribute="top" constant="25" id="fcK-S8-ovp"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FsB-Yu-dkg" secondAttribute="bottom" constant="10" id="iL9-02-Qdc"/>
+                                        <constraint firstAttribute="trailing" secondItem="lMv-li-xf9" secondAttribute="trailing" constant="100" id="rbv-iE-3vR"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Lcs-TV-6FZ" secondAttribute="trailing" id="vhQ-hs-B1R"/>
+                                        <constraint firstItem="lMv-li-xf9" firstAttribute="leading" secondItem="5au-Oo-yHA" secondAttribute="leading" constant="15" id="ybk-aB-hMj"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="attachmentImageView" destination="FsB-Yu-dkg" id="wjF-Ka-Quf"/>
+                                    <outlet property="dateLabel" destination="Lcs-TV-6FZ" id="nYA-c3-FSo"/>
+                                    <outlet property="textView" destination="lMv-li-xf9" id="FoI-hl-OP9"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="map" id="MH0-GQ-U5r" customClass="TalkDetailMapTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="317.5" width="414" height="240.5"/>
+                                <rect key="frame" x="0.0" y="576.5" width="414" height="240.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MH0-GQ-U5r" id="Yag-x9-u2R">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="240.5"/>

@@ -91,6 +91,12 @@ class PostTalkViewController: UITableViewController {
         let text = textView.text.trimForPostValue
         textView.text = text
         var isEdit:Bool {
+            if selectedImage != nil {
+                return true
+            }
+            if imageWillDelete == true {
+                return true
+            }
             if let edit = document?.editList.last {
                 return text != edit.text
             }

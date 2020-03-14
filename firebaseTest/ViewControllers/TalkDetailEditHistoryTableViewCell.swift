@@ -17,3 +17,11 @@ class TalkDetailEditHistoryTableViewCell: UITableViewCell {
         textView.textColor = .text_color
     }
 }
+
+class TalkDetailEditHistoryImageTableViewCell : TalkDetailEditHistoryTableViewCell {
+    @IBOutlet weak var attachmentImageView: UIImageView!
+    override func setData(data: TextEditModel) {
+        super.setData(data: data)        
+        attachmentImageView.kf.setImage(with: data.imageUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
+    }
+}

@@ -69,18 +69,36 @@ class TalkDetailTableViewController: UITableViewController {
             
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "editHistory") as! TalkDetailEditHistoryTableViewCell
             if let editList = talkModel?.editList {
                 if indexPath.row == 0 {
+                    if let imgUrl = talkModel?.imageUrl {
+                        if imgUrl.isEmpty == false {
+                            let cell = tableView.dequeueReusableCell(withIdentifier: "editHistoryImage") as! TalkDetailEditHistoryImageTableViewCell
+                            cell.dateLabel.text = talkModel?.regDt.simpleFormatStringValue
+                            cell.textView.text = talkModel?.text
+                            cell.attachmentImageView.setImageUrl(url: imgUrl, placeHolder: #imageLiteral(resourceName: "placeholder"))
+                            return cell
+                        }
+                    }
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "editHistory") as! TalkDetailEditHistoryTableViewCell
                     cell.dateLabel.text = talkModel?.regDt.simpleFormatStringValue
                     cell.textView.text = talkModel?.text
+                    return cell
+                }
+                let data = editList[indexPath.row - 1]
+                if data.imageUrl != nil {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "editHistoryImage") as! TalkDetailEditHistoryImageTableViewCell
+                    cell.setData(data: data)
+                    return cell
+
                 } else {
-                    let edit = editList[indexPath.row - 1]
-                    cell.setData(data: edit)
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "editHistory") as! TalkDetailEditHistoryTableViewCell
+                    cell.setData(data: data)
+                    return cell
                 }
             }
+            return UITableViewCell()
             
-            return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo") as! TalkDetailUserInfoTableViewCell
             if let likeList = talkModel?.likes {
@@ -93,7 +111,7 @@ class TalkDetailTableViewController: UITableViewController {
             cell.location = talkModel?.location
             return cell
         default:
-            abort()
+            return UITableViewCell()
         }
     }
     
