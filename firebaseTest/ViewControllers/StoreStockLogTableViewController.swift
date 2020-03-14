@@ -30,26 +30,43 @@ class StoreStockLogTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = store?.name
+        title = store?.name        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return logs?.count ?? 0
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return logs?.count ?? 0
+        default:
+            return 0
+        
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let log = logs?[indexPath.row] else {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addressCell", for: indexPath)
+            cell.textLabel?.text = store?.addr
+            return cell
+        case 1:
+            guard let log = logs?[indexPath.row] else {
+                return UITableViewCell()
+            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel?.text = log.remain_stat.localized
+            cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
+            cell.detailTextLabel?.text = log.regDt.simpleFormatStringValue
+            return cell
+        default:
             return UITableViewCell()
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = log.remain_stat.localized
-        cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
-        cell.detailTextLabel?.text = log.regDt.simpleFormatStringValue
-        return cell        
     }
     
 }
