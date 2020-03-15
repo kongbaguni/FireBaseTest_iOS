@@ -117,11 +117,6 @@ class PostTalkViewController: UITableViewController {
         sender.isEnabled = false
 
         func write(imageUrl:String?) {
-            print("--------------")
-            print(text)
-            print("--------------")
-            print(document?.text ?? "없네?")
-            print("--------------")
             view.endEditing(true)
             Loading.show(viewController: self)
             if let id = self.documentId {

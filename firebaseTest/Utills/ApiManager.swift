@@ -23,7 +23,6 @@ class ApiManager {
                 "m" : distanc
             ]).response { (response) in
                 if let data = response.data {
-                    print("-------------------")
                     if let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] {
                         if let array = json["stores"] as? [[String:Any]] {
                             var stores:[Object] = []
@@ -46,11 +45,9 @@ class ApiManager {
                             realm.add(stores,update: .all)
                             try! realm.commitWrite()
                             complete(stores.count)
-                            print("\(stores.count)")
                             return
                         }
                     }
-                    print("-------------------")
                 }
                 complete(nil)
             }

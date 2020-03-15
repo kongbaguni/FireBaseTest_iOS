@@ -125,7 +125,6 @@ class StoreModel : Object {
         remain_stat = data["remain_stat"] as? String ?? "empty"
         stockDt = (data["stock_at"] as? String)?.dateValue(format: "yyyy/MM/dd hh:mm:ss") ?? Date(timeIntervalSince1970: 0)
         type = data["type"] as? String ?? ""
-        print(remain_stat)
         if let last = UserDefaults.standard.lastMyCoordinate {
             let a = CLLocation(latitude: lat, longitude: lng)
             let b = CLLocation(latitude: last.latitude, longitude: last.longitude)
@@ -161,31 +160,31 @@ class StoreModel : Object {
                     complete(nil)
                     return
                 }
-                var logs:[StoreStockLogModel] = []
+                let realm = try! Realm()
+            
                 for doc in snap.documents {
                     let data = doc.data()
                     if let id = data["id"] as? String
                         , let remain_stat = data["remain_stat"] as? String
                         , let storeCode = data["shopcode"] as? String
                     {
-                        let logModel = StoreStockLogModel()
-                        logModel.id = id
-                        logModel.code =  storeCode
-                        logModel.remain_stat = remain_stat
-                        logModel.uploaded = true
-                        if let int = data["regDtTimeIntervalSince1970"] as? Double {
-                            logModel.regDt = Date(timeIntervalSince1970: int)
+                        let lastLog = realm.objects(StoreStockLogModel.self).filter("code = %@", storeCode).last
+                        if lastLog?.remain_stat != remain_stat {
+                            let logModel = StoreStockLogModel()
+                            logModel.id = id
+                            logModel.code =  storeCode
+                            logModel.remain_stat = remain_stat
+                            logModel.uploaded = true
+                            if let int = data["regDtTimeIntervalSince1970"] as? Double {
+                                logModel.regDt = Date(timeIntervalSince1970: int)
+                            }
+                            realm.beginWrite()
+                            realm.add(logModel, update: .all)
+                            try! realm.commitWrite()
                         }
-                        logs.append(logModel)
                     }
                 }
-                if logs.count > 0 {
-                    let realm = try! Realm()
-                    realm.beginWrite()
-                    realm.add(logs, update: .all)
-                    try! realm.commitWrite()
-                }
-                complete(logs.count)
+            complete(snap.documents.count)
         }
 
     }

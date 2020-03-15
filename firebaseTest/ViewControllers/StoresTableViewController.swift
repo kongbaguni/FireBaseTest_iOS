@@ -92,9 +92,11 @@ class StoresTableViewController: UITableViewController {
             self?.emptyView.type = count == nil ? .locationNotAllow : .empty
             self?.setTableStyle()
             self?.tableView.reloadData()
-            self?.setHeaderTitle()            
-            ApiManager.shard.uploadShopStockLogs {
-                
+            self?.setHeaderTitle()
+            if (self?.stores.count ?? 100) < 20 {
+                ApiManager.shard.uploadShopStockLogs {
+                    
+                }
             }
         }
     }
