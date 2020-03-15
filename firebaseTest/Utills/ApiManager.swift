@@ -87,7 +87,9 @@ class ApiManager {
             ids.append(item.id)
         }
         print("upload log count : \(ids.count)")
-       
+        #if DEBUG
+        Toast.makeToast(message: "upload log count : \(ids.count)")
+        #endif
         func upload(upComplete:@escaping()->Void) {
             if let id = ids.first {
                 if let model = try! Realm().object(ofType: StoreStockLogModel.self, forPrimaryKey: id) {

@@ -83,26 +83,20 @@ class StoresTableViewController: UITableViewController {
         }
         performSegue(withIdentifier: "showMap", sender: codes)
     }
-    var count = 0
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
-        count += 1
-        var cnt2 = 0
-        debugPrint("ref count: \(count)")
+        var cnt = 0
         ApiManager.shard.getStores { [weak self](count) in
-            if count ?? 0 > 0 {
-                debugPrint("ref count: \(self?.count ?? 0) : \(cnt2)")
-                if cnt2 == 0 {
-                    ApiManager.shard.uploadShopStockLogs {
-                        sender.endRefreshing()
-                        self?.emptyView.type = count == nil ? .locationNotAllow : .empty
-                        self?.setTableStyle()
-                        self?.tableView.reloadData()
-                        self?.setHeaderTitle()
-                    }
+            if cnt == 0 {
+                sender.endRefreshing()
+                self?.emptyView.type = count == nil ? .locationNotAllow : .empty
+                self?.setTableStyle()
+                self?.tableView.reloadData()
+                self?.setHeaderTitle()
+                
+                ApiManager.shard.uploadShopStockLogs {
                 }
-                cnt2 += 1
-
             }
+            cnt += 1            
         }
     }
     
