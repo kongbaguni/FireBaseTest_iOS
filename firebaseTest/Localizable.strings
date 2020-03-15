@@ -99,3 +99,7 @@
 "Attach pictures" = "사진 첨부";
 "Contents" = "내용";
 "point" = "포인트";
+
+"game count limit over msg" = "오늘은 더이상 게임을 할 수 없습니다.";
+"hide game talk" = "게임 감추기";
+ 

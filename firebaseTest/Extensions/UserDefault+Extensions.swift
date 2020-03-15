@@ -31,4 +31,13 @@ extension UserDefaults {
             return nil
         }
     }
+    
+    var isHideGameTalk:Bool {
+        set {
+            set(newValue, forKey: "hideGameTalk")
+        }
+        get {
+            bool(forKey: "hideGameTalk")
+        }
+    }
 }

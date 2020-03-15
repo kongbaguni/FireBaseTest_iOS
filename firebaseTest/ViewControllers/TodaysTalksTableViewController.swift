@@ -28,7 +28,9 @@ class TodaysTalksTableViewController: UITableViewController {
             let maxlng = myLocation.longitude + 0.005
             result = result.filter("lat > %@ && lat < %@ && lng > %@ && lng < %@",minlat, maxlat, minlng, maxlng)
         }
-
+        if UserDefaults.standard.isHideGameTalk {
+            result = result.filter("bettingPoint = %@",0)
+        }
         
         if let txt = filterText {
             result = result.filter("textForSearch CONTAINS[c] %@", txt)
@@ -43,10 +45,17 @@ class TodaysTalksTableViewController: UITableViewController {
     
     @IBOutlet weak var toolBar:UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    @IBOutlet weak var hideGameOptionLabel: UILabel!
+    @IBOutlet weak var hideGameOptionSwitch : UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "todays talks".localized
         searchBar.placeholder = "text search".localized
+        hideGameOptionLabel.text = "hide game talk".localized
+        hideGameOptionSwitch.isOn = UserDefaults.standard.isHideGameTalk
+        hideGameOptionSwitch.onTintColor = .bold_text_color
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -69,6 +78,11 @@ class TodaysTalksTableViewController: UITableViewController {
             UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:))),
             UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:)))
         ]
+        hideGameOptionSwitch.rx.isOn.subscribe { (event) in
+            UserDefaults.standard.isHideGameTalk = self.hideGameOptionSwitch.isOn
+            self.tableView.reloadData()
+            self.toolBar.items?.last?.isEnabled = !self.hideGameOptionSwitch.isOn
+        }.disposed(by: self.disposebag)
         
         NotificationCenter.default.addObserver(forName: .game_usePointAndGetExpNotification, object: nil, queue: nil) { [weak self](notification) in
             func showStatus(change:StatusChange) {
@@ -136,6 +150,12 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     @objc func onTouchupCardGame(_ sender:UIBarButtonItem) {
+        let gameCount = UserInfo.info?.todaysMyGameCount ?? 0
+        if gameCount > Consts.MAX_GAME_COUNT {
+            debugPrint("game count : \(gameCount)")
+            Toast.makeToast(message: "game count limit over msg".localized)
+            return
+        }
         let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
         let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
         let lastBetting = try! Realm().objects(TalkModel.self).filter("creatorId = %@ && bettingPoint > 0",UserInfo.info!.id).last?.bettingPoint ?? UserInfo.info!.point / 10

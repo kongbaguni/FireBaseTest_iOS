@@ -13,7 +13,11 @@ struct Consts {
     
     /** 상점 검색 범의 (미터 단위)*/
     static let DISTANCE_STORE_SEARCH:Int = 500
-
+    
+    static var MAX_GAME_COUNT:Int {
+        let level = UserInfo.info?.level ?? 0
+        return 5 + (level/10)
+    }
     /** 레벨업에 필요한 경험치*/
     static var LEVELUP_REQ_EXP:Int {
         let level = UserInfo.info?.level ?? 0
