@@ -22,17 +22,16 @@ class StoreStockLogTableViewController: UITableViewController {
     }
     
     var todayLogs:Results<StoreStockLogModel>? {
-        let d = Date(timeIntervalSince1970: (Date().timeIntervalSince1970 - 86400))
-        return logs?.filter("regDt > %@",d)
+        return logs?.filter("regDt > %@",Date.midnightTodayTime)
     }
     
     func getList(dayBefore:Int)->Results<StoreStockLogModel>? {
         if dayBefore == 0 {
             return todayLogs
         }
-        let d1 = Date.getMidnightTime(beforDay: dayBefore)
-        let d2 = Date.getMidnightTime(beforDay: dayBefore - 1)
-        return logs?.filter("regDt > %@ && regDt <= %@", d1, d2)
+        let d1 = Date.getMidnightTime(beforDay: dayBefore - 1)
+        let d2 = Date.getMidnightTime(beforDay: dayBefore)
+        return logs?.filter("regDt < %@ && regDt >= %@", d1, d2)
     }
     
     var store:StoreModel? {
@@ -110,7 +109,7 @@ class StoreStockLogTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel?.text = log.remain_stat.localized
             cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
-            cell.detailTextLabel?.text = log.regDt.formatedString(format: "hh:mm:ss")
+            cell.detailTextLabel?.text = log.regDt.formatedString(format: "M d hh:mm:ss")
             return cell
         default:
             guard let log = getList(dayBefore: indexPath.section-1)?[indexPath.row] else {
@@ -119,7 +118,7 @@ class StoreStockLogTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel?.text = log.remain_stat.localized
             cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
-            cell.detailTextLabel?.text = log.regDt.formatedString(format: "hh:mm:ss")
+            cell.detailTextLabel?.text = log.regDt.formatedString(format: "M d hh:mm:ss")
             return cell
         }
     }
@@ -135,5 +134,5 @@ class StoreStockLogTableViewController: UITableViewController {
             }
             return String(format:"%@ days before".localized, "\(section - 1)")
         }
-    }        
+    }
 }

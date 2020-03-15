@@ -79,21 +79,20 @@ class ApiManager {
     }
     
     func uploadShopStockLogs(complete:@escaping()->Void) {
-        let time = Date().timeIntervalSince1970 - 30
+        let time = Date().timeIntervalSince1970 - 60 * 30
         
-        let list = try! Realm().objects(StoreStockLogModel.self).filter("regDt > %@", Date(timeIntervalSince1970: time))
+        let list = try! Realm().objects(StoreStockLogModel.self).filter("regDt > %@ && uploaded == %@", Date(timeIntervalSince1970: time), false)
         var ids:[String] = []
         for item in list {
             ids.append(item.id)
         }
-        print("upload log count : \(ids.count)")
-        #if DEBUG
-        Toast.makeToast(message: "upload log count : \(ids.count)")
-        #endif
         func upload(upComplete:@escaping()->Void) {
             if let id = ids.first {
                 if let model = try! Realm().object(ofType: StoreStockLogModel.self, forPrimaryKey: id) {
                     if model.store != nil {
+                        #if DEBUG
+                        Toast.makeToast(message:"\(model.store?.name ?? "없다")")
+                        #endif
                         model.uploadStoreStocks { (isSucess) in
                             ids.removeFirst()
                             if ids.count > 0 {
