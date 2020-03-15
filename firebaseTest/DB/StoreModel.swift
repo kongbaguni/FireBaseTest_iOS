@@ -9,6 +9,8 @@
 import Foundation
 import RealmSwift
 import CoreLocation
+import FirebaseFirestore
+
 extension Notification.Name {
     static let deletedStoreModel = Notification.Name(rawValue: "deletedStoreModelObserver")
 }
@@ -137,5 +139,52 @@ class StoreModel : Object {
         realm.delete(realm.objects(StoreModel.self))
         try! realm.commitWrite()
         NotificationCenter.default.post(name: .deletedStoreModel, object: nil, userInfo: nil)
+    }
+    
+    func getStoreStockLogs(complete:@escaping(_ count:Int?)->Void) {
+        let collection = Firestore.firestore().collection("storeStock")
+        collection
+            .whereField("shopcode", isEqualTo: self.code)
+        collection
+            .whereField("regDtTimeIntervalSince1970", isGreaterThan: Date.midnightTodayTime.timeIntervalSince1970)
+            
+            .getDocuments { (shot, error) in
+                if error != nil {
+                    complete(nil)
+                    return
+                }
+                guard let snap = shot else {
+                    complete(nil)
+                    return
+                }
+                var logs:[StoreStockLogModel] = []
+                for doc in snap.documents {
+                    let data = doc.data()
+                    if let id = data["id"] as? String
+                        , let remain_stat = data["remain_stat"] as? String
+                        , let storeCode = data["shopcode"] as? String
+                    {
+                         if StoreStockLogModel.getLastStat(shopcode:storeCode) != remain_stat {
+                            let logModel = StoreStockLogModel()
+                            logModel.id = id
+                            logModel.code =  storeCode
+                            logModel.remain_stat = data["remain_stat"] as? String ?? ""
+                            logModel.uploaded = true
+                            if let int = data["regDtTimeIntervalSince1970"] as? Double {
+                                logModel.regDt = Date(timeIntervalSince1970: int)
+                            }
+                            logs.append(logModel)
+                        }
+                    }
+                }
+                if logs.count > 0 {
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    realm.add(logs, update: .all)
+                    try! realm.commitWrite()
+                }
+                complete(logs.count)
+        }
+
     }
 }

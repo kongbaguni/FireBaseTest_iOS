@@ -16,13 +16,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="5TE-DS-aKV">
-                                <rect key="frame" x="57" y="-59" width="300" height="1024"/>
+                                <rect key="frame" x="57" y="197" width="300" height="512"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="cYE-X6-DG5"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="8Uw-il-gAW">
-                                <rect key="frame" x="237" y="765" width="147" height="105"/>
+                                <rect key="frame" x="237" y="509" width="147" height="52.5"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yix-rA-O0y">
                                 <rect key="frame" x="30" y="762" width="354" height="50"/>
@@ -53,11 +53,34 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mask Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJp-i9-wSo">
-                                <rect key="frame" x="267" y="765" width="102" height="105"/>
+                                <rect key="frame" x="267" y="509" width="102" height="52.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" id="7Ez-2H-M9B">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="i0W-eb-Dol">
+                                        <rect key="frame" x="30" y="44" width="354" height="818"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="narui" translatesAutoresizingMaskIntoConstraints="NO" id="Uxi-FJ-zlF">
+                                        <rect key="frame" x="10" y="802" width="394" height="50"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="i0W-eb-Dol" firstAttribute="leading" secondItem="UTD-Sv-TRN" secondAttribute="leading" constant="30" id="5V0-Rr-tn0"/>
+                                    <constraint firstItem="Uxi-FJ-zlF" firstAttribute="leading" secondItem="7Ez-2H-M9B" secondAttribute="leading" constant="10" id="8J1-9X-uRG"/>
+                                    <constraint firstItem="i0W-eb-Dol" firstAttribute="top" secondItem="UTD-Sv-TRN" secondAttribute="top" id="AB6-YS-WO2"/>
+                                    <constraint firstItem="UTD-Sv-TRN" firstAttribute="trailing" secondItem="Uxi-FJ-zlF" secondAttribute="trailing" constant="10" id="U99-UL-eOK"/>
+                                    <constraint firstItem="UTD-Sv-TRN" firstAttribute="trailing" secondItem="i0W-eb-Dol" secondAttribute="trailing" constant="30" id="Vxa-Dr-X53"/>
+                                    <constraint firstItem="UTD-Sv-TRN" firstAttribute="bottom" secondItem="i0W-eb-Dol" secondAttribute="bottom" id="crZ-uA-erA"/>
+                                    <constraint firstItem="UTD-Sv-TRN" firstAttribute="bottom" secondItem="Uxi-FJ-zlF" secondAttribute="bottom" constant="10" id="dxP-Wa-EUs"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="UTD-Sv-TRN"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -82,6 +105,7 @@
                         <viewLayoutGuide key="safeArea" id="apL-ZA-0RF"/>
                     </view>
                     <connections>
+                        <outlet property="autologinBgView" destination="7Ez-2H-M9B" id="3Ye-Ii-hcf"/>
                         <outlet property="loginGoogleBtn" destination="Yix-rA-O0y" id="z5I-xX-8kT"/>
                         <outlet property="maskNowBtn" destination="Urd-op-hvF" id="Oad-Y3-BIH"/>
                         <outlet property="titleBubbleImageView" destination="8Uw-il-gAW" id="RoY-Ed-HAE"/>
@@ -857,6 +881,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="NWE-Di-sJL"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="93B-CA-I23">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9MJ-Td-VJH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1888,6 +1915,7 @@
         <image name="bubble_light" width="37.5" height="52.5"/>
         <image name="location" width="293.5" height="427"/>
         <image name="myBubble_light" width="37.5" height="52.5"/>
+        <image name="narui" width="199.5" height="50"/>
         <image name="placeholder" width="512" height="512"/>
         <image name="profile" width="300" height="300"/>
         <image name="title" width="512" height="512"/>

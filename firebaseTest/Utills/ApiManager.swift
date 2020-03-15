@@ -16,7 +16,6 @@ class ApiManager {
     func getStores(complete:@escaping(_ count:Int?)->Void) {
         func request(lat:Double,lng:Double,complete:@escaping(_ count:Int?)->Void) {
             let url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json"
-            print( UserInfo.info?.distanceForSearch )
             let distanc = UserInfo.info?.distanceForSearch ?? Consts.DISTANCE_STORE_SEARCH
             AF.request(url, method: .get, parameters: [
                 "lat" : lat,
@@ -38,6 +37,9 @@ class ApiManager {
                                     log.code = store.code
                                     log.remain_stat = store.remain_stat
                                     stores.append(log)
+//                                    log.uploadStoreStocks { (isSucess) in
+//
+//                                    }
                                 }
                             }
                             
@@ -83,4 +85,28 @@ class ApiManager {
             }
         }
     }
+    
+    func uploadShopStockLogs(complete:@escaping()->Void) {
+        let list = try! Realm().objects(StoreStockLogModel.self).filter("uploaded = %@",false)
+        var lists:[StoreStockLogModel] = list.sorted { (a, b) -> Bool in
+            return a.regDt > b.regDt
+        }
+       
+        func upload(complete:@escaping()->Void) {
+            if let model = lists.first {
+                model.uploadStoreStocks { (isSucess) in
+                    lists.removeFirst()
+                    if lists.count > 0 {
+                        upload(complete: complete)
+                    } else {
+                        complete()
+                    }
+                }
+            }
+        }
+        upload {
+            complete()
+        }
+    }
+        
 }

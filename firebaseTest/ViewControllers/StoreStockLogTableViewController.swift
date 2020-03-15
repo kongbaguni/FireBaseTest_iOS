@@ -31,6 +31,17 @@ class StoreStockLogTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = store?.name
+        self.store?.getStoreStockLogs(complete: { (count) in
+            self.tableView.reloadData()
+        })
+        self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
+    }
+    
+    @objc func onRefreshControl(_ sender: UIRefreshControl) {
+        self.store?.getStoreStockLogs(complete: { [weak self](count) in
+            sender.endRefreshing()
+            self?.tableView.reloadData()
+        })
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

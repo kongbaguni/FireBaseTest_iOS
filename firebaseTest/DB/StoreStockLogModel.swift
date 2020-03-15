@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import FirebaseFirestore
 
 class StoreStockLogModel: Object {
     @objc dynamic var id:String = "\(UUID().uuidString)_\(Date().timeIntervalSince1970)"
@@ -15,6 +16,7 @@ class StoreStockLogModel: Object {
     @objc dynamic var remain_stat:String = ""
     @objc dynamic var regDt:Date = Date()
     
+    @objc dynamic var uploaded:Bool = false
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -30,4 +32,27 @@ class StoreStockLogModel: Object {
             .sorted(byKeyPath: "regDt",ascending: true)
             .last?.remain_stat
     }
+    
+    func uploadStoreStocks(complete:@escaping(_ sucess:Bool)->Void) {
+        let collection = Firestore.firestore().collection("storeStock")
+        let document = collection.document(id)
+        let data:[String:Any] = [
+            "id":id,
+            "shopcode":code,
+            "remain_stat":remain_stat,
+            "regDtTimeIntervalSince1970":regDt.timeIntervalSince1970
+        ]
+        let docuId = id
+        document.setData(data, merge: true) { (error) in
+            if error == nil {
+                let realm = try! Realm()
+                if let data = realm.object(ofType: StoreStockLogModel.self, forPrimaryKey: docuId) {
+                    realm.beginWrite()
+                    data.uploaded = true
+                    try! realm.commitWrite()
+                }
+            }
+            complete(error == nil)
+        }
+    }    
 }

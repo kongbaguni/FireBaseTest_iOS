@@ -93,6 +93,9 @@ class StoresTableViewController: UITableViewController {
             self?.setTableStyle()
             self?.tableView.reloadData()
             self?.setHeaderTitle()
+            ApiManager.shard.uploadShopStockLogs {
+                
+            }
         }
     }
     
