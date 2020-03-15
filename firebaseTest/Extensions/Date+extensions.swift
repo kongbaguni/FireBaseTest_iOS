@@ -44,4 +44,16 @@ extension Date {
         
         return DateFormatter.localizedString(from: self, dateStyle: .long, timeStyle: .none)
     }
+    
+    func formatedString(format:String)->String {
+        let f = DateFormatter()
+        f.dateFormat = format
+        return f.string(from: self)
+    }        
+    
+    static var midnightTodayTime:Date {
+        let format = "yyyyMMdd"
+        return Date().formatedString(format: format).dateValue(format: format)!
+    }
 }
+

@@ -259,7 +259,7 @@ class TalkModel: Object {
             .whereField("lng", isGreaterThan: minlng)
             .whereField("lng", isLessThan: maxlng)
         collection
-            .whereField("regTimeIntervalSince1970", isGreaterThan: Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
+            .whereField("regTimeIntervalSince1970", isGreaterThan: Date.midnightTodayTime.timeIntervalSince1970)
             .getDocuments { (shot, error) in
                 guard let snap = shot else {
                     return

@@ -70,6 +70,11 @@ class StatusViewController: UIViewController {
         for view in [addExpLabel, addLevelLabel, addPointLabel] {
             view?.alpha = 0
         }
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTapGesture(_:))))
+    }
+    
+    @objc func onTapGesture(_ sender:UITapGestureRecognizer) {
+        dismiss(animated: true, completion: nil)
     }
     
     func setAddLabel(value:Int,target:UILabel?) {

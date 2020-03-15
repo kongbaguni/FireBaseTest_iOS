@@ -19,7 +19,16 @@ class TodaysTalksTableViewController: UITableViewController {
     var list:Results<TalkModel> {
         var result = try! Realm().objects(TalkModel.self)
             .sorted(byKeyPath: "regTimeIntervalSince1970", ascending: true)
-            .filter("regTimeIntervalSince1970 > %@", Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
+            .filter("regTimeIntervalSince1970 > %@", Date.midnightTodayTime.timeIntervalSince1970)
+        
+        if let myLocation = UserDefaults.standard.lastMyCoordinate {
+            let minlat = myLocation.latitude - 0.005
+            let maxlat = myLocation.latitude + 0.005
+            let minlng = myLocation.longitude - 0.005
+            let maxlng = myLocation.longitude + 0.005
+            result = result.filter("lat > %@ && lat < %@ && lng > %@ && lng < %@",minlat, maxlat, minlng, maxlng)
+        }
+
         
         if let txt = filterText {
             result = result.filter("textForSearch CONTAINS[c] %@", txt)
