@@ -175,4 +175,5 @@ extension String {
         let value = self.trimmingCharacters(in: CharacterSet(charactersIn: " "))
         return trim(trim(value))
     }
+    
 }

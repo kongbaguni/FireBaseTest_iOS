@@ -87,16 +87,13 @@ class StoresTableViewController: UITableViewController {
     
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
         ApiManager.shard.getStores { [weak self](count) in
-            sender.endRefreshing()
-            self?.requestCount += 1
-            self?.emptyView.type = count == nil ? .locationNotAllow : .empty
-            self?.setTableStyle()
-            self?.tableView.reloadData()
-            self?.setHeaderTitle()
-            if (self?.stores.count ?? 100) < 20 {
-                ApiManager.shard.uploadShopStockLogs {
-                    
-                }
+            ApiManager.shard.uploadShopStockLogs {
+                sender.endRefreshing()
+                self?.requestCount += 1
+                self?.emptyView.type = count == nil ? .locationNotAllow : .empty
+                self?.setTableStyle()
+                self?.tableView.reloadData()
+                self?.setHeaderTitle()
             }
         }
     }

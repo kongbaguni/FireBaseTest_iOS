@@ -11,16 +11,30 @@ import RealmSwift
 
 class StoreStockLogTableViewController: UITableViewController {
     var code:String? = nil
+    
     var logs:Results<StoreStockLogModel>? {
         if let c = code {
-            let d = Date(timeIntervalSince1970: (Date().timeIntervalSince1970 - 86400))
-            return try! Realm().objects(StoreStockLogModel.self).filter("code = %@",c)
-                .filter("regDt > %@",d)
-                .sorted(byKeyPath: "regDt", ascending: true)
-            
+            return try! Realm().objects(StoreStockLogModel.self)
+            .filter("code = %@",c)
+            .sorted(byKeyPath: "regDt", ascending: true)
         }
         return nil
     }
+    
+    var todayLogs:Results<StoreStockLogModel>? {
+        let d = Date(timeIntervalSince1970: (Date().timeIntervalSince1970 - 86400))
+        return logs?.filter("regDt > %@",d)
+    }
+    
+    func getList(dayBefore:Int)->Results<StoreStockLogModel>? {
+        if dayBefore == 0 {
+            return todayLogs
+        }
+        let d1 = Date.getMidnightTime(beforDay: dayBefore)
+        let d2 = Date.getMidnightTime(beforDay: dayBefore - 1)
+        return logs?.filter("regDt > %@ && regDt <= %@", d1, d2)
+    }
+    
     var store:StoreModel? {
         if let c = code {
             return try! Realm().object(ofType: StoreModel.self, forPrimaryKey: c)
@@ -60,7 +74,7 @@ class StoreStockLogTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 8
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,10 +82,9 @@ class StoreStockLogTableViewController: UITableViewController {
         case 0:
             return 2
         case 1:
-            return logs?.count ?? 0
+            return todayLogs?.count ?? 0
         default:
-            return 0
-        
+            return getList(dayBefore: section - 1)?.count ?? 0
         }
     }
     
@@ -91,18 +104,36 @@ class StoreStockLogTableViewController: UITableViewController {
             }
             return cell
         case 1:
-            guard let log = logs?[indexPath.row] else {
+            guard let log = todayLogs?[indexPath.row] else {
                 return UITableViewCell()
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel?.text = log.remain_stat.localized
             cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
             cell.detailTextLabel?.text = log.regDt.formatedString(format: "hh:mm:ss")
-            
             return cell
         default:
-            return UITableViewCell()
+            guard let log = getList(dayBefore: indexPath.section-1)?[indexPath.row] else {
+                return UITableViewCell()
+            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel?.text = log.remain_stat.localized
+            cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
+            cell.detailTextLabel?.text = log.regDt.formatedString(format: "hh:mm:ss")
+            return cell
         }
     }
-        
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return nil
+        case 1:
+            return "today".localized
+        default:
+            if getList(dayBefore: section - 1)?.count == 0 {
+                return nil
+            }
+            return String(format:"%@ days before".localized, "\(section - 1)")
+        }
+    }        
 }

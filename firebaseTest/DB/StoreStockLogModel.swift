@@ -47,7 +47,7 @@ class StoreStockLogModel: Object {
             let collection = Firestore.firestore().collection("storeStock")
             let docuId = code
 
-            let time = self.regDt.formatedString(format: "yyyyMMddhh") + remain_stat
+            let time = self.regDt.formatedString(format: "yyyyMMdd_HH") + remain_stat
             let document = collection.document("\(code)_\(time)")
             let data:[String:Any] = [
                 "id":id,

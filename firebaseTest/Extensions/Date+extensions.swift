@@ -51,9 +51,18 @@ extension Date {
         return f.string(from: self)
     }        
     
+    /** 오늘의  자정시각 구하기*/
     static var midnightTodayTime:Date {
         let format = "yyyyMMdd"
         return Date().formatedString(format: format).dateValue(format: format)!
+    }
+    
+    /** n일전 자정시각 구하기*/
+    static func getMidnightTime(beforDay:Int)->Date {
+        let format = "yyyyMMdd"
+        let dayInterval:Double = Double(Date().timeIntervalSince1970) - Double(60 * 60 * 24 * beforDay)
+        let day = Date(timeIntervalSince1970: dayInterval)
+        return day.formatedString(format: format).dateValue(format: format)!
     }
 }
 
