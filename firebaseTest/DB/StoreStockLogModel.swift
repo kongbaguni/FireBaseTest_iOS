@@ -17,6 +17,11 @@ class StoreStockLogModel: Object {
     @objc dynamic var regDt:Date = Date()
     
     @objc dynamic var uploaded:Bool = false
+    
+    var store:StoreModel? {
+        try! Realm().object(ofType: StoreModel.self, forPrimaryKey: code)
+    }
+    
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -34,25 +39,36 @@ class StoreStockLogModel: Object {
     }
     
     func uploadStoreStocks(complete:@escaping(_ sucess:Bool)->Void) {
-        let collection = Firestore.firestore().collection("storeStock")
-        let document = collection.document(id)
-        let data:[String:Any] = [
-            "id":id,
-            "shopcode":code,
-            "remain_stat":remain_stat,
-            "regDtTimeIntervalSince1970":regDt.timeIntervalSince1970
-        ]
-        let docuId = id
-        document.setData(data, merge: true) { (error) in
-            if error == nil {
-                let realm = try! Realm()
-                if let data = realm.object(ofType: StoreStockLogModel.self, forPrimaryKey: docuId) {
-                    realm.beginWrite()
-                    data.uploaded = true
-                    try! realm.commitWrite()
+        func upload() {
+            let collection = Firestore.firestore().collection("storeStock")
+            let document = collection.document(id)
+            let data:[String:Any] = [
+                "id":id,
+                "shopcode":code,
+                "remain_stat":remain_stat,
+                "regDtTimeIntervalSince1970":regDt.timeIntervalSince1970
+            ]
+            let docuId = id
+            document.setData(data, merge: true) { (error) in
+                if error == nil {
+                    let realm = try! Realm()
+                    if let data = realm.object(ofType: StoreStockLogModel.self, forPrimaryKey: docuId) {
+                        realm.beginWrite()
+                        data.uploaded = true
+                        try! realm.commitWrite()
+                    }
                 }
+                complete(error == nil)
             }
-            complete(error == nil)
         }
-    }    
+
+        store?.getLstStockRemainStatInFirebase(complete: { (remain_state) in
+            if self.remain_stat == remain_state {
+                complete(false)
+                return
+            } else {
+                upload()
+            }
+        })
+    }
 }

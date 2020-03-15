@@ -88,20 +88,27 @@ class ApiManager {
     
     func uploadShopStockLogs(complete:@escaping()->Void) {
         let list = try! Realm().objects(StoreStockLogModel.self).filter("uploaded = %@",false)
-        var lists:[StoreStockLogModel] = list.sorted { (a, b) -> Bool in
-            return a.regDt > b.regDt
+        var ids:[String] = []
+        for item in list {
+            ids.append(item.id)
         }
        
         func upload(complete:@escaping()->Void) {
-            if let model = lists.first {
-                model.uploadStoreStocks { (isSucess) in
-                    lists.removeFirst()
-                    if lists.count > 0 {
-                        upload(complete: complete)
-                    } else {
-                        complete()
+            if let id = ids.first {
+                if let model = try! Realm().object(ofType: StoreStockLogModel.self, forPrimaryKey: id) {
+                    if model.store != nil {
+                        model.uploadStoreStocks { (isSucess) in
+                            ids.removeFirst()
+                            if ids.count > 0 {
+                                upload(complete: complete)
+                            } else {
+                                complete()
+                            }
+                        }
                     }
                 }
+            } else {
+                complete()
             }
         }
         upload {
