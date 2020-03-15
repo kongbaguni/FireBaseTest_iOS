@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import RealmSwift
 
 class StoresTableViewCell: UITableViewCell {
     @IBOutlet weak var storeImageView:UIImageView!

@@ -76,7 +76,7 @@ class UserInfoDetailViewController: UITableViewController {
         emailLabel.text = user?.email
         intoduceLabel.text = user?.introduce
         pointLabel.text = user?.point.decimalForamtString
-        levelLabel.text = ((user?.level ?? 0) + 1).decimalForamtString
+        levelLabel.text = user?.levelStrValue
         expLabel.text = user?.exp.decimalForamtString
     }
     
@@ -85,8 +85,12 @@ class UserInfoDetailViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let cell = tableView.cellForRow(at: indexPath)
-        switch cell?.textLabel {
-        case emailLabel:
+        switch cell?.reuseIdentifier {
+        case "profileImage":
+            let vc = StatusViewController.viewController
+            vc.userId = self.userId
+            present(vc, animated: true, completion: nil)
+        case "email":
             if cell?.textLabel?.text == UserInfo.info?.email {
                 return
             }
@@ -103,7 +107,7 @@ class UserInfoDetailViewController: UITableViewController {
             }))
             vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
             present(vc, animated: true, completion: nil)
-        case pointTitleLabel:
+        case "point":
             googlead.showAd(targetViewController: self) { (isSucess) in
                 if isSucess {
                     GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in

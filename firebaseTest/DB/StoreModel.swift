@@ -78,6 +78,8 @@ class StoreModel : Object {
     @objc dynamic var type:String = ""
     @objc dynamic var updateDt:Date = Date()
     @objc dynamic var distance:Double = 0
+    
+    @objc dynamic var searchDisance:Int = Consts.DISTANCE_STORE_SEARCH
 
     /** 거리 구하기*/
     func getLiveDistance(coodinate:CLLocationCoordinate2D)->Double {

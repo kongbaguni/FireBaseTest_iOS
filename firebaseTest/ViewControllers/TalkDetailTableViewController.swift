@@ -136,11 +136,16 @@ class TalkDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            performSegue(withIdentifier: "showUserInfoDetail", sender: self.talkModel?.creatorId)
+            let vc = StatusViewController.viewController
+            vc.userId = self.talkModel?.creatorId
+            present(vc, animated: true, completion: nil)
+//            performSegue(withIdentifier: "showUserInfoDetail", sender: self.talkModel?.creatorId)
         case 2:
             if let likes = talkModel?.likes {
                 let id = likes[indexPath.row].creator?.id
-                performSegue(withIdentifier: "showUserInfoDetail", sender: id)
+                let vc = StatusViewController.viewController
+                vc.userId = id
+                present(vc, animated: true, completion: nil)
             }
         default:
             break

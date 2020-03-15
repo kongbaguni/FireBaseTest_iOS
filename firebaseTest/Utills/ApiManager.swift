@@ -32,7 +32,7 @@ class ApiManager {
                                 let store = StoreModel()
                                 store.setJson(data: storeInfo)
                                 stores.append(store)
-                                
+                                store.searchDisance = UserInfo.info?.distanceForSearch ?? Consts.DISTANCE_STORE_SEARCH
                                 if StoreStockLogModel.getLastStat(shopcode: store.code) != store.remain_stat {
                                     let log = StoreStockLogModel()
                                     log.code = store.code

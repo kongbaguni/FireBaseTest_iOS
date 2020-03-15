@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		313AEA29D63D2AF8108134B0 /* Pods_firebaseTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */; };
+		C31DDCB2241DBC8C00F0BAA8 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */; };
 		C33839DB241873D600CADC60 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839DA241873D600CADC60 /* Toast.swift */; };
 		C33839DF2418A1CE00CADC60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C33839DE2418A1CE00CADC60 /* GoogleService-Info.plist */; };
 		C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E02418AC0F00CADC60 /* StoreModel.swift */; };
@@ -64,6 +65,7 @@
 /* Begin PBXFileReference section */
 		0F06ABC7138C7FD26E1EA293 /* Pods-firebaseTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firebaseTest.debug.xcconfig"; path = "Target Support Files/Pods-firebaseTest/Pods-firebaseTest.debug.xcconfig"; sourceTree = "<group>"; };
 		8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_firebaseTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		C33839DA241873D600CADC60 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		C33839DE2418A1CE00CADC60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C33839E02418AC0F00CADC60 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */,
 				C3EDFB06241C653A003EF787 /* StoreStockLogTableViewController.swift */,
 				C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */,
+				C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -224,7 +227,6 @@
 				C3780E68240F5B94006070CF /* DB */,
 				C3EF51C4240CEAA700A4C29E /* Extensions */,
 				C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */,
-				C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */,
 				C3BDFC04240CD79D006AE2B3 /* Main.storyboard */,
 				C3780E5F240E15D0006070CF /* ViewControllers */,
 				C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */,
@@ -262,6 +264,7 @@
 				C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */,
 				C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */,
 				C370C9FA2417688A00026E86 /* Date+extensions.swift */,
+				C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */,
 				C3DC5B93241234A100A028E0 /* TodayTalksTableViewCell.swift in Sources */,
 				C34C6B572418C2B1001D8CF4 /* ApiManager.swift in Sources */,
+				C31DDCB2241DBC8C00F0BAA8 /* StatusViewController.swift in Sources */,
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
 				C33839E72418AECD00CADC60 /* MapViewController.swift in Sources */,
 				C33839DB241873D600CADC60 /* Toast.swift in Sources */,

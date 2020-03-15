@@ -25,6 +25,8 @@ struct Consts {
         let level = UserInfo.info?.level ?? 0
         return 100 + (level * 10)
     }
+    /** 최대 베팅 포인트 제한*/
+    static var BETTING_LIMIT = 1000
     
     /** 검색 거리 목록*/
     static var SEARCH_DISTANCE_LIST:[Int] {
@@ -56,5 +58,5 @@ struct Consts {
     /** 구글 광고 아이디*/
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
     
-    static let REALM_VERSION:UInt64 = 0
+    static let REALM_VERSION:UInt64 = 1
 }

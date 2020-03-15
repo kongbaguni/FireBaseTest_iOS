@@ -10,9 +10,6 @@ import Foundation
 import UIKit
 import FirebaseFirestore
 import RealmSwift
-extension Notification.Name {
-    static let levelupNotification = Notification.Name("levelupNotificationObserver")
-}
 class UserInfo : Object {
     var id:String {
         return email
@@ -34,6 +31,10 @@ class UserInfo : Object {
     @objc dynamic var exp                       : Int       = 0
     /** 레벨*/
     @objc dynamic var level                     : Int       = 0
+    
+    var levelStrValue:String {
+        return (level + 1).decimalForamtString
+    }
     var lastTalkDt:Date? {
         get {
             if _lastTalkDt == Date(timeIntervalSince1970: 0) {
@@ -220,6 +221,7 @@ class UserInfo : Object {
         UserInfo.info?.idToken = ""
         UserInfo.info?.accessToken = ""
         try! realm.commitWrite()
+        StoreModel.deleteAll()
         
         UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
     }
@@ -233,7 +235,7 @@ class UserInfo : Object {
             if exp > Consts.LEVELUP_REQ_EXP {
                 exp -= Consts.LEVELUP_REQ_EXP
                 level += 1
-                NotificationCenter.default.post(name: .levelupNotification, object: level)
+                NotificationCenter.default.post(name: .game_levelupNotification, object: level)
             }
             try! realm.commitWrite()
         }

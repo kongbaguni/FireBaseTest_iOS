@@ -9,6 +9,13 @@
 import Foundation
 import RealmSwift
 
+extension Notification.Name {
+    static let game_levelupNotification = Notification.Name("levelupNotificationObserver")
+    static let game_usePointAndGetExpNotification = Notification.Name("usePointAndGetExpNotificationObserver")
+    static let game_getPointNotification = Notification.Name("game_getPointNotificationObserver")
+}
+
+
 /** 포인트 사용. 경험치 축적. 게임 관리 등을 위한 클래스*/
 class GameManager {
     static let shared = GameManager()
@@ -16,20 +23,14 @@ class GameManager {
     /** 포인트 사용하기*/
     func usePoint(point:Int,complete:@escaping(_ sucess:Bool)->Void) {
         info.addPoint(point: -point) { (sucess) in
-            if sucess {
-                DispatchQueue.main.async {
-                    let msg = String(format:"%@ point used\n\npoint : %@\nexp get : %@\nexp : %@\nlevel : %@".localized
-                        ,point.decimalForamtString
-                        ,UserInfo.info?.point.decimalForamtString ?? "0"
-                        ,point.decimalForamtString
-                        ,UserInfo.info?.exp.decimalForamtString ?? "0"
-                        ,((UserInfo.info?.level ?? 0)+1).decimalForamtString)
-                    Toast.makeToast(message: msg)
-                }
-            }
+//            if sucess {
+//                let change = StatusChange(addedExp: point, pointChange: -point)
+//                NotificationCenter.default.post(name: .game_usePointAndGetExpNotification, object: change, userInfo: nil)
+//            }
             complete(sucess)
         }
     }
+    
     /** 포인트 더하기*/
     func addPoint(point:Int,complete:@escaping(_ sucess:Bool)->Void) {
         info.addPoint(point: point, complete: complete)
@@ -125,13 +126,17 @@ class GameManager {
                 switch gameResult {
                 case .win:
                     self.addPoint(point: bettingPoint * 2) { (sucess) in
+                        NotificationCenter.default.post(name: .game_usePointAndGetExpNotification, object: StatusChange(addedExp: bettingPoint, pointChange: bettingPoint), userInfo: nil)
+
                         complete(sucess)
                     }
                 case .tie:
                     self.addPoint(point: bettingPoint) { (sucess) in
+                        NotificationCenter.default.post(name: .game_usePointAndGetExpNotification, object: StatusChange(addedExp: bettingPoint, pointChange: 0), userInfo: nil)
                         complete(sucess)
                     }
                 default :
+                    NotificationCenter.default.post(name: .game_usePointAndGetExpNotification, object: StatusChange(addedExp: bettingPoint, pointChange: -bettingPoint), userInfo: nil)
                     complete(isSucess)
                     break
                 }

@@ -59,7 +59,27 @@ class TodaysTalksTableViewController: UITableViewController {
         toolBar.items = [
             UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:))),
             UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:)))
-        ]        
+        ]
+        
+        NotificationCenter.default.addObserver(forName: .game_usePointAndGetExpNotification, object: nil, queue: nil) { [weak self](notification) in
+            func showStatus(change:StatusChange) {
+                if self?.presentingViewController == nil {
+                    let vc = StatusViewController.viewController
+                    vc.statusChange = change
+                    vc.userId = UserInfo.info?.id
+                    self?.present(vc, animated: true, completion: nil)
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                        showStatus(change: change)
+                    }
+                }
+            }
+            if let change = notification.object as? StatusChange {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
+                    showStatus(change: change)
+                }
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,7 +137,10 @@ class TodaysTalksTableViewController: UITableViewController {
                 .rx.text.orEmpty.subscribe(onNext: { (query) in
                     let up = UserInfo.info?.point ?? 0
                     let number = NSString(string: query).integerValue
-                    if number > up {
+                    if number > Consts.BETTING_LIMIT {
+                        textFiled.text = "\(Consts.BETTING_LIMIT)"
+                    }
+                    else if number > up {
                         textFiled.text = "\(up)"
                     } else {
                         textFiled.text = "\(number)"
