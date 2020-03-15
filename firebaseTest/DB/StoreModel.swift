@@ -118,12 +118,12 @@ class StoreModel : Object {
     func setJson(data:[String:Any]) {
         code = data["code"] as! String
         addr = data["addr"] as? String ?? ""
-        createdDt = (data["created_at"] as? String)?.dateValue(format: "yyyy/MM/dd hh:mm:ss") ?? Date(timeIntervalSince1970: 0)
+        createdDt = (data["created_at"] as? String)?.dateValue(format: "yyyy/MM/dd HH:mm:ss") ?? Date(timeIntervalSince1970: 0)
         lat = data["lat"] as? Double ?? 0
         lng = data["lng"] as? Double ?? 0
         name = data["name"] as? String ?? ""
         remain_stat = data["remain_stat"] as? String ?? "empty"
-        stockDt = (data["stock_at"] as? String)?.dateValue(format: "yyyy/MM/dd hh:mm:ss") ?? Date(timeIntervalSince1970: 0)
+        stockDt = (data["stock_at"] as? String)?.dateValue(format: "yyyy/MM/dd HH:mm:ss") ?? Date(timeIntervalSince1970: 0)
         type = data["type"] as? String ?? ""
         if let last = UserDefaults.standard.lastMyCoordinate {
             let a = CLLocation(latitude: lat, longitude: lng)

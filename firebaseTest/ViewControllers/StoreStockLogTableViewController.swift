@@ -109,7 +109,7 @@ class StoreStockLogTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel?.text = log.remain_stat.localized
             cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
-            cell.detailTextLabel?.text = log.regDt.formatedString(format: "M d hh:mm:ss")
+            cell.detailTextLabel?.text = log.regDt.formatedString(format: "M d a hh:mm:ss")
             return cell
         default:
             guard let log = getList(dayBefore: indexPath.section-1)?[indexPath.row] else {
@@ -118,7 +118,7 @@ class StoreStockLogTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel?.text = log.remain_stat.localized
             cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
-            cell.detailTextLabel?.text = log.regDt.formatedString(format: "M d hh:mm:ss")
+            cell.detailTextLabel?.text = log.regDt.formatedString(format: "M d a hh:mm:ss")
             return cell
         }
     }
