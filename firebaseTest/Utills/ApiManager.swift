@@ -13,6 +13,7 @@ import CoreLocation
 
 class ApiManager {
     static let shard = ApiManager()
+    fileprivate var addObserver = false
     func getStores(complete:@escaping(_ count:Int?)->Void) {
         func request(lat:Double,lng:Double,complete:@escaping(_ count:Int?)->Void) {
             let url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json"
@@ -53,56 +54,57 @@ class ApiManager {
             }
         }
                 
-        LocationManager.shared.requestAuth { status in
+        LocationManager.shared.requestAuth(complete: { (status) in
             switch status {
-            case .denied:                
+            case .denied:
                 complete(nil)
             case .none:
                 complete(nil)
-
             default:
                 LocationManager.shared.manager.startUpdatingLocation()
-                NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) {(notification) in
-                    LocationManager.shared.manager.stopUpdatingLocation()
-                    if let locations = notification.object as? [CLLocation] {
-                        if let location = locations.first {
-                            UserDefaults.standard.lastMyCoordinate = location.coordinate
-                            request(lat: location.coordinate.latitude, lng: location.coordinate.longitude) { (count) in
-                                complete(count)
-                            }
-                        }
-
-                        return
-                    }
-                    complete(nil)
-                }
             }
+
+        }) { (locations) in
+            LocationManager.shared.manager.stopUpdatingLocation()
+            if let location = locations.first {
+                UserDefaults.standard.lastMyCoordinate = location.coordinate
+                request(lat: location.coordinate.latitude, lng: location.coordinate.longitude) { (count) in
+                    complete(count)
+                }
+                return
+            }
+            complete(nil)
         }
+        
     }
     
     func uploadShopStockLogs(complete:@escaping()->Void) {
-        let list = try! Realm().objects(StoreStockLogModel.self).filter("uploaded = %@",false)
+        let time = Date().timeIntervalSince1970 - 30
+        
+        let list = try! Realm().objects(StoreStockLogModel.self).filter("regDt > %@", Date(timeIntervalSince1970: time))
         var ids:[String] = []
         for item in list {
             ids.append(item.id)
         }
+        print("upload log count : \(ids.count)")
        
-        func upload(complete:@escaping()->Void) {
+        func upload(upComplete:@escaping()->Void) {
             if let id = ids.first {
                 if let model = try! Realm().object(ofType: StoreStockLogModel.self, forPrimaryKey: id) {
                     if model.store != nil {
                         model.uploadStoreStocks { (isSucess) in
                             ids.removeFirst()
                             if ids.count > 0 {
-                                upload(complete: complete)
+                                upload(upComplete: upComplete)
                             } else {
-                                complete()
+                                upComplete()                                
                             }
                         }
                     }
                 }
             } else {
-                complete()
+                upComplete()
+                return
             }
         }
         upload {

@@ -135,9 +135,10 @@ class Permission : NSObject {
                 }
             }
         case .location:
-            LocationManager.shared.requestAuth { _ in
-                complete()
-            }
+//            LocationManager.shared.requestAuth { _ in
+//                complete()
+//            }
+            break
         case .contact:
             CNContactStore().requestAccess(for: .contacts) { (_, _) in
                 complete()

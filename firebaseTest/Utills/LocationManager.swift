@@ -23,8 +23,10 @@ class LocationManager: NSObject {
     }
     
     private var complete:((_ status:CLAuthorizationStatus?)->Void)? = nil
+    private var getLocation:((_ locations:[CLLocation])->Void)? = nil
     
-    func requestAuth(complete:@escaping(_ status:CLAuthorizationStatus?)->Void) {
+    func requestAuth(complete:@escaping(_ status:CLAuthorizationStatus?)->Void, getLocation:@escaping(_ locations: [CLLocation])->Void) {
+        self.getLocation = getLocation
         if let status = authStatus {
             complete(status)
         } else {
@@ -59,7 +61,8 @@ extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(locations)
-        NotificationCenter.default.post(Notification(name: .locationUpdateNotification, object: locations, userInfo: nil))
+        self.getLocation?(locations)
+//        NotificationCenter.default.post(Notification(name: .locationUpdateNotification, object: locations, userInfo: nil))
     }
     
 }

@@ -22,7 +22,6 @@ class StoresTableViewController: UITableViewController {
     let disposebag = DisposeBag()
     var filterText:String? = nil
 
-    var requestCount = 0
     
     var stores:Results<StoreModel> {
         var result = try! Realm().objects(StoreModel.self).sorted(byKeyPath: "name")
@@ -84,16 +83,25 @@ class StoresTableViewController: UITableViewController {
         }
         performSegue(withIdentifier: "showMap", sender: codes)
     }
-    
+    var count = 0
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
+        count += 1
+        var cnt2 = 0
+        debugPrint("ref count: \(count)")
         ApiManager.shard.getStores { [weak self](count) in
-            ApiManager.shard.uploadShopStockLogs {
-                sender.endRefreshing()
-                self?.requestCount += 1
-                self?.emptyView.type = count == nil ? .locationNotAllow : .empty
-                self?.setTableStyle()
-                self?.tableView.reloadData()
-                self?.setHeaderTitle()
+            if count ?? 0 > 0 {
+                debugPrint("ref count: \(self?.count ?? 0) : \(cnt2)")
+                if cnt2 == 0 {
+                    ApiManager.shard.uploadShopStockLogs {
+                        sender.endRefreshing()
+                        self?.emptyView.type = count == nil ? .locationNotAllow : .empty
+                        self?.setTableStyle()
+                        self?.tableView.reloadData()
+                        self?.setHeaderTitle()
+                    }
+                }
+                cnt2 += 1
+
             }
         }
     }
