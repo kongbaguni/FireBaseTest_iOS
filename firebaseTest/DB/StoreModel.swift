@@ -150,27 +150,6 @@ class StoreModel : Object {
         return collection
     }
     
-    func getLstStockRemainStatInFirebase(complete:@escaping(_ remainStat:String?)->Void) {
-        dbCollection.getDocuments { (shot, error) in
-                if error != nil {
-                    complete(nil)
-                    return
-                }
-                guard let snap = shot else {
-                    complete(nil)
-                    return
-                }
-            if let doc = snap.documents.last {
-                let stat = doc["remain_stat"] as? String
-                let code = doc["shopcode"] as? String
-                if self.code == code {
-                    complete(stat)
-                    return
-                }
-            }
-            complete(nil)
-        }
-    }
     
     func getStoreStockLogs(complete:@escaping(_ count:Int?)->Void) {
         dbCollection.getDocuments { (shot, error) in

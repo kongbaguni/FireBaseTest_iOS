@@ -37,9 +37,6 @@ class ApiManager {
                                     log.code = store.code
                                     log.remain_stat = store.remain_stat
                                     stores.append(log)
-//                                    log.uploadStoreStocks { (isSucess) in
-//
-//                                    }
                                 }
                             }
                             

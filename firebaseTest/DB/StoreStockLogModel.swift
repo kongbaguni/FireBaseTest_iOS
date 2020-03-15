@@ -40,15 +40,22 @@ class StoreStockLogModel: Object {
     
     func uploadStoreStocks(complete:@escaping(_ sucess:Bool)->Void) {
         func upload() {
+            if self.code == "" {
+                complete(false)
+                return
+            }
             let collection = Firestore.firestore().collection("storeStock")
-            let document = collection.document(id)
+            let docuId = code
+
+            let time = self.regDt.formatedString(format: "yyyyMMddhh") + remain_stat
+            let document = collection.document("\(code)_\(time)")
             let data:[String:Any] = [
                 "id":id,
                 "shopcode":code,
                 "remain_stat":remain_stat,
                 "regDtTimeIntervalSince1970":regDt.timeIntervalSince1970
             ]
-            let docuId = id
+            
             document.setData(data, merge: true) { (error) in
                 if error == nil {
                     let realm = try! Realm()
@@ -62,13 +69,6 @@ class StoreStockLogModel: Object {
             }
         }
 
-        store?.getLstStockRemainStatInFirebase(complete: { (remain_state) in
-            if self.remain_stat == remain_state {
-                complete(false)
-                return
-            } else {
-                upload()
-            }
-        })
+        upload()
     }
 }

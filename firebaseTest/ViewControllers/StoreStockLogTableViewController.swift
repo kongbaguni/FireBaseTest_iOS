@@ -35,6 +35,21 @@ class StoreStockLogTableViewController: UITableViewController {
             self.tableView.reloadData()
         })
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
+        
+        if let list = self.logs {
+            var list = list.filter("uploaded = %@",false).sorted { (a, b) -> Bool in
+                return a.regDt > b.regDt
+            }
+            func upload() {
+                list.first?.uploadStoreStocks(complete: { (isSucess) in
+                    list.removeFirst()
+                    if list.count > 0 {
+                        upload()
+                    }
+                })
+            }
+            upload()
+        }
     }
     
     @objc func onRefreshControl(_ sender: UIRefreshControl) {
@@ -82,7 +97,8 @@ class StoreStockLogTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel?.text = log.remain_stat.localized
             cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
-            cell.detailTextLabel?.text = log.regDt.simpleFormatStringValue
+            cell.detailTextLabel?.text = log.regDt.formatedString(format: "hh:mm:ss")
+            
             return cell
         default:
             return UITableViewCell()
