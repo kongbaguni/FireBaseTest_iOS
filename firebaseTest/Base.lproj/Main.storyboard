@@ -2021,10 +2021,10 @@
             </objects>
             <point key="canvasLocation" x="3537.68115942029" y="-820.3125"/>
         </scene>
-        <!--View Controller-->
+        <!--Holdem View Controller-->
         <scene sceneID="kur-G6-iCN">
             <objects>
-                <viewController id="eD3-Dq-l14" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="holdem" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eD3-Dq-l14" customClass="HoldemViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E9e-DR-3bn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2035,7 +2035,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zy4-o4-U0q">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zy4-o4-U0q" customClass="HoldemView" customModule="mask_now" customModuleProvider="target">
                                             <rect key="frame" x="32" y="259" width="350" height="300"/>
                                             <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -2048,10 +2048,73 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVh-WT-zEW">
+                                            <rect key="frame" x="342" y="269" width="30" height="34"/>
+                                            <connections>
+                                                <action selector="onTouchupCloseBtn:" destination="eD3-Dq-l14" eventType="touchUpInside" id="Z47-ss-dOa"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3UV-nf-pKY">
+                                            <rect key="frame" x="47" y="590" width="30" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="betting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUB-we-s8k">
+                                            <rect key="frame" x="32" y="600" width="54.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyPoints" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCi-UF-Uxv">
+                                            <rect key="frame" x="32" y="569" width="71" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="90,999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plR-gG-kWZ">
+                                            <rect key="frame" x="326.5" y="569" width="55.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bju-JP-5wj">
+                                            <rect key="frame" x="353.5" y="600" width="28.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pdd-7N-gew">
+                                            <rect key="frame" x="182" y="659" width="50" height="30"/>
+                                            <state key="normal" title="Betting"/>
+                                            <connections>
+                                                <action selector="onTouchupButton:" destination="eD3-Dq-l14" eventType="touchUpInside" id="UEl-yC-KR5"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Holdem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8CQ-3m-Qol">
+                                            <rect key="frame" x="139.5" y="186" width="135.5" height="43"/>
+                                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="36"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Zy4-o4-U0q" firstAttribute="centerY" secondItem="MeE-v7-bLj" secondAttribute="centerY" id="20L-ze-d9P"/>
+                                        <constraint firstItem="bju-JP-5wj" firstAttribute="top" secondItem="plR-gG-kWZ" secondAttribute="bottom" constant="10" id="9mV-3l-Mjl"/>
+                                        <constraint firstItem="plR-gG-kWZ" firstAttribute="top" secondItem="Zy4-o4-U0q" secondAttribute="bottom" constant="10" id="DdX-JB-ct3"/>
+                                        <constraint firstItem="zCi-UF-Uxv" firstAttribute="leading" secondItem="Zy4-o4-U0q" secondAttribute="leading" id="HP9-0q-j1Y"/>
+                                        <constraint firstItem="GVh-WT-zEW" firstAttribute="trailing" secondItem="Zy4-o4-U0q" secondAttribute="trailing" constant="-10" id="HkU-B3-AX1"/>
+                                        <constraint firstItem="zCi-UF-Uxv" firstAttribute="top" secondItem="Zy4-o4-U0q" secondAttribute="bottom" constant="10" id="JJU-R9-bmh"/>
+                                        <constraint firstItem="Zy4-o4-U0q" firstAttribute="top" secondItem="8CQ-3m-Qol" secondAttribute="bottom" constant="30" id="LWS-kM-FVT"/>
+                                        <constraint firstItem="bju-JP-5wj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iUB-we-s8k" secondAttribute="trailing" constant="10" id="MgK-5A-elK"/>
+                                        <constraint firstItem="GVh-WT-zEW" firstAttribute="top" secondItem="Zy4-o4-U0q" secondAttribute="top" constant="10" id="MnH-ys-WnI"/>
+                                        <constraint firstItem="plR-gG-kWZ" firstAttribute="trailing" secondItem="Zy4-o4-U0q" secondAttribute="trailing" id="N7y-Yp-ghz"/>
+                                        <constraint firstItem="Pdd-7N-gew" firstAttribute="top" secondItem="Zy4-o4-U0q" secondAttribute="bottom" constant="100" id="Ptl-kb-8wx"/>
+                                        <constraint firstItem="bju-JP-5wj" firstAttribute="trailing" secondItem="plR-gG-kWZ" secondAttribute="trailing" id="YZy-hu-S29"/>
+                                        <constraint firstItem="8CQ-3m-Qol" firstAttribute="centerX" secondItem="Zy4-o4-U0q" secondAttribute="centerX" id="bfX-VX-61N"/>
+                                        <constraint firstItem="iUB-we-s8k" firstAttribute="top" secondItem="zCi-UF-Uxv" secondAttribute="bottom" constant="10" id="bud-or-vlz"/>
+                                        <constraint firstItem="Pdd-7N-gew" firstAttribute="centerX" secondItem="Zy4-o4-U0q" secondAttribute="centerX" id="czp-ai-YP5"/>
+                                        <constraint firstItem="plR-gG-kWZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zCi-UF-Uxv" secondAttribute="trailing" constant="10" id="how-QM-trj"/>
                                         <constraint firstItem="Zy4-o4-U0q" firstAttribute="centerX" secondItem="MeE-v7-bLj" secondAttribute="centerX" id="lhg-3r-EEf"/>
+                                        <constraint firstItem="iUB-we-s8k" firstAttribute="leading" secondItem="zCi-UF-Uxv" secondAttribute="leading" id="qMA-Yu-lHR"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="regular"/>
@@ -2066,6 +2129,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Nwh-Fu-P85"/>
                     </view>
+                    <connections>
+                        <outlet property="closeButton" destination="GVh-WT-zEW" id="atI-S8-O5N"/>
+                        <outlet property="gamePlayButton" destination="Pdd-7N-gew" id="A2T-gn-Bur"/>
+                        <outlet property="holdemView" destination="Zy4-o4-U0q" id="E2p-a3-cb9"/>
+                        <outlet property="myBettingLabel" destination="bju-JP-5wj" id="NfZ-3S-4KH"/>
+                        <outlet property="myBettingTitleLabel" destination="iUB-we-s8k" id="stY-qb-FEs"/>
+                        <outlet property="myPointLabel" destination="plR-gG-kWZ" id="uCd-6p-jBs"/>
+                        <outlet property="myPointTitleLabel" destination="zCi-UF-Uxv" id="HiG-4h-RUd"/>
+                        <outlet property="titleLabel" destination="8CQ-3m-Qol" id="HJ5-0q-T9S"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Li-CJ-NXV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

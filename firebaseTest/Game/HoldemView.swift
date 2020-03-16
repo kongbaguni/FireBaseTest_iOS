@@ -7,13 +7,8 @@
 //
 
 import UIKit
-//@IBDesignable
+
 class HoldemView: UIView {
-    @IBInspectable public var cornerRadius:CGFloat = 5.0 {
-        didSet {
-            self.layer.cornerRadius = cornerRadius
-        }
-    }
     @IBOutlet var contentView: UIView!
     @IBOutlet var dealersCardImageViews:[UIImageView]!
     @IBOutlet var communityCardImageViews:[UIImageView]!
@@ -28,10 +23,7 @@ class HoldemView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
     }
-    override func prepareForInterfaceBuilder() {
-        contentView.layer.borderColor = UIColor.autoColor_text_color.cgColor
-        contentView.layer.borderWidth = 1
-    }
+        
     override init(frame: CGRect) {
         super.init(frame:frame)
         commonInit()
@@ -48,5 +40,35 @@ class HoldemView: UIView {
         addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderColor = UIColor.autoColor_text_color.cgColor
+        contentView.layer.borderWidth = 1
+        contentView.layer.masksToBounds = true
+        contentView.backgroundColor = .autoColor_bg_color
+    }
+    
+    func showMyCard() {
+        if myCards.count == 2 {
+            for (index, card) in myCards.enumerated() {
+                myCardImageViews[index].image = card.image
+            }
+        }
+    }
+    
+    func showDealerCard() {
+        if dealerCards.count == 2 {
+            for (index, card) in dealerCards.enumerated() {
+                dealersCardImageViews[index].image = card.image
+            }
+        }
+    }
+    
+    func showCommunityCard(number:Int) {
+        if number > 5 || number == 0 {
+            return
+        }
+        for i in 0..<number {
+            communityCardImageViews[i].image = communityCards[i].image
+        }
     }
 }

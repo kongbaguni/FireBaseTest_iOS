@@ -174,6 +174,19 @@ class TodaysTalksTableViewController: UITableViewController {
             Toast.makeToast(message: "game count limit over msg".localized)
             return
         }
+        let ac = UIAlertController(title: nil, message: "game select", preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "simple porker", style: .default, handler: { (action) in
+            self.playSimplePorker()
+        }))
+        ac.addAction(UIAlertAction(title: "holdem", style: .default, handler: { (action) in
+            let vc = HoldemViewController.viewController
+            self.present(vc, animated: true, completion: nil)
+        }))
+        ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        present(ac, animated: true, completion: nil)
+    }
+    
+    private func playSimplePorker() {
         let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
         let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
         let lastBetting = try! Realm().objects(TalkModel.self).filter("creatorId = %@ && bettingPoint > 0",UserInfo.info!.id).last?.bettingPoint ?? UserInfo.info!.point / 10
@@ -213,6 +226,7 @@ class TodaysTalksTableViewController: UITableViewController {
         vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)
     }
+    
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

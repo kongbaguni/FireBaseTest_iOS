@@ -41,6 +41,7 @@
 		C39A6ECC241F368000460705 /* HoldemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C39A6ECB241F368000460705 /* HoldemView.xib */; };
 		C39A6ECE241F386400460705 /* HoldemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ECD241F386400460705 /* HoldemView.swift */; };
 		C39A6ED0241F524800460705 /* StoreStockLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */; };
+		C39A6ED4241F6CE100460705 /* HoldemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ED3241F6CE100460705 /* HoldemViewController.swift */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
@@ -102,6 +103,7 @@
 		C39A6ECB241F368000460705 /* HoldemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HoldemView.xib; sourceTree = "<group>"; };
 		C39A6ECD241F386400460705 /* HoldemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldemView.swift; sourceTree = "<group>"; };
 		C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreStockLogTableViewCell.swift; sourceTree = "<group>"; };
+		C39A6ED3241F6CE100460705 /* HoldemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldemViewController.swift; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* mask now.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask now.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */,
 				C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */,
 				C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */,
+				C39A6ED3241F6CE100460705 /* HoldemViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				C31DDCB2241DBC8C00F0BAA8 /* StatusViewController.swift in Sources */,
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
 				C33839E72418AECD00CADC60 /* MapViewController.swift in Sources */,
+				C39A6ED4241F6CE100460705 /* HoldemViewController.swift in Sources */,
 				C33839DB241873D600CADC60 /* Toast.swift in Sources */,
 				C3630FD9241B5F31003479C2 /* TalkDetailCardTableViewCell.swift in Sources */,
 				C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */,
