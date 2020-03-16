@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
     let indicator = NVActivityIndicatorView(
         frame: UIScreen.main.bounds,
         type: .ballRotateChase,
-        color: .indicator_color,
+        color: .autoColor_indicator_color,
         padding: UIScreen.main.bounds.width)
     
     override func viewDidLoad() {
@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
         loginGoogleBtn.setImage(icon, for: .normal)
         
         let maskIcon = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width:30,height:30))
-            .withRenderingMode(.alwaysTemplate).withTintColor(.text_color)
+            .withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_text_color)
         maskNowBtn.setImage(maskIcon, for: .normal)
         versionLabel.text = "ver : \(UIApplication.shared.version)"
         

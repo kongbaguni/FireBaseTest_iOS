@@ -20,9 +20,9 @@ class StoresTableViewCell: UITableViewCell {
     func setData(data:StoreModel) {        
         switch data.storeType {
         case .pharmacy:
-            storeImageView.image = #imageLiteral(resourceName: "pharmacy").withTintColor(.text_color)
+            storeImageView.image = #imageLiteral(resourceName: "pharmacy").withTintColor(.autoColor_text_color)
         default:
-            storeImageView.image = #imageLiteral(resourceName: "postoffice").withTintColor(.text_color)
+            storeImageView.image = #imageLiteral(resourceName: "postoffice").withTintColor(.autoColor_text_color)
         }
         distanceLabel.text = "\(Double(Int(data.distance * 100))/100)m"
         if data.distance > 700 {

@@ -64,7 +64,7 @@ class StatusViewController: UIViewController {
         setTitle()
         loadData()
         isHideIntro = true
-        statusCardView.layer.borderColor = UIColor.text_color.cgColor
+        statusCardView.layer.borderColor = UIColor.autoColor_text_color.cgColor
         statusCardView.layer.borderWidth = 1
         statusCardView.layer.masksToBounds = true
         statusCardView.layer.cornerRadius = 10
@@ -75,8 +75,8 @@ class StatusViewController: UIViewController {
         
         let closeBtnImage =
         #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
-        closeBtn.setImage(closeBtnImage.withTintColor(.text_color), for: .normal)
-        closeBtn.setImage(closeBtnImage.withTintColor(.weak_text_color), for: .highlighted)
+        closeBtn.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
+        closeBtn.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
     }
     
     @objc func onTapGesture(_ sender:UITapGestureRecognizer) {
@@ -90,7 +90,7 @@ class StatusViewController: UIViewController {
         print(value)
         target?.alpha = 1
         
-        target?.textColor = value > 0 ? UIColor.bold_text_color : .red
+        target?.textColor = value > 0 ? UIColor.autoColor_bold_text_color : .red
         target?.text = "\(value > 0 ? "+" : "") \(value.decimalForamtString)"
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
             UIView.animate(withDuration: 0.5) {
@@ -125,7 +125,7 @@ class StatusViewController: UIViewController {
         introduceLabel.text = user.introduce
         pointLabel.text = user.point.decimalForamtString
         levelLabel.text = user.levelStrValue
-        levelLabel.textColor = .bold_text_color
+        levelLabel.textColor = .autoColor_bold_text_color
 
         func setExp(exp:Int,animated:Bool) {
             let maxExp = Consts.LEVELUP_REQ_EXP
@@ -144,7 +144,7 @@ class StatusViewController: UIViewController {
                 oldExp = 0
                 self.setAddLabel(value: 1, target: self.addLevelLabel)
                 levelLabel.text = user.level.decimalForamtString
-                levelLabel.textColor = .weak_text_color
+                levelLabel.textColor = .autoColor_weak_text_color
             }
             pointLabel.text = (user.point - change.pointChange).decimalForamtString
             setExp(exp: oldExp, animated: false)
@@ -155,7 +155,7 @@ class StatusViewController: UIViewController {
                 self.setAddLabel(value: change.addedExp, target: self.addExpLabel)
                 self.setAddLabel(value: change.pointChange, target: self.addPointLabel)
                 self.levelLabel.text = user.levelStrValue
-                self.levelLabel.textColor = .bold_text_color
+                self.levelLabel.textColor = .autoColor_bold_text_color
             }
             
         } else {

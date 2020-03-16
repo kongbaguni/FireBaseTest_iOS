@@ -32,12 +32,23 @@ extension UserDefaults {
         }
     }
     
+    /** 게임 톡 감추기*/
     var isHideGameTalk:Bool {
         set {
             set(newValue, forKey: "hideGameTalk")
         }
         get {
             bool(forKey: "hideGameTalk")
+        }
+    }
+    
+    /** 근처의 이야기만 보기*/
+    var isShowNearTalk:Bool {
+        set {
+            set(newValue, forKey: "showNearTalk")
+        }
+        get {
+            bool(forKey: "showNearTalk")
         }
     }
 }

@@ -29,7 +29,7 @@ class HoldemView: UIView {
         super.layoutSubviews()
     }
     override func prepareForInterfaceBuilder() {
-        contentView.layer.borderColor = UIColor.text_color.cgColor
+        contentView.layer.borderColor = UIColor.autoColor_text_color.cgColor
         contentView.layer.borderWidth = 1
     }
     override init(frame: CGRect) {

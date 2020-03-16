@@ -32,9 +32,9 @@ class EmptyView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        label.textColor = .text_color
-        button.setTitleColor(.bold_text_color, for: .normal)
-        button.setTitleColor(.text_color, for: .highlighted)
+        label.textColor = .autoColor_text_color
+        button.setTitleColor(.autoColor_bold_text_color, for: .normal)
+        button.setTitleColor(.autoColor_text_color, for: .highlighted)
         setTitle()
     }
     
@@ -45,13 +45,13 @@ class EmptyView: UIView {
             label.text = "Waiting for server to respond.".localized
             button.isHidden = true
         case .empty:
-            imageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate).withTintColor(.bold_text_color)
+            imageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_bold_text_color)
             label.text = "There are no public mask vendors nearby.".localized
             button.setTitle("retry".localized, for: .normal)
             button.isHidden = false
             
         case .locationNotAllow:
-            imageView.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate).withTintColor(.bold_text_color)
+            imageView.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_bold_text_color)
             label.text = "Location information access is required.\nPlease make your location accessible.".localized
             button.setTitle("Setting up".localized, for: .normal)
             button.isHidden = false

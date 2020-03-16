@@ -14,7 +14,7 @@ class TalkDetailEditHistoryTableViewCell: UITableViewCell {
     func setData(data:TextEditModel) {
         dateLabel.text = data.regDt.simpleFormatStringValue
         textView.text = data.text
-        textView.textColor = .text_color
+        textView.textColor = .autoColor_text_color
     }
 }
 

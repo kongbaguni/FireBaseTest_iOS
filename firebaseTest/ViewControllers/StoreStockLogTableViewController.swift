@@ -107,7 +107,7 @@ class StoreStockLogTableViewController: UITableViewController {
                 cell.textLabel?.text = store?.addr
             case 1:
                 cell.textLabel?.text = "stockTable_desc".localized
-                cell.textLabel?.textColor = .weak_text_color
+                cell.textLabel?.textColor = .autoColor_weak_text_color
                 cell.textLabel?.font = UIFont.systemFont(ofSize: 10)
             default:
                 break

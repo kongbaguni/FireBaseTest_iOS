@@ -22,7 +22,7 @@ struct Loading {
             let indicator = NVActivityIndicatorView(
                 frame: UIScreen.main.bounds,
                 type: .ballRotateChase,
-                color: .indicator_color,
+                color: .autoColor_indicator_color,
                 padding: UIScreen.main.bounds.width)
             view.addSubview(indicator)
             view.tag = tag

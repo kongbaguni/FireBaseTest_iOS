@@ -174,8 +174,8 @@ class StoresTableViewController: UITableViewController {
             return nil
         }
         let view = UIButton()
-        view.backgroundColor = .text_color
-        view.setTitleColor(.bg_color, for: .normal)        
+        view.backgroundColor = .autoColor_text_color
+        view.setTitleColor(.autoColor_bg_color, for: .normal)        
         view.setTitle("\(list.first?.remain_stat.localized ?? "") \(list.count)", for: .normal)
         view.tag = section
         view.backgroundColor = type.colorValue

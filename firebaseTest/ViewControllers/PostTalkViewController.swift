@@ -55,7 +55,7 @@ class PostTalkViewController: UITableViewController {
         if UserInfo.info?.point ?? 0 < needPoint {
             textCountLabel.textColor = .red
         } else {
-            textCountLabel.textColor = .text_color
+            textCountLabel.textColor = .autoColor_text_color
         }
         textCountLabel.text = msg
     }

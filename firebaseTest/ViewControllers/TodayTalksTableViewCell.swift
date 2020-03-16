@@ -11,21 +11,21 @@ import RealmSwift
 fileprivate var textStyle0:[NSAttributedString.Key:Any] {
     [
         .font               : UIFont.systemFont(ofSize: 18),
-        .foregroundColor    : UIColor.text_color
+        .foregroundColor    : UIColor.autoColor_text_color
     ]
 }
 
 fileprivate var textStyle1:[NSAttributedString.Key:Any] {
     [
         .font               : UIFont.systemFont(ofSize: 10),
-        .foregroundColor    : UIColor.text_color
+        .foregroundColor    : UIColor.autoColor_text_color
     ]
 }
 
 fileprivate var textStyle2:[NSAttributedString.Key:Any] {
     [
         .font               : UIFont.boldSystemFont(ofSize: 10),
-        .foregroundColor    : UIColor.bold_text_color
+        .foregroundColor    : UIColor.autoColor_bold_text_color
     ]
 }
 
@@ -43,7 +43,7 @@ class TodayTalksTableViewCell: UITableViewCell {
             bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
         }
         
-        talkTextView.textColor = .text_color
+        talkTextView.textColor = .autoColor_text_color
         let text = NSMutableAttributedString()
         
         if let txt = data.editList.last?.text {

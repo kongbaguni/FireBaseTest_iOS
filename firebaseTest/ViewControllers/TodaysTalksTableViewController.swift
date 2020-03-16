@@ -21,12 +21,14 @@ class TodaysTalksTableViewController: UITableViewController {
             .sorted(byKeyPath: "regTimeIntervalSince1970", ascending: true)
             .filter("regTimeIntervalSince1970 > %@", Date.midnightTodayTime.timeIntervalSince1970)
         
-        if let myLocation = UserDefaults.standard.lastMyCoordinate {
-            let minlat = myLocation.latitude - 0.005
-            let maxlat = myLocation.latitude + 0.005
-            let minlng = myLocation.longitude - 0.005
-            let maxlng = myLocation.longitude + 0.005
-            result = result.filter("lat > %@ && lat < %@ && lng > %@ && lng < %@",minlat, maxlat, minlng, maxlng)
+        if UserDefaults.standard.isShowNearTalk {
+            if let myLocation = UserDefaults.standard.lastMyCoordinate {
+                let minlat = myLocation.latitude - 0.005
+                let maxlat = myLocation.latitude + 0.005
+                let minlng = myLocation.longitude - 0.005
+                let maxlng = myLocation.longitude + 0.005
+                result = result.filter("lat > %@ && lat < %@ && lng > %@ && lng < %@",minlat, maxlat, minlng, maxlng)
+            }
         }
         if UserDefaults.standard.isHideGameTalk {
             result = result.filter("bettingPoint = %@",0)
@@ -49,12 +51,18 @@ class TodaysTalksTableViewController: UITableViewController {
     @IBOutlet weak var hideGameOptionLabel: UILabel!
     @IBOutlet weak var hideGameOptionSwitch : UISwitch!
     
+    @IBOutlet weak var nearTalkOptionLabel: UILabel!
+    @IBOutlet weak var nearTalkOptionSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "todays talks".localized
         searchBar.placeholder = "text search".localized
         hideGameOptionLabel.text = "hide game talk".localized
         hideGameOptionSwitch.isOn = UserDefaults.standard.isHideGameTalk
+        nearTalkOptionLabel.text = "show near talk".localized
+        nearTalkOptionSwitch.isOn = UserDefaults.standard.isShowNearTalk
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -83,6 +91,11 @@ class TodaysTalksTableViewController: UITableViewController {
             self.toolBar.items?.last?.isEnabled = !self.hideGameOptionSwitch.isOn
         }.disposed(by: self.disposebag)
         
+        nearTalkOptionSwitch.rx.isOn.subscribe { (event) in
+            UserDefaults.standard.isShowNearTalk = self.nearTalkOptionSwitch.isOn
+            self.tableView.reloadData()
+        }.disposed(by: self.disposebag)
+        
         NotificationCenter.default.addObserver(forName: .game_usePointAndGetExpNotification, object: nil, queue: nil) { [weak self](notification) in
             func showStatus(change:StatusChange) {
                 if self?.presentingViewController == nil {
@@ -105,7 +118,9 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        hideGameOptionSwitch.onTintColor = .bold_text_color
+        for view in [nearTalkOptionSwitch, hideGameOptionSwitch] {
+            view?.onTintColor = .autoColor_switch_color
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
