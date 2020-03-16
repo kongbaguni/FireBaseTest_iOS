@@ -105,3 +105,7 @@
  
 "%@ days before" = "%@일전";
 "today" = "오늘";
+"game result" = "게임 결과";
+
+"guest" = "익명 사용자";
+"reporter" = "리포터";

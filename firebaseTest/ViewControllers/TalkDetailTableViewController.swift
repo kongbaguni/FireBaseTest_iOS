@@ -69,6 +69,11 @@ class TalkDetailTableViewController: UITableViewController {
             
             return cell
         case 1:
+            if talkModel?.bettingPoint ?? 0 > 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cardDack", for: indexPath) as! TalkDetailCardDackTavleViewCell
+                cell.talkId = talkModel?.id
+                return cell
+            }
             if let editList = talkModel?.editList {
                 if indexPath.row == 0 {
                     if let imgUrl = talkModel?.imageUrl {
@@ -120,6 +125,9 @@ class TalkDetailTableViewController: UITableViewController {
         case 0:
             return "creator".localized
         case 1:
+            if talkModel?.bettingPoint ?? 0 > 0 {
+                return "game result".localized
+            }
             return "edit history".localized
         case 2:
             if talkModel?.likes.count == 0 {

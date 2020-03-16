@@ -15,8 +15,18 @@ class StoreStockLogModel: Object {
     @objc dynamic var code:String = ""
     @objc dynamic var remain_stat:String = ""
     @objc dynamic var regDt:Date = Date()
-    
+    @objc dynamic var uploaderId:String = ""
     @objc dynamic var uploaded:Bool = false
+    
+    var uploader:UserInfo? {
+        if uploaderId.isEmpty || uploaderId == "guest" {
+            return nil
+        }
+        if let info = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: uploaderId) {
+            return info
+        }
+        return nil
+    }
     
     var store:StoreModel? {
         try! Realm().object(ofType: StoreModel.self, forPrimaryKey: code)
@@ -47,25 +57,35 @@ class StoreStockLogModel: Object {
             let collection = Firestore.firestore().collection("storeStock")
             let docuId = id
 
-            let time = self.regDt.formatedString(format: "yyyyMMdd_HH") + remain_stat
-            let document = collection.document("\(code)_\(time)")
+            let time = self.regDt.formatedString(format: "yyyyMMdd_HHMM") + remain_stat
+            let shopDoc = collection.document(code)
+            let subColection = shopDoc.collection("stock_logs")
+            let document = subColection.document("\(code)_\(time)")
+            
             let data:[String:Any] = [
                 "id":id,
                 "shopcode":code,
                 "remain_stat":remain_stat,
-                "regDtTimeIntervalSince1970":regDt.timeIntervalSince1970
+                "regDtTimeIntervalSince1970":regDt.timeIntervalSince1970,
+                "uploader":UserInfo.info?.id ?? "guest"
             ]
             
-            document.setData(data, merge: true) { (error) in
+            shopDoc.setData(["id":code]) { (error) in
                 if error == nil {
-                    let realm = try! Realm()
-                    if let data = realm.object(ofType: StoreStockLogModel.self, forPrimaryKey: docuId) {
-                        realm.beginWrite()
-                        data.uploaded = true
-                        try! realm.commitWrite()
+                    document.setData(data, merge: true) { (error) in
+                        if error == nil {
+                            let realm = try! Realm()
+                            if let data = realm.object(ofType: StoreStockLogModel.self, forPrimaryKey: docuId) {
+                                realm.beginWrite()
+                                data.uploaded = true
+                                try! realm.commitWrite()
+                            }
+                        }
+                        complete(error == nil)
                     }
+                } else {
+                    complete(false)
                 }
-                complete(error == nil)
             }
         }
 

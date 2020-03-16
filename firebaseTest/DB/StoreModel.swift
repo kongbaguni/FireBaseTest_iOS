@@ -140,17 +140,13 @@ class StoreModel : Object {
         NotificationCenter.default.post(name: .deletedStoreModel, object: nil, userInfo: nil)
     }
     
-    var dbCollection:Query {
-        let collection = Firestore.firestore().collection("storeStock")
-        collection
-            .whereField("regDtTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7))
-        return collection
-            .whereField("shopcode", isEqualTo: self.code)
-    }
-    
-    
     func getStoreStockLogs(complete:@escaping(_ count:Int?)->Void) {
-        dbCollection.getDocuments { (shot, error) in
+        Firestore.firestore()
+            .collection("storeStock")
+            .document(self.code)
+            .collection("stock_logs")
+            .whereField("regDtTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
+            .getDocuments { (shot, error) in
             if error != nil {
                 complete(nil)
                 return
@@ -163,9 +159,13 @@ class StoreModel : Object {
             
             print("----------------")
             print(self.name)
+            print(self.code)
             realm.beginWrite()
             realm.delete(realm.objects(StoreStockLogModel.self).filter("code = %@", self.code))
             try! realm.commitWrite()
+            realm.refresh()
+            print(snap.documents.count)
+            print(snap.documentChanges.count)
             for doc in snap.documents {
                 let data = doc.data()
                 if let id = data["id"] as? String
@@ -173,16 +173,23 @@ class StoreModel : Object {
                     , let storeCode = data["shopcode"] as? String
                 {
                     let lastLog = realm.objects(StoreStockLogModel.self).filter("code = %@", storeCode).sorted(byKeyPath: "regDt").last
-                                        
-                    print("last : \(lastLog?.regDt.simpleFormatStringValue ?? " ") : \(lastLog?.remain_stat ?? " ") \(lastLog?.code ?? " ")")
+                    #if DEBUG
+                    if lastLog?.isInvalidated == false {
+                        print("last : \(lastLog?.regDt.simpleFormatStringValue ?? " ") : \(lastLog?.remain_stat ?? " ") \(lastLog?.code ?? " ")")
+                    }
                     print(Date(timeIntervalSince1970: doc["regDtTimeIntervalSince1970"] as! Double).simpleFormatStringValue
                         + " " + remain_stat + " " + storeCode)
-                    if lastLog?.remain_stat != remain_stat {
+                    #endif
+                                        
+                    if lastLog?.remain_stat != remain_stat || lastLog?.isInvalidated == true {
+                        
                         let logModel = StoreStockLogModel()
                         logModel.id = id
                         logModel.code =  storeCode
                         logModel.remain_stat = remain_stat
+                        logModel.uploaderId = data["uploader"] as? String ?? "guest"
                         logModel.uploaded = true
+                        
                         if let int = data["regDtTimeIntervalSince1970"] as? Double {
                             logModel.regDt = Date(timeIntervalSince1970: int)
                         }

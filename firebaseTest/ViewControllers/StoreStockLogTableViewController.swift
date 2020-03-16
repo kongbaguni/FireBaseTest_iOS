@@ -57,6 +57,7 @@ class StoreStockLogTableViewController: UITableViewController {
             model.code = store.code
             model.remain_stat = store.remain_stat
             model.regDt = store.updateDt
+            model.uploaderId = UserInfo.info?.id ?? "guest"
             let realm = try! Realm()
             realm.beginWrite()
             realm.add(model, update: .all)
@@ -112,19 +113,16 @@ class StoreStockLogTableViewController: UITableViewController {
             guard let log = todayLogs?[indexPath.row] else {
                 return UITableViewCell()
             }
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = log.remain_stat.localized
-            cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
-            cell.detailTextLabel?.text = log.regDt.formatedString(format: "M d a hh:mm:ss")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "storeLogCell", for: indexPath) as! StoreStockLogTableViewCell
+            cell.stockId = log.id
             return cell
+            
         default:
             guard let log = getList(dayBefore: indexPath.section-1)?[indexPath.row] else {
                 return UITableViewCell()
             }
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = log.remain_stat.localized
-            cell.backgroundColor = StoreModel.RemainType(rawValue: log.remain_stat)?.colorValue
-            cell.detailTextLabel?.text = log.regDt.formatedString(format: "M d a hh:mm:ss")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "storeLogCell", for: indexPath) as! StoreStockLogTableViewCell
+            cell.stockId = log.id
             return cell
         }
     }
@@ -139,6 +137,29 @@ class StoreStockLogTableViewController: UITableViewController {
                 return nil
             }
             return String(format:"%@ days before".localized, "\(section - 1)")
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.section {
+        case 0:
+            break
+        case 1:
+            guard let log = todayLogs?[indexPath.row] else {
+                return
+            }
+            let vc = StatusViewController.viewController
+            vc.userId = log.uploader?.id
+            present(vc, animated: true, completion: nil)
+            
+        default:
+            guard let log = getList(dayBefore: indexPath.section-1)?[indexPath.row] else {
+                return
+            }
+            let vc = StatusViewController.viewController
+            vc.userId = log.uploader?.id
+            present(vc, animated: true, completion: nil)
         }
     }
 }

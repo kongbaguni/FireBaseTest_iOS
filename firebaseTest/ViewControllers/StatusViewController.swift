@@ -108,6 +108,14 @@ class StatusViewController: UIViewController {
     
     func loadData() {
         guard let user = userInfo else {
+            nameLabel.text = "guest".localized
+            pointLabel.text = ""
+            levelLabel.text = ""
+            expLabel.text = ""
+            levelTitleLabel.isHidden = true
+            pointTitleLabel.isHidden = true
+            expProgressView.progress = 0
+            expTitleLabel.isHidden = true
             return
         }
         
@@ -157,7 +165,11 @@ class StatusViewController: UIViewController {
     }
     
     @IBAction func onTouchupProfileBtn(_ sender: Any) {
-        isHideIntro.toggle()
+        if self.userInfo != nil {
+            isHideIntro.toggle()
+        } else {
+            isHideIntro = true
+        }
     }
     
     @IBAction func onTouchupCloseBtn(_ sender: Any) {

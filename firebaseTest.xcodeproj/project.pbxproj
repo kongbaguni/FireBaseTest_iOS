@@ -37,6 +37,10 @@
 		C3780E63240F361A006070CF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3780E62240F361A006070CF /* Localizable.strings */; };
 		C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E66240F44AF006070CF /* LoginViewController.swift */; };
 		C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386C791241A0B1C0034132B /* Int+Extensions.swift */; };
+		C39A6ECA241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6EC9241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift */; };
+		C39A6ECC241F368000460705 /* HoldemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C39A6ECB241F368000460705 /* HoldemView.xib */; };
+		C39A6ECE241F386400460705 /* HoldemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ECD241F386400460705 /* HoldemView.swift */; };
+		C39A6ED0241F524800460705 /* StoreStockLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
@@ -94,6 +98,10 @@
 		C3780E62240F361A006070CF /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		C3780E66240F44AF006070CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C386C791241A0B1C0034132B /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
+		C39A6EC9241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailCardDackTavleViewCell.swift; sourceTree = "<group>"; };
+		C39A6ECB241F368000460705 /* HoldemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HoldemView.xib; sourceTree = "<group>"; };
+		C39A6ECD241F386400460705 /* HoldemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldemView.swift; sourceTree = "<group>"; };
+		C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreStockLogTableViewCell.swift; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* mask now.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask now.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +165,8 @@
 				C3630FD4241B5C7B003479C2 /* CardDackView.swift */,
 				C3630FD5241B5C7C003479C2 /* CardDackView.xib */,
 				C3630FD2241B51CE003479C2 /* Card.swift */,
+				C39A6ECB241F368000460705 /* HoldemView.xib */,
+				C39A6ECD241F386400460705 /* HoldemView.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -176,6 +186,7 @@
 				C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */,
 				C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */,
 				C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */,
+				C39A6EC9241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift */,
 				C3630FD8241B5F31003479C2 /* TalkDetailCardTableViewCell.swift */,
 				C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */,
 				C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */,
@@ -184,6 +195,7 @@
 				C3EDFB06241C653A003EF787 /* StoreStockLogTableViewController.swift */,
 				C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */,
 				C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */,
+				C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -344,6 +356,7 @@
 				C33839DF2418A1CE00CADC60 /* GoogleService-Info.plist in Resources */,
 				C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */,
 				C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */,
+				C39A6ECC241F368000460705 /* HoldemView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +443,7 @@
 				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
 				C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */,
 				C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */,
+				C39A6ECA241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift in Sources */,
 				C3DC5B93241234A100A028E0 /* TodayTalksTableViewCell.swift in Sources */,
 				C34C6B572418C2B1001D8CF4 /* ApiManager.swift in Sources */,
 				C31DDCB2241DBC8C00F0BAA8 /* StatusViewController.swift in Sources */,
@@ -446,6 +460,7 @@
 				C3DC5B8F241221F800A028E0 /* Loading.swift in Sources */,
 				C3EF51C8240CEB7700A4C29E /* MainNavigationController.swift in Sources */,
 				C3EDFB05241C6137003EF787 /* StoreStockLogModel.swift in Sources */,
+				C39A6ED0241F524800460705 /* StoreStockLogTableViewCell.swift in Sources */,
 				C34C6B552418C1BF001D8CF4 /* StoresTableViewController.swift in Sources */,
 				C3EDFB07241C653A003EF787 /* StoreStockLogTableViewController.swift in Sources */,
 				C3DC5B8C24121BA500A028E0 /* PostTalkViewController.swift in Sources */,
@@ -459,6 +474,7 @@
 				C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */,
 				C3630FD6241B5C7C003479C2 /* CardDackView.swift in Sources */,
 				C3EF51C3240CE56A00A4C29E /* UserInfoDetailViewController.swift in Sources */,
+				C39A6ECE241F386400460705 /* HoldemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

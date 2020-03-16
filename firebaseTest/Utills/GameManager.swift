@@ -60,10 +60,12 @@ class GameManager {
         }
     }
     
-    fileprivate var popCards:CardSet {
+    func popCards(number:Int)->[Card] {
         var list:[Card] = []
-        
-        while list.count < 5 {
+        if number == 0 {
+            return []
+        }
+        while list.count < number {
             if cardDack.count == 0 {
                 insertCardAndShuffle(useJoker: self.isUseJoker)
             }
@@ -72,7 +74,11 @@ class GameManager {
                 cardDack.removeFirst()
             }
         }
-        return CardSet(cards: list)
+        return list
+    }
+    
+    var pop5Cards:CardSet {
+        CardSet(cards: popCards(number: 5))
     }
     
     func playPokerGame(useJoker:Bool,bettingPoint:Int,complete:@escaping(_ isSucess:Bool)->Void) {      
@@ -81,8 +87,8 @@ class GameManager {
                 insertCardAndShuffle(useJoker: useJoker)
             }
             
-            let cards = GameManager.shared.popCards
-            let d_cards = GameManager.shared.popCards
+            let cards = GameManager.shared.pop5Cards
+            let d_cards = GameManager.shared.pop5Cards
             
             let talkModel = TalkModel()
             let documentId = "card\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)"
