@@ -16,7 +16,7 @@ class StoreStockLogTableViewController: UITableViewController {
         if let c = code {
             return try! Realm().objects(StoreStockLogModel.self)
             .filter("code = %@",c)
-            .sorted(byKeyPath: "regDt", ascending: true)
+            .sorted(byKeyPath: "regDt", ascending: false)
         }
         return nil
     }
@@ -44,31 +44,37 @@ class StoreStockLogTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = store?.name
-        self.store?.getStoreStockLogs(complete: { (count) in
-            self.tableView.reloadData()
-        })
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
-        
-        if let list = self.logs {
-            var list = list.filter("uploaded = %@",false).sorted { (a, b) -> Bool in
-                return a.regDt > b.regDt
-            }
-            func upload() {
-                list.first?.uploadStoreStocks(complete: { (isSucess) in
-                    list.removeFirst()
-                    if list.count > 0 {
-                        upload()
-                    }
-                })
-            }
-            upload()
+        onRefreshControl(UIRefreshControl())
+    }
+    
+    func uploadLogIfNeed(complete:@escaping(_ isSucess:Bool)->Void) {
+        guard let store = self.store else {
+            return
         }
+        if logs?.first?.remain_stat != store.remain_stat {
+            let model = StoreStockLogModel()
+            model.code = store.code
+            model.remain_stat = store.remain_stat
+            model.regDt = store.updateDt
+            let realm = try! Realm()
+            realm.beginWrite()
+            realm.add(model, update: .all)
+            try!realm.commitWrite()
+            model.uploadStoreStocks { (sucess) in
+                complete(sucess)
+            }
+            return
+        }
+        complete(true)
     }
     
     @objc func onRefreshControl(_ sender: UIRefreshControl) {
         self.store?.getStoreStockLogs(complete: { [weak self](count) in
-            sender.endRefreshing()
-            self?.tableView.reloadData()
+            self?.uploadLogIfNeed { (isSucess) in
+                sender.endRefreshing()
+                self?.tableView.reloadData()
+            }
         })
     }
     

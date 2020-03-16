@@ -31,6 +31,7 @@ class StatusViewController: UIViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "status") as! StatusViewController
     }
     
+    @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var blurView:UIVisualEffectView!
     @IBOutlet weak var statusCardView: UIView!
@@ -71,6 +72,11 @@ class StatusViewController: UIViewController {
             view?.alpha = 0
         }
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTapGesture(_:))))
+        
+        let closeBtnImage =
+        #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
+        closeBtn.setImage(closeBtnImage.withTintColor(.text_color), for: .normal)
+        closeBtn.setImage(closeBtnImage.withTintColor(.weak_text_color), for: .highlighted)
     }
     
     @objc func onTapGesture(_ sender:UITapGestureRecognizer) {

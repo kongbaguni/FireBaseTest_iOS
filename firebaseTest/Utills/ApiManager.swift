@@ -32,12 +32,6 @@ class ApiManager {
                                 store.setJson(data: storeInfo)
                                 stores.append(store)
                                 store.searchDisance = UserInfo.info?.distanceForSearch ?? Consts.DISTANCE_STORE_SEARCH
-                                if StoreStockLogModel.getLastStat(shopcode: store.code) != store.remain_stat {
-                                    let log = StoreStockLogModel()
-                                    log.code = store.code
-                                    log.remain_stat = store.remain_stat
-                                    stores.append(log)
-                                }
                             }
                             
                             let realm = try! Realm()
@@ -78,39 +72,44 @@ class ApiManager {
         
     }
     
-    func uploadShopStockLogs(complete:@escaping()->Void) {
-        let time = Date().timeIntervalSince1970 - 60 * 30
-        
-        let list = try! Realm().objects(StoreStockLogModel.self).filter("regDt > %@ && uploaded == %@", Date(timeIntervalSince1970: time), false)
-        var ids:[String] = []
-        for item in list {
-            ids.append(item.id)
-        }
-        func upload(upComplete:@escaping()->Void) {
-            if let id = ids.first {
-                if let model = try! Realm().object(ofType: StoreStockLogModel.self, forPrimaryKey: id) {
-                    if model.store != nil {
-                        #if DEBUG
-                        Toast.makeToast(message:"\(model.store?.name ?? "없다")")
-                        #endif
-                        model.uploadStoreStocks { (isSucess) in
-                            ids.removeFirst()
-                            if ids.count > 0 {
-                                upload(upComplete: upComplete)
-                            } else {
-                                upComplete()                                
-                            }
-                        }
-                    }
-                }
-            } else {
-                upComplete()
-                return
-            }
-        }
-        upload {
-            complete()
-        }
-    }
+//    func uploadShopStockLogs(complete:@escaping()->Void) {
+//        let time = Date().timeIntervalSince1970 - 60 * 30
+//
+//        let list = try! Realm().objects(StoreStockLogModel.self)
+//            .filter("regDt > %@ && uploaded == %@", Date(timeIntervalSince1970: time), false)
+//            .filter("remain_stat == %@",StoreModel.RemainType.plenty.rawValue)
+//        var ids:[String] = []
+//        for item in list {
+//            ids.append(item.id)
+//        }
+//        func upload(upComplete:@escaping()->Void) {
+//            if let id = ids.first {
+//                if let model = try! Realm().object(ofType: StoreStockLogModel.self, forPrimaryKey: id) {
+//                    if model.store != nil {
+//                        #if DEBUG
+//                        if let store = model.store {
+//                            let msg = "\(store.name) : \(model.remain_stat)"
+//                            Toast.makeToast(message:msg)
+//                        }
+//                        #endif
+//                        model.uploadStoreStocks { (isSucess) in
+//                            ids.removeFirst()
+//                            if ids.count > 0 {
+//                                upload(upComplete: upComplete)
+//                            } else {
+//                                upComplete()
+//                            }
+//                        }
+//                    }
+//                }
+//            } else {
+//                upComplete()
+//                return
+//            }
+//        }
+//        upload {
+//            complete()
+//        }
+//    }
         
 }

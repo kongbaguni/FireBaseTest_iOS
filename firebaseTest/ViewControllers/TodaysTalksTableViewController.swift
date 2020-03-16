@@ -55,7 +55,6 @@ class TodaysTalksTableViewController: UITableViewController {
         searchBar.placeholder = "text search".localized
         hideGameOptionLabel.text = "hide game talk".localized
         hideGameOptionSwitch.isOn = UserDefaults.standard.isHideGameTalk
-        hideGameOptionSwitch.onTintColor = .bold_text_color
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -103,6 +102,10 @@ class TodaysTalksTableViewController: UITableViewController {
                 }
             }
         }
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        hideGameOptionSwitch.onTintColor = .bold_text_color
     }
     
     override func viewDidAppear(_ animated: Bool) {
