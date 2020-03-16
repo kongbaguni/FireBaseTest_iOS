@@ -57,7 +57,11 @@ class StoreStockLogTableViewController: UITableViewController {
             model.code = store.code
             model.remain_stat = store.remain_stat
             model.regDt = store.updateDt
-            model.uploaderId = UserInfo.info?.id ?? "guest"
+            if UserInfo.info?.isAnonymousInventoryReport == true {
+                model.uploaderId = "guest"
+            } else {
+                model.uploaderId = UserInfo.info?.id ?? "guest"
+            }
             let realm = try! Realm()
             realm.beginWrite()
             realm.add(model, update: .all)

@@ -68,6 +68,9 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var searchDistanceLabel: UILabel!
     @IBOutlet weak var searchDistanceTextField: UITextField!
     
+    @IBOutlet weak var anonymousInventoryReportTitleLabel: UILabel!
+    @IBOutlet weak var anonymousInventoryReportTitleSwitch: UISwitch!
+    
     var selectSearchDistance:Int = 0 {
         didSet {
             searchDistanceTextField.text = "\(selectSearchDistance)m"
@@ -116,6 +119,7 @@ class MyProfileViewController: UITableViewController {
             if let index = Consts.SEARCH_DISTANCE_LIST.lastIndex(of: userInfo.distanceForSearch) {
                 self.pickerView.selectRow(index, inComponent: 0, animated: false)
             }
+            anonymousInventoryReportTitleSwitch.isOn = userInfo.isAnonymousInventoryReport
         }
     }
     
@@ -124,6 +128,7 @@ class MyProfileViewController: UITableViewController {
         photoLabel.text = "photo".localized
         nameLabel.text = "name".localized
         searchDistanceLabel.text = "search distance".localized
+        anonymousInventoryReportTitleLabel.text = "anonymousInventoryReportTitle".localized
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
@@ -172,6 +177,7 @@ class MyProfileViewController: UITableViewController {
             userinfo.introduce = introduceTextView.text ?? ""
             userinfo.isDeleteProfileImage = profileImageDeleteMode == .delete
             userinfo.distanceForSearch = selectSearchDistance
+            userinfo.isAnonymousInventoryReport = anonymousInventoryReportTitleSwitch.isOn
             userinfo.updateDt = Date()
             if profileImageDeleteMode != nil {
                 userinfo.profileImageURLfirebase = ""

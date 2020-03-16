@@ -307,7 +307,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <inset key="separatorInset" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="7OI-ab-Q2M">
-                            <rect key="frame" x="0.0" y="393.5" width="414" height="128"/>
+                            <rect key="frame" x="0.0" y="437.5" width="414" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <viewLayoutGuide key="safeArea" id="ydU-ke-nlE"/>
@@ -454,6 +454,32 @@
                                             <constraint firstItem="LOl-5Q-YRh" firstAttribute="leading" secondItem="3Kd-rm-rjk" secondAttribute="leading" constant="20" id="iPC-E6-LCB"/>
                                         </constraints>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="anonymousInventoryReport" id="Mpz-U6-KaN">
+                                        <rect key="frame" x="0.0" y="365.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mpz-U6-KaN" id="dZW-tY-EWJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVN-rf-F93">
+                                                    <rect key="frame" x="345" y="6.5" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="익명으로 보고하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjr-5u-Nx9">
+                                                    <rect key="frame" x="20" y="11.5" width="122.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Rjr-5u-Nx9" firstAttribute="centerY" secondItem="dZW-tY-EWJ" secondAttribute="centerY" id="65r-iq-DHo"/>
+                                                <constraint firstItem="FVN-rf-F93" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rjr-5u-Nx9" secondAttribute="trailing" constant="10" id="9WF-It-S4L"/>
+                                                <constraint firstAttribute="trailing" secondItem="FVN-rf-F93" secondAttribute="trailing" constant="20" id="FDd-bQ-bp0"/>
+                                                <constraint firstItem="FVN-rf-F93" firstAttribute="centerY" secondItem="dZW-tY-EWJ" secondAttribute="centerY" id="WNi-jQ-bni"/>
+                                                <constraint firstItem="Rjr-5u-Nx9" firstAttribute="leading" secondItem="dZW-tY-EWJ" secondAttribute="leadingMargin" id="khP-w5-DX7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -464,6 +490,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="ZDG-pl-hk0"/>
                     <connections>
+                        <outlet property="anonymousInventoryReportTitleLabel" destination="Rjr-5u-Nx9" id="sv0-0c-XSv"/>
+                        <outlet property="anonymousInventoryReportTitleSwitch" destination="FVN-rf-F93" id="fDu-1f-vcp"/>
                         <outlet property="introduceCell" destination="hvB-fS-rtD" id="8jY-lz-Zlt"/>
                         <outlet property="introduceLabel" destination="IQU-oz-lWk" id="4b0-uo-L6s"/>
                         <outlet property="introduceTextView" destination="b6p-bq-IpB" id="ivS-cv-4Py"/>

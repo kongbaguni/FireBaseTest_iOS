@@ -32,6 +32,8 @@ class UserInfo : Object {
     /** 레벨*/
     @objc dynamic var level                     : Int       = 0
     
+    /** 익명으로 마스크재고 보고하기*/
+    @objc dynamic var isAnonymousInventoryReport : Bool = false
     var levelStrValue:String {
         return (level + 1).decimalForamtString
     }
@@ -110,6 +112,7 @@ class UserInfo : Object {
         if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
             self.lastTalkTimeInterval = lastTalkTime
         }
+        isAnonymousInventoryReport = info["isAnonymousInventoryReport"] as? Bool ?? false
         updateDt = Date(timeIntervalSince1970: (info["updateTimeIntervalSince1970"] as? Double ?? 0))
         point = info["point"] as? Int ?? 0
         distanceForSearch = info["distanceForSearch"] as? Int ?? Consts.DISTANCE_STORE_SEARCH
@@ -191,7 +194,8 @@ class UserInfo : Object {
             "distanceForSearch" : distanceForSearch,
             "point" : point,
             "level" : level,
-            "exp" : exp
+            "exp" : exp,
+            "isAnonymousInventoryReport" : isAnonymousInventoryReport
         ]
         
         document.updateData(data) {(error) in

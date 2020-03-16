@@ -7,7 +7,8 @@
 //
 
 import UIKit
-@IBDesignable class HoldemView: UIView {
+//@IBDesignable
+class HoldemView: UIView {
     @IBInspectable public var cornerRadius:CGFloat = 5.0 {
         didSet {
             self.layer.cornerRadius = cornerRadius
