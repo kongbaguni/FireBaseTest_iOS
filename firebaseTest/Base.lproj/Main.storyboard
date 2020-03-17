@@ -2036,10 +2036,10 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zy4-o4-U0q" customClass="HoldemView" customModule="mask_now" customModuleProvider="target">
-                                            <rect key="frame" x="32" y="259" width="350" height="300"/>
+                                            <rect key="frame" x="32" y="234" width="350" height="350"/>
                                             <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="300" id="V1C-Mb-pIC"/>
+                                                <constraint firstAttribute="height" constant="350" id="V1C-Mb-pIC"/>
                                                 <constraint firstAttribute="width" constant="350" id="ZhO-fH-mh4"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
@@ -2049,7 +2049,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVh-WT-zEW">
-                                            <rect key="frame" x="342" y="269" width="30" height="34"/>
+                                            <rect key="frame" x="342" y="244" width="30" height="34"/>
                                             <connections>
                                                 <action selector="onTouchupCloseBtn:" destination="eD3-Dq-l14" eventType="touchUpInside" id="Z47-ss-dOa"/>
                                             </connections>
@@ -2059,38 +2059,38 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="betting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUB-we-s8k">
-                                            <rect key="frame" x="32" y="600" width="54.5" height="21"/>
+                                            <rect key="frame" x="32" y="625" width="54.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyPoints" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCi-UF-Uxv">
-                                            <rect key="frame" x="32" y="569" width="71" height="21"/>
+                                            <rect key="frame" x="32" y="594" width="71" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="90,999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plR-gG-kWZ">
-                                            <rect key="frame" x="326.5" y="569" width="55.5" height="21"/>
+                                            <rect key="frame" x="326.5" y="594" width="55.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bju-JP-5wj">
-                                            <rect key="frame" x="353.5" y="600" width="28.5" height="21"/>
+                                            <rect key="frame" x="353.5" y="625" width="28.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pdd-7N-gew">
-                                            <rect key="frame" x="182" y="659" width="50" height="30"/>
+                                            <rect key="frame" x="182" y="684" width="50" height="30"/>
                                             <state key="normal" title="Betting"/>
                                             <connections>
                                                 <action selector="onTouchupButton:" destination="eD3-Dq-l14" eventType="touchUpInside" id="UEl-yC-KR5"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Holdem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8CQ-3m-Qol">
-                                            <rect key="frame" x="139.5" y="186" width="135.5" height="43"/>
+                                            <rect key="frame" x="139.5" y="161" width="135.5" height="43"/>
                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="36"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

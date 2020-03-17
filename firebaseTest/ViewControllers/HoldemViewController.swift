@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RealmSwift
+
 class HoldemViewController : UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
@@ -19,6 +23,8 @@ class HoldemViewController : UIViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "holdem") as! HoldemViewController
     }
     @IBOutlet weak var holdemView:HoldemView!
+    let disposebag = DisposeBag()
+    
     enum GameState:String {
         /** 대기중*/
         case wait = "Holdem"
@@ -30,16 +36,19 @@ class HoldemViewController : UIViewController {
         case turn = "turn"
         /** 5번째 커뮤니티 카드 오픈*/
         case river = "river"
+        /** 딜러카드 오픈*/
+        case finish = "finish"
     }
     
     var gameState:GameState = .wait
-    var bettingPoint:Int = 0
+    var bettingPoint:Int = 0 {
+        didSet {
+            myBettingLabel.text = bettingPoint.decimalForamtString
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        holdemView.dealerCards = GameManager.shared.popCards(number: 2)
-        holdemView.myCards = GameManager.shared.popCards(number: 2)
-        holdemView.communityCards = GameManager.shared.popCards(number: 5)
-        
+        holdemView.insertCard()
         let closeBtnImage =
             #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
         closeButton.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
@@ -48,6 +57,7 @@ class HoldemViewController : UIViewController {
         loadData()
         setTitle()
     }
+    
     
     private func setTitle() {
         titleLabel.text = gameState.rawValue.localized
@@ -58,10 +68,18 @@ class HoldemViewController : UIViewController {
             gamePlayButton.setTitle("continue".localized, for: .normal)
         case .flop,.turn:
             closeButton.isEnabled = false
-            gamePlayButton.setTitle("betting".localized, for: .normal)
+            gamePlayButton.setTitle("check".localized, for: .normal)
         case .river:
             closeButton.isEnabled = false
             gamePlayButton.setTitle("continue".localized, for: .normal)
+        case .finish:
+            closeButton.isEnabled = true
+            if self.bettingPoint > 0 {
+                gamePlayButton.setTitle("game over".localized, for: .normal)
+            } else {
+                gamePlayButton.setTitle("playGame".localized, for: .normal)
+            }
+
         }
     }
     private func loadData() {
@@ -79,6 +97,56 @@ class HoldemViewController : UIViewController {
     }
     
     @IBAction func onTouchupButton(_ sender: Any) {
+        func bettingPointAlert(didBetting:@escaping(_ bettingPoint:Int)->Void) {
+            let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
+            let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
+            let lastBetting = try! Realm().objects(TalkModel.self).filter("creatorId = %@ && bettingPoint > 0",UserInfo.info!.id).last?.bettingPoint ?? UserInfo.info!.point / 10
+            vc.addTextField { (textFiled) in
+                textFiled.text = "\(lastBetting)"
+                textFiled.keyboardType = .numberPad
+                textFiled
+                    .rx.text.orEmpty.subscribe(onNext: { (query) in
+                        let up = UserInfo.info?.point ?? 0
+                        let number = NSString(string: query).integerValue
+                        if number > Consts.BETTING_LIMIT {
+                            textFiled.text = "\(Consts.BETTING_LIMIT)"
+                        }
+                        else if number > up {
+                            textFiled.text = "\(up)"
+                        } else {
+                            textFiled.text = "\(number)"
+                        }
+                    }).disposed(by: self.disposebag)
+            }
+            vc.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { [weak vc] (action) in
+                guard let text = vc?.textFields?.first?.text else {
+                    return
+                }
+                let betting = NSString(string:text).integerValue
+                didBetting(betting)
+            }))
+            vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+            present(vc, animated: true, completion: nil)
+        }
+        
+        func gameMenuPopup(
+            didBetting:@escaping(_ bettingPoint:Int)->Void
+            ,didFold:(()->Void)?) {
+            let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            ac.addAction(UIAlertAction(title: "betting".localized, style: .default, handler: { (action) in
+                bettingPointAlert { (bettingPoint) in
+                    didBetting(bettingPoint)
+                }
+            }))
+            if let foldAction = didFold {
+                ac.addAction(UIAlertAction(title: "fold".localized, style: .default, handler: { (action) in
+                    foldAction()
+                }))
+            }
+            ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            present(ac, animated: true, completion: nil)
+        }
+        
         switch gameState {
         case .wait:
             holdemView.showMyCard()
@@ -87,15 +155,36 @@ class HoldemViewController : UIViewController {
             holdemView.showCommunityCard(number: 3)
             gameState = .flop
         case .flop:
-            holdemView.showCommunityCard(number: 4)
-            gameState = .turn
+            gameMenuPopup(didBetting: { (point) in
+                self.bettingPoint += point
+                self.holdemView.showCommunityCard(number: 4)
+                self.gameState = .turn
+            }) {
+                self.holdemView.showCommunityCard(number: 5)
+                self.holdemView.showDealerCard()
+                self.gameState = .finish
+                self.setTitle()
+            }
         case .turn:
-            holdemView.showCommunityCard(number: 5)
-            gameState = .river
+            gameMenuPopup(didBetting: { (point) in
+                self.bettingPoint += point
+                self.holdemView.showCommunityCard(number: 5)
+                self.gameState = .river
+            }, didFold: nil)
         case .river:
             holdemView.showDealerCard()
-            dismiss(animated: true, completion: nil)
+            self.gameState = .finish
             break
+        case .finish:
+            // 승패 판정
+            if bettingPoint > 0 {
+                dismiss(animated: true, completion: nil)
+                break
+            } else {
+                holdemView.insertCard()
+                self.gameState = .wait
+                setTitle()
+            }
         }
         setTitle()
     }

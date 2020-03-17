@@ -9,11 +9,12 @@
 import UIKit
 
 class HoldemView: UIView {
-    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet var dealersCardImageViews:[UIImageView]!
     @IBOutlet var communityCardImageViews:[UIImageView]!
     @IBOutlet var myCardImageViews:[UIImageView]!
-    
+    @IBOutlet var dealarSelectionViews:[UIImageView]!
+    @IBOutlet var mySelectionViews:[UIImageView]!
     var dealerCards:[Card] = []
     var myCards:[Card] = []
     var communityCards:[Card] = []
@@ -47,6 +48,23 @@ class HoldemView: UIView {
         contentView.backgroundColor = .autoColor_bg_color
     }
     
+    func insertCard() {
+        GameManager.shared.shuffleLinit = 9
+        dealerCards = GameManager.shared.popCards(number: 2)
+        myCards = GameManager.shared.popCards(number: 2)
+        communityCards = GameManager.shared.popCards(number: 5)
+        for set:[UIImageView] in [dealersCardImageViews, communityCardImageViews, myCardImageViews] {
+            for view:UIImageView in set {
+                view.image = #imageLiteral(resourceName: "gray_back")
+            }
+        }
+        for set:[UIImageView] in [dealarSelectionViews, mySelectionViews] {
+            for view:UIImageView in set {
+                view.isHidden = true
+            }
+        }
+    }
+    
     func showMyCard() {
         if myCards.count == 2 {
             for (index, card) in myCards.enumerated() {
@@ -70,5 +88,9 @@ class HoldemView: UIView {
         for i in 0..<number {
             communityCardImageViews[i].image = communityCards[i].image
         }
+    }
+    
+    func makeValuesSet() {
+        
     }
 }

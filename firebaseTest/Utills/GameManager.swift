@@ -40,6 +40,8 @@ class GameManager {
     fileprivate var cardDack:[Card] = []
     fileprivate var isUseJoker = false
     
+    var shuffleLinit = 5
+    
     fileprivate func insertCardAndShuffle(useJoker:Bool) {
         var list:[Card] = []
         if self.isUseJoker != useJoker {
@@ -66,7 +68,7 @@ class GameManager {
             return []
         }
         while list.count < number {
-            if cardDack.count == 0 {
+            if cardDack.count < shuffleLinit {
                 insertCardAndShuffle(useJoker: self.isUseJoker)
             }
             if let card = cardDack.first {
