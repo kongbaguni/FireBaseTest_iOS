@@ -111,3 +111,13 @@
 "reporter" = "리포터";
 "anonymousInventoryReportTitle" = "마스크 재고 익명으로 보고하기";
 "show near talk" = "근처의 이야기만 보기";
+
+"Holdem" = "홀뎀";
+"MyPoints" = "나의 포인트";
+"betting" = "베팅";
+"playGame" = "게임하기";
+"continue" = "계속";
+"check" = "체크";
+"betting" = "베팅";
+"fold" = "게임 포기";
+"game over" = "개임 종료";

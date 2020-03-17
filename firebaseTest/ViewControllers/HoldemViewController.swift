@@ -43,9 +43,11 @@ class HoldemViewController : UIViewController {
     var gameState:GameState = .wait
     var bettingPoint:Int = 0 {
         didSet {
+            holdemView.bettingPoint = bettingPoint
             myBettingLabel.text = bettingPoint.decimalForamtString
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         holdemView.insertCard()
@@ -80,6 +82,18 @@ class HoldemViewController : UIViewController {
                 gamePlayButton.setTitle("playGame".localized, for: .normal)
             }
 
+        }
+        myPointTitleLabel.text = "MyPoints".localized
+        myBettingTitleLabel.text = "betting".localized
+        if let result = holdemView.gameResult {
+            switch result {
+            case .win:
+                titleLabel.text = "win".localized
+            case .tie:
+                titleLabel.text = "tie".localized
+            case .lose:
+                titleLabel.text = "lose".localized
+            }
         }
     }
     private func loadData() {
@@ -159,6 +173,7 @@ class HoldemViewController : UIViewController {
                 self.bettingPoint += point
                 self.holdemView.showCommunityCard(number: 4)
                 self.gameState = .turn
+                self.setTitle()
             }) {
                 self.holdemView.showCommunityCard(number: 5)
                 self.holdemView.showDealerCard()
