@@ -92,7 +92,20 @@ class TalkModel: Object {
         return nil
     }
     
+    @objc dynamic var holdemResultBase64encodingSting:String = ""
+    var holdemResult:HoldemResult? {
+        get {
+            HoldemResult.makeResult(base64EncodedString: holdemResultBase64encodingSting)
+        }
+        set {
+            if let value = newValue?.jsonBase64EncodedString {
+                holdemResultBase64encodingSting = value
+            }
+        }
+    }
+    
     @objc dynamic var cards:String = ""
+    
     var cardSet:CardSet?  {
         set {
             if let set = newValue {
@@ -216,6 +229,7 @@ class TalkModel: Object {
             "cards":cards,
             "delarCards":delarCards,
             "bettingPoint":bettingPoint,
+            "holdemResultBase64encodingSting" : holdemResultBase64encodingSting,
             "imageUrl":imageUrl
         ]
         
@@ -240,7 +254,7 @@ class TalkModel: Object {
     }
     
     static func syncDatas(complete:@escaping()->Void) {
-        let collection = Firestore.firestore().collection("talks")                      
+        let collection = Firestore.firestore().collection("talks")
         collection
             .whereField("regTimeIntervalSince1970", isGreaterThan: Date.midnightTodayTime.timeIntervalSince1970)
             .getDocuments { (shot, error) in
@@ -269,6 +283,7 @@ class TalkModel: Object {
                         model.cards = data["cards"] as? String ?? ""
                         model.delarCards = data["delarCards"] as? String ?? ""
                         model.bettingPoint = data["bettingPoint"] as? Int ?? 0
+                        model.holdemResultBase64encodingSting = data["holdemResultBase64encodingSting"] as? String ?? ""
                         if let likeIds = data["likeIds"] as? [String] {
                             var cnt = 0
                             for likeId in likeIds {

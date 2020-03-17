@@ -180,6 +180,7 @@ class TodaysTalksTableViewController: UITableViewController {
         }))
         ac.addAction(UIAlertAction(title: "holdem", style: .default, handler: { (action) in
             let vc = HoldemViewController.viewController
+            vc.delegate = self
             self.present(vc, animated: true, completion: nil)
         }))
         ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
@@ -272,25 +273,32 @@ class TodaysTalksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = list[indexPath.row]
+        if data.holdemResult != nil {
+            let cellId = data.creatorId == UserInfo.info?.id ? "myHoldemCell" : "holdemCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TalkDetailHoldemTableViewCell
+            
+            cell.talkId = data.id
+            
+            return cell
+        }
         if data.cardSet != nil {
             let cellId = data.creatorId == UserInfo.info?.id ? "myCardCell" : "cardCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TalkDetailCardTableViewCell
             cell.talkId = data.id            
             return cell
         }
-        else {            
-            if data.imageURL != nil {
-                let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
-                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableImageViewCell
-                cell.setData(data: list[indexPath.row])
-                return cell
-            } else {
-                let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
-                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
-                cell.setData(data: list[indexPath.row])
-                return cell
-            }
+        
+        if data.imageURL != nil {
+            let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableImageViewCell
+            cell.setData(data: list[indexPath.row])
+            return cell
         }
+        
+        let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
+        cell.setData(data: list[indexPath.row])
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -362,3 +370,13 @@ class TodaysTalksTableViewController: UITableViewController {
  
 }
 
+
+extension TodaysTalksTableViewController : HoldemViewControllerDelegate {
+    func didGameFinish(isBettingGame: Bool) {
+        if isBettingGame {
+            self.tableView.reloadData()
+        }
+    }
+    
+    
+}

@@ -42,6 +42,8 @@
 		C39A6ECE241F386400460705 /* HoldemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ECD241F386400460705 /* HoldemView.swift */; };
 		C39A6ED0241F524800460705 /* StoreStockLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */; };
 		C39A6ED4241F6CE100460705 /* HoldemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ED3241F6CE100460705 /* HoldemViewController.swift */; };
+		C39A6ED624208ABA00460705 /* Dealar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ED524208ABA00460705 /* Dealar.swift */; };
+		C39A6ED82420A04B00460705 /* TalkDetailHoldemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ED72420A04B00460705 /* TalkDetailHoldemTableViewCell.swift */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
@@ -104,6 +106,8 @@
 		C39A6ECD241F386400460705 /* HoldemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldemView.swift; sourceTree = "<group>"; };
 		C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreStockLogTableViewCell.swift; sourceTree = "<group>"; };
 		C39A6ED3241F6CE100460705 /* HoldemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldemViewController.swift; sourceTree = "<group>"; };
+		C39A6ED524208ABA00460705 /* Dealar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dealar.swift; sourceTree = "<group>"; };
+		C39A6ED72420A04B00460705 /* TalkDetailHoldemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailHoldemTableViewCell.swift; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* mask now.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask now.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				C3630FD2241B51CE003479C2 /* Card.swift */,
 				C39A6ECB241F368000460705 /* HoldemView.xib */,
 				C39A6ECD241F386400460705 /* HoldemView.swift */,
+				C39A6ED524208ABA00460705 /* Dealar.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 				C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */,
 				C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */,
 				C39A6EC9241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift */,
+				C39A6ED72420A04B00460705 /* TalkDetailHoldemTableViewCell.swift */,
 				C3630FD8241B5F31003479C2 /* TalkDetailCardTableViewCell.swift */,
 				C370C9F82417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift */,
 				C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */,
@@ -434,7 +440,9 @@
 				C33839E32418ADD800CADC60 /* LocationManager.swift in Sources */,
 				C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */,
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
+				C39A6ED82420A04B00460705 /* TalkDetailHoldemTableViewCell.swift in Sources */,
 				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
+				C39A6ED624208ABA00460705 /* Dealar.swift in Sources */,
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
 				C3630FD3241B51CE003479C2 /* Card.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,

@@ -10,14 +10,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RealmSwift
+protocol HoldemViewControllerDelegate : class {
+    func didGameFinish(isBettingGame:Bool)
+}
 
 class HoldemViewController : UIViewController {
+    weak var delegate:HoldemViewControllerDelegate? = nil
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var myPointTitleLabel: UILabel!
     @IBOutlet weak var myPointLabel: UILabel!
-    @IBOutlet weak var myBettingTitleLabel: UILabel!
-    @IBOutlet weak var myBettingLabel: UILabel!
     @IBOutlet weak var gamePlayButton: UIButton!
     static var viewController : HoldemViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "holdem") as! HoldemViewController
@@ -44,7 +47,6 @@ class HoldemViewController : UIViewController {
     var bettingPoint:Int = 0 {
         didSet {
             holdemView.bettingPoint = bettingPoint
-            myBettingLabel.text = bettingPoint.decimalForamtString
         }
     }
     
@@ -84,7 +86,6 @@ class HoldemViewController : UIViewController {
 
         }
         myPointTitleLabel.text = "MyPoints".localized
-        myBettingTitleLabel.text = "betting".localized
         if let result = holdemView.gameResult {
             switch result {
             case .win:
@@ -98,7 +99,6 @@ class HoldemViewController : UIViewController {
     }
     private func loadData() {
         myPointLabel.text = UserInfo.info?.point.decimalForamtString
-        myBettingLabel.text = bettingPoint.decimalForamtString
     }
     
     @IBAction func onTouchupCloseBtn(_ sender: Any) {
@@ -170,10 +170,14 @@ class HoldemViewController : UIViewController {
             gameState = .flop
         case .flop:
             gameMenuPopup(didBetting: { (point) in
-                self.bettingPoint += point
-                self.holdemView.showCommunityCard(number: 4)
-                self.gameState = .turn
-                self.setTitle()
+                GameManager.shared.usePoint(point: point) { (sucess) in
+                    if sucess {
+                        self.bettingPoint += point
+                        self.holdemView.showCommunityCard(number: 4)
+                        self.gameState = .turn
+                        self.setTitle()
+                    }
+                }
             }) {
                 self.holdemView.showCommunityCard(number: 5)
                 self.holdemView.showDealerCard()
@@ -182,26 +186,86 @@ class HoldemViewController : UIViewController {
             }
         case .turn:
             gameMenuPopup(didBetting: { (point) in
-                self.bettingPoint += point
-                self.holdemView.showCommunityCard(number: 5)
-                self.gameState = .river
+                GameManager.shared.usePoint(point: point) { (sucess) in
+                    if sucess {
+                        self.bettingPoint += point
+                        self.holdemView.showCommunityCard(number: 5)
+                        self.gameState = .river
+                    }
+                }
             }, didFold: nil)
         case .river:
             holdemView.showDealerCard()
             self.gameState = .finish
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                func showStatusView(statusChange:StatusChange) {
+                    let vc = StatusViewController.viewController
+                    vc.userId = UserInfo.info?.id
+                    vc.statusChange = statusChange
+                    self.present(vc, animated: true, completion: nil)
+                }
+                switch self.holdemView.gameResult {
+                case .win:
+                    let point = (self.holdemView.bettingPoint + self.holdemView.dealarBetting) * 2
+                    GameManager.shared.addPoint(point: point) { (sucess) in
+                        self.setTitle()
+                        showStatusView(statusChange:
+                            StatusChange(
+                                addedExp: point,
+                                pointChange: point - self.bettingPoint))
+                    }
+                case .tie:
+                    GameManager.shared.addPoint(point: self.holdemView.bettingPoint) { (sucess) in
+                        self.setTitle()
+                        showStatusView(statusChange:
+                            StatusChange(addedExp: self.bettingPoint,
+                                         pointChange: 0))
+
+                    }
+                case .lose:
+                    showStatusView(statusChange:
+                        StatusChange(addedExp: self.bettingPoint,
+                                     pointChange: -self.bettingPoint))
+                    break
+                default:
+                    break
+                }
+            }
             break
         case .finish:
             // 승패 판정
             if bettingPoint > 0 {
-                dismiss(animated: true, completion: nil)
-                break
+                postTalk { (sucess) in
+                    self.dismiss(animated: true) {
+                        self.delegate?.didGameFinish(isBettingGame: true)
+                    }
+                }
+                return
             } else {
                 holdemView.insertCard()
                 self.gameState = .wait
                 setTitle()
+                self.delegate?.didGameFinish(isBettingGame: false)
             }
         }
         setTitle()
+    }
+    
+    func postTalk(complete:@escaping(_ sucess:Bool)->Void) {
+        if holdemView.holdemResult == nil {
+            complete(false)
+            return
+        }
+        let model = TalkModel()
+        let documentId = "holdem\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)"
+        let regTimeIntervalSince1970 = Date().timeIntervalSince1970
+        
+        model.loadData(id: documentId, text: "Holdem", creatorId: UserInfo.info!.id, regTimeIntervalSince1970: regTimeIntervalSince1970)
+        model.bettingPoint = self.bettingPoint
+        model.holdemResult = holdemView.holdemResult
+        model.update { (sucess) in
+            complete(sucess)
+        }
     }
 }
 

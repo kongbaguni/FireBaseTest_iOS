@@ -36,6 +36,7 @@ class HoldemView: UIView {
     
     @IBOutlet weak var myBettingLabel: UILabel!
     @IBOutlet weak var myGameValueLabel: UILabel!
+    let dealar = Dealar()
     
     var dealerCards:[Card] = []
     var myCards:[Card] = []
@@ -58,6 +59,7 @@ class HoldemView: UIView {
             if let value = dealarsBestCardSet {
                 dealarGameValueLabel.text = "\(value.cardSet.cardValue.stringValue.localized) \(value.cardSet.point)"
             }
+            dealar.cardSet = dealarsBestCardSet?.cardSet
         }
     }
     
@@ -81,6 +83,94 @@ class HoldemView: UIView {
         return nil
     }
     
+    /** 포스팅 위한 게임결과 리턴*/
+    var holdemResult:HoldemResult? {        
+        if let result = gameResult,
+            let dealarBestCard = dealarsBestCardSet,
+            let myBestCard = myBestCardSet
+            {
+            let c = communityCards
+            return HoldemResult(
+                dealarHandCards: [dealerCards[0].stringValue,dealerCards[1].stringValue],
+                playerHandCards: [myCards[0].stringValue,myCards[1].stringValue],
+                communityCards: [c[0].stringValue, c[1].stringValue, c[2].stringValue, c[3].stringValue, c[4].stringValue],
+                dealarsCommunityCardSelect: dealarBestCard.selectIndex,
+                playersCommunityCardSelect: myBestCard.selectIndex,
+                dealarsValue: "\(dealarBestCard.cardSet.stringValue.localized) \(dealarBestCard.cardSet.point)",
+                playersValue: "\(myBestCard.cardSet.stringValue.localized) \(myBestCard.cardSet.point)",
+                dealarsBetting: dealarBetting,
+                playersBetting: bettingPoint,
+                gameResult: result)
+        }
+        return nil
+    }
+    
+    func showSelection(selection:[Int],isPlayer:Bool) {
+        if isPlayer {
+            for view in communityCardImageViews {
+                view.alpha = 0.5
+            }
+            for idx in selection {
+                communityCardImageViews[idx].alpha = 1
+            }
+            for view in mySelectionViews {
+                view.alpha = 0
+            }
+            for idx in selection {
+                mySelectionViews[idx].alpha = 1
+            }
+        }
+        else {
+            for view in dealarSelectionViews {
+                view.alpha = 0
+            }
+            for idx in selection {
+                dealarSelectionViews[idx].alpha = 1
+            }
+
+        }
+    }
+    /** 게임 결과 세팅 (결과만 보여주기 용)*/
+    func setDataWithHoldemResult(result:HoldemResult?) {
+        guard let result = result else {
+            return
+        }
+        contentView.layer.cornerRadius = 0
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.borderWidth = 0
+        contentView.layer.masksToBounds = false
+        contentView.backgroundColor = UIColor.clear
+        
+        dealerCards.removeAll()
+        myCards.removeAll()
+        communityCards.removeAll()
+        for d in result.dealarHandCards {
+            if let card = Card.makeCardWithString(string: d) {
+                dealerCards.append(card)
+            }
+        }
+        
+        for c in result.communityCards {
+            if let card = Card.makeCardWithString(string: c) {
+                communityCards.append(card)
+            }
+        }
+        
+        for m in result.playerHandCards {
+            if let card = Card.makeCardWithString(string: m) {
+                myCards.append(card)
+            }
+        }
+        isShowDealarCard = true
+        dealarBetting = result.dealarsBetting
+        bettingPoint = result.playersBetting
+        showSelection(selection: result.playersCommunityCardSelect, isPlayer: true)
+        showSelection(selection: result.dealarsCommunityCardSelect, isPlayer: false)
+        dealarBettingLabel.text = result.dealarsBetting.decimalForamtString
+        showMyCard()
+        showDealerCard()
+        showCommunityCard(number: 5)
+    }
             
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -98,12 +188,8 @@ class HoldemView: UIView {
         addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderColor = UIColor.autoColor_text_color.cgColor
-        contentView.layer.borderWidth = 1
-        contentView.layer.masksToBounds = true
-        contentView.backgroundColor = .autoColor_bg_color
     }
+    
     /** 게임 초기화 카드 분배*/
     func insertCard() {
         bettingPoint = 0
@@ -124,6 +210,9 @@ class HoldemView: UIView {
             for view:UIImageView in set {
                 view.isHidden = true
             }
+        }
+        for view in communityCardImageViews {
+            view.alpha = 1
         }
     }
     
@@ -155,6 +244,12 @@ class HoldemView: UIView {
             communityCardImageViews[i].image = communityCards[i].image
         }
         makeValuesSet(openComunitiCardNumber: number)
+        switch number {
+        case 3,4:
+            dealarBetting += dealar.bettingPoint
+        default:
+            break
+        }
     }
     
     func makeValuesSet(openComunitiCardNumber:Int) {
@@ -201,28 +296,82 @@ class HoldemView: UIView {
             return
         }
         let gameResult = myCardSet.cardSet.getGameResult(targetCardSet: dealarCardSet.cardSet)
-        for set:[UIImageView] in [mySelectionViews, dealarSelectionViews] {
-            for view:UIImageView in set {
-                view.isHidden = true
-            }
-        }
-        for idx in myCardSet.selectIndex {
-            mySelectionViews[idx].isHidden = false
-        }
-        for idx in dealarCardSet.selectIndex {
-            dealarSelectionViews[idx].isHidden = false
-        }
-
-        for view in communityCardImageViews {
-            view.alpha = 0.5
-        }
-        for idx in myCardSet.selectIndex {
-            communityCardImageViews[idx].alpha = 1
-        }
+        showSelection(selection: myCardSet.selectIndex, isPlayer: true)
+        showSelection(selection: dealarCardSet.selectIndex, isPlayer: false)
         
         myBestCardSet = myCardSet
         dealarsBestCardSet = dealarCardSet
 
         print(gameResult)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderColor = UIColor.autoColor_text_color.cgColor
+        contentView.layer.borderWidth = 1
+        contentView.layer.masksToBounds = true
+        contentView.backgroundColor = .autoColor_bg_color
+
+    }
+}
+
+
+struct HoldemResult {
+    let dealarHandCards:[String]
+    let playerHandCards:[String]
+    let communityCards:[String]
+    let dealarsCommunityCardSelect:[Int]
+    let playersCommunityCardSelect:[Int]
+    let dealarsValue:String
+    let playersValue:String
+    let dealarsBetting:Int
+    let playersBetting:Int
+    let gameResult:CardSet.GameResult
+    static func makeResult(base64EncodedString:String)->HoldemResult? {
+        if let data = Data(base64Encoded: base64EncodedString) {
+            if let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] {
+                let dealarHandCards = json["dealarHandCards"] as? [String] ?? []
+                let playerHandCards = json["playerHandCards"] as? [String] ?? []
+                let communityCards = json["communityCards"] as? [String] ?? []
+                let dealarsCommunityCardSelect = json["dealarsCommunityCardSelect"] as? [Int] ?? []
+                let playersCommunityCardSelect = json["playersCommunityCardSelect"] as? [Int] ?? []
+                let dealarsValue = json["dealarsValue"] as? String ?? ""
+                let playersValue = json["playersValue"] as? String ?? ""
+                let dealarsBetting = json["dealarsBetting"] as? Int ?? 0
+                let playersBetting = json["playersBetting"] as? Int ?? 0
+                let gameResult = CardSet.GameResult(rawValue: json["gameResult"] as? String ?? "") ?? .tie
+                return HoldemResult(
+                    dealarHandCards: dealarHandCards,
+                    playerHandCards: playerHandCards,
+                    communityCards: communityCards,
+                    dealarsCommunityCardSelect: dealarsCommunityCardSelect,
+                    playersCommunityCardSelect: playersCommunityCardSelect,
+                    dealarsValue: dealarsValue,
+                    playersValue: playersValue,
+                    dealarsBetting: dealarsBetting,
+                    playersBetting: playersBetting,
+                    gameResult: gameResult)
+            }
+        }
+        return nil
+    }
+    
+    var jsonBase64EncodedString:String? {
+        let data:[String:Any] = [
+            "dealarHandCards":dealarHandCards,
+            "playerHandCards":playerHandCards,
+            "communityCards":communityCards,
+            "dealarsCommunityCardSelect":dealarsCommunityCardSelect,
+            "playersCommunityCardSelect":playersCommunityCardSelect,
+            "dealarsValue":dealarsValue,
+            "playersValue":playersValue,
+            "playersBetting":playersBetting,
+            "dealarsBetting":dealarsBetting,
+            "gameResult":gameResult.rawValue
+        ]
+        let jsonData = try? JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+        return jsonData?.base64EncodedString()
     }
 }
