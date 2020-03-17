@@ -254,9 +254,17 @@ class TalkModel: Object {
     }
     
     static func syncDatas(complete:@escaping()->Void) {
+        let realm = try! Realm()
+        var syncDt = Date.midnightTodayTime.timeIntervalSince1970
+        if let lastTalk = realm.objects(TalkModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").last {
+            if syncDt < lastTalk.regTimeIntervalSince1970 {
+                syncDt = lastTalk.regTimeIntervalSince1970
+            }
+        }
+        
         let collection = Firestore.firestore().collection("talks")
         collection
-            .whereField("regTimeIntervalSince1970", isGreaterThan: Date.midnightTodayTime.timeIntervalSince1970)
+            .whereField("regTimeIntervalSince1970", isGreaterThan: syncDt)
             .getDocuments { (shot, error) in
                 guard let snap = shot else {
                     return

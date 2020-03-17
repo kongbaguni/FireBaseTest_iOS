@@ -141,11 +141,19 @@ class StoreModel : Object {
     }
     
     func getStoreStockLogs(complete:@escaping(_ count:Int?)->Void) {
+        let realm = try! Realm()
+        var syncDt = Date.getMidnightTime(beforDay: 7).timeIntervalSince1970
+        if let lastLog = realm.objects(StoreStockLogModel.self).filter("code = %@",self.code).sorted(byKeyPath: "regDt").last {
+            if syncDt < lastLog.regDt.timeIntervalSince1970 {
+                syncDt = lastLog.regDt.timeIntervalSince1970
+            }
+        }
+        
         Firestore.firestore()
             .collection("storeStock")
             .document(self.code)
             .collection("stock_logs")
-            .whereField("regDtTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
+            .whereField("regDtTimeIntervalSince1970", isGreaterThan: syncDt)
             .getDocuments { (shot, error) in
             if error != nil {
                 complete(nil)
@@ -160,10 +168,6 @@ class StoreModel : Object {
             print("----------------")
             print(self.name)
             print(self.code)
-            realm.beginWrite()
-            realm.delete(realm.objects(StoreStockLogModel.self).filter("code = %@", self.code))
-            try! realm.commitWrite()
-            realm.refresh()
             print(snap.documents.count)
             print(snap.documentChanges.count)
             for doc in snap.documents {
