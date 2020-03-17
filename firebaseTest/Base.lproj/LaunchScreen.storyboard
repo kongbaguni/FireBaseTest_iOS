@@ -19,18 +19,21 @@
                                 <rect key="frame" x="30" y="44" width="354" height="818"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="narui" translatesAutoresizingMaskIntoConstraints="NO" id="Khk-u8-2V9">
-                                <rect key="frame" x="10" y="802" width="394" height="50"/>
+                                <rect key="frame" x="100" y="772" width="214" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="1Iz-Gx-0uL"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hFt-sb-0rG" secondAttribute="bottom" id="Gmb-Zu-rA4"/>
-                            <constraint firstItem="Khk-u8-2V9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="NVw-ip-JYF"/>
+                            <constraint firstItem="Khk-u8-2V9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="NVw-ip-JYF"/>
                             <constraint firstItem="hFt-sb-0rG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tpr-eV-2BJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hFt-sb-0rG" secondAttribute="trailing" constant="30" id="ZIH-sr-4vf"/>
                             <constraint firstItem="hFt-sb-0rG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="apY-Sv-szJ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Khk-u8-2V9" secondAttribute="bottom" constant="10" id="d8d-7d-cEg"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Khk-u8-2V9" secondAttribute="trailing" constant="10" id="vJV-Ov-z8o"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Khk-u8-2V9" secondAttribute="bottom" constant="40" id="d8d-7d-cEg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Khk-u8-2V9" secondAttribute="trailing" constant="100" id="vJV-Ov-z8o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -41,7 +44,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="narui" width="199.5" height="50"/>
+        <image name="narui" width="1096" height="485.5"/>
         <image name="title" width="512" height="512"/>
     </resources>
 </document>

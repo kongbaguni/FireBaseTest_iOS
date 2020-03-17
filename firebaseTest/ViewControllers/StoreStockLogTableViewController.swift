@@ -135,6 +135,12 @@ class StoreStockLogTableViewController: UITableViewController {
         case 0:
             return nil
         case 1:
+            guard let logs = todayLogs else {
+                return nil
+            }
+            if logs.count == 0 {
+                return nil
+            }
             return "today".localized
         default:
             if getList(dayBefore: section - 1)?.count == 0 {

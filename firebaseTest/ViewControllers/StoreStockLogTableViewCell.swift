@@ -33,6 +33,6 @@ class StoreStockLogTableViewCell : UITableViewCell {
         reporterLabel.text = "reporter".localized
         statusLabel.text = stock.remain_stat.localized
         statusLabel.textColor = StoreModel.RemainType(rawValue: stock.remain_stat)?.colorValue
-        dateLabel.text = stock.regDt.formatedString(format: "MM:dd HH:mm:ss")
+        dateLabel.text = stock.regDt.formatedString(format:"MM/dd HH:mm:ss")
     }
 }
