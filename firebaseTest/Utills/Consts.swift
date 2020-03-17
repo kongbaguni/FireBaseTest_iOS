@@ -16,7 +16,7 @@ struct Consts {
     
     static var MAX_GAME_COUNT:Int {
         let level = UserInfo.info?.level ?? 0
-        return 5 + (level/10)
+        return 10 + (level/10)
     }
     /** 레벨업에 필요한 경험치*/
     static var LEVELUP_REQ_EXP:Int {

@@ -25,3 +25,4 @@ class TalkDetailEditHistoryImageTableViewCell : TalkDetailEditHistoryTableViewCe
         attachmentImageView.kf.setImage(with: data.imageUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
     }
 }
+

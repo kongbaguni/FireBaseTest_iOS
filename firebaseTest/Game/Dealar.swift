@@ -16,12 +16,11 @@ class Dealar {
         let random = Int.random(in: 10...20)
         switch Int.random(in:1...10) {
         case 1:
-            return (random * valuePoint * 3)
-        case 0:
+            return 100 + (random * valuePoint * 300)
+        case 5:
             return 0
         default:
-            break
-        }
-        return 50 + (random * valuePoint)
+            return 100 + (random * valuePoint * 100)
+        }        
     }
 }

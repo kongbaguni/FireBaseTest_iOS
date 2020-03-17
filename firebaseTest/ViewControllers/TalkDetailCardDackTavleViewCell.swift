@@ -1,5 +1,5 @@
 //
-//  TalkDetailCardDackTavleViewCell.swift
+//  TalkDetailEditHistoryCardDackTavleViewCell.swift
 //  firebaseTest
 //
 //  Created by Changyul Seo on 2020/03/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-class TalkDetailCardDackTavleViewCell: UITableViewCell {
+class TalkDetailEditHistoryCardDackTavleViewCell: UITableViewCell {
     var talkId:String? = nil
     var talkModel:TalkModel? {
         if let id = talkId {
@@ -25,4 +25,22 @@ class TalkDetailCardDackTavleViewCell: UITableViewCell {
         cardDackView.delarCards = talkModel?.cardSet
         cardDackView.gameResultLabel.text = talkModel?.text
     }
+}
+
+class TalkDetailEditHistoryHoldemTableViewCell : UITableViewCell {
+    var talkId:String? = nil
+    var talkModel:TalkModel? {
+        if let id = talkId {
+            return try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id)
+        }
+        return nil
+    }
+    
+    @IBOutlet weak var holdemView:HoldemView!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        holdemView.setDataWithHoldemResult(result: talkModel?.holdemResult)
+    }
+
 }

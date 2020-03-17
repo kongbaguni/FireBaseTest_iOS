@@ -121,3 +121,14 @@
 "betting" = "베팅";
 "fold" = "게임 포기";
 "game over" = "개임 종료";
+
+"highcard" = "하이카드";
+"onePair" = "원페어";
+"twoPairs" = "투페어";
+"threeOfaKind" = "트리플";
+"straight" = "스트레이트";
+"flush" = "플러쉬";
+"fullHouse" = "풀하우스";
+"fourOfaKind" = "포카드";
+"straightFlush" = "스트레이트 플러쉬";
+"fiveOfaKind" = "파이브카드";

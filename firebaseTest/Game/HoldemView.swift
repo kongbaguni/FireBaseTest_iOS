@@ -44,12 +44,12 @@ class HoldemView: UIView {
     
     var dealarBetting:Int = 0 {
         didSet {
-            dealarBettingLabel?.text = dealarBetting.decimalForamtString
+            dealarBettingLabel?.text = "\("betting".localized) : \(dealarBetting.decimalForamtString)"
         }
     }
     var bettingPoint:Int = 0 {
         didSet {
-            myBettingLabel?.text = bettingPoint.decimalForamtString
+            myBettingLabel?.text =  "\("betting".localized) : \(bettingPoint.decimalForamtString)"
         }
     }
 
@@ -108,24 +108,28 @@ class HoldemView: UIView {
     func showSelection(selection:[Int],isPlayer:Bool) {
         if isPlayer {
             for view in communityCardImageViews {
-                view.alpha = 0.5
+                if view.image != #imageLiteral(resourceName: "gray_back") {
+                    view.alpha = 0.5
+                } else {
+                    view.alpha = 1
+                }
             }
             for idx in selection {
                 communityCardImageViews[idx].alpha = 1
             }
             for view in mySelectionViews {
-                view.alpha = 0
+                view.isHidden = true
             }
             for idx in selection {
-                mySelectionViews[idx].alpha = 1
+                mySelectionViews[idx].isHidden = false
             }
         }
         else {
             for view in dealarSelectionViews {
-                view.alpha = 0
+                view.isHidden = true
             }
             for idx in selection {
-                dealarSelectionViews[idx].alpha = 1
+                dealarSelectionViews[idx].isHidden = false
             }
 
         }
@@ -135,11 +139,7 @@ class HoldemView: UIView {
         guard let result = result else {
             return
         }
-        contentView.layer.cornerRadius = 0
-        contentView.layer.borderColor = UIColor.clear.cgColor
-        contentView.layer.borderWidth = 0
-        contentView.layer.masksToBounds = false
-        contentView.backgroundColor = UIColor.clear
+        isOnlyGameResult = true
         
         dealerCards.removeAll()
         myCards.removeAll()
@@ -166,7 +166,7 @@ class HoldemView: UIView {
         bettingPoint = result.playersBetting
         showSelection(selection: result.playersCommunityCardSelect, isPlayer: true)
         showSelection(selection: result.dealarsCommunityCardSelect, isPlayer: false)
-        dealarBettingLabel.text = result.dealarsBetting.decimalForamtString
+        dealarBettingLabel.text = "\("betting".localized) : \(result.dealarsBetting.decimalForamtString)"
         showMyCard()
         showDealerCard()
         showCommunityCard(number: 5)
@@ -304,16 +304,26 @@ class HoldemView: UIView {
 
         print(gameResult)
     }
+    var isOnlyGameResult = false
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderColor = UIColor.autoColor_text_color.cgColor
-        contentView.layer.borderWidth = 1
-        contentView.layer.masksToBounds = true
-        contentView.backgroundColor = .autoColor_bg_color
-
+        if isOnlyGameResult {
+            contentView.layer.cornerRadius = 0
+            contentView.layer.borderColor = UIColor.clear.cgColor
+            contentView.layer.borderWidth = 0
+            contentView.layer.masksToBounds = false
+            contentView.backgroundColor = UIColor.clear                
+        } else {
+            contentView.layer.cornerRadius = 10
+            contentView.layer.borderColor = UIColor.autoColor_text_color.cgColor
+            contentView.layer.borderWidth = 1
+            contentView.layer.masksToBounds = true
+            contentView.backgroundColor = .autoColor_bg_color
+        }
+        for view in [dealarBettingLabel, myBettingLabel] {
+            view?.textColor = .autoColor_weak_text_color
+        }
     }
 }
 

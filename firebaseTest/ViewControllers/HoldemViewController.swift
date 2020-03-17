@@ -206,7 +206,7 @@ class HoldemViewController : UIViewController {
                 }
                 switch self.holdemView.gameResult {
                 case .win:
-                    let point = (self.holdemView.bettingPoint + self.holdemView.dealarBetting) * 2
+                    let point = self.holdemView.bettingPoint * 2 + self.holdemView.dealarBetting
                     GameManager.shared.addPoint(point: point) { (sucess) in
                         self.setTitle()
                         showStatusView(statusChange:

@@ -70,7 +70,13 @@ class TalkDetailTableViewController: UITableViewController {
             return cell
         case 1:
             if talkModel?.bettingPoint ?? 0 > 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cardDack", for: indexPath) as! TalkDetailCardDackTavleViewCell
+                if talkModel?.holdemResult != nil {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "holdem", for: indexPath) as! TalkDetailEditHistoryHoldemTableViewCell
+                    cell.talkId = talkModel?.id
+                    return cell                    
+                }
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cardDack", for: indexPath) as! TalkDetailEditHistoryCardDackTavleViewCell
                 cell.talkId = talkModel?.id
                 return cell
             }

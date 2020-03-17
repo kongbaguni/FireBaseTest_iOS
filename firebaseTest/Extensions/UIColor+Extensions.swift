@@ -28,7 +28,7 @@ extension UIColor {
     open class var autoColor_weak_text_color : UIColor {
         UIApplication.shared.isDarkMode
             ? UIColor(white: 0.4, alpha: 1)
-            : UIColor(white: 0.8, alpha: 1)
+            : UIColor(white: 0.6, alpha: 1)
     }
     
     open class var autoColor_switch_color : UIColor {
