@@ -37,10 +37,11 @@ class TalkDetailEditHistoryHoldemTableViewCell : UITableViewCell {
     }
     
     @IBOutlet weak var holdemView:HoldemView!
-    
+    @IBOutlet weak var titleLabel:UILabel!
     override func layoutSubviews() {
         super.layoutSubviews()
         holdemView.setDataWithHoldemResult(result: talkModel?.holdemResult)
+        titleLabel.text = talkModel?.holdemResult?.gameResult.rawValue.localized
     }
 
 }

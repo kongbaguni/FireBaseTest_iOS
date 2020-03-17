@@ -324,6 +324,14 @@ class HoldemView: UIView {
         for view in [dealarBettingLabel, myBettingLabel] {
             view?.textColor = .autoColor_weak_text_color
         }
+        for view in mySelectionViews {
+            view.image = #imageLiteral(resourceName: "point").withTintColor(.autoColor_bold_text_color)
+            view.alpha = 0.5
+        }
+        for view in dealarSelectionViews {
+            view.image = #imageLiteral(resourceName: "point").withTintColor(.autoColor_text_color)
+            view.alpha = 0.5
+        }
     }
 }
 

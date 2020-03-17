@@ -13,6 +13,7 @@ class TalkDetailHoldemTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView:UIImageView!
     @IBOutlet weak var holdemView:HoldemView!
     @IBOutlet weak var nameLabel:UILabel!
+    @IBOutlet weak var titleLabel:UILabel!
     
     var talkId:String? = nil
     
@@ -38,7 +39,8 @@ class TalkDetailHoldemTableViewCell: UITableViewCell {
         profileImageView.kf.setImage(with: talkModel?.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         nameLabel.text = talk.creator?.name
         
-        holdemView.setDataWithHoldemResult(result: talkModel?.holdemResult)        
+        holdemView.setDataWithHoldemResult(result: talkModel?.holdemResult)
+        titleLabel.text = talk.holdemResult?.gameResult.rawValue.localized
     }
 }
 

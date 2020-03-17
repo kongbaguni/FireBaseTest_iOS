@@ -859,7 +859,7 @@
         <!--Store Stock Log Table View Controller-->
         <scene sceneID="TGQ-mz-Sfh">
             <objects>
-                <tableViewController id="Bgj-rV-ji4" customClass="StoreStockLogTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="Bgj-rV-ji4" customClass="StoreStockLogTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dGq-5C-93K">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1051,7 +1051,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Don-dR-dDV">
-                            <rect key="frame" x="0.0" y="1933.5" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="1973.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJN-sd-GWq">
@@ -1448,10 +1448,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="holdemCell" id="sfo-Fv-cLI" userLabel="holdemCell" customClass="TalkDetailHoldemTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1175.5" width="414" height="350"/>
+                                <rect key="frame" x="0.0" y="1175.5" width="414" height="370"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfo-Fv-cLI" id="fg1-w2-CSW">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="370"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="PKy-Bu-QFw">
@@ -1462,7 +1462,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="gXI-oc-4Gd">
-                                            <rect key="frame" x="50" y="20" width="344" height="330"/>
+                                            <rect key="frame" x="50" y="20" width="344" height="350"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z5A-kX-dKU" customClass="HoldemView" customModule="mask_now" customModuleProvider="target">
                                             <rect key="frame" x="80" y="30" width="304" height="310"/>
@@ -1476,9 +1476,15 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이겼다!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6B-OF-9ow">
+                                            <rect key="frame" x="80" y="340" width="304" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="gXI-oc-4Gd" firstAttribute="bottom" secondItem="z5A-kX-dKU" secondAttribute="bottom" constant="10" id="Hj1-vy-gzA"/>
+                                        <constraint firstItem="gXI-oc-4Gd" firstAttribute="bottom" secondItem="z5A-kX-dKU" secondAttribute="bottom" constant="30" id="Hj1-vy-gzA"/>
                                         <constraint firstItem="gXI-oc-4Gd" firstAttribute="top" secondItem="z5A-kX-dKU" secondAttribute="top" constant="-10" id="Hn2-wJ-uqI"/>
                                         <constraint firstItem="u6P-Ea-U0G" firstAttribute="leading" secondItem="PKy-Bu-QFw" secondAttribute="trailing" constant="10" id="Kv7-QO-Twb"/>
                                         <constraint firstItem="gXI-oc-4Gd" firstAttribute="leading" secondItem="z5A-kX-dKU" secondAttribute="leading" constant="-30" id="LlI-NG-OLK"/>
@@ -1486,9 +1492,12 @@
                                         <constraint firstItem="PKy-Bu-QFw" firstAttribute="top" secondItem="fg1-w2-CSW" secondAttribute="topMargin" id="UL8-Ng-xgJ"/>
                                         <constraint firstAttribute="trailing" secondItem="u6P-Ea-U0G" secondAttribute="trailing" constant="10" id="Vqr-eI-ax2"/>
                                         <constraint firstItem="z5A-kX-dKU" firstAttribute="leading" secondItem="fg1-w2-CSW" secondAttribute="leading" constant="80" id="WFz-Ua-fYn"/>
+                                        <constraint firstItem="s6B-OF-9ow" firstAttribute="trailing" secondItem="z5A-kX-dKU" secondAttribute="trailing" id="cak-6P-fvt"/>
+                                        <constraint firstItem="s6B-OF-9ow" firstAttribute="top" secondItem="z5A-kX-dKU" secondAttribute="bottom" id="gq7-iJ-93s"/>
                                         <constraint firstItem="gXI-oc-4Gd" firstAttribute="trailing" secondItem="z5A-kX-dKU" secondAttribute="trailing" constant="10" id="ige-SD-Q0h"/>
-                                        <constraint firstAttribute="bottom" secondItem="z5A-kX-dKU" secondAttribute="bottom" constant="10" id="rpF-gq-26q"/>
+                                        <constraint firstAttribute="bottom" secondItem="z5A-kX-dKU" secondAttribute="bottom" constant="30" id="rpF-gq-26q"/>
                                         <constraint firstItem="z5A-kX-dKU" firstAttribute="top" secondItem="fg1-w2-CSW" secondAttribute="top" constant="30" id="t7Z-mU-740"/>
+                                        <constraint firstItem="s6B-OF-9ow" firstAttribute="leading" secondItem="z5A-kX-dKU" secondAttribute="leading" id="yAS-eM-HXv"/>
                                         <constraint firstItem="u6P-Ea-U0G" firstAttribute="top" secondItem="fg1-w2-CSW" secondAttribute="top" id="yv5-hb-TaG"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -1501,13 +1510,14 @@
                                     <outlet property="holdemView" destination="z5A-kX-dKU" id="fUP-r5-V2R"/>
                                     <outlet property="nameLabel" destination="u6P-Ea-U0G" id="89d-pS-4gm"/>
                                     <outlet property="profileImageView" destination="PKy-Bu-QFw" id="1vV-UX-24X"/>
+                                    <outlet property="titleLabel" destination="s6B-OF-9ow" id="rak-tG-lFd"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myHoldemCell" id="4u4-lY-gHP" userLabel="myHoldemCell" customClass="TalkDetailHoldemTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1525.5" width="414" height="380"/>
+                                <rect key="frame" x="0.0" y="1545.5" width="414" height="400"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4u4-lY-gHP" id="7We-hv-50m">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="380"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="BTB-1w-59v">
@@ -1518,7 +1528,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myBubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="Vhu-Pn-he2">
-                                            <rect key="frame" x="20" y="30" width="349" height="330"/>
+                                            <rect key="frame" x="20" y="30" width="349" height="350"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuE-uI-opa">
                                             <rect key="frame" x="10" y="0.0" width="334" height="21"/>
@@ -1532,20 +1542,29 @@
                                                 <constraint firstAttribute="height" constant="310" id="YRz-tY-xq0"/>
                                             </constraints>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이겼다!" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hv5-QL-3EJ">
+                                            <rect key="frame" x="30" y="350" width="309" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="BTB-1w-59v" firstAttribute="leading" secondItem="PuE-uI-opa" secondAttribute="trailing" constant="10" id="6SM-Px-FeU"/>
                                         <constraint firstItem="PuE-uI-opa" firstAttribute="leading" secondItem="7We-hv-50m" secondAttribute="leading" constant="10" id="ACj-HR-tXe"/>
                                         <constraint firstItem="PuE-uI-opa" firstAttribute="top" secondItem="7We-hv-50m" secondAttribute="top" id="BqU-lw-NhU"/>
+                                        <constraint firstItem="hv5-QL-3EJ" firstAttribute="leading" secondItem="00W-I1-Nvd" secondAttribute="leading" id="EA5-b5-k1r"/>
                                         <constraint firstItem="00W-I1-Nvd" firstAttribute="top" secondItem="7We-hv-50m" secondAttribute="top" constant="40" id="Icx-Xp-puG"/>
                                         <constraint firstItem="Vhu-Pn-he2" firstAttribute="trailing" secondItem="00W-I1-Nvd" secondAttribute="trailing" constant="30" id="LeH-we-KB9"/>
+                                        <constraint firstItem="hv5-QL-3EJ" firstAttribute="top" secondItem="00W-I1-Nvd" secondAttribute="bottom" id="LpP-Rg-scz"/>
                                         <constraint firstItem="BTB-1w-59v" firstAttribute="top" secondItem="7We-hv-50m" secondAttribute="topMargin" id="ZZl-e3-Gm6"/>
                                         <constraint firstAttribute="trailing" secondItem="00W-I1-Nvd" secondAttribute="trailing" constant="75" id="ZbP-uZ-PXy"/>
+                                        <constraint firstItem="hv5-QL-3EJ" firstAttribute="trailing" secondItem="00W-I1-Nvd" secondAttribute="trailing" id="h5i-8y-pup"/>
                                         <constraint firstItem="Vhu-Pn-he2" firstAttribute="leading" secondItem="00W-I1-Nvd" secondAttribute="leading" constant="-10" id="jgC-eS-HtY"/>
                                         <constraint firstItem="Vhu-Pn-he2" firstAttribute="top" secondItem="00W-I1-Nvd" secondAttribute="top" constant="-10" id="rBt-4f-6xo"/>
-                                        <constraint firstItem="Vhu-Pn-he2" firstAttribute="bottom" secondItem="00W-I1-Nvd" secondAttribute="bottom" constant="10" id="ueJ-oi-p7Y"/>
+                                        <constraint firstItem="Vhu-Pn-he2" firstAttribute="bottom" secondItem="00W-I1-Nvd" secondAttribute="bottom" constant="30" id="ueJ-oi-p7Y"/>
                                         <constraint firstItem="00W-I1-Nvd" firstAttribute="leading" secondItem="7We-hv-50m" secondAttribute="leading" constant="30" id="yRd-kX-iWs"/>
-                                        <constraint firstAttribute="bottom" secondItem="00W-I1-Nvd" secondAttribute="bottom" constant="30" id="zQ7-zT-4Au"/>
+                                        <constraint firstAttribute="bottom" secondItem="00W-I1-Nvd" secondAttribute="bottom" constant="50" id="zQ7-zT-4Au"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <constraints>
@@ -1557,6 +1576,7 @@
                                     <outlet property="holdemView" destination="00W-I1-Nvd" id="Mgx-do-j8R"/>
                                     <outlet property="nameLabel" destination="PuE-uI-opa" id="PJY-bl-U6x"/>
                                     <outlet property="profileImageView" destination="BTB-1w-59v" id="Zlh-Q8-DCm"/>
+                                    <outlet property="titleLabel" destination="hv5-QL-3EJ" id="wgJ-l3-9AQ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1698,7 +1718,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="JFl-tZ-x9h">
-                            <rect key="frame" x="0.0" y="1386" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="1416" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </view>
@@ -1872,10 +1892,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="holdem" id="S0o-6u-ubQ" customClass="TalkDetailEditHistoryHoldemTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="767" width="414" height="350.5"/>
+                                <rect key="frame" x="0.0" y="767" width="414" height="380.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S0o-6u-ubQ" id="ZKG-0G-TRd">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="350.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="380.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xek-OA-hb2" customClass="HoldemView" customModule="mask_now" customModuleProvider="target">
@@ -1885,20 +1905,30 @@
                                                 <constraint firstAttribute="height" constant="310" id="CFK-Hf-pNT"/>
                                             </constraints>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBF-01-EaP">
+                                            <rect key="frame" x="20" y="330.5" width="374" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="xek-OA-hb2" secondAttribute="bottom" constant="20" symbolic="YES" id="1hW-RA-r64"/>
+                                        <constraint firstAttribute="bottom" secondItem="xek-OA-hb2" secondAttribute="bottom" constant="50" id="1hW-RA-r64"/>
+                                        <constraint firstItem="lBF-01-EaP" firstAttribute="top" secondItem="xek-OA-hb2" secondAttribute="bottom" id="4OL-Zc-jeU"/>
+                                        <constraint firstItem="lBF-01-EaP" firstAttribute="trailing" secondItem="xek-OA-hb2" secondAttribute="trailing" id="9CT-wA-Cl7"/>
                                         <constraint firstAttribute="trailing" secondItem="xek-OA-hb2" secondAttribute="trailing" constant="20" symbolic="YES" id="Ls1-cj-e3I"/>
+                                        <constraint firstItem="lBF-01-EaP" firstAttribute="leading" secondItem="xek-OA-hb2" secondAttribute="leading" id="agV-5f-NTO"/>
                                         <constraint firstItem="xek-OA-hb2" firstAttribute="top" secondItem="ZKG-0G-TRd" secondAttribute="top" constant="20" symbolic="YES" id="iZQ-Mb-mZL"/>
                                         <constraint firstItem="xek-OA-hb2" firstAttribute="leading" secondItem="ZKG-0G-TRd" secondAttribute="leading" constant="20" symbolic="YES" id="r2i-vc-eQW"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="holdemView" destination="xek-OA-hb2" id="3Ld-tZ-yCZ"/>
+                                    <outlet property="titleLabel" destination="lBF-01-EaP" id="lu3-IZ-m8c"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="map" id="MH0-GQ-U5r" customClass="TalkDetailMapTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1117.5" width="414" height="240.5"/>
+                                <rect key="frame" x="0.0" y="1147.5" width="414" height="240.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MH0-GQ-U5r" id="Yag-x9-u2R">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="240.5"/>
@@ -2271,13 +2301,13 @@
         <image name="bubble_light" width="37.5" height="52.5"/>
         <image name="location" width="293.5" height="427"/>
         <image name="myBubble_light" width="37.5" height="52.5"/>
-        <image name="narui" width="1093.5" height="319.5"/>
+        <image name="narui" width="1096" height="485.5"/>
         <image name="placeholder" width="512" height="512"/>
         <image name="profile" width="300" height="300"/>
         <image name="title" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FyS-ee-ii9"/>
+        <segue reference="ccb-Uq-rfI"/>
         <segue reference="qKc-Bh-NmP"/>
         <segue reference="1aU-la-qB8"/>
         <segue reference="tNh-p3-JAq"/>
