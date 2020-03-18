@@ -256,6 +256,8 @@ class HoldemViewController : UIViewController {
         case .finish:
             // 승패 판정
             func newGame() {
+                self.holdemView.bettingPoint = 0
+                self.holdemView.dealarBetting = 0
                 self.holdemView.insertCard()
                 self.gameState = .wait
                 self.setTitle()
@@ -263,7 +265,7 @@ class HoldemViewController : UIViewController {
             
             if bettingPoint > 0 {
                 let gameCount = UserInfo.info?.todaysMyGameCount ?? 0
-                if gameCount > Consts.MAX_GAME_COUNT {
+                if gameCount >= Consts.MAX_GAME_COUNT {
                     newGame()
                     return
                 }

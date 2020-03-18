@@ -14,6 +14,14 @@ struct Consts {
     /** 상점 검색 범의 (미터 단위)*/
     static let DISTANCE_STORE_SEARCH:Int = 500
     
+    #if DEBUG
+    /** 대기열 보고 위한 거리제한*/
+    static let WAITING_REPORT_DISTANCE:Int = 500
+    #else
+    /** 대기열 보고 위한 거리제한*/
+    static let WAITING_REPORT_DISTANCE:Int = 50
+    #endif
+    
     static var MAX_GAME_COUNT:Int {
         let level = UserInfo.info?.level ?? 0
         return 3 + (level/10)

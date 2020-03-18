@@ -54,12 +54,12 @@ class ApiManager {
                 complete(nil)
             case .none:
                 complete(nil)
-            default:
+            default:                
                 LocationManager.shared.manager.startUpdatingLocation()
             }
 
         }) { (locations) in
-            LocationManager.shared.manager.stopUpdatingLocation()
+//            LocationManager.shared.manager.stopUpdatingLocation()
             if let location = locations.first {
                 UserDefaults.standard.lastMyCoordinate = location.coordinate
                 request(lat: location.coordinate.latitude, lng: location.coordinate.longitude) { (count) in

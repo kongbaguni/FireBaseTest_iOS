@@ -241,10 +241,9 @@ class TalkModel: Object {
                 realm.beginWrite()
                 realm.add(self, update: .all)
                 try! realm.commitWrite()
-                let userInfo = Firestore.firestore().collection("users").document(self.creatorId)
-                userInfo.updateData(["lastTalkTimeIntervalSince1970": self.modifiedTimeIntervalSince1970]) { (err) in
+                UserInfo.info?.updateLastTalkTime(timeInterval: self.modifiedTimeIntervalSince1970, complete: { (isSucess) in                
                     
-                }
+                })
                 complete(true)
                 return
             }

@@ -148,8 +148,15 @@ class UserInfo : Object {
             return
         }
         // 다른 유저 정보 가져오기
-        dbCollection
+        var query =
+            dbCollection
             .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
+
+        if let lastUser = try! Realm().objects(UserInfo.self).filter("email != %@", UserInfo.info!.email).sorted(byKeyPath: "updateDt").last {
+            query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateDt.timeIntervalSince1970)
+        }
+        
+        query
             .getDocuments { (snapShot, error) in
             var newUsers:[UserInfo] = []
             for doc in snapShot?.documents ?? [] {
@@ -169,6 +176,7 @@ class UserInfo : Object {
 
                 newUsers.append(userInfo)
             }
+                debugPrint("사용자 정보 갱신 : \(newUsers.count)")
             if newUsers.count > 0 {
                 let realm = try! Realm()
                 realm.beginWrite()
@@ -195,7 +203,7 @@ class UserInfo : Object {
             "point" : point,
             "level" : level,
             "exp" : exp,
-            "isAnonymousInventoryReport" : isAnonymousInventoryReport
+            "isAnonymousInventoryReport" : isAnonymousInventoryReport,
         ]
         
         document.updateData(data) {(error) in
@@ -265,5 +273,13 @@ class UserInfo : Object {
                     , Date.midnightTodayTime.timeIntervalSince1970
                     )
             .count
+    }
+    
+    
+    func updateLastTalkTime(timeInterval:Double = Date().timeIntervalSince1970, complete:@escaping(_ isSucess:Bool)->Void) {
+        let userInfo = Firestore.firestore().collection("users").document(self.id)
+        userInfo.updateData(["lastTalkTimeIntervalSince1970": timeInterval]) { (err) in
+            complete(err == nil)
+        }
     }
 }

@@ -11,8 +11,10 @@ import NVActivityIndicatorView
 
 fileprivate let tag = 881122
 
-struct Loading {
-    static func show(viewController:UIViewController) {
+class Loading {
+    fileprivate weak var indicator:NVActivityIndicatorView? = nil
+    
+    func show(viewController:UIViewController) {
         guard let view = viewController.view else {
             return
         }
@@ -27,18 +29,15 @@ struct Loading {
             view.addSubview(indicator)
             view.tag = tag
             indicator.startAnimating()
+            self.indicator = indicator
         }
+        
     }
     
-    static func hide(viewController:UIViewController) {
-        guard let view = viewController.view else {
-            return
-        }
-        if let indicator = view.viewWithTag(tag) as? NVActivityIndicatorView {
-            indicator.stopAnimating()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                indicator.removeFromSuperview()
-            }
+    func hide() {
+        self.indicator?.stopAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            self.indicator?.removeFromSuperview()
         }
     }
 }

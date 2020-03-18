@@ -72,6 +72,17 @@ class StoresTableViewController: UITableViewController {
         }
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        LocationManager.shared.manager.startUpdatingLocation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        LocationManager.shared.manager.stopUpdatingLocation()
+    }
+    
     func getStoreList(type:StoreModel.RemainType)->Results<StoreModel> {
         return stores.filter("remain_stat == %@",type.rawValue).sorted(byKeyPath: "distance")
     }
@@ -225,6 +236,10 @@ class StoresTableViewController: UITableViewController {
             if let vc = segue.destination as? StoreStockLogTableViewController {
                 vc.code = sender as? String
             }
+        case "showWaitting":
+            if let vc = segue.destination as? StoreWaittingTableViewController {
+                vc.storeId = sender as? String
+            }
         default:
             break
         }
@@ -243,7 +258,13 @@ class StoresTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "showStoreStockLogs", sender: data.code)
         }
         action2.backgroundColor = UIColor(red: 0.8, green: 0.6, blue: 0.2, alpha: 1)
-        return UISwipeActionsConfiguration(actions: [action1,action2])
+        
+        let action3 = UIContextualAction(style: .normal, title: "show waitting log".localized) { (action, view, complete) in
+            self.performSegue(withIdentifier: "showWaitting", sender: data.code)
+        }
+        action3.backgroundColor = UIColor(red: 0.5, green: 0.7, blue: 0.2, alpha: 1)
+        
+        return UISwipeActionsConfiguration(actions: [action1,action3,action2])
     }
         
 }

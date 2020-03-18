@@ -118,7 +118,8 @@ class PostTalkViewController: UITableViewController {
 
         func write(imageUrl:String?) {
             view.endEditing(true)
-            Loading.show(viewController: self)
+            let loading = Loading()
+            loading.show(viewController: self)
             if let id = self.documentId {
                 let realm = try! Realm()
                 if let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
@@ -135,7 +136,7 @@ class PostTalkViewController: UITableViewController {
                     document.update { [weak self] (isSucess) in
                         if self != nil {
                             sender.isEnabled = true
-                            Loading.hide(viewController: self!)
+                            loading.hide()
                             if isSucess {
                                 self?.navigationController?.popViewController(animated: true)
                             }
@@ -155,7 +156,7 @@ class PostTalkViewController: UITableViewController {
             talkModel.update { [weak self](sucess) in
                 if self != nil {
                     sender.isEnabled = true
-                    Loading.hide(viewController: self!)
+                    loading.hide()
                     if sucess {
                         self?.navigationController?.popViewController(animated: true)
                     }

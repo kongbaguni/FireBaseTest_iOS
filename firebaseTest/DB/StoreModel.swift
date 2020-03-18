@@ -141,70 +141,14 @@ class StoreModel : Object {
     }
     
     func getStoreStockLogs(complete:@escaping(_ count:Int?)->Void) {
-        let realm = try! Realm()
-        var syncDt = Date.getMidnightTime(beforDay: 7).timeIntervalSince1970
-        if let lastLog = realm.objects(StoreStockLogModel.self).filter("code = %@",self.code).sorted(byKeyPath: "regDt").last {
-            if syncDt < lastLog.regDt.timeIntervalSince1970 {
-                syncDt = lastLog.regDt.timeIntervalSince1970
-            }
+        StoreStockLogModel.downloadStockLogs(storeCode: self.code) { (count) in
+            complete(count)
         }
-        
-        Firestore.firestore()
-            .collection("storeStock")
-            .document(self.code)
-            .collection("stock_logs")
-            .whereField("regDtTimeIntervalSince1970", isGreaterThan: syncDt)
-            .getDocuments { (shot, error) in
-            if error != nil {
-                complete(nil)
-                return
-            }
-            guard let snap = shot else {
-                complete(nil)
-                return
-            }
-            let realm = try! Realm()
-            
-            print("----------------")
-            print(self.name)
-            print(self.code)
-            print(snap.documents.count)
-            print(snap.documentChanges.count)
-            for doc in snap.documents {
-                let data = doc.data()
-                if let id = data["id"] as? String
-                    , let remain_stat = data["remain_stat"] as? String
-                    , let storeCode = data["shopcode"] as? String
-                {
-                    let lastLog = realm.objects(StoreStockLogModel.self).filter("code = %@", storeCode).sorted(byKeyPath: "regDt").last
-                    #if DEBUG
-                    if lastLog?.isInvalidated == false {
-                        print("last : \(lastLog?.regDt.simpleFormatStringValue ?? " ") : \(lastLog?.remain_stat ?? " ") \(lastLog?.code ?? " ")")
-                    }
-                    print(Date(timeIntervalSince1970: doc["regDtTimeIntervalSince1970"] as! Double).simpleFormatStringValue
-                        + " " + remain_stat + " " + storeCode)
-                    #endif
-                                        
-                    if lastLog?.remain_stat != remain_stat || lastLog?.isInvalidated == true {
-                        
-                        let logModel = StoreStockLogModel()
-                        logModel.id = id
-                        logModel.code =  storeCode
-                        logModel.remain_stat = remain_stat
-                        logModel.uploaderId = data["uploader"] as? String ?? "guest"
-                        logModel.uploaded = true
-                        
-                        if let int = data["regDtTimeIntervalSince1970"] as? Double {
-                            logModel.regDt = Date(timeIntervalSince1970: int)
-                        }
-                        realm.beginWrite()
-                        realm.add(logModel, update: .all)
-                        try! realm.commitWrite()
-                    }
-                }
-            }
-            complete(snap.documents.count)
+    }
+    
+    func getStoreWaittingLogs(complete:@escaping(_ count:Int?)->Void) {
+        StoreWaitingModel.downloadLogs(storeCode: code) { (count) in
+            complete(count)
         }
-        
     }
 }

@@ -58,13 +58,13 @@ class CardDeckBoxView: UIView {
             aniView.append(self.subviews[sc-i])
         }
         for view in aniView {
-            UIView.animate(withDuration: 0.25, animations: {
+            UIView.animate(withDuration: 0.1, animations: {
                 view.frame.origin.x += 100
                 view.alpha = 0
             }) { (fin) in
-                UIView.animate(withDuration: 0.25, animations: {
+                if fin {
                     view.removeFromSuperview()
-                })
+                }
             }
         }
 

@@ -16,15 +16,33 @@ class StoresTableViewCell: UITableViewCell {
     @IBOutlet weak var addrLabel:UILabel!
     @IBOutlet weak var distanceLabel:UILabel!
     @IBOutlet weak var stockDtLabel:UILabel!
+    var storeId:String? = nil
+    var store:StoreModel? {
+        if let id = storeId {
+            return try! Realm().object(ofType: StoreModel.self, forPrimaryKey: id)
+        }
+        return nil
+    }
     
-    func setData(data:StoreModel) {        
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) { [weak self](notification) in
+            if let location = (notification.object as? [CLLocation])?.first {
+                UserDefaults.standard.lastMyCoordinate = location.coordinate
+                self?.updateLiveDistance(coordinate: location.coordinate)
+            }
+        }
+    }
+    
+    func setData(data:StoreModel) {
+        self.storeId = data.code
         switch data.storeType {
         case .pharmacy:
             storeImageView.image = #imageLiteral(resourceName: "pharmacy").withTintColor(.autoColor_text_color)
         default:
             storeImageView.image = #imageLiteral(resourceName: "postoffice").withTintColor(.autoColor_text_color)
         }
-        distanceLabel.text = "\(Double(Int(data.distance * 100))/100)m"
+//        distanceLabel.text = "\(Double(Int(data.distance * 100))/100)m"
         if data.distance > 700 {
             distanceLabel.textColor = .red
         } else if data.distance > 400 {
@@ -36,5 +54,12 @@ class StoresTableViewCell: UITableViewCell {
         nameLabel.text = data.name
         addrLabel.text = data.addr
         stockDtLabel.text = "stock at : ".localized + data.stockDtStr
+        
+    }
+    
+    func updateLiveDistance(coordinate:CLLocationCoordinate2D){
+        if let distance = self.store?.getLiveDistance(coodinate: coordinate) {
+            distanceLabel.text = "\(Double(Int(distance * 100))/100)m"
+        }
     }
 }

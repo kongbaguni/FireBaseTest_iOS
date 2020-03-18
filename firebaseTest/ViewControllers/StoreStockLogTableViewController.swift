@@ -8,10 +8,14 @@
 
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class StoreStockLogTableViewController: UITableViewController {
     var code:String? = nil
-    
+
+    let disposeBag = DisposeBag()
+    @IBOutlet weak var footerBtn: UIButton!
     var logs:Results<StoreStockLogModel>? {
         if let c = code {
             return try! Realm().objects(StoreStockLogModel.self)
@@ -22,7 +26,7 @@ class StoreStockLogTableViewController: UITableViewController {
     }
     
     var todayLogs:Results<StoreStockLogModel>? {
-        return logs?.filter("regDt > %@",Date.midnightTodayTime)
+        return logs?.filter("regDt >= %@",Date.midnightTodayTime)
     }
     
     func getList(dayBefore:Int)->Results<StoreStockLogModel>? {
@@ -46,6 +50,21 @@ class StoreStockLogTableViewController: UITableViewController {
         title = store?.name
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         onRefreshControl(UIRefreshControl())
+        footerBtn.setTitle("show waitting log".localized, for: .normal)
+        footerBtn.rx.tap.bind { (_) in
+            self.performSegue(withIdentifier: "showWaitting", sender: nil)
+        }.disposed(by: self.disposeBag)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showWaitting":
+            if let vc = segue.destination as? StoreWaittingTableViewController {
+                vc.storeId = self.store?.code
+            }
+        default:
+            break
+        }
     }
     
     func uploadLogIfNeed(complete:@escaping(_ isSucess:Bool)->Void) {
@@ -69,13 +88,25 @@ class StoreStockLogTableViewController: UITableViewController {
             model.uploadStoreStocks { (sucess) in
                 complete(sucess)
             }
+            UserInfo.info?.updateLastTalkTime(complete: { (sucess) in
+                
+            })
             return
         }
         complete(true)
     }
-    
+    let loading = Loading()
     @objc func onRefreshControl(_ sender: UIRefreshControl) {
+        
+        if sender != self.refreshControl {
+            loading.show(viewController: self)
+        }
         self.store?.getStoreStockLogs(complete: { [weak self](count) in
+            if let s = self {
+                if sender != s.refreshControl {
+                    self?.loading.hide()
+                }
+            }
             self?.uploadLogIfNeed { (isSucess) in
                 sender.endRefreshing()
                 self?.tableView.reloadData()

@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import CoreLocation
 
 class StoreStockLogTableViewCell : UITableViewCell {
     @IBOutlet weak var profileImageView:UIImageView!
@@ -16,6 +17,7 @@ class StoreStockLogTableViewCell : UITableViewCell {
     @IBOutlet weak var dateLabel:UILabel!
     
     var stockId:String? = nil
+    
     
     var stock:StoreStockLogModel? {
         if let id = stockId {
