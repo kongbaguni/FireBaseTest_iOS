@@ -74,7 +74,13 @@ class UserInfo : Object {
     }
     
     static var info:UserInfo? {
-        return try! Realm().objects(UserInfo.self).filter("idToken != %@ && accessToken != %@", "", "").first
+        if let info = try? Realm().objects(UserInfo.self).filter("idToken != %@ && accessToken != %@", "", "").first {
+            if info.isInvalidated {
+                return nil
+            }
+            return info
+        }
+        return nil
     }
     
     var profileImageURL:URL? {
@@ -230,10 +236,8 @@ class UserInfo : Object {
         
         let realm = try! Realm()
         realm.beginWrite()
-        UserInfo.info?.idToken = ""
-        UserInfo.info?.accessToken = ""
+        realm.deleteAll()
         try! realm.commitWrite()
-        StoreModel.deleteAll()
         
         UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
     }
