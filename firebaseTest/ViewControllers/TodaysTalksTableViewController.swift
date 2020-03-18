@@ -168,23 +168,27 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     @objc func onTouchupCardGame(_ sender:UIBarButtonItem) {
-        let gameCount = UserInfo.info?.todaysMyGameCount ?? 0
-        if gameCount > Consts.MAX_GAME_COUNT {
-            debugPrint("game count : \(gameCount)")
-            Toast.makeToast(message: "game count limit over msg".localized)
-            return
-        }
-        let ac = UIAlertController(title: nil, message: "game select", preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "simple porker", style: .default, handler: { (action) in
-            self.playSimplePorker()
-        }))
-        ac.addAction(UIAlertAction(title: "holdem", style: .default, handler: { (action) in
-            let vc = HoldemViewController.viewController
-            vc.delegate = self
-            self.present(vc, animated: true, completion: nil)
-        }))
-        ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-        present(ac, animated: true, completion: nil)
+        let vc = HoldemViewController.viewController
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
+
+//        let gameCount = UserInfo.info?.todaysMyGameCount ?? 0
+//        if gameCount > Consts.MAX_GAME_COUNT {
+//            debugPrint("game count : \(gameCount)")
+//            Toast.makeToast(message: "game count limit over msg".localized)
+//            return
+//        }
+//        let ac = UIAlertController(title: nil, message: "game select", preferredStyle: .actionSheet)
+//        ac.addAction(UIAlertAction(title: "simple porker", style: .default, handler: { (action) in
+//            self.playSimplePorker()
+//        }))
+//        ac.addAction(UIAlertAction(title: "holdem", style: .default, handler: { (action) in
+//            let vc = HoldemViewController.viewController
+//            vc.delegate = self
+//            self.present(vc, animated: true, completion: nil)
+//        }))
+//        ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+//        present(ac, animated: true, completion: nil)
     }
     
     private func playSimplePorker() {

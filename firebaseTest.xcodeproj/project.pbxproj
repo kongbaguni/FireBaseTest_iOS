@@ -49,6 +49,7 @@
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
 		C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */; };
 		C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */; };
+		C3C25C062421A998006DB36E /* CardDeckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C25C052421A998006DB36E /* CardDeckBoxView.swift */; };
 		C3C43A1C241A6E95002788B1 /* TalkDetailMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */; };
 		C3DC5B842412172D00A028E0 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */; };
 		C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */; };
@@ -115,6 +116,7 @@
 		C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3BDFC0A240CD7A1006AE2B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3BDFC0C240CD7A1006AE2B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3C25C052421A998006DB36E /* CardDeckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckBoxView.swift; sourceTree = "<group>"; };
 		C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailMapTableViewCell.swift; sourceTree = "<group>"; };
 		C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				C39A6ECB241F368000460705 /* HoldemView.xib */,
 				C39A6ECD241F386400460705 /* HoldemView.swift */,
 				C39A6ED524208ABA00460705 /* Dealar.swift */,
+				C3C25C052421A998006DB36E /* CardDeckBoxView.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				C3630FD9241B5F31003479C2 /* TalkDetailCardTableViewCell.swift in Sources */,
 				C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */,
 				C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */,
+				C3C25C062421A998006DB36E /* CardDeckBoxView.swift in Sources */,
 				C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */,
 				C3C43A1C241A6E95002788B1 /* TalkDetailMapTableViewCell.swift in Sources */,
 				C3630FD0241B339E003479C2 /* GameManager.swift in Sources */,

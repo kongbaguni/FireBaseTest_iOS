@@ -13,6 +13,7 @@ extension Notification.Name {
     static let game_levelupNotification = Notification.Name("levelupNotificationObserver")
     static let game_usePointAndGetExpNotification = Notification.Name("usePointAndGetExpNotificationObserver")
     static let game_getPointNotification = Notification.Name("game_getPointNotificationObserver")
+    static let game_popCardFromCardDeckBox = Notification.Name("game_popCardFromCardDeckBoxObserver")
 }
 
 
@@ -37,7 +38,15 @@ class GameManager {
     }
     let googleAd = GoogleAd()
     
-    fileprivate var cardDack:[Card] = []
+    var deckBoxCardsCount:Int {
+        return cardDack.count
+    }
+    
+    fileprivate var cardDack:[Card] = [] {
+        didSet {
+            NotificationCenter.default.post(name: .game_popCardFromCardDeckBox, object: deckBoxCardsCount)
+        }
+    }
     fileprivate var isUseJoker = false
     
     var shuffleLinit = 5
