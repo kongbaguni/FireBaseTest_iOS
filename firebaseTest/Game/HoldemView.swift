@@ -53,11 +53,13 @@ class HoldemView: UIView {
     
     var dealarBetting:Int = 0 {
         didSet {
+            dealarBettingLabel?.isHidden = dealarBetting == 0
             dealarBettingLabel?.text = "\("betting".localized) : \(dealarBetting.decimalForamtString)"
         }
     }
     var bettingPoint:Int = 0 {
         didSet {
+            myBettingLabel?.isHidden = bettingPoint == 0
             myBettingLabel?.text =  "\("betting".localized) : \(bettingPoint.decimalForamtString)"
         }
     }
@@ -113,7 +115,7 @@ class HoldemView: UIView {
         }
         return nil
     }
-    
+        
     func showSelection(selection:[Int],isPlayer:Bool) {
         if isPlayer {
             for view in communityCardImageViews {
@@ -270,9 +272,6 @@ class HoldemView: UIView {
     }
     
     func makeValuesSet(openComunitiCardNumber:Int) {
-        if communityCards.count != 5 {
-            return
-        }
         var mySet:[Set] = []
         var dealarSet:[Set] = []
         

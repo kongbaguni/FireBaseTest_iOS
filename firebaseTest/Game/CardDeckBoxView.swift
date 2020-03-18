@@ -25,15 +25,15 @@ class CardDeckBoxView: UIView {
             return
         }
         NotificationCenter.default.addObserver(forName: .game_popCardFromCardDeckBox, object: nil, queue: nil) { [weak self](notification) in
-            self?.setCards()
+            if let count = notification.object as? Int , let sviewCount = self?.subviews.count {
+                self?.removeCards(cardCount: sviewCount - count )
+            }
+            
         }
         isSetNotification = true
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
         setCards()
     }
+    
     
     func setCards() {
         for view in self.subviews {
@@ -45,5 +45,28 @@ class CardDeckBoxView: UIView {
             view.frame.origin = CGPoint(x: i*3, y: 0)
             addSubview(view)
         }
+    }
+    
+    func removeCards(cardCount:Int) {
+        if self.subviews.count < cardCount || cardCount == 0 {
+            setCards()
+            return
+        }
+        let sc = self.subviews.count
+        var aniView:[UIView] = []
+        for i in 1..<cardCount {
+            aniView.append(self.subviews[sc-i])
+        }
+        for view in aniView {
+            UIView.animate(withDuration: 0.25, animations: {
+                view.frame.origin.x += 100
+                view.alpha = 0
+            }) { (fin) in
+                UIView.animate(withDuration: 0.25, animations: {
+                    view.removeFromSuperview()
+                })
+            }
+        }
+
     }
 }
