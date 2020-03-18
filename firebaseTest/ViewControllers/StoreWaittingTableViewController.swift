@@ -61,7 +61,6 @@ class StoreWaittingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("\(#file) \(#function) \(#line)-----")
         title = store?.name
         setTitle()
         postLogBtn.isEnabled = false
