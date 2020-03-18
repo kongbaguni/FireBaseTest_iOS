@@ -236,8 +236,10 @@ class UserInfo : Object {
         
         let realm = try! Realm()
         realm.beginWrite()
-        realm.deleteAll()
+        UserInfo.info?.idToken = ""
+        UserInfo.info?.accessToken = ""
         try! realm.commitWrite()
+        StoreModel.deleteAll()
         
         UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
     }
