@@ -132,3 +132,6 @@
 "fourOfaKind" = "포카드";
 "straightFlush" = "스트레이트 플러쉬";
 "fiveOfaKind" = "파이브카드";
+"game posting alert title" = "게임 결과를 포스팅 하겠습니까?";
+"game posting alert desc %@ %@" = "하루에 %@번 포스팅 가능합니다.\n앞으로 %@번 가능합니다.";
+"posting" = "포스팅";

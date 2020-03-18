@@ -40,7 +40,16 @@ class HoldemView: UIView {
     
     var dealerCards:[Card] = []
     var myCards:[Card] = []
-    var communityCards:[Card] = []
+    var communityCards:[Card] = [] {
+        didSet {
+            for view in communityCardImageViews {
+                view.isHidden = true
+            }
+            for (index, _) in communityCards.enumerated() {
+                communityCardImageViews[index].isHidden = false
+            }
+        }
+    }
     
     var dealarBetting:Int = 0 {
         didSet {
@@ -200,7 +209,7 @@ class HoldemView: UIView {
         GameManager.shared.shuffleLinit = 9
         dealerCards = GameManager.shared.popCards(number: 2)
         myCards = GameManager.shared.popCards(number: 2)
-        communityCards = GameManager.shared.popCards(number: 5)
+        communityCards = GameManager.shared.popCards(number: 3)
         for set:[UIImageView] in [dealersCardImageViews, communityCardImageViews, myCardImageViews] {
             for view:UIImageView in set {
                 view.image = #imageLiteral(resourceName: "gray_back")
@@ -213,6 +222,14 @@ class HoldemView: UIView {
         }
         for view in communityCardImageViews {
             view.alpha = 1
+        }
+    }
+    
+    func insertTurnRiver(getCard:@escaping(_ card:Card)->Void) {
+        _ = GameManager.shared.popCards(number: 1)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            let cards = GameManager.shared.popCards(number: 1)
+            getCard(cards.first!)
         }
     }
     
@@ -237,7 +254,7 @@ class HoldemView: UIView {
     
     func showCommunityCard(number:Int) {
         myGameValueLabel.isHidden = false
-        if number > 5 || number == 0 {
+        if number > 5 || number == 0 || communityCards.count < number{
             return
         }
         for i in 0..<number {

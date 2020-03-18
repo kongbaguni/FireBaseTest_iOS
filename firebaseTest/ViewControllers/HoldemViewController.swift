@@ -110,7 +110,7 @@ class HoldemViewController : UIViewController {
        
     }
     
-    @IBAction func onTouchupButton(_ sender: Any) {
+    @IBAction func onTouchupButton(_ sender: UIButton) {
         func bettingPointAlert(didBetting:@escaping(_ bettingPoint:Int)->Void) {
             let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
             let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
@@ -165,6 +165,11 @@ class HoldemViewController : UIViewController {
         case .wait:
             holdemView.showMyCard()
             gameState = .preflop
+            sender.isEnabled = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                self.onTouchupButton(sender)
+                sender.isEnabled = true
+            }
         case .preflop:
             holdemView.showCommunityCard(number: 3)
             gameState = .flop
@@ -173,12 +178,19 @@ class HoldemViewController : UIViewController {
                 GameManager.shared.usePoint(point: point) { (sucess) in
                     if sucess {
                         self.bettingPoint += point
-                        self.holdemView.showCommunityCard(number: 4)
-                        self.gameState = .turn
-                        self.setTitle()
+                        self.holdemView.insertTurnRiver { (card) in
+                            self.holdemView.communityCards.append(card)
+                            self.holdemView.showCommunityCard(number: 4)
+                            self.gameState = .turn
+                            self.setTitle()
+                        }
                     }
                 }
             }) {
+                //Fold Action
+                let card = GameManager.shared.popCards(number: 4)
+                self.holdemView.communityCards.append(card[1])
+                self.holdemView.communityCards.append(card[3])
                 self.holdemView.showCommunityCard(number: 5)
                 self.holdemView.showDealerCard()
                 self.gameState = .finish
@@ -189,8 +201,17 @@ class HoldemViewController : UIViewController {
                 GameManager.shared.usePoint(point: point) { (sucess) in
                     if sucess {
                         self.bettingPoint += point
-                        self.holdemView.showCommunityCard(number: 5)
-                        self.gameState = .river
+                        self.holdemView.insertTurnRiver { (card) in
+                            self.holdemView.communityCards.append(card)
+                            self.holdemView.showCommunityCard(number: 5)
+                            self.gameState = .river
+                            sender.isEnabled = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                                self.onTouchupButton(sender)
+                                sender.isEnabled = true
+                            }
+                        }
+
                     }
                 }
             }, didFold: nil)
@@ -234,12 +255,33 @@ class HoldemViewController : UIViewController {
             break
         case .finish:
             // 승패 판정
+            func newGame() {
+                self.holdemView.insertCard()
+                self.gameState = .wait
+                self.setTitle()
+            }
+            
             if bettingPoint > 0 {
-                postTalk { (sucess) in
-                    self.dismiss(animated: true) {
-                        self.delegate?.didGameFinish(isBettingGame: true)
-                    }
+                let gameCount = UserInfo.info?.todaysMyGameCount ?? 0
+                if gameCount > Consts.MAX_GAME_COUNT {
+                    newGame()
+                    return
                 }
+                let msg = String(format:"game posting alert desc %@ %@".localized, Consts.MAX_GAME_COUNT.decimalForamtString, (Consts.MAX_GAME_COUNT - gameCount).decimalForamtString)
+
+                let vc = UIAlertController(title: "game posting alert title".localized,
+                                           message: msg, preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "posting".localized, style: .default, handler: { (_) in
+                    self.postTalk { (sucess) in
+                        self.dismiss(animated: true) {
+                            self.delegate?.didGameFinish(isBettingGame: true)
+                        }
+                    }
+                }))
+                vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: { (_) in
+                    newGame()
+                }))
+                present(vc, animated: true, completion: nil)
                 return
             } else {
                 holdemView.insertCard()
