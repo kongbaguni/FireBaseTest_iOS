@@ -256,6 +256,7 @@ class HoldemViewController : UIViewController {
         case .finish:
             // 승패 판정
             func newGame() {
+                self.bettingPoint = 0
                 self.holdemView.bettingPoint = 0
                 self.holdemView.dealarBetting = 0
                 self.holdemView.insertCard()
