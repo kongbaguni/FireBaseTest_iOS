@@ -108,7 +108,11 @@ class StatusViewController: UIViewController {
     
     func loadData() {
         guard let user = userInfo else {
-            nameLabel.text = "guest".localized
+            if userId == "guest" {
+                nameLabel.text = "guest".localized
+            } else {
+                nameLabel.text = "unknown people".localized
+            }
             pointLabel.text = ""
             levelLabel.text = ""
             expLabel.text = ""

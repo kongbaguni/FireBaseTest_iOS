@@ -12,6 +12,11 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView:UIImageView!
     @IBOutlet weak var nameLabel:UILabel!
     @IBOutlet weak var introduceLabel:UILabel!
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        nameLabel.text = "unknown people".localized
+        introduceLabel.text = nil
+    }
     
     func setData(info:UserInfo) {
         profileImageView.kf.setImage(with: info.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))

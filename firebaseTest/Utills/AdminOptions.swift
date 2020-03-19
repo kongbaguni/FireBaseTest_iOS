@@ -39,7 +39,7 @@ class AdminOptions {
     /** 딜러가 0 포인트 베팅할 확률*/
     var dealarZeroPointBettingRate : Float = 0.1
     
-    /** 딜러가 카드패와 상관없이 최대 배팅할 확률*/
+    /** 딜러가 카드패와 상관없이 최대 베팅할 확률*/
     var dealarMaxBettingRate : Float = 0.2
 
     /** 광고 1회 시청시 보상*/
@@ -57,8 +57,11 @@ class AdminOptions {
     
     
     var allData:[String:Any] {
-        let data:[String:Any] = [
+        return [
+            // report
             "waitting_report_distance"  : waitting_report_distance,
+            
+            // game
             "isUsePoker"                : isUsePoker,
             "maxBettingPoint"           : maxBettingPoint,
             "maxJackPotPoint"           : maxJackPotPoint,
@@ -66,13 +69,15 @@ class AdminOptions {
             "dealarZeroPointBettingRate": dealarZeroPointBettingRate,
             "dealarMaxBettingRate"      : dealarMaxBettingRate,
             "canUsePokerLevel"          : canUsePokerLevel,
+            
+            // point
             "adRewardPoint"             : adRewardPoint,
             "pointUseRatePosting"       : pointUseRatePosting,
             "pointUseUploadPicture"     : pointUseUploadPicture,
             "defaultPoint"              : defaultPoint
         ]
-        return data
-    }
+        
+    }    
     
     func setData(key:String, value:String)->Bool {
         let intValue = NSString(string:value).integerValue
