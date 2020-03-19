@@ -8,6 +8,8 @@
 
 import Foundation
 import FirebaseFirestore
+import RealmSwift
+
 extension Notification.Name {
     static let jackpotChangeNotification = Notification.Name("jackPodChangeObserver")
 }
@@ -38,16 +40,83 @@ class JackPotManager {
         if p > AdminOptions.shared.maxJackPotPoint {
             p = AdminOptions.shared.maxJackPotPoint
         }
-        dbcollection.document("point").setData(["point":p]) { (err) in
+        setPoint(p, complete: complete)
+    }
+    
+    fileprivate func setPoint(_ value:Int, complete:@escaping(_ isSucess:Bool)->Void) {
+        dbcollection.document("point").setData(["point":value]) { (err) in
             if err == nil {
                 self.getData { (isSucess) in
                     complete(isSucess)
                     if isSucess {
-                        NotificationCenter.default.post(name: .jackpotChangeNotification, object: p)
+                        NotificationCenter.default.post(name: .jackpotChangeNotification, object: value)
                     }
                 }
             } else {
                 complete(false)
+            }
+        }
+    }
+    
+    fileprivate func addJackPotHistoryLog(jackPotPoint:Int, complete:@escaping(_ isSucess:Bool)->Void) {
+        let id = "\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)"
+        dbcollection.document("history").collection("log").addDocument(data: [
+            "regTimeIntervalSince1970":Date().timeIntervalSince1970,
+            "userId":UserInfo.info?.id ?? "",
+            "point":jackPotPoint,
+            "id": id
+        ]) { (error) in
+            complete(error == nil)
+        }
+    }
+
+    func getJackPotHistoryLog(complete:@escaping(_ isSucess:Bool)->Void) {
+        let collection = dbcollection.document("history").collection("log")
+        var query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 360))
+        
+        if let item = try! Realm().objects(JackPotLogModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").last {
+            query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: item.regTimeIntervalSince1970)
+        }
+        
+        query.getDocuments { (queryshot, error) in
+            if error != nil {
+                complete(false)
+                return
+            }
+            guard let doc = queryshot else {
+                complete(false)
+                return
+            }
+            let realm = try! Realm()
+            realm.beginWrite()
+            for document in doc.documents {
+                let data = document.data()
+                realm.create(JackPotLogModel.self, value: data, update: .all)
+            }
+            try! realm.commitWrite()
+            complete(true)
+        }
+    }
+    
+    func dropJackPot(complete:@escaping(_ jackpotPoint:Int?)->Void) {
+        let jackPot = self.point
+        setPoint(AdminOptions.shared.minJackPotPoint) { (isSucess) in
+            if isSucess == false {
+                complete(nil)
+            } else {
+                self.addJackPotHistoryLog(jackPotPoint: jackPot) { (isSucess) in
+                    if isSucess {
+                        self.getData { (isSucess) in
+                            if isSucess {
+                                complete(jackPot)
+                            } else {
+                                complete(nil)
+                            }
+                        }
+                    } else {
+                        complete(nil)
+                    }
+                }
             }
         }
     }

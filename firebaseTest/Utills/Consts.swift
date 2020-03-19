@@ -67,6 +67,6 @@ struct Consts {
     /** 구글 광고 아이디*/
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
     
-    static let REALM_VERSION:UInt64 = 0
+    static let REALM_VERSION:UInt64 = 1
 
 }

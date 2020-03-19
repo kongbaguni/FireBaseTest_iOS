@@ -244,14 +244,46 @@ class HoldemViewController : UIViewController {
                 }
                 switch self.holdemView.gameResult {
                 case .win:
-                    JackPotManager.shared.addPoint(self.holdemView.dealarBetting) { (isSucess) in
-                        let point = self.holdemView.bettingPoint * 2
+                    JackPotManager.shared.addPoint(self.holdemView.dealarBetting) { [weak self](isSucess) in
+                        let point = self?.holdemView.bettingPoint ?? 0  * 2
                         GameManager.shared.addPoint(point: point) { (sucess) in
-                            self.setTitle()
-                            showStatusView(statusChange:
-                                StatusChange(
-                                    addedExp: point,
-                                    pointChange: point - self.bettingPoint))
+                            self?.setTitle()
+                            let set = self?.holdemView.myBestCardSet?.cardSet
+                            
+                            var isJackPod:Bool {
+                                #if JACKPOTTEST
+                                return true
+                                #endif
+                                if set?.cardValue == CardSet.CardValue.straightFlush {
+                                    if (set?.cards.filter({ (card) -> Bool in
+                                        return card.index == 13
+                                    }).count == 1) {
+                                        return true
+                                    }
+                                }
+                                return false
+                            }
+                            
+                            if isJackPod {
+                                // 로티플이다!!
+                                Toast.makeToast(message: "JackPot!!")
+                                JackPotManager.shared.dropJackPot { (jackPod) in
+                                    if let point = jackPod {
+                                        GameManager.shared.addPoint(point: point) { (sucess) in
+                                            showStatusView(statusChange:
+                                                StatusChange(
+                                                    addedExp: point,
+                                                    pointChange: point - (self?.bettingPoint ?? 0)))
+
+                                        }
+                                    }
+                                }
+                            } else {
+                                showStatusView(statusChange:
+                                    StatusChange(
+                                        addedExp: point,
+                                        pointChange: point - (self?.bettingPoint ?? 0)))
+                            }
                         }
                     }
                 case .tie:

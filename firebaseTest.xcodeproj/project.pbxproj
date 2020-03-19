@@ -27,6 +27,7 @@
 		C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36650112422F73F00E2BD24 /* AdminOptions.swift */; };
 		C3665014242300E700E2BD24 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3665013242300E700E2BD24 /* AdminViewController.swift */; };
 		C36650162423271300E2BD24 /* JackPotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36650152423271300E2BD24 /* JackPotManager.swift */; };
+		C366501824233C5600E2BD24 /* JackPotLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C366501724233C5600E2BD24 /* JackPotLogModel.swift */; };
 		C370C9F12415F94300026E86 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F02415F94300026E86 /* LikeModel.swift */; };
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
@@ -39,6 +40,7 @@
 		C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */; };
 		C3780E63240F361A006070CF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3780E62240F361A006070CF /* Localizable.strings */; };
 		C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E66240F44AF006070CF /* LoginViewController.swift */; };
+		C37E86912423410700F87D4D /* JackPotHistoryLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */; };
 		C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386C791241A0B1C0034132B /* Int+Extensions.swift */; };
 		C39003872421D38800CC4E3A /* StoreWaitingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39003862421D38800CC4E3A /* StoreWaitingModel.swift */; };
 		C390038A2421E9B700CC4E3A /* StoreWaittingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39003892421E9B700CC4E3A /* StoreWaittingTableViewController.swift */; };
@@ -98,6 +100,7 @@
 		C36650112422F73F00E2BD24 /* AdminOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminOptions.swift; sourceTree = "<group>"; };
 		C3665013242300E700E2BD24 /* AdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		C36650152423271300E2BD24 /* JackPotManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotManager.swift; sourceTree = "<group>"; };
+		C366501724233C5600E2BD24 /* JackPotLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotLogModel.swift; sourceTree = "<group>"; };
 		C370C9F02415F94300026E86 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 		C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		C3780E62240F361A006070CF /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		C3780E66240F44AF006070CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotHistoryLogTableViewController.swift; sourceTree = "<group>"; };
 		C386C791241A0B1C0034132B /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		C39003862421D38800CC4E3A /* StoreWaitingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWaitingModel.swift; sourceTree = "<group>"; };
 		C39003892421E9B700CC4E3A /* StoreWaittingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWaittingTableViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +228,7 @@
 				C39A6ED3241F6CE100460705 /* HoldemViewController.swift */,
 				C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */,
 				C3665013242300E700E2BD24 /* AdminViewController.swift */,
+				C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 		C3780E68240F5B94006070CF /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				C366501724233C5600E2BD24 /* JackPotLogModel.swift */,
 				C3780E59240DDEEC006070CF /* UserInfo.swift */,
 				C370C9F02415F94300026E86 /* LikeModel.swift */,
 				C3DC5B90241224E100A028E0 /* TalkModel.swift */,
@@ -481,10 +487,12 @@
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
 				C36650162423271300E2BD24 /* JackPotManager.swift in Sources */,
 				C39A6ED82420A04B00460705 /* TalkDetailHoldemTableViewCell.swift in Sources */,
+				C366501824233C5600E2BD24 /* JackPotLogModel.swift in Sources */,
 				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
 				C39A6ED624208ABA00460705 /* Dealar.swift in Sources */,
 				C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */,
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
+				C37E86912423410700F87D4D /* JackPotHistoryLogTableViewController.swift in Sources */,
 				C3630FD3241B51CE003479C2 /* Card.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3DC5B95241243D400A028E0 /* Consts.swift in Sources */,
@@ -613,7 +621,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG JACKPOTTEST";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
