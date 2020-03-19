@@ -50,7 +50,7 @@ class AdminOptions {
     /** 그림 올릴 떄 포인트 소모량 */
     var pointUseUploadPicture : Int = 100
     
-    let collection = Firestore.firestore().collection("admin")
+    let collection = Firestore.firestore().collection(FSCollectionName.ADMIN)
     
     
     var allData:[String:Any] {

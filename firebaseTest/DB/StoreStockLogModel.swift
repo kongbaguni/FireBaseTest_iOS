@@ -53,7 +53,8 @@ class StoreStockLogModel: Object {
             complete(false)
             return
         }
-        let collection = Firestore.firestore().collection("storeStock")
+        
+        let collection = Firestore.firestore().collection(FSCollectionName.STORE_STOCK)
         let docuId = id
         
         let time = self.regDt.formatedString(format: "yyyyMMdd_HHMM") + remain_stat
@@ -102,7 +103,7 @@ class StoreStockLogModel: Object {
         }
         
         Firestore.firestore()
-            .collection("storeStock")
+            .collection(FSCollectionName.STORE_STOCK)
             .document(code)
             .collection("stock_logs")
             .whereField("regDtTimeIntervalSince1970", isGreaterThan: syncDt)

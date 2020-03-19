@@ -16,8 +16,7 @@ extension Notification.Name {
 
 class JackPotManager {
     static let shared = JackPotManager()
-    
-    fileprivate let dbcollection = Firestore.firestore().collection("jackPot")
+    fileprivate let dbcollection = Firestore.firestore().collection(FSCollectionName.JACKPOT)
     
     var point:Int = AdminOptions.shared.minJackPotPoint
     

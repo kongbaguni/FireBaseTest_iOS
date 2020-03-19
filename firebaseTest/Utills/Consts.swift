@@ -68,5 +68,20 @@ struct Consts {
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
     
     static let REALM_VERSION:UInt64 = 1
+        
+}
 
+/** 파이어베이스 스토리지 아이디*/
+struct FSCollectionName {
+    #if DEBUG
+    static let STORE_STOCK = "storeStock_TEST"
+    static let JACKPOT = "jackPot_TEST"
+    static let ADMIN = "admin_TEST"
+    static let TALKS = "talks_TEST"
+    #else
+    static let STORE_STOCK = "storeStock"
+    static let JACKPOT = "jackPot"
+    static let ADMIN = "admin"
+    static let TALKS = "talks"
+    #endif
 }

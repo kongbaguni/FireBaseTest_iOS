@@ -60,7 +60,8 @@ class StoreWaitingModel : Object {
             complete(false)
             return
         }
-        let collection = Firestore.firestore().collection("storeStock")
+        let collection = Firestore.firestore().collection(FSCollectionName.STORE_STOCK)
+        
         let docuId = id
         
         let time = self.regDt.formatedString(format: "yyyyMMdd_HHMMss") + status
@@ -110,7 +111,7 @@ class StoreWaitingModel : Object {
         }
         
         Firestore.firestore()
-            .collection("storeStock")
+            .collection(FSCollectionName.STORE_STOCK)
             .document(code)
             .collection("waiting_logs")
             .whereField("regDtTimeIntervalSince1970", isGreaterThan: syncDt)

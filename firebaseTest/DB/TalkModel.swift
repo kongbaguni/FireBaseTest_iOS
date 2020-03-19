@@ -233,7 +233,7 @@ class TalkModel: Object {
             "imageUrl":imageUrl
         ]
         
-        let collection = Firestore.firestore().collection("talks")
+        let collection = Firestore.firestore().collection(FSCollectionName.TALKS)
         let document = collection.document(id)
         document.setData(data, merge: true) { (error) in
             if error == nil {
@@ -261,7 +261,7 @@ class TalkModel: Object {
             }
         }
         
-        let collection = Firestore.firestore().collection("talks")
+        let collection = Firestore.firestore().collection(FSCollectionName.TALKS)
         collection
             .whereField("regTimeIntervalSince1970", isGreaterThan: syncDt)
             .getDocuments { (shot, error) in
