@@ -364,7 +364,7 @@ class TodaysTalksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let data = list[indexPath.row]
         var actions:[UIContextualAction] = []
-        if data.creatorId == UserInfo.info?.id && data.cardSet == nil {
+        if data.creatorId == UserInfo.info?.id && data.bettingPoint == 0 {
             let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
                 if let data = self?.list[indexPath.row] {
                     self?.needScrolIndex = indexPath
