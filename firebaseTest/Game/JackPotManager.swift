@@ -71,7 +71,7 @@ class JackPotManager {
 
     func getJackPotHistoryLog(complete:@escaping(_ isSucess:Bool)->Void) {
         let collection = dbcollection.document("history").collection("log")
-        var query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 360))
+        var query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 360).timeIntervalSince1970)
         
         if let item = try! Realm().objects(JackPotLogModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").last {
             query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: item.regTimeIntervalSince1970)

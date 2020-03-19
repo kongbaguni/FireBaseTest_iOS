@@ -23,7 +23,7 @@ class AdminOptions {
     fileprivate var canUsePokerLevel: Int = 0
     
     var canPlayPoker:Bool {
-        return isUsePoker && UserInfo.info?.level ?? 0 > canUsePokerLevel
+        return isUsePoker && UserInfo.info?.level ?? 0 >= canUsePokerLevel
     }
 
     
