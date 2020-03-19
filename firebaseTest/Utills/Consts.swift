@@ -8,11 +8,8 @@
 
 import Foundation
 struct Consts {
-    /** 이야기 표시 기간*/
-    static let LIMIT_TALK_TIME_INTERVAL:TimeInterval = 86400
-    
     /** 상점 검색 범의 (미터 단위)*/
-    static let DISTANCE_STORE_SEARCH:Int = 500
+    static var DISTANCE_STORE_SEARCH:Int = 500
     
     #if DEBUG
     /** 대기열 보고 위한 거리제한*/

@@ -139,7 +139,7 @@ class StoreWaittingTableViewController: UITableViewController {
         if let distance = store?.getLiveDistance(coodinate: mc) {
             let value = Double(Int(distance * 100))/100
             headerLabel.text = "\("distance".localized) : \(value)m"
-            postLogBtn.isEnabled = value < Double(Consts.WAITING_REPORT_DISTANCE)
+            postLogBtn.isEnabled = value < Double(AdminOptions.shared.waitting_report_distance)
             postLogBtn.setTitle("waitting btn title desable".localized, for: .normal)
 
 //            if postLogBtn.isEnabled {

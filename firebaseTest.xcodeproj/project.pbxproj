@@ -24,6 +24,8 @@
 		C3630FD6241B5C7C003479C2 /* CardDackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FD4241B5C7B003479C2 /* CardDackView.swift */; };
 		C3630FD7241B5C7C003479C2 /* CardDackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3630FD5241B5C7C003479C2 /* CardDackView.xib */; };
 		C3630FD9241B5F31003479C2 /* TalkDetailCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FD8241B5F31003479C2 /* TalkDetailCardTableViewCell.swift */; };
+		C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36650112422F73F00E2BD24 /* AdminOptions.swift */; };
+		C3665014242300E700E2BD24 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3665013242300E700E2BD24 /* AdminViewController.swift */; };
 		C370C9F12415F94300026E86 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F02415F94300026E86 /* LikeModel.swift */; };
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
@@ -92,6 +94,8 @@
 		C3630FD4241B5C7B003479C2 /* CardDackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDackView.swift; sourceTree = "<group>"; };
 		C3630FD5241B5C7C003479C2 /* CardDackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardDackView.xib; sourceTree = "<group>"; };
 		C3630FD8241B5F31003479C2 /* TalkDetailCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailCardTableViewCell.swift; sourceTree = "<group>"; };
+		C36650112422F73F00E2BD24 /* AdminOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminOptions.swift; sourceTree = "<group>"; };
+		C3665013242300E700E2BD24 /* AdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		C370C9F02415F94300026E86 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 				C39A6ECF241F524800460705 /* StoreStockLogTableViewCell.swift */,
 				C39A6ED3241F6CE100460705 /* HoldemViewController.swift */,
 				C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */,
+				C3665013242300E700E2BD24 /* AdminViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				C3DC5B94241243D400A028E0 /* Consts.swift */,
 				C34C6B562418C2B1001D8CF4 /* ApiManager.swift */,
 				C3630FCF241B339E003479C2 /* GameManager.swift */,
+				C36650112422F73F00E2BD24 /* AdminOptions.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -473,6 +479,7 @@
 				C39A6ED82420A04B00460705 /* TalkDetailHoldemTableViewCell.swift in Sources */,
 				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
 				C39A6ED624208ABA00460705 /* Dealar.swift in Sources */,
+				C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */,
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
 				C3630FD3241B51CE003479C2 /* Card.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
@@ -480,6 +487,7 @@
 				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,
 				C34C6B5B2419CC77001D8CF4 /* EmptyView.swift in Sources */,
 				C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */,
+				C3665014242300E700E2BD24 /* AdminViewController.swift in Sources */,
 				C370C9F92417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift in Sources */,
 				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
 				C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */,

@@ -44,10 +44,11 @@ class TodaysTalksTableViewController: UITableViewController {
     
     var isNeedScrollToBottomWhenRefresh = false
     var needScrolIndex:IndexPath? = nil
-    
+    @IBOutlet weak var headerStackView:UIStackView!
     @IBOutlet weak var toolBar:UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var hideGameOptionView: UIView!
     @IBOutlet weak var hideGameOptionLabel: UILabel!
     @IBOutlet weak var hideGameOptionSwitch : UISwitch!
     
@@ -83,13 +84,19 @@ class TodaysTalksTableViewController: UITableViewController {
         
         toolBar.items = [
             UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:))),
-            UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:)))
         ]
-        hideGameOptionSwitch.rx.isOn.subscribe { (event) in
-            UserDefaults.standard.isHideGameTalk = self.hideGameOptionSwitch.isOn
-            self.tableView.reloadData()
-            self.toolBar.items?.last?.isEnabled = !self.hideGameOptionSwitch.isOn
-        }.disposed(by: self.disposebag)
+        hideGameOptionView.isHidden = AdminOptions.shared.isUsePorker == false
+        
+        headerStackView.frame.size.height = AdminOptions.shared.isUsePorker ? 130 : 90
+        if AdminOptions.shared.isUsePorker {
+            toolBar.items?.append(UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:))))
+
+            hideGameOptionSwitch.rx.isOn.subscribe { (event) in
+                UserDefaults.standard.isHideGameTalk = self.hideGameOptionSwitch.isOn
+                self.tableView.reloadData()
+                self.toolBar.items?.last?.isEnabled = !self.hideGameOptionSwitch.isOn
+            }.disposed(by: self.disposebag)
+        }
         
         nearTalkOptionSwitch.rx.isOn.subscribe { (event) in
             UserDefaults.standard.isShowNearTalk = self.nearTalkOptionSwitch.isOn
@@ -238,6 +245,13 @@ class TodaysTalksTableViewController: UITableViewController {
         vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
             self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
         }))
+        
+        if UserInfo.info?.email == "kongbaguni@gmail.com" {
+            vc.addAction(UIAlertAction(title: "admin", style: .default, handler: { (action) in
+                let vc = AdminViewController.viewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
+        }
         
         vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
             self.isNeedScrollToBottomWhenRefresh = true

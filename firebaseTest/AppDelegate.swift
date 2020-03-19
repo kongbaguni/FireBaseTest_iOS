@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         signin()
-        
+        AdminOptions.shared.getData()
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
     }

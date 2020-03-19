@@ -38,7 +38,11 @@ extension UserDefaults {
             set(newValue, forKey: "hideGameTalk")
         }
         get {
-            bool(forKey: "hideGameTalk")
+            if AdminOptions.shared.isUsePorker == false {
+                return true
+            } else {
+                return bool(forKey: "hideGameTalk")
+            }
         }
     }
     
