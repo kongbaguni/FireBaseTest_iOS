@@ -26,4 +26,8 @@ class JackPotLogModel: Object {
     var user:UserInfo? {
         return try! Realm().object(ofType: UserInfo.self, forPrimaryKey: userId)
     }
+    
+    var regDt:Date {
+        return Date(timeIntervalSince1970: regTimeIntervalSince1970)
+    }
 }
