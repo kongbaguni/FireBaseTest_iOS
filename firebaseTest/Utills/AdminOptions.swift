@@ -50,6 +50,9 @@ class AdminOptions {
     /** 그림 올릴 떄 포인트 소모량 */
     var pointUseUploadPicture : Int = 100
     
+    /** 최초 가입시 받은 포인트*/
+    var defaultPoint : Int = 1000
+    
     let collection = Firestore.firestore().collection(FSCollectionName.ADMIN)
     
     
@@ -65,7 +68,8 @@ class AdminOptions {
             "canUsePokerLevel"          : canUsePokerLevel,
             "adRewardPoint"             : adRewardPoint,
             "pointUseRatePosting"       : pointUseRatePosting,
-            "pointUseUploadPicture"     : pointUseUploadPicture
+            "pointUseUploadPicture"     : pointUseUploadPicture,
+            "defaultPoint"              : defaultPoint
         ]
         return data
     }
@@ -97,6 +101,9 @@ class AdminOptions {
                 return true
             case "pointUseUploadPicture":
                 pointUseUploadPicture = intValue
+                return true
+            case "defaultPoint" :
+                defaultPoint = intValue
                 return true
             default:
                 break
@@ -176,5 +183,6 @@ class AdminOptions {
         adRewardPoint = data["adRewardPoint"] as? Int ?? 500
         pointUseUploadPicture = data["pointUseUploadPicture"] as? Int ?? 100
         pointUseRatePosting = data["pointUseRatePosting"] as? Int ?? 1
+        defaultPoint = data["defaultPoint"] as? Int ?? 1000
     }
 }

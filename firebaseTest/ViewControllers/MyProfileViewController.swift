@@ -53,7 +53,7 @@ class MyProfileViewController: UITableViewController {
         }
     }
     
-    let dbCollection = Firestore.firestore().collection("users")
+    let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
     
     let storageRef = Storage.storage().reference()
     let indicatorView = NVActivityIndicatorView(frame: UIScreen.main.bounds, type: .ballRotateChase, color: .autoColor_indicator_color, padding: UIScreen.main.bounds.width)

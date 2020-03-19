@@ -140,6 +140,9 @@ class StoreWaittingTableViewController: UITableViewController {
             let value = Double(Int(distance * 100))/100
             headerLabel.text = "\("distance".localized) : \(value)m"
             postLogBtn.isEnabled = value < Double(AdminOptions.shared.waitting_report_distance)
+            if UserInfo.info == nil {
+                postLogBtn.isEnabled = false
+            }
             postLogBtn.setTitle("waitting btn title desable".localized, for: .normal)
 
 //            if postLogBtn.isEnabled {
@@ -181,6 +184,16 @@ class StoreWaittingTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: id, for: indexPath) as! WaittingLogTableViewCell
         cell.logid = log.id
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let log = getLogs(beforeDay: indexPath.section)?[indexPath.row] else {
+            return
+        }
+        let vc = StatusViewController.viewController
+        vc.userId = log.creatorId
+        present(vc, animated: true, completion: nil)
     }
 }
 

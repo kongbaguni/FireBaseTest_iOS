@@ -78,10 +78,12 @@ struct FSCollectionName {
     static let JACKPOT = "jackPot_TEST"
     static let ADMIN = "admin_TEST"
     static let TALKS = "talks_TEST"
+    static let USERS = "users_TEST"
     #else
     static let STORE_STOCK = "storeStock"
     static let JACKPOT = "jackPot"
     static let ADMIN = "admin"
     static let TALKS = "talks"
+    static let USERS = "users"
     #endif
 }
