@@ -34,7 +34,10 @@ class JackPotManager {
     }
         
     func addPoint(_ value:Int, complete:@escaping(_ isSucess:Bool)->Void) {
-        let p = point + value
+        var p = point + value
+        if p > AdminOptions.shared.maxJackPotPoint {
+            p = AdminOptions.shared.maxJackPotPoint
+        }
         dbcollection.document("point").setData(["point":p]) { (err) in
             if err == nil {
                 self.getData { (isSucess) in
