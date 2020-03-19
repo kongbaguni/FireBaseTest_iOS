@@ -19,7 +19,9 @@ class AdminViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AdminOptions.shared.getData()
+        AdminOptions.shared.getData {[weak self] in
+            self?.tableView.reloadData()
+        }
         title = "admin menu"
     }
     

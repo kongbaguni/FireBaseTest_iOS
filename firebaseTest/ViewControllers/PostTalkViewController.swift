@@ -44,7 +44,8 @@ class PostTalkViewController: UITableViewController {
         return nil
     }
     var needPoint:Int {
-        return textView.text.trimForPostValue.count + (selectedImage == nil ? 0 : 100)
+        let txtPoint = textView.text.trimForPostValue.count * AdminOptions.shared.pointUseRatePosting
+        return txtPoint + (selectedImage == nil ? 0 : AdminOptions.shared.pointUseUploadPicture)
     }
     
     func updateNeedPointLabel() {
@@ -62,6 +63,9 @@ class PostTalkViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AdminOptions.shared.getData {
+            
+        }
         title = "write talk".localized
         if documentId != nil {
             title = "edit talk".localized

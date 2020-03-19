@@ -38,7 +38,7 @@ extension UserDefaults {
             set(newValue, forKey: "hideGameTalk")
         }
         get {
-            if AdminOptions.shared.isUsePorker == false {
+            if AdminOptions.shared.canPlayPoker == false {
                 return true
             } else {
                 return bool(forKey: "hideGameTalk")

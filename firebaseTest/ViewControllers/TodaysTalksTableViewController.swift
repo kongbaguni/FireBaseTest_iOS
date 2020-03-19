@@ -85,10 +85,10 @@ class TodaysTalksTableViewController: UITableViewController {
         toolBar.items = [
             UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:))),
         ]
-        hideGameOptionView.isHidden = AdminOptions.shared.isUsePorker == false
+        hideGameOptionView.isHidden = AdminOptions.shared.canPlayPoker == false
         
-        headerStackView.frame.size.height = AdminOptions.shared.isUsePorker ? 130 : 90
-        if AdminOptions.shared.isUsePorker {
+        headerStackView.frame.size.height = AdminOptions.shared.canPlayPoker ? 130 : 90
+        if AdminOptions.shared.canPlayPoker {
             toolBar.items?.append(UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:))))
 
             hideGameOptionSwitch.rx.isOn.subscribe { (event) in

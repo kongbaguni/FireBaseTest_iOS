@@ -17,6 +17,8 @@ protocol HoldemViewControllerDelegate : class {
 class HoldemViewController : UIViewController {
     weak var delegate:HoldemViewControllerDelegate? = nil
     
+    @IBOutlet weak var jackPotBoxImageView: UIImageView!
+    @IBOutlet weak var jackPotPointLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var myPointTitleLabel: UILabel!
@@ -57,11 +59,20 @@ class HoldemViewController : UIViewController {
             #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
         closeButton.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
         closeButton.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
-        
-        loadData()
+        JackPotManager.shared.getData { (sucess) in
+            self.loadData()
+        }
         setTitle()
+        NotificationCenter.default.addObserver(forName: .jackpotChangeNotification, object: nil, queue: nil) { [weak self](notification) in
+            self?.jackPotPointLabel.text = (notification.object as? Int)?.decimalForamtString
+        }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        jackPotBoxImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "boxDark") : #imageLiteral(resourceName: "boxLight")
+    }
     
     private func setTitle() {
         titleLabel.text = gameState.rawValue.localized
@@ -96,9 +107,13 @@ class HoldemViewController : UIViewController {
                 titleLabel.text = "lose".localized
             }
         }
+        loadData()
     }
+    
     private func loadData() {
         myPointLabel.text = UserInfo.info?.point.decimalForamtString
+        
+        jackPotPointLabel.text = JackPotManager.shared.point.decimalForamtString
     }
     
     @IBAction func onTouchupCloseBtn(_ sender: Any) {
@@ -177,6 +192,7 @@ class HoldemViewController : UIViewController {
             gameMenuPopup(didBetting: { (point) in
                 GameManager.shared.usePoint(point: point) { (sucess) in
                     if sucess {
+                        self.loadData()
                         self.bettingPoint += point
                         self.holdemView.insertTurnRiver { (card) in
                             self.holdemView.communityCards.append(card)
@@ -200,6 +216,7 @@ class HoldemViewController : UIViewController {
             gameMenuPopup(didBetting: { (point) in
                 GameManager.shared.usePoint(point: point) { (sucess) in
                     if sucess {
+                        self.loadData()
                         self.bettingPoint += point
                         self.holdemView.insertTurnRiver { (card) in
                             self.holdemView.communityCards.append(card)
@@ -227,13 +244,15 @@ class HoldemViewController : UIViewController {
                 }
                 switch self.holdemView.gameResult {
                 case .win:
-                    let point = self.holdemView.bettingPoint * 2 + self.holdemView.dealarBetting
-                    GameManager.shared.addPoint(point: point) { (sucess) in
-                        self.setTitle()
-                        showStatusView(statusChange:
-                            StatusChange(
-                                addedExp: point,
-                                pointChange: point - self.bettingPoint))
+                    JackPotManager.shared.addPoint(self.holdemView.dealarBetting) { (isSucess) in
+                        let point = self.holdemView.bettingPoint * 2
+                        GameManager.shared.addPoint(point: point) { (sucess) in
+                            self.setTitle()
+                            showStatusView(statusChange:
+                                StatusChange(
+                                    addedExp: point,
+                                    pointChange: point - self.bettingPoint))
+                        }
                     }
                 case .tie:
                     GameManager.shared.addPoint(point: self.holdemView.bettingPoint) { (sucess) in
@@ -244,10 +263,11 @@ class HoldemViewController : UIViewController {
 
                     }
                 case .lose:
-                    showStatusView(statusChange:
-                        StatusChange(addedExp: self.bettingPoint,
-                                     pointChange: -self.bettingPoint))
-                    break
+                    JackPotManager.shared.addPoint(self.bettingPoint) { (isSucess) in
+                        showStatusView(statusChange:
+                            StatusChange(addedExp: self.bettingPoint,
+                                         pointChange: -self.bettingPoint))
+                    }
                 default:
                     break
                 }
@@ -256,12 +276,14 @@ class HoldemViewController : UIViewController {
         case .finish:
             // 승패 판정
             func newGame() {
+                
                 self.bettingPoint = 0
                 self.holdemView.bettingPoint = 0
                 self.holdemView.dealarBetting = 0
                 self.holdemView.insertCard()
                 self.gameState = .wait
                 self.setTitle()
+                self.loadData()
             }
             
             if bettingPoint > 0 {
@@ -290,10 +312,12 @@ class HoldemViewController : UIViewController {
                 holdemView.insertCard()
                 self.gameState = .wait
                 setTitle()
+                loadData()
                 self.delegate?.didGameFinish(isBettingGame: false)
             }
         }
         setTitle()
+        loadData()
     }
     
     func postTalk(complete:@escaping(_ sucess:Bool)->Void) {
