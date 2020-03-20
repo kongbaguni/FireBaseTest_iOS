@@ -96,6 +96,7 @@ class StoreWaittingTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         self.onRefreshControl(UIRefreshControl())
     }
+        
     
     let loading = Loading()
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
@@ -111,6 +112,8 @@ class StoreWaittingTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         LocationManager.shared.manager.startUpdatingLocation()
+        refreshControl?.endRefreshing()
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

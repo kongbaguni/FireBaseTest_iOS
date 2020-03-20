@@ -114,9 +114,9 @@ class UserInfoDetailViewController: UITableViewController {
         case "point":
             googlead.showAd(targetViewController: self) { (isSucess) in
                 if isSucess {
-                    GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in
+                    GameManager.shared.addPoint(point: AdminOptions.shared.adRewardPoint) { (isSucess) in
                         if isSucess {
-                            let msg = String(format:"%@ point get!".localized, Consts.POINT_BY_AD.decimalForamtString)
+                            let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
                             Toast.makeToast(message: msg)
                             self.loadData()
                         }

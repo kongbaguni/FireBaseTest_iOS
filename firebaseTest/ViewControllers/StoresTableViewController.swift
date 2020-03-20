@@ -70,12 +70,23 @@ class StoresTableViewController: UITableViewController {
         if UserInfo.info != nil {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNavigationBarButton(_:)))
         }
+        else {
+            navigationItem.leftBarButtonItem =
+                UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
+        }
     }
     
+    @objc func onTouchupCloseBtn(_ sender:UIBarButtonItem) {
+        if navigationController?.viewControllers.first == self {
+            dismiss(animated: true, completion: nil)
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         LocationManager.shared.manager.startUpdatingLocation()
+        tableView.reloadData()
+        refreshControl?.endRefreshing()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -94,12 +105,19 @@ class StoresTableViewController: UITableViewController {
         }
         performSegue(withIdentifier: "showMap", sender: codes)
     }
+    
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
         var cnt = 0
         ApiManager.shard.getStores { [weak self](count) in
+            switch LocationManager.shared.authStatus {
+            case .denied, .none:
+                self?.emptyView.type = .locationNotAllow
+            default:
+                break
+            }
             if cnt == 0 {
                 sender.endRefreshing()
-                self?.emptyView.type = count == nil ? .locationNotAllow : .empty
+                self?.emptyView.type = .empty
                 self?.setTableStyle()
                 self?.tableView.reloadData()
                 self?.setHeaderTitle()                
@@ -113,6 +131,12 @@ class StoresTableViewController: UITableViewController {
         vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (_) in
             self.performSegue(withIdentifier: "showProfile", sender: nil)
         }))
+        if UserInfo.info?.email == "kongbaguni@gmail.com" {
+            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
+                let vc = AdminViewController.viewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
+        }
         vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (_) in
             UserInfo.info?.logout()
         }))

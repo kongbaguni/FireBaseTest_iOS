@@ -11,13 +11,17 @@ import RealmSwift
 class TalkDetailEditHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel:UILabel!
     @IBOutlet weak var textView:UITextView!
-    var editLogID:String = "" {
+    var editLogID:String? = nil {
         didSet {
             setData()
         }
     }
+    
     var data:TextEditModel? {
-        return try? Realm().object(ofType: TextEditModel.self, forPrimaryKey: editLogID)
+        if let id = editLogID {
+            return try? Realm().object(ofType: TextEditModel.self, forPrimaryKey: id)
+        }
+        return nil
     }
     
     override func layoutSubviews() {
@@ -26,9 +30,12 @@ class TalkDetailEditHistoryTableViewCell: UITableViewCell {
     }
     
     fileprivate func setData() {
-        dateLabel.text = data?.regDt.simpleFormatStringValue
-        textView.text = data?.text
         textView.textColor = .autoColor_text_color
+        guard let data = self.data else {
+            return
+        }
+        dateLabel.text = data.regDt.simpleFormatStringValue
+        textView.text = data.text
     }
 }
 
@@ -36,7 +43,10 @@ class TalkDetailEditHistoryImageTableViewCell : TalkDetailEditHistoryTableViewCe
     @IBOutlet weak var attachmentImageView: UIImageView!
     override func setData() {
         super.setData()
-        attachmentImageView.kf.setImage(with: data?.imageUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
+        guard let data = self.data else {
+            return
+        }
+        attachmentImageView.kf.setImage(with: data.imageUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
     }
 }
 

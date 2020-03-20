@@ -190,9 +190,9 @@ class PostTalkViewController: UITableViewController {
                 vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
                     self.googleAd.showAd(targetViewController: self) { (isSucess) in
                         if isSucess {
-                            GameManager.shared.addPoint(point: Consts.POINT_BY_AD) { (isSucess) in
+                            GameManager.shared.addPoint(point: AdminOptions.shared.adRewardPoint) { (isSucess) in
                                 if isSucess {
-                                    let msg = String(format:"%@ point get!".localized, Consts.POINT_BY_AD.decimalForamtString)
+                                    let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
                                     Toast.makeToast(message: msg)
                                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                                         self.onTouchupSaveBtn(sender)

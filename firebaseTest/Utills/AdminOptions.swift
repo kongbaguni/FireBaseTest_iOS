@@ -9,49 +9,71 @@
 import Foundation
 import FirebaseFirestore
 
+#if DEBUG
+/** 대기열 보고 위한 거리제한*/
+fileprivate let WAITING_REPORT_DISTANCE:Int = 500
+#else
+/** 대기열 보고 위한 거리제한*/
+fileprivate let WAITING_REPORT_DISTANCE:Int = 50
+#endif
+
+fileprivate let MAX_BETTING_POINT = 50
+fileprivate let MAX_JACKPOT_POINT = 99999
+fileprivate let MIN_JACKPOT_POINT = 10000
+
+fileprivate let D_ZERO_BETTING_RATE:Float = 0.1
+fileprivate let D_MAX_BETTING_RATE:Float = 0.2
+fileprivate let POKER_LEVEL_LIMIG = 0
+fileprivate let AD_REWORD = 500
+
+fileprivate let POINT_USE_POSTING = 1
+fileprivate let POINT_USE_IMAGE = 100
+
+fileprivate let POINT_DEFAULT = 1000
 /**  관리자가 원격으로 제어하는 옵션값 관리하는 클래스*/
 class AdminOptions {
+    
     static let shared = AdminOptions()
     
     /** 대기열 보고 위한 최소거리*/
-    var waitting_report_distance : Int = Consts.WAITING_REPORT_DISTANCE
-
+    var waitting_report_distance : Int = WAITING_REPORT_DISTANCE
+    
     /** 포커 */
     fileprivate var isUsePoker: Bool = false
- 
+    
     /** 포커 할 수 있는 레벨 제한*/
-    fileprivate var canUsePokerLevel: Int = 0
+    fileprivate var canUsePokerLevel: Int = POKER_LEVEL_LIMIG
     
     var canPlayPoker:Bool {
         return isUsePoker && UserInfo.info?.level ?? 0 >= canUsePokerLevel
     }
-
+    
     
     /** 최대 베팅 포인트*/
-    var maxBettingPoint: Int = 1000
+    var maxBettingPoint: Int = MAX_BETTING_POINT
     
     /** 최대 잭팟 포인트*/
-    var maxJackPotPoint: Int = 999999
+    var maxJackPotPoint: Int = MAX_JACKPOT_POINT
     
     /** 최소 잭팟 포인트*/
-    var minJackPotPoint: Int = 10000
+    var minJackPotPoint: Int = MIN_JACKPOT_POINT
     
     /** 딜러가 0 포인트 베팅할 확률*/
-    var dealarZeroPointBettingRate : Float = 0.1
+    var dealarZeroPointBettingRate : Float = D_ZERO_BETTING_RATE
     
     /** 딜러가 카드패와 상관없이 최대 베팅할 확률*/
-    var dealarMaxBettingRate : Float = 0.2
-
+    var dealarMaxBettingRate : Float = D_MAX_BETTING_RATE
+    
     /** 광고 1회 시청시 보상*/
-    var adRewardPoint : Int = 500
-
+    var adRewardPoint : Int = AD_REWORD
+    
     /** 포인트 소모 배율. 글자수 * n */
-    var pointUseRatePosting : Int = 1
+    var pointUseRatePosting : Int = POINT_USE_POSTING
     /** 그림 올릴 떄 포인트 소모량 */
-    var pointUseUploadPicture : Int = 100
+    var pointUseUploadPicture : Int = POINT_USE_IMAGE
     
     /** 최초 가입시 받은 포인트*/
-    var defaultPoint : Int = 1000
+    var defaultPoint : Int = POINT_DEFAULT
     
     let collection = Firestore.firestore().collection(FSCollectionName.ADMIN)
     
@@ -81,7 +103,7 @@ class AdminOptions {
     
     func setData(key:String, value:String)->Bool {
         let intValue = NSString(string:value).integerValue
-        if intValue > 0 {
+        if intValue >= 0 {
             switch key {
             case "waitting_report_distance":
                 waitting_report_distance = intValue
@@ -178,16 +200,16 @@ class AdminOptions {
     
     private func loadData(data:[String:Any]) {
         isUsePoker = data["isUsePoker"] as? Bool ?? false
-        waitting_report_distance = data["waitting_report_distance"] as? Int ?? Consts.WAITING_REPORT_DISTANCE
-        maxBettingPoint = data["maxBettingPoint"] as? Int ?? 1000
-        maxJackPotPoint = data["maxJackPotPoint"] as? Int ?? 999999
-        minJackPotPoint = data["minJackPotPoint"] as? Int ?? 10000
-        dealarZeroPointBettingRate = data["dealarZeroPointBettingRate"] as? Float ?? 0.1
-        dealarMaxBettingRate = data["dealarMaxBettingRate"] as? Float ?? 0.2
-        canUsePokerLevel = data["canUsePokerLevel"] as? Int ?? 0
-        adRewardPoint = data["adRewardPoint"] as? Int ?? 500
-        pointUseUploadPicture = data["pointUseUploadPicture"] as? Int ?? 100
-        pointUseRatePosting = data["pointUseRatePosting"] as? Int ?? 1
-        defaultPoint = data["defaultPoint"] as? Int ?? 1000
+        waitting_report_distance = data["waitting_report_distance"] as? Int ?? WAITING_REPORT_DISTANCE
+        maxBettingPoint = data["maxBettingPoint"] as? Int ?? MAX_BETTING_POINT
+        maxJackPotPoint = data["maxJackPotPoint"] as? Int ?? MAX_JACKPOT_POINT
+        minJackPotPoint = data["minJackPotPoint"] as? Int ?? MIN_JACKPOT_POINT
+        dealarZeroPointBettingRate = data["dealarZeroPointBettingRate"] as? Float ?? D_ZERO_BETTING_RATE
+        dealarMaxBettingRate = data["dealarMaxBettingRate"] as? Float ?? D_MAX_BETTING_RATE
+        canUsePokerLevel = data["canUsePokerLevel"] as? Int ?? POKER_LEVEL_LIMIG
+        adRewardPoint = data["adRewardPoint"] as? Int ?? AD_REWORD
+        pointUseUploadPicture = data["pointUseUploadPicture"] as? Int ?? POINT_USE_IMAGE
+        pointUseRatePosting = data["pointUseRatePosting"] as? Int ?? POINT_USE_POSTING
+        defaultPoint = data["defaultPoint"] as? Int ?? POINT_DEFAULT
     }
 }

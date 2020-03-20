@@ -60,7 +60,7 @@ class EmptyView: UIView {
             if #available(iOS 13.0, *) {
                 imageView.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_bold_text_color)
             } else {
-                imageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate)
+                imageView.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate)
             }
             label.text = "Location information access is required.\nPlease make your location accessible.".localized
             button.setTitle("Setting up".localized, for: .normal)

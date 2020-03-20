@@ -156,9 +156,11 @@ class UserInfo : Object {
         // 다른 유저 정보 가져오기
         var query =
             dbCollection
-                .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7))
+                .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
 
-        if let lastUser = try! Realm().objects(UserInfo.self).filter("email != %@", UserInfo.info!.email).sorted(byKeyPath: "updateDt").last {
+        if let lastUser =
+            try! Realm().objects(UserInfo.self).filter("email != %@", UserInfo.info!.email)
+                .sorted(byKeyPath: "updateDt").last {
             query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateDt.timeIntervalSince1970)
         }
         

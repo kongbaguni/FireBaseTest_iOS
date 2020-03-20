@@ -527,7 +527,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WCG-Ll-skI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-822" y="-820"/>
+            <point key="canvasLocation" x="-157" y="-846"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="E9H-7F-iAa">
@@ -2433,7 +2433,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nuB-ug-9m2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3537.68115942029" y="-820.3125"/>
+            <point key="canvasLocation" x="4372" y="-1463"/>
         </scene>
         <!--Holdem View Controller-->
         <scene sceneID="kur-G6-iCN">
@@ -2488,7 +2488,8 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pdd-7N-gew">
-                                            <rect key="frame" x="182" y="734" width="50" height="30"/>
+                                            <rect key="frame" x="153.5" y="730" width="107" height="48"/>
+                                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
                                             <state key="normal" title="Betting"/>
                                             <connections>
                                                 <action selector="onTouchupButton:" destination="eD3-Dq-l14" eventType="touchUpInside" id="UEl-yC-KR5"/>
@@ -2516,7 +2517,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tw-Uq-2L6">
                                             <rect key="frame" x="147.5" y="92" width="119" height="44"/>
                                             <connections>
-                                                <segue destination="fBt-Hv-luD" kind="presentation" id="t1y-Yp-tbp"/>
+                                                <segue destination="uvw-th-OY5" kind="show" id="wQ0-qn-BXW"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -2537,11 +2538,10 @@
                                         <constraint firstItem="GVh-WT-zEW" firstAttribute="top" secondItem="Zy4-o4-U0q" secondAttribute="top" constant="10" id="MnH-ys-WnI"/>
                                         <constraint firstItem="plR-gG-kWZ" firstAttribute="trailing" secondItem="Zy4-o4-U0q" secondAttribute="trailing" id="N7y-Yp-ghz"/>
                                         <constraint firstItem="hdT-Lo-UEW" firstAttribute="centerX" secondItem="8CQ-3m-Qol" secondAttribute="centerX" id="NMv-DE-uzh"/>
-                                        <constraint firstItem="Pdd-7N-gew" firstAttribute="top" secondItem="Zy4-o4-U0q" secondAttribute="bottom" constant="100" id="Ptl-kb-8wx"/>
                                         <constraint firstItem="J5O-pV-YWe" firstAttribute="leading" secondItem="MeE-v7-bLj" secondAttribute="leading" constant="10" id="Qy7-cg-vK8"/>
                                         <constraint firstItem="8CQ-3m-Qol" firstAttribute="centerX" secondItem="Zy4-o4-U0q" secondAttribute="centerX" id="bfX-VX-61N"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hdT-Lo-UEW" secondAttribute="trailing" constant="20" id="clW-SF-1lU"/>
-                                        <constraint firstItem="Pdd-7N-gew" firstAttribute="centerX" secondItem="Zy4-o4-U0q" secondAttribute="centerX" id="czp-ai-YP5"/>
+                                        <constraint firstItem="Pdd-7N-gew" firstAttribute="centerX" secondItem="Zy4-o4-U0q" secondAttribute="centerX" id="du6-0U-rYp"/>
                                         <constraint firstItem="plR-gG-kWZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zCi-UF-Uxv" secondAttribute="trailing" constant="10" id="how-QM-trj"/>
                                         <constraint firstItem="Zy4-o4-U0q" firstAttribute="centerX" secondItem="MeE-v7-bLj" secondAttribute="centerX" id="lhg-3r-EEf"/>
                                         <constraint firstItem="8tw-Uq-2L6" firstAttribute="bottom" secondItem="u0s-Fa-hk6" secondAttribute="bottom" id="maJ-FZ-39u"/>
@@ -2557,6 +2557,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Nwh-Fu-P85" firstAttribute="trailing" secondItem="bjj-kZ-bs5" secondAttribute="trailing" id="1g8-QU-xBf"/>
+                            <constraint firstItem="Nwh-Fu-P85" firstAttribute="bottom" secondItem="Pdd-7N-gew" secondAttribute="bottom" constant="40" id="HHM-c3-y9y"/>
                             <constraint firstItem="Nwh-Fu-P85" firstAttribute="bottom" secondItem="bjj-kZ-bs5" secondAttribute="bottom" id="QDq-1a-ugo"/>
                             <constraint firstItem="bjj-kZ-bs5" firstAttribute="leading" secondItem="Nwh-Fu-P85" secondAttribute="leading" id="eqR-uz-0MP"/>
                             <constraint firstItem="bjj-kZ-bs5" firstAttribute="top" secondItem="Nwh-Fu-P85" secondAttribute="top" id="siH-zJ-lV5"/>
@@ -2576,7 +2577,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Li-CJ-NXV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2248" y="-973"/>
+            <point key="canvasLocation" x="1987" y="-1463"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DKf-PP-uZT">
+            <objects>
+                <navigationController id="uvw-th-OY5" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="mus-pp-oCr"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ix9-Xz-heq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fBt-Hv-luD" kind="relationship" relationship="rootViewController" id="yAQ-rd-chY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dmp-91-jlB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2739" y="-1462"/>
         </scene>
         <!--Jack Pot History Log Table View Controller-->
         <scene sceneID="5Dl-dG-xrc">
@@ -2617,10 +2635,11 @@
                             <outlet property="delegate" destination="fBt-Hv-luD" id="zP9-Zs-j8Z"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="LMh-bB-4Zs"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2al-Wv-xBh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2936" y="-1047"/>
+            <point key="canvasLocation" x="3439" y="-1463"/>
         </scene>
     </scenes>
     <resources>

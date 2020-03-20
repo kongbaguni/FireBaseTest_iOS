@@ -146,13 +146,13 @@ class HoldemViewController : UIViewController {
                     .rx.text.orEmpty.subscribe(onNext: { (query) in
                         let up = UserInfo.info?.point ?? 0
                         let number = NSString(string: query).integerValue
-                        if number > Consts.BETTING_LIMIT {
-                            textFiled.text = "\(Consts.BETTING_LIMIT)"
+                        if number > AdminOptions.shared.maxBettingPoint {
+                            textFiled.text = AdminOptions.shared.maxBettingPoint.decimalForamtString
                         }
                         else if number > up {
-                            textFiled.text = "\(up)"
+                            textFiled.text = up.decimalForamtString
                         } else {
-                            textFiled.text = "\(number)"
+                            textFiled.text = number.decimalForamtString
                         }
                     }).disposed(by: self.disposebag)
             }
@@ -163,7 +163,7 @@ class HoldemViewController : UIViewController {
                 let betting = NSString(string:text).integerValue
                 didBetting(betting)
             }))
-            vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+            vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
             present(vc, animated: true, completion: nil)
         }
         

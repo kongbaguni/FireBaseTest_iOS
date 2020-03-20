@@ -20,12 +20,14 @@ class JackPotHistoryLogTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+        title = "JackPot Logs".localized
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "JackPot Logs".localized
+    @objc func onTouchupCloseBtn(_ sender:UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
-    
+        
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

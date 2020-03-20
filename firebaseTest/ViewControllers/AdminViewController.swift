@@ -49,7 +49,7 @@ class AdminViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let key = keys[indexPath.row]
-        let vc = UIAlertController(title: "input Option", message: key, preferredStyle: .alert)
+        let vc = UIAlertController(title: "input Option", message: key.localized, preferredStyle: .alert)
         vc.addTextField { (textField) in
             textField.text = "\(AdminOptions.shared.allData[key] ?? "")"
         }

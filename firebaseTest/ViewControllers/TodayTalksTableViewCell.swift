@@ -98,6 +98,7 @@ class TodayTalksTableImageViewCell :TodayTalksTableViewCell {
         guard let data = self.data else {
             return
         }
+        super.setData()
         if data.editList.count == 0 {
             attachmentImageView.setImageUrl(url: data.imageUrl, placeHolder: #imageLiteral(resourceName: "placeholder"))
         }

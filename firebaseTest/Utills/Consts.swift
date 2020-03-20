@@ -9,16 +9,8 @@
 import Foundation
 struct Consts {
     /** 상점 검색 범의 (미터 단위)*/
-    static var DISTANCE_STORE_SEARCH:Int = 500
-    
-    #if DEBUG
-    /** 대기열 보고 위한 거리제한*/
-    static let WAITING_REPORT_DISTANCE:Int = 500
-    #else
-    /** 대기열 보고 위한 거리제한*/
-    static let WAITING_REPORT_DISTANCE:Int = 50
-    #endif
-    
+    static let DISTANCE_STORE_SEARCH:Int = 500
+
     static var MAX_GAME_COUNT:Int {
         let level = UserInfo.info?.level ?? 0
         return 3 + (level/10)
@@ -29,11 +21,7 @@ struct Consts {
         return 10000 + (level * 100)
     }
     
-    /** 광고 시청 1회당 받는 포인트*/
-    static var POINT_BY_AD:Int {
-        let level = UserInfo.info?.level ?? 0
-        return 100 + (level * 10)
-    }
+    
     /** 최대 베팅 포인트 제한*/
     static var BETTING_LIMIT = 1000
     

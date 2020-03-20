@@ -19,25 +19,30 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
         introduceLabel.text = nil
     }
     
-    var userId:String = "" {
+    var userId:String? = nil {
         didSet {
-            likeId = ""
             setData()
         }
     }
-    var likeId:String = "" {
+    
+    var likeId:String? = nil {
         didSet {
-            userId = ""
             setData()
         }
     }
     
     var likeModel:LikeModel? {
-        return try? Realm().object(ofType: LikeModel.self, forPrimaryKey: likeId)
+        if let id = likeId {
+            return try? Realm().object(ofType: LikeModel.self, forPrimaryKey: id)
+        }
+        return nil
     }
     
     var userInfo:UserInfo? {
-        return try? Realm().object(ofType: UserInfo.self, forPrimaryKey: userId)
+        if let id = userId {
+            return try? Realm().object(ofType: UserInfo.self, forPrimaryKey: id)
+        }
+        return nil
     }
     
     override func layoutSubviews() {
