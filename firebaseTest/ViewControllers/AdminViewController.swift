@@ -10,7 +10,12 @@ import UIKit
 
 class AdminViewController: UITableViewController {
     static var viewController : AdminViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "admin") as! AdminViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "admin") as! AdminViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "admin") as! AdminViewController
+            // Fallback on earlier versions
+        }
     }
     
     var keys:[String] {

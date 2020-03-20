@@ -34,13 +34,24 @@ class StoresTableViewCell: UITableViewCell {
         }
     }
     
-    func setData(data:StoreModel) {
-        self.storeId = data.code
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard let data = store else {
+            return
+        }
         switch data.storeType {
         case .pharmacy:
-            storeImageView.image = #imageLiteral(resourceName: "pharmacy").withTintColor(.autoColor_text_color)
+            if #available(iOS 13.0, *) {
+                storeImageView.image = #imageLiteral(resourceName: "pharmacy").withTintColor(.autoColor_text_color)
+            } else {
+                storeImageView.image = #imageLiteral(resourceName: "pharmacy").withRenderingMode(.alwaysTemplate)
+            }
         default:
-            storeImageView.image = #imageLiteral(resourceName: "postoffice").withTintColor(.autoColor_text_color)
+            if #available(iOS 13.0, *) {
+                storeImageView.image = #imageLiteral(resourceName: "postoffice").withTintColor(.autoColor_text_color)
+            } else {
+                storeImageView.image = #imageLiteral(resourceName: "postoffice").withRenderingMode(.alwaysTemplate)
+            }
         }
 //        distanceLabel.text = "\(Double(Int(data.distance * 100))/100)m"
         if data.distance > 700 {

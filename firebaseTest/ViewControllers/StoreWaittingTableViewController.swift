@@ -15,7 +15,11 @@ import RxSwift
 
 class StoreWaittingTableViewController: UITableViewController {
     static var viewController:StoreWaittingTableViewController {
-        return UIStoryboard(name:"Main", bundle: nil).instantiateViewController(identifier: "storeWaitting") as! StoreWaittingTableViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name:"Main", bundle: nil).instantiateViewController(identifier: "storeWaitting") as! StoreWaittingTableViewController
+        } else {
+            return UIStoryboard(name:"Main", bundle: nil).instantiateViewController(withIdentifier: "storeWaitting") as! StoreWaittingTableViewController
+        }
     }
     
     @IBOutlet weak var headerLabel: UILabel!

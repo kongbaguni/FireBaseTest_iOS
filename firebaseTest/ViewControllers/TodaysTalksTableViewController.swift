@@ -309,13 +309,13 @@ class TodaysTalksTableViewController: UITableViewController {
         if data.imageURL != nil {
             let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableImageViewCell
-            cell.setData(data: list[indexPath.row])
+            cell.talkId = list[indexPath.row].id
             return cell
         }
         
         let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
-        cell.setData(data: list[indexPath.row])
+        cell.talkId = list[indexPath.row].id
         return cell
     }
     
@@ -355,8 +355,13 @@ class TodaysTalksTableViewController: UITableViewController {
         action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.15, alpha: 1)
         let iconRed =  #imageLiteral(resourceName: "heart").af.imageAspectScaled(toFit: CGSize(width: 20, height: 20))
                       
-        let iconWhite =  iconRed.withTintColor(.white)
-        action.image = model.isLike ? iconRed : iconWhite
+        if #available(iOS 13.0, *) {
+            let iconWhite =  iconRed.withTintColor(.white)
+            action.image = model.isLike ? iconRed : iconWhite
+        } else {
+            action.image = model.isLike ? iconRed : nil
+        }
+        
         
         return UISwipeActionsConfiguration(actions: [action])
     }

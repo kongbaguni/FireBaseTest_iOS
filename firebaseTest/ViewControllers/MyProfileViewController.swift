@@ -16,7 +16,11 @@ import RealmSwift
 
 class MyProfileViewController: UITableViewController {
     class var viewController : MyProfileViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "myProfile") as! MyProfileViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "myProfile") as! MyProfileViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "myProfile") as! MyProfileViewController
+        }
     }
     
     private var profileImageBase64String:String? = nil

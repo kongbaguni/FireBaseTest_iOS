@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TalkDetailUserInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView:UIImageView!
@@ -18,15 +19,35 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
         introduceLabel.text = nil
     }
     
-    func setData(info:UserInfo) {
-        profileImageView.kf.setImage(with: info.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-        nameLabel.text = info.name
-        introduceLabel.text = info.introduce
+    var userId:String = "" {
+        didSet {
+            likeId = ""
+        }
+    }
+    var likeId:String = "" {
+        didSet {
+            userId = ""
+        }
     }
     
-    func setData(like:LikeModel) {
-        profileImageView.kf.setImage(with: like.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-        nameLabel.text = like.creator?.name
-        introduceLabel.text = like.regDt.relativeTimeStringValue
+    var likeModel:LikeModel? {
+        return try? Realm().object(ofType: LikeModel.self, forPrimaryKey: likeId)
     }
+    
+    var userInfo:UserInfo? {
+        return try? Realm().object(ofType: UserInfo.self, forPrimaryKey: userId)
+    }
+    
+    override func layoutSubviews() {
+        if let info = userInfo {
+            profileImageView.kf.setImage(with: info.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+            nameLabel.text = info.name
+            introduceLabel.text = info.introduce
+        }
+        else if let like = likeModel {
+            profileImageView.kf.setImage(with: like.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+            nameLabel.text = like.creator?.name
+            introduceLabel.text = like.regDt.relativeTimeStringValue
+        }
+    }    
 }

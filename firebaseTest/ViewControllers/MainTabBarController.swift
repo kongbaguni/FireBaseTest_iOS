@@ -9,7 +9,11 @@
 import UIKit
 class MainTabBarController: UITabBarController {
     class var viewController:MainTabBarController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "mainTabBar") as! MainTabBarController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "mainTabBar") as! MainTabBarController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainTabBar") as! MainTabBarController
+        }
     }
     
     override func viewDidLoad() {

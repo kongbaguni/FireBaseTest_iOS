@@ -16,8 +16,7 @@ class StoreStockLogTableViewCell : UITableViewCell {
     @IBOutlet weak var statusLabel:UILabel!
     @IBOutlet weak var dateLabel:UILabel!
     
-    var stockId:String? = nil
-    
+    var stockId:String? = nil    
     
     var stock:StoreStockLogModel? {
         if let id = stockId {

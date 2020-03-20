@@ -94,9 +94,9 @@ class UserListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo") as! TalkDetailUserInfoTableViewCell
         switch indexPath.section {
         case 0:
-            cell.setData(info: UserInfo.info!)
+            cell.userId = UserInfo.info!.id
         case 1:
-            cell.setData(info: users[indexPath.row])
+            cell.userId = users[indexPath.row].id
         default:
             break
         }

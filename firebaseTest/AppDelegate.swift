@@ -23,21 +23,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         signin()
-        AdminOptions.shared.getData {
-            
-        }
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
     }
 
     // MARK: UISceneSession Lifecycle
 
+    @available(iOS 13.0, *)
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
+    @available(iOS 13.0, *)
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
@@ -61,9 +60,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if error == nil {
                 userInfo.syncData { (isNew) in
                     if isNew {
-                        UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                        AdminOptions.shared.getData {
+                            UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                        }
                     } else {
-                        UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                        AdminOptions.shared.getData {
+                            UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                        }
                     }
                 }
             }
@@ -110,15 +113,19 @@ extension AppDelegate : GIDSignInDelegate {
                     authResult?.saveUserInfo(idToken: authentication.idToken, accessToken: authentication.accessToken)
                     StoreModel.deleteAll()
                     UserInfo.info?.syncData(complete: { (isNew) in
-                        if isNew {
-                            UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
-                        }
-                        else {
-                            UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                        AdminOptions.shared.getData {
+                            if isNew {
+                                UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                            }
+                            else {
+                                UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                            }
                         }
                     })
                 } else {
-                    UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                    AdminOptions.shared.getData {
+                        UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                    }
                 }
                 
             }

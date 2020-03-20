@@ -36,7 +36,11 @@ class UserInfoDetailViewController: UITableViewController {
     
     let googlead = GoogleAd()
     class var viewController : UserInfoDetailViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "userInfoDetail") as! UserInfoDetailViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "userInfoDetail") as! UserInfoDetailViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "userInfoDetail") as! UserInfoDetailViewController
+        }
         
     }
  

@@ -171,7 +171,7 @@ class StoresTableViewController: UITableViewController {
         
         let list = getStoreList(type: getSectionType(section: indexPath.section))
         let data = list[indexPath.row]
-        cell.setData(data: data)
+        cell.storeId = data.code
         return cell
     }
         

@@ -34,8 +34,16 @@ class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var porfileImageView:UIImageView!
     @IBOutlet weak var talkTextView:UITextView!
     @IBOutlet weak var nameLabel: UILabel!
+    var talkId:String = ""
+    var data:TalkModel? {
+        return try? Realm().object(ofType: TalkModel.self, forPrimaryKey: talkId)
+    }
     
-    func setData(data:TalkModel) {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard let data = self.data else {
+            return
+        }
         switch reuseIdentifier {
         case "myCell","myImageCell":
             bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "myBubble_dark") : #imageLiteral(resourceName: "myBubble_light")
@@ -76,8 +84,11 @@ class TodayTalksTableViewCell: UITableViewCell {
 class TodayTalksTableImageViewCell :TodayTalksTableViewCell {
     @IBOutlet weak var attachmentImageView:UIImageView!
     
-    override func setData(data: TalkModel) {
-        super.setData(data: data)
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard let data = self.data else {
+            return
+        }
         if data.editList.count == 0 {
             attachmentImageView.setImageUrl(url: data.imageUrl, placeHolder: #imageLiteral(resourceName: "placeholder"))
         }

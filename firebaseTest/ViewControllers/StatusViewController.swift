@@ -28,7 +28,11 @@ class StatusViewController: UIViewController {
     }
     
     static var viewController : StatusViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "status") as! StatusViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "status") as! StatusViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "status") as! StatusViewController
+        }
     }
     
     @IBOutlet weak var closeBtn: UIButton!
@@ -75,8 +79,13 @@ class StatusViewController: UIViewController {
         
         let closeBtnImage =
         #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
-        closeBtn.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
-        closeBtn.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
+        if #available(iOS 13.0, *) {
+            closeBtn.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
+            closeBtn.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
+        } else {
+            closeBtn.setImage(closeBtnImage, for: .normal)
+            closeBtn.setImage(closeBtnImage, for: .highlighted)
+        }
     }
     
     @objc func onTapGesture(_ sender:UITapGestureRecognizer) {

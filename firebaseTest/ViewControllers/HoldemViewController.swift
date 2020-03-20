@@ -25,7 +25,11 @@ class HoldemViewController : UIViewController {
     @IBOutlet weak var myPointLabel: UILabel!
     @IBOutlet weak var gamePlayButton: UIButton!
     static var viewController : HoldemViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "holdem") as! HoldemViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "holdem") as! HoldemViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "holdem") as! HoldemViewController
+        }
     }
     @IBOutlet weak var holdemView:HoldemView!
     let disposebag = DisposeBag()
@@ -57,8 +61,13 @@ class HoldemViewController : UIViewController {
         holdemView.insertCard()
         let closeBtnImage =
             #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
-        closeButton.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
-        closeButton.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
+        if #available(iOS 13.0, *) {
+            closeButton.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
+            closeButton.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
+        } else {
+            closeButton.setImage(closeBtnImage, for: .normal)
+            closeButton.setImage(closeBtnImage, for: .highlighted)
+        }
         JackPotManager.shared.getData { (sucess) in
             self.loadData()
         }

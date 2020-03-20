@@ -341,15 +341,25 @@ class HoldemView: UIView {
             view?.textColor = .autoColor_weak_text_color
         }
         for view in mySelectionViews {
-            view.image = #imageLiteral(resourceName: "point2")
-                .af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
-                .withTintColor(.autoColor_bold_text_color)
+            if #available(iOS 13.0, *) {
+                view.image = #imageLiteral(resourceName: "point2")
+                    .af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
+                    .withTintColor(.autoColor_bold_text_color)
+            } else {
+                view.image = #imageLiteral(resourceName: "point2")
+                    .af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
+            }
             view.alpha = 0.5
         }
         for view in dealarSelectionViews {
-            view.image = #imageLiteral(resourceName: "point2")
-                .af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
-                .withTintColor(.autoColor_text_color)
+            if #available(iOS 13.0, *) {
+                view.image = #imageLiteral(resourceName: "point2")
+                    .af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
+                    .withTintColor(.autoColor_text_color)
+            } else {
+                view.image = #imageLiteral(resourceName: "point2")
+                    .af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
+            }
             view.alpha = 0.5
         }
     }
