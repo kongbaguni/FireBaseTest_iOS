@@ -34,4 +34,22 @@ extension UIApplication {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
     
+    var rootViewController:UIViewController? {
+        get {
+            if #available(iOS 13.0, *) {
+                return UIApplication.shared.windows.first?.rootViewController
+            } else {
+                return UIApplication.shared.keyWindow?.rootViewController
+            }
+        }
+        set {
+            if #available(iOS 13.0, *) {
+                UIApplication.shared.windows.first?.rootViewController = newValue
+            } else {
+                UIApplication.shared.keyWindow?.rootViewController = newValue
+            }
+
+        }
+    }
+    
 }

@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
         if #available(iOS 13.0, *) {
             return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! LoginViewController
         } else {
-            return UIStoryboard(name: "main", bundle: nil).instantiateViewController(withIdentifier: "first") as! LoginViewController
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "first") as! LoginViewController
         }
     }
     
@@ -38,6 +38,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("\(#file) \(#function)")
         maskNowBtn.setTitle("mask now".localized, for: .normal)
         loginGoogleBtn.setTitle("login with google".localized, for: .normal)
         GIDSignIn.sharedInstance()?.presentingViewController = self

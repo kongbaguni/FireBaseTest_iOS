@@ -199,7 +199,7 @@ class MyProfileViewController: UITableViewController {
                 updateProfile {
                     self.indicatorView.stopAnimating()
                     if self.navigationController?.viewControllers.first == self {
-                        UIApplication.shared.windows.first?.rootViewController = MainTabBarController.viewController
+                        UIApplication.shared.rootViewController = MainTabBarController.viewController
                     } else {
                         self.navigationController?.popViewController(animated: true)
                     }

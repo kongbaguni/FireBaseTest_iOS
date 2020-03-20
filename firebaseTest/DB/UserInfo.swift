@@ -232,7 +232,7 @@ class UserInfo : Object {
     }
     
     func logout() {
-        UIApplication.shared.windows.first?.rootViewController = UIViewController()
+        UIApplication.shared.rootViewController = UIViewController()
         
         let realm = try! Realm()
         realm.beginWrite()
@@ -241,7 +241,7 @@ class UserInfo : Object {
         try! realm.commitWrite()
         StoreModel.deleteAll()
         
-        UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
+        UIApplication.shared.rootViewController = LoginViewController.viewController
     }
     
     func addPoint(point:Int, complete:@escaping(_ isSucess:Bool)->Void) {

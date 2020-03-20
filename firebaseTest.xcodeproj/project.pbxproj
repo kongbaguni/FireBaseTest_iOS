@@ -53,7 +53,6 @@
 		C39A6ED624208ABA00460705 /* Dealar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ED524208ABA00460705 /* Dealar.swift */; };
 		C39A6ED82420A04B00460705 /* TalkDetailHoldemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ED72420A04B00460705 /* TalkDetailHoldemTableViewCell.swift */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
-		C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
 		C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */; };
 		C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */; };
@@ -127,7 +126,6 @@
 		C39A6ED72420A04B00460705 /* TalkDetailHoldemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailHoldemTableViewCell.swift; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* mask now.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask now.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC05240CD79D006AE2B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3BDFC0A240CD7A1006AE2B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -312,7 +310,6 @@
 				C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */,
 				C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */,
 				C370C9FA2417688A00026E86 /* Date+extensions.swift */,
-				C3BDFC00240CD79D006AE2B3 /* SceneDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -515,7 +512,6 @@
 				C39A6ED4241F6CE100460705 /* HoldemViewController.swift in Sources */,
 				C33839DB241873D600CADC60 /* Toast.swift in Sources */,
 				C3630FD9241B5F31003479C2 /* TalkDetailCardTableViewCell.swift in Sources */,
-				C3BDFC01240CD79D006AE2B3 /* SceneDelegate.swift in Sources */,
 				C390038A2421E9B700CC4E3A /* StoreWaittingTableViewController.swift in Sources */,
 				C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */,
 				C3C25C062421A998006DB36E /* CardDeckBoxView.swift in Sources */,
