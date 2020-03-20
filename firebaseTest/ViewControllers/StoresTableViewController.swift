@@ -19,6 +19,7 @@ class StoresTableViewController: UITableViewController {
     @IBOutlet weak var tableViewHeaderTitleLabel: UILabel!
     @IBOutlet weak var tableViewHeaderButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var footerBtn: UIButton!
     let disposebag = DisposeBag()
     var filterText:String? = nil
 
@@ -74,6 +75,14 @@ class StoresTableViewController: UITableViewController {
             navigationItem.leftBarButtonItem =
                 UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
         }
+        
+        footerBtn.setTitle("storeList footer btn title".localized, for: .normal)
+        footerBtn.rx.tap.bind { (_) in
+            let vc = WebViewController.viewController
+            vc.title = "Food and Drug Administration Official Blog".localized
+            vc.url = URL(string:"https://m.blog.naver.com/kfdazzang/221839489769")
+            self.navigationController?.pushViewController(vc, animated: true)
+        }.disposed(by: self.disposebag)
     }
     
     @objc func onTouchupCloseBtn(_ sender:UIBarButtonItem) {

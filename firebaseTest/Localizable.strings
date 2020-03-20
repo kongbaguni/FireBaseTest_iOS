@@ -146,6 +146,7 @@
 "p100" = "대략 20명 이상 100명 이하";
 "manyPeople" = "대략 100인 이상";
 "JackPot Logs" = "젝팟 로그";
+"close" = "닫기";
 
 
 //admin options
@@ -162,3 +163,7 @@
 "pointUseUploadPicture"     = "이미지 첨부시 소모되는 포인트";
 "defaultPoint"              = "최초 가입시 기본 포인트";
 "admin menu" = "관리자 메뉴";
+
+
+"storeList footer btn title" = "식약처 공적마스크 구매 안내";
+"Food and Drug Administration Official Blog" = "식품의약품안전처 공식 블로그";

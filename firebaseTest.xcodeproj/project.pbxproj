@@ -42,6 +42,7 @@
 		C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E66240F44AF006070CF /* LoginViewController.swift */; };
 		C37E86912423410700F87D4D /* JackPotHistoryLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */; };
 		C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386C791241A0B1C0034132B /* Int+Extensions.swift */; };
+		C38EF933242493B1006D6732 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38EF932242493B1006D6732 /* WebViewController.swift */; };
 		C39003872421D38800CC4E3A /* StoreWaitingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39003862421D38800CC4E3A /* StoreWaitingModel.swift */; };
 		C390038A2421E9B700CC4E3A /* StoreWaittingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39003892421E9B700CC4E3A /* StoreWaittingTableViewController.swift */; };
 		C390038C24220DC100CC4E3A /* WattingLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */; };
@@ -114,6 +115,7 @@
 		C3780E66240F44AF006070CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotHistoryLogTableViewController.swift; sourceTree = "<group>"; };
 		C386C791241A0B1C0034132B /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
+		C38EF932242493B1006D6732 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C39003862421D38800CC4E3A /* StoreWaitingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWaitingModel.swift; sourceTree = "<group>"; };
 		C39003892421E9B700CC4E3A /* StoreWaittingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWaittingTableViewController.swift; sourceTree = "<group>"; };
 		C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WattingLogTableViewCell.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */,
 				C3665013242300E700E2BD24 /* AdminViewController.swift */,
 				C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */,
+				C38EF932242493B1006D6732 /* WebViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3DC5B95241243D400A028E0 /* Consts.swift in Sources */,
 				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,
+				C38EF933242493B1006D6732 /* WebViewController.swift in Sources */,
 				C34C6B5B2419CC77001D8CF4 /* EmptyView.swift in Sources */,
 				C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */,
 				C3665014242300E700E2BD24 /* AdminViewController.swift in Sources */,
