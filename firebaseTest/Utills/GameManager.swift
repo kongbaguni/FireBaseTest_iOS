@@ -49,7 +49,7 @@ class GameManager {
     }
     fileprivate var isUseJoker = false
     
-    var shuffleLinit = 5
+    var shuffleLimit = 5
     
     fileprivate func insertCardAndShuffle(useJoker:Bool) {
         var list:[Card] = []
@@ -77,7 +77,7 @@ class GameManager {
             return []
         }
         while list.count < number {
-            if cardDack.count < shuffleLinit {
+            if cardDack.count < shuffleLimit {
                 insertCardAndShuffle(useJoker: self.isUseJoker)
             }
             if let card = cardDack.first {

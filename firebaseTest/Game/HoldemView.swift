@@ -208,7 +208,7 @@ class HoldemView: UIView {
         isShowDealarCard = false
         dealarGameValueLabel.isHidden = true
         myGameValueLabel.isHidden = true
-        GameManager.shared.shuffleLinit = 9
+        GameManager.shared.shuffleLimit = 11
         dealerCards = GameManager.shared.popCards(number: 2)
         myCards = GameManager.shared.popCards(number: 2)
         communityCards = GameManager.shared.popCards(number: 3)
