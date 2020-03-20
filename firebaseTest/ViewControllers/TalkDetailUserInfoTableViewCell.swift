@@ -22,11 +22,13 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
     var userId:String = "" {
         didSet {
             likeId = ""
+            setData()
         }
     }
     var likeId:String = "" {
         didSet {
             userId = ""
+            setData()
         }
     }
     
@@ -39,6 +41,11 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
+        setData()
+    }
+    
+    fileprivate func setData() {
         if let info = userInfo {
             profileImageView.kf.setImage(with: info.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
             nameLabel.text = info.name

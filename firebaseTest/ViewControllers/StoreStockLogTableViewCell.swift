@@ -16,7 +16,11 @@ class StoreStockLogTableViewCell : UITableViewCell {
     @IBOutlet weak var statusLabel:UILabel!
     @IBOutlet weak var dateLabel:UILabel!
     
-    var stockId:String? = nil    
+    var stockId:String? = nil {
+        didSet {
+            setData()
+        }
+    }
     
     var stock:StoreStockLogModel? {
         if let id = stockId {
@@ -27,6 +31,10 @@ class StoreStockLogTableViewCell : UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setData()
+    }
+    
+    fileprivate func setData() {
         guard let stock = self.stock else {
             return
         }

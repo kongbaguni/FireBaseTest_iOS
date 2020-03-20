@@ -16,7 +16,11 @@ class WaittingLogTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel:UILabel!
     @IBOutlet weak var profileImageView:UIImageView!
     
-    var logid:String? = nil
+    var logid:String? = nil {
+        didSet {
+            setData()
+        }
+    }
     
     var log:StoreWaitingModel? {
         if let id = logid {
@@ -27,6 +31,10 @@ class WaittingLogTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setData()
+    }
+    
+    fileprivate func setData() {
         titleLabel.text = log?.statusValue?.rawValue.localized
         profileImageView.kf.setImage(with: log?.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         dateLabel.text = log?.regDt.formatedString(format: "HH:MM:ss")

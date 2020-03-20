@@ -15,7 +15,11 @@ class TalkDetailHoldemTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel:UILabel!
     @IBOutlet weak var titleLabel:UILabel!
     
-    var talkId:String? = nil
+    var talkId:String? = nil {
+        didSet {
+            setData()
+        }
+    }
     
     fileprivate var talkModel:TalkModel? {
         if let id = talkId {
@@ -26,6 +30,10 @@ class TalkDetailHoldemTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setData()
+    }
+    
+    fileprivate func setData() {
         switch reuseIdentifier {
         case "myHoldemCell":
             bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "myBubble_dark") : #imageLiteral(resourceName: "myBubble_light")

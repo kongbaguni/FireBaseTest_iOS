@@ -15,7 +15,11 @@ class TalkDetailCardTableViewCell: UITableViewCell {
     @IBOutlet weak var cardDack:CardDackView!
     @IBOutlet weak var nameLabel:UILabel!
     
-    var talkId:String? = nil
+    var talkId:String? = nil {
+        didSet {
+            setData()
+        }
+    }
     
     fileprivate var talkModel:TalkModel? {
         if let id = talkId {
@@ -26,6 +30,10 @@ class TalkDetailCardTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setData()
+    }
+    
+    fileprivate func setData() {
         switch reuseIdentifier {
         case "myCardCell":
             bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "myBubble_dark") : #imageLiteral(resourceName: "myBubble_light")

@@ -24,6 +24,7 @@ class TalkDetailMapTableViewCell: UITableViewCell {
             }
         }
     }
+    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         

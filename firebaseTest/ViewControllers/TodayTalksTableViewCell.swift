@@ -34,13 +34,23 @@ class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var porfileImageView:UIImageView!
     @IBOutlet weak var talkTextView:UITextView!
     @IBOutlet weak var nameLabel: UILabel!
-    var talkId:String = ""
+    
+    var talkId:String = "" {
+        didSet {
+            setData()
+        }
+    }
+    
     var data:TalkModel? {
         return try? Realm().object(ofType: TalkModel.self, forPrimaryKey: talkId)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setData()
+    }
+
+    fileprivate func setData() {
         guard let data = self.data else {
             return
         }
@@ -84,8 +94,7 @@ class TodayTalksTableViewCell: UITableViewCell {
 class TodayTalksTableImageViewCell :TodayTalksTableViewCell {
     @IBOutlet weak var attachmentImageView:UIImageView!
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func setData() {
         guard let data = self.data else {
             return
         }
