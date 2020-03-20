@@ -143,7 +143,7 @@ class AdminOptions {
             dealarZeroPointBettingRate = floatValue
             return true
         case "dealarMaxBettingRate":
-            dealarZeroPointBettingRate = floatValue
+            dealarMaxBettingRate = floatValue
             return true
         default:
             break
