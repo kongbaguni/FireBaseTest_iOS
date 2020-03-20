@@ -35,7 +35,7 @@ class Dealar {
             }
         }
         
-        let value = (max / 10) + (Int.random(in: 0...max) * valuePoint * (max/10))
+        let value = Int((Float.random(in: 0...Float(max)) / 2) * Float(valuePoint))
         if value > max {
             return max
         }

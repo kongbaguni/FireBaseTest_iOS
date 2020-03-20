@@ -138,7 +138,11 @@ class HoldemViewController : UIViewController {
         func bettingPointAlert(didBetting:@escaping(_ bettingPoint:Int)->Void) {
             let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
             let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
-            let lastBetting = try! Realm().objects(TalkModel.self).filter("creatorId = %@ && bettingPoint > 0",UserInfo.info!.id).last?.bettingPoint ?? UserInfo.info!.point / 10
+            var lastBetting = self.bettingPoint > 0 ? self.bettingPoint : AdminOptions.shared.maxBettingPoint / 10
+            if UserDefaults.standard.lastBettingPoint > 0 {
+                lastBetting = UserDefaults.standard.lastBettingPoint
+            }
+            
             vc.addTextField { (textFiled) in
                 textFiled.text = "\(lastBetting)"
                 textFiled.keyboardType = .numberPad
@@ -161,6 +165,7 @@ class HoldemViewController : UIViewController {
                     return
                 }
                 let betting = NSString(string:text).integerValue
+                UserDefaults.standard.lastBettingPoint = betting
                 didBetting(betting)
             }))
             vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))

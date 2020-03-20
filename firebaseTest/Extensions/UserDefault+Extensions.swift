@@ -55,4 +55,13 @@ extension UserDefaults {
             bool(forKey: "showNearTalk")
         }
     }
+    
+    var lastBettingPoint:Int {
+        set {
+            set(newValue, forKey: "lastBettingPoint")
+        }
+        get {
+            integer(forKey: "lastBettingPoint")
+        }
+    }
 }
