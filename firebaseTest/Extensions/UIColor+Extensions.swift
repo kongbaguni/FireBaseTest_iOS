@@ -9,7 +9,9 @@
 import UIKit
 extension UIColor {
     open class var autoColor_indicator_color: UIColor {
-        UIApplication.shared.isDarkMode ? .white : .black
+        UIApplication.shared.isDarkMode
+            ? UIColor(red: 0.9, green: 0.6, blue: 0.3, alpha: 1)
+            : UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
     }
     
     open class var autoColor_bg_color:UIColor {
