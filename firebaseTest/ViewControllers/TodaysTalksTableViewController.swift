@@ -397,7 +397,8 @@ class TodaysTalksTableViewController: UITableViewController {
 extension TodaysTalksTableViewController : HoldemViewControllerDelegate {
     func didGameFinish(isBettingGame: Bool) {
         if isBettingGame {
-            self.tableView.reloadData()
+            self.isNeedScrollToBottomWhenRefresh = true
+            self.onRefreshControl(UIRefreshControl())            
         }
     }
     
