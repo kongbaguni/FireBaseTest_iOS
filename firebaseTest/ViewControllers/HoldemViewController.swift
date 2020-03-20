@@ -77,6 +77,8 @@ class HoldemViewController : UIViewController {
         }
     }
     
+    let googleAd = GoogleAd()
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -175,10 +177,39 @@ class HoldemViewController : UIViewController {
         func gameMenuPopup(
             didBetting:@escaping(_ bettingPoint:Int)->Void
             ,didFold:(()->Void)?) {
+            func showAd() {
+                let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
+                let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
+                    self.googleAd.showAd(targetViewController: self) { (isSucess) in
+                        if isSucess {
+                            GameManager.shared.addPoint(point: AdminOptions.shared.adRewardPoint) { (isSucess) in
+                                if isSucess {
+                                    let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
+                                    Toast.makeToast(message: msg)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                                        bettingPointAlert { (bettingPoint) in
+                                            didBetting(bettingPoint)
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                }))
+                vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+                self.present(vc, animated: true, completion: nil)
+            }
+
+            
             let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "betting".localized, style: .default, handler: { (action) in
-                bettingPointAlert { (bettingPoint) in
-                    didBetting(bettingPoint)
+                if UserInfo.info?.point == 0 {
+                    showAd()
+                } else {
+                    bettingPointAlert { (bettingPoint) in
+                        didBetting(bettingPoint)
+                    }
                 }
             }))
             if let foldAction = didFold {
