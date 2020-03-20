@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 class TalkDetailEditHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel:UILabel!
-    @IBOutlet weak var textView:UITextView!
+    @IBOutlet weak var textView:UITextView!    
     var editLogID:String? = nil {
         didSet {
             setData()
