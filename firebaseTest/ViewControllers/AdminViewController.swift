@@ -18,8 +18,8 @@ class AdminViewController: UITableViewController {
         }
     }
     
-    var keys:[String] {
-        return Array(AdminOptions.shared.allData.keys).sorted()
+    var keys:[[String]] {
+        return AdminOptions.shared.keys
     }
     
     override func viewDidLoad() {
@@ -31,15 +31,15 @@ class AdminViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return keys.count
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return keys[section].count
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let key = keys[indexPath.row]
+        let key = keys[indexPath.section][indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = key.localized
         let value = "\(AdminOptions.shared.allData[key] ?? "")"
@@ -48,7 +48,7 @@ class AdminViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let key = keys[indexPath.row]
+        let key = keys[indexPath.section][indexPath.row]
         let vc = UIAlertController(title: "input Option", message: key.localized, preferredStyle: .alert)
         vc.addTextField { (textField) in
             textField.text = "\(AdminOptions.shared.allData[key] ?? "")"
@@ -67,6 +67,10 @@ class AdminViewController: UITableViewController {
         }))
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
     }
     
     

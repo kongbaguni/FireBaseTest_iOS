@@ -152,6 +152,7 @@
 //admin options
 "waitting_report_distance"  = "대기열 리포팅 거리 제한 (미터)";
 "isUsePoker"                = "포커 게임 사용 여부";
+"minBettingPoint" = "최소 베팅 포인트";
 "maxBettingPoint"           = "최대 베팅 포인트";
 "maxJackPotPoint"           = "최대 잭팟 적립 포인트";
 "minJackPotPoint"           = "최소 잭팟 포인트";
@@ -167,3 +168,5 @@
 
 "storeList footer btn title" = "식약처 공적마스크 구매 안내";
 "Food and Drug Administration Official Blog" = "식품의약품안전처 공식 블로그";
+
+"min betting err %@" = "최소 베팅 포인트는 %@입니다.";

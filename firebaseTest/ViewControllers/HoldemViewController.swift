@@ -163,14 +163,12 @@ class HoldemViewController : UIViewController {
                 textFiled
                     .rx.text.orEmpty.subscribe(onNext: { (query) in
                         let up = UserInfo.info?.point ?? 0
-                        let number = NSString(string: query).integerValue
-                        if number > AdminOptions.shared.maxBettingPoint {
-                            textFiled.text = AdminOptions.shared.maxBettingPoint.decimalForamtString
-                        }
-                        else if number > up {
-                            textFiled.text = up.decimalForamtString
-                        } else {
-                            textFiled.text = number.decimalForamtString
+                        let number = NSString(string: query.replacingOccurrences(of: ",", with: "")).integerValue
+                        textFiled.text = number.decimalForamtString
+                        let limit = up < AdminOptions.shared.maxBettingPoint ? up : AdminOptions.shared.maxBettingPoint
+                        
+                        if number > limit {
+                            textFiled.text = limit.decimalForamtString
                         }
                     }).disposed(by: self.disposebag)
             }
@@ -179,7 +177,13 @@ class HoldemViewController : UIViewController {
                     return
                 }
                 let betting = NSString(string:text).integerValue
-                if betting == 0 {
+                if betting < AdminOptions.shared.minBettingPoint {
+                    let msg = String(format:"min betting err %@".localized, AdminOptions.shared.minBettingPoint.decimalForamtString)
+                    let errAlert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+                    errAlert.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { (_) in
+                        bettingPointAlert(didBetting: didBetting)
+                    }))
+                    self.present(errAlert, animated: true, completion: nil)
                     return
                 }
                 UserDefaults.standard.lastBettingPoint = betting
@@ -220,7 +224,7 @@ class HoldemViewController : UIViewController {
             
             let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "betting".localized, style: .default, handler: { (action) in
-                if UserInfo.info?.point == 0 {
+                if UserInfo.info?.point ?? 0 < AdminOptions.shared.minBettingPoint {
                     showAd()
                 } else {
                     bettingPointAlert { (bettingPoint) in

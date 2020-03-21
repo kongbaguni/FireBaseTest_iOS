@@ -16,7 +16,7 @@ fileprivate let WAITING_REPORT_DISTANCE:Int = 500
 /** 대기열 보고 위한 거리제한*/
 fileprivate let WAITING_REPORT_DISTANCE:Int = 50
 #endif
-
+fileprivate let MIN_BETTING_POINT = 10
 fileprivate let MAX_BETTING_POINT = 50
 fileprivate let MAX_JACKPOT_POINT = 99999
 fileprivate let MIN_JACKPOT_POINT = 10000
@@ -48,7 +48,8 @@ class AdminOptions {
         return isUsePoker && UserInfo.info?.level ?? 0 >= canUsePokerLevel
     }
     
-    
+    /** 최소 베팅 포인트*/
+    var minBettingPoint: Int = MIN_BETTING_POINT
     /** 최대 베팅 포인트*/
     var maxBettingPoint: Int = MAX_BETTING_POINT
     
@@ -85,6 +86,7 @@ class AdminOptions {
             
             // game
             "isUsePoker"                : isUsePoker,
+            "minBettingPoint"           : minBettingPoint,
             "maxBettingPoint"           : maxBettingPoint,
             "maxJackPotPoint"           : maxJackPotPoint,
             "minJackPotPoint"           : minJackPotPoint,
@@ -98,8 +100,30 @@ class AdminOptions {
             "pointUseUploadPicture"     : pointUseUploadPicture,
             "defaultPoint"              : defaultPoint
         ]
-        
-    }    
+    }
+    
+    let keys = [
+        [
+            "waitting_report_distance"
+        ],
+        [
+            "isUsePoker",
+            "minBettingPoint",
+            "maxBettingPoint",
+            "maxJackPotPoint",
+            "minJackPotPoint",
+            "dealarZeroPointBettingRate",
+            "dealarMaxBettingRate",
+            "canUsePokerLevel"
+        ],
+        [
+            "adRewardPoint",
+            "pointUseRatePosting",
+            "pointUseUploadPicture",
+            "defaultPoint"
+        ]
+    ]
+    
     
     func setData(key:String, value:String)->Bool {
         let intValue = NSString(string:value).integerValue
@@ -107,6 +131,9 @@ class AdminOptions {
             switch key {
             case "waitting_report_distance":
                 waitting_report_distance = intValue
+                return true
+            case "minBettingPoint":
+                minBettingPoint = intValue
                 return true
             case "maxBettingPoint":
                 maxBettingPoint = intValue
@@ -201,6 +228,7 @@ class AdminOptions {
     private func loadData(data:[String:Any]) {
         isUsePoker = data["isUsePoker"] as? Bool ?? false
         waitting_report_distance = data["waitting_report_distance"] as? Int ?? WAITING_REPORT_DISTANCE
+        minBettingPoint = data["minBettingPoint"] as? Int ?? MIN_BETTING_POINT
         maxBettingPoint = data["maxBettingPoint"] as? Int ?? MAX_BETTING_POINT
         maxJackPotPoint = data["maxJackPotPoint"] as? Int ?? MAX_JACKPOT_POINT
         minJackPotPoint = data["minJackPotPoint"] as? Int ?? MIN_JACKPOT_POINT
