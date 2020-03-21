@@ -290,6 +290,10 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row >= list.count {
+            return UITableViewCell()
+        }
+        
         let data = list[indexPath.row]
         if data.holdemResult != nil {
             let cellId = data.creatorId == UserInfo.info?.id ? "myHoldemCell" : "holdemCell"
