@@ -39,6 +39,12 @@ class Dealar {
         if value > max {
             return max
         }
+        if value > 1000 {
+            return (value / 500) * 500
+        }
+        if value > 500 {
+            return (value / 50) * 50
+        }
         return value
     }
 }
