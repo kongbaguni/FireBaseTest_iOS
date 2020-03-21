@@ -79,6 +79,18 @@ class HoldemViewController : UIViewController {
     
     let googleAd = GoogleAd()
     
+    @IBAction func onTouchupJackPotBtn(_ sender: Any) {
+        JackPotManager.shared.getJackPotHistoryLog { (isSucess) in
+            if (isSucess) {
+                if try! Realm().objects(JackPotLogModel.self).count > 0 {
+                    let vc = JackPotHistoryLogTableViewController.viewController
+                    
+                    self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -167,6 +179,9 @@ class HoldemViewController : UIViewController {
                     return
                 }
                 let betting = NSString(string:text).integerValue
+                if betting == 0 {
+                    return
+                }
                 UserDefaults.standard.lastBettingPoint = betting
                 didBetting(betting)
             }))
@@ -224,12 +239,19 @@ class HoldemViewController : UIViewController {
         
         switch gameState {
         case .wait:
-            holdemView.showMyCard()
-            gameState = .preflop
-            sender.isEnabled = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                self.onTouchupButton(sender)
-                sender.isEnabled = true
+            bettingPointAlert { (bettingPoint) in
+                GameManager.shared.usePoint(point: bettingPoint) { [weak self](sucess) in
+                    if sucess {
+                        self?.bettingPoint += bettingPoint
+                        self?.holdemView.showMyCard()
+                        self?.gameState = .preflop
+                        sender.isEnabled = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                            self?.onTouchupButton(sender)
+                            sender.isEnabled = true
+                        }
+                    }
+                }
             }
         case .preflop:
             holdemView.showCommunityCard(number: 3)

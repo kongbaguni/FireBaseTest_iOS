@@ -2573,7 +2573,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tw-Uq-2L6">
                                             <rect key="frame" x="147.5" y="92" width="119" height="44"/>
                                             <connections>
-                                                <segue destination="uvw-th-OY5" kind="show" id="wQ0-qn-BXW"/>
+                                                <action selector="onTouchupJackPotBtn:" destination="eD3-Dq-l14" eventType="touchUpInside" id="wah-Mt-pOd"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -2635,31 +2635,19 @@
             </objects>
             <point key="canvasLocation" x="1987" y="-1463"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="DKf-PP-uZT">
-            <objects>
-                <navigationController id="uvw-th-OY5" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="mus-pp-oCr"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ix9-Xz-heq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="fBt-Hv-luD" kind="relationship" relationship="rootViewController" id="yAQ-rd-chY"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dmp-91-jlB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2739" y="-1462"/>
-        </scene>
         <!--Jack Pot History Log Table View Controller-->
         <scene sceneID="5Dl-dG-xrc">
             <objects>
-                <tableViewController id="fBt-Hv-luD" customClass="JackPotHistoryLogTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="jackPodList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fBt-Hv-luD" customClass="JackPotHistoryLogTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="FP8-8d-9oo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="IYw-m6-1lp">
+                            <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="76G-fZ-gP8" detailTextLabel="Z8R-l7-5pG" style="IBUITableViewCellStyleValue1" id="cH9-gf-IDQ">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
@@ -2695,7 +2683,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2al-Wv-xBh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3439" y="-1463"/>
+            <point key="canvasLocation" x="3006" y="-1463"/>
         </scene>
     </scenes>
     <resources>

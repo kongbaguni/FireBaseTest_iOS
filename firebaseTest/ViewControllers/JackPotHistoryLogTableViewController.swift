@@ -9,6 +9,15 @@
 import UIKit
 import RealmSwift
 class JackPotHistoryLogTableViewController: UITableViewController {
+    static var viewController : JackPotHistoryLogTableViewController {
+        let s = UIStoryboard(name: "Main", bundle: nil)
+        if #available(iOS 13.0, *) {
+            return s.instantiateViewController(identifier: "jackPodList") as! JackPotHistoryLogTableViewController
+        } else {
+            return s.instantiateViewController(withIdentifier: "jackPodList") as! JackPotHistoryLogTableViewController
+        }
+    }
+    
     var logs:Results<JackPotLogModel> {
         try! Realm().objects(JackPotLogModel.self).sorted(byKeyPath: "regTimeIntervalSince1970", ascending: true)
     }
