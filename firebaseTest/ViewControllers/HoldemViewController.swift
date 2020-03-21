@@ -226,9 +226,7 @@ class HoldemViewController : UIViewController {
             ac.addAction(UIAlertAction(title: "betting".localized, style: .default, handler: { (action) in
                 if UserInfo.info?.point ?? 0 < AdminOptions.shared.minBettingPoint {
                     showAd {
-                        bettingPointAlert { (bettingPoint) in
-                            didBetting(bettingPoint)
-                        }
+                        self.onTouchupButton(sender)
                     }
                 } else {
                     bettingPointAlert { (bettingPoint) in
@@ -266,7 +264,7 @@ class HoldemViewController : UIViewController {
 
             if UserInfo.info?.point ?? 0 < AdminOptions.shared.minBettingPoint {
                 showAd {
-                    bettingFirst()
+                    self.onTouchupButton(sender)
                 }
             } else {
                 bettingFirst()
