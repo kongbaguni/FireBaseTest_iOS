@@ -27,12 +27,24 @@ class StoreModel : Object {
         var image:UIImage {
             switch self {
             case .pharmacy:
-                return #imageLiteral(resourceName: "pharmacy").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_text_color)
+                if #available(iOS 13.0, *) {
+                    return #imageLiteral(resourceName: "pharmacy").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withTintColor(.autoColor_text_color, renderingMode: .alwaysTemplate)
+                } else {
+                    return #imageLiteral(resourceName: "pharmacy").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate)
+                }
             case .postoffice:
-                return #imageLiteral(resourceName: "postoffice").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_text_color)
-            case .nh:
-                return #imageLiteral(resourceName: "NH_icon").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_text_color)
+                if #available(iOS 13.0, *) {
+                return #imageLiteral(resourceName: "postoffice").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withTintColor(.autoColor_text_color, renderingMode: .alwaysTemplate)
+                } else {
+                    return #imageLiteral(resourceName: "postoffice").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate)
+                }
                 
+            case .nh:
+                if #available(iOS 13.0, *) {
+                return #imageLiteral(resourceName: "NH_icon").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withTintColor(.autoColor_text_color, renderingMode: .alwaysTemplate)
+                } else {
+                    return #imageLiteral(resourceName: "NH_icon").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate)
+                }                
             }
         }
     }

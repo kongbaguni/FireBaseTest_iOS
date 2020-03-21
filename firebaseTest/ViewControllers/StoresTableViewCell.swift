@@ -16,7 +16,11 @@ class StoresTableViewCell: UITableViewCell {
     @IBOutlet weak var addrLabel:UILabel!
     @IBOutlet weak var distanceLabel:UILabel!
     @IBOutlet weak var stockDtLabel:UILabel!
-    var storeId:String? = nil
+    var storeId:String? = nil {
+        didSet {
+            setData()
+        }
+    }
     var store:StoreModel? {
         if let id = storeId {
             return try! Realm().object(ofType: StoreModel.self, forPrimaryKey: id)
@@ -34,13 +38,28 @@ class StoresTableViewCell: UITableViewCell {
         }
     }
     
-    func setData(data:StoreModel) {
-        self.storeId = data.code
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setData()
+    }
+    
+    fileprivate func setData() {
+        guard let data = store else {
+            return
+        }
         switch data.storeType {
         case .pharmacy:
-            storeImageView.image = #imageLiteral(resourceName: "pharmacy").withTintColor(.autoColor_text_color)
+            if #available(iOS 13.0, *) {
+                storeImageView.image = #imageLiteral(resourceName: "pharmacy").withTintColor(.autoColor_text_color)
+            } else {
+                storeImageView.image = #imageLiteral(resourceName: "pharmacy").withRenderingMode(.alwaysTemplate)
+            }
         default:
-            storeImageView.image = #imageLiteral(resourceName: "postoffice").withTintColor(.autoColor_text_color)
+            if #available(iOS 13.0, *) {
+                storeImageView.image = #imageLiteral(resourceName: "postoffice").withTintColor(.autoColor_text_color)
+            } else {
+                storeImageView.image = #imageLiteral(resourceName: "postoffice").withRenderingMode(.alwaysTemplate)
+            }
         }
 //        distanceLabel.text = "\(Double(Int(data.distance * 100))/100)m"
         if data.distance > 700 {

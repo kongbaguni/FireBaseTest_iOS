@@ -8,20 +8,9 @@
 
 import Foundation
 struct Consts {
-    /** 이야기 표시 기간*/
-    static let LIMIT_TALK_TIME_INTERVAL:TimeInterval = 86400
-    
     /** 상점 검색 범의 (미터 단위)*/
     static let DISTANCE_STORE_SEARCH:Int = 500
-    
-    #if DEBUG
-    /** 대기열 보고 위한 거리제한*/
-    static let WAITING_REPORT_DISTANCE:Int = 500
-    #else
-    /** 대기열 보고 위한 거리제한*/
-    static let WAITING_REPORT_DISTANCE:Int = 50
-    #endif
-    
+
     static var MAX_GAME_COUNT:Int {
         let level = UserInfo.info?.level ?? 0
         return 3 + (level/10)
@@ -32,11 +21,7 @@ struct Consts {
         return 10000 + (level * 100)
     }
     
-    /** 광고 시청 1회당 받는 포인트*/
-    static var POINT_BY_AD:Int {
-        let level = UserInfo.info?.level ?? 0
-        return 100 + (level * 10)
-    }
+    
     /** 최대 베팅 포인트 제한*/
     static var BETTING_LIMIT = 1000
     
@@ -70,6 +55,23 @@ struct Consts {
     /** 구글 광고 아이디*/
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
     
-    static let REALM_VERSION:UInt64 = 0
+    static let REALM_VERSION:UInt64 = 1
+        
+}
 
+/** 파이어베이스 스토리지 아이디*/
+struct FSCollectionName {
+    #if DEBUG
+    static let STORE_STOCK = "storeStock_TEST"
+    static let JACKPOT = "jackPot_TEST"
+    static let ADMIN = "admin_TEST"
+    static let TALKS = "talks_TEST"
+    static let USERS = "users_TEST"
+    #else
+    static let STORE_STOCK = "storeStock"
+    static let JACKPOT = "jackPot"
+    static let ADMIN = "admin"
+    static let TALKS = "talks"
+    static let USERS = "users"
+    #endif
 }

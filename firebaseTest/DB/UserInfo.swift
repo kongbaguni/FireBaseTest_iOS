@@ -128,7 +128,7 @@ class UserInfo : Object {
     
     /** firebase 에서 데이터를 받아와서 사용자 정보를 갱신합니다.*/
     func syncData(syncAll:Bool = true,complete:@escaping(_ isNew:Bool)->Void) {
-        let dbCollection = Firestore.firestore().collection("users")
+        let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
         let document = dbCollection.document(self.email)
         let userId = self.id
         var isNew = false
@@ -156,9 +156,11 @@ class UserInfo : Object {
         // 다른 유저 정보 가져오기
         var query =
             dbCollection
-            .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date().timeIntervalSince1970 - Consts.LIMIT_TALK_TIME_INTERVAL)
+                .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
 
-        if let lastUser = try! Realm().objects(UserInfo.self).filter("email != %@", UserInfo.info!.email).sorted(byKeyPath: "updateDt").last {
+        if let lastUser =
+            try! Realm().objects(UserInfo.self).filter("email != %@", UserInfo.info!.email)
+                .sorted(byKeyPath: "updateDt").last {
             query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateDt.timeIntervalSince1970)
         }
         
@@ -195,7 +197,7 @@ class UserInfo : Object {
     
     /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
     func updateData(complete:@escaping(_ isSucess:Bool)->Void) {
-        let dbCollection = Firestore.firestore().collection("users")
+        let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
         let document = dbCollection.document(UserInfo.info!.email)
         let data:[String:Any] = [            
             "name": self.name,
@@ -232,7 +234,7 @@ class UserInfo : Object {
     }
     
     func logout() {
-        UIApplication.shared.windows.first?.rootViewController = UIViewController()
+        UIApplication.shared.rootViewController = UIViewController()
         
         let realm = try! Realm()
         realm.beginWrite()
@@ -241,7 +243,7 @@ class UserInfo : Object {
         try! realm.commitWrite()
         StoreModel.deleteAll()
         
-        UIApplication.shared.windows.first?.rootViewController = LoginViewController.viewController
+        UIApplication.shared.rootViewController = LoginViewController.viewController
     }
     
     func addPoint(point:Int, complete:@escaping(_ isSucess:Bool)->Void) {
@@ -283,7 +285,7 @@ class UserInfo : Object {
     
     
     func updateLastTalkTime(timeInterval:Double = Date().timeIntervalSince1970, complete:@escaping(_ isSucess:Bool)->Void) {
-        let userInfo = Firestore.firestore().collection("users").document(self.id)
+        let userInfo = Firestore.firestore().collection(FSCollectionName.USERS).document(self.id)
         userInfo.updateData(["lastTalkTimeIntervalSince1970": timeInterval]) { (err) in
             complete(err == nil)
         }

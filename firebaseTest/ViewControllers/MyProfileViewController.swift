@@ -16,7 +16,11 @@ import RealmSwift
 
 class MyProfileViewController: UITableViewController {
     class var viewController : MyProfileViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "myProfile") as! MyProfileViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "myProfile") as! MyProfileViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "myProfile") as! MyProfileViewController
+        }
     }
     
     private var profileImageBase64String:String? = nil
@@ -53,7 +57,7 @@ class MyProfileViewController: UITableViewController {
         }
     }
     
-    let dbCollection = Firestore.firestore().collection("users")
+    let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
     
     let storageRef = Storage.storage().reference()
     let indicatorView = NVActivityIndicatorView(frame: UIScreen.main.bounds, type: .ballRotateChase, color: .autoColor_indicator_color, padding: UIScreen.main.bounds.width)
@@ -195,7 +199,7 @@ class MyProfileViewController: UITableViewController {
                 updateProfile {
                     self.indicatorView.stopAnimating()
                     if self.navigationController?.viewControllers.first == self {
-                        UIApplication.shared.windows.first?.rootViewController = MainTabBarController.viewController
+                        UIApplication.shared.rootViewController = MainTabBarController.viewController
                     } else {
                         self.navigationController?.popViewController(animated: true)
                     }

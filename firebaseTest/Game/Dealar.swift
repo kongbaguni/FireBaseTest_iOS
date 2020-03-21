@@ -12,15 +12,33 @@ class Dealar {
     var cardSet:CardSet? = nil
     
     var bettingPoint:Int {
+        let max = AdminOptions.shared.maxBettingPoint
+        
         let valuePoint = (cardSet?.cardValue.rawValue ?? 0) + 1
-        let random = Int.random(in: 10...20)
-        switch Int.random(in:1...10) {
-        case 1:
-            return 100 + (random * valuePoint * 60)
-        case 5:
-            return 0
-        default:
-            return 100 + (random * valuePoint * 20)
+
+        let random1 = Float.random(in: 0...1)
+        let random2 = Float.random(in: 0...1)
+        if Int.random(in: 0...1) == 0 {
+            if random2 <= AdminOptions.shared.dealarMaxBettingRate {
+                return max
+            }
+            if random1 <= AdminOptions.shared.dealarZeroPointBettingRate  {
+                return 0
+            }
         }
+        else {
+            if random1 <= AdminOptions.shared.dealarZeroPointBettingRate {
+                return 0
+            }
+            if random2 <= AdminOptions.shared.dealarMaxBettingRate {
+                return max
+            }
+        }
+        
+        let value = Int((Float.random(in: 0...Float(max)) / 2) * Float(valuePoint))
+        if value > max {
+            return max
+        }
+        return value
     }
 }

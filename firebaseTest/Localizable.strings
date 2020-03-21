@@ -145,3 +145,25 @@
 "p20" = "대략 1명 이상 20명 이하";
 "p100" = "대략 20명 이상 100명 이하";
 "manyPeople" = "대략 100인 이상";
+"JackPot Logs" = "젝팟 로그";
+"close" = "닫기";
+
+
+//admin options
+"waitting_report_distance"  = "대기열 리포팅 거리 제한 (미터)";
+"isUsePoker"                = "포커 게임 사용 여부";
+"maxBettingPoint"           = "최대 베팅 포인트";
+"maxJackPotPoint"           = "최대 잭팟 적립 포인트";
+"minJackPotPoint"           = "최소 잭팟 포인트";
+"dealarZeroPointBettingRate"= "딜러가 0원 베팅할 확률";
+"dealarMaxBettingRate"      = "딜러가 최대한 베팅할 확률";
+"canUsePokerLevel"          = "포커 게임할 수 있는 레벨 제한";
+"adRewardPoint"             = "광고 보면 받는 포인트";
+"pointUseRatePosting"       = "글 쓸 때 포인트 사용 비율 1글자당 몇포인트?";
+"pointUseUploadPicture"     = "이미지 첨부시 소모되는 포인트";
+"defaultPoint"              = "최초 가입시 기본 포인트";
+"admin menu" = "관리자 메뉴";
+
+
+"storeList footer btn title" = "식약처 공적마스크 구매 안내";
+"Food and Drug Administration Official Blog" = "식품의약품안전처 공식 블로그";

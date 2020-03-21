@@ -7,21 +7,66 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TalkDetailUserInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView:UIImageView!
     @IBOutlet weak var nameLabel:UILabel!
     @IBOutlet weak var introduceLabel:UILabel!
-    
-    func setData(info:UserInfo) {
-        profileImageView.kf.setImage(with: info.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-        nameLabel.text = info.name
-        introduceLabel.text = info.introduce
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        nameLabel.text = "unknown people".localized
+        introduceLabel.text = nil
     }
     
-    func setData(like:LikeModel) {
-        profileImageView.kf.setImage(with: like.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-        nameLabel.text = like.creator?.name
-        introduceLabel.text = like.regDt.relativeTimeStringValue
+    var userId:String? = nil {
+        didSet {
+            isLike = false
+            setData()
+        }
     }
+    
+    var likeId:String? = nil {
+        didSet {
+            isLike = true
+            setData()
+        }
+    }
+    
+    var likeModel:LikeModel? {
+        if let id = likeId {
+            return try? Realm().object(ofType: LikeModel.self, forPrimaryKey: id)
+        }
+        return nil
+    }
+    
+    var userInfo:UserInfo? {
+        if let id = userId {
+            return try? Realm().object(ofType: UserInfo.self, forPrimaryKey: id)
+        }
+        return nil
+    }
+    
+    fileprivate var isLike:Bool = false
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setData()
+    }
+    
+    fileprivate func setData() {
+        if isLike == false {
+            if let info = userInfo {
+                profileImageView.kf.setImage(with: info.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+                nameLabel.text = info.name
+                introduceLabel.text = info.introduce
+                return
+            }
+        }
+        if let like = likeModel {
+            profileImageView.kf.setImage(with: like.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+            nameLabel.text = like.creator?.name
+            introduceLabel.text = like.regDt.relativeTimeStringValue
+        }
+    }    
 }

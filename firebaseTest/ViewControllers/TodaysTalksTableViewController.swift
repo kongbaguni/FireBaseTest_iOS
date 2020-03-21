@@ -44,10 +44,11 @@ class TodaysTalksTableViewController: UITableViewController {
     
     var isNeedScrollToBottomWhenRefresh = false
     var needScrolIndex:IndexPath? = nil
-    
+    @IBOutlet weak var headerStackView:UIStackView!
     @IBOutlet weak var toolBar:UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var hideGameOptionView: UIView!
     @IBOutlet weak var hideGameOptionLabel: UILabel!
     @IBOutlet weak var hideGameOptionSwitch : UISwitch!
     
@@ -83,13 +84,19 @@ class TodaysTalksTableViewController: UITableViewController {
         
         toolBar.items = [
             UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:))),
-            UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:)))
         ]
-        hideGameOptionSwitch.rx.isOn.subscribe { (event) in
-            UserDefaults.standard.isHideGameTalk = self.hideGameOptionSwitch.isOn
-            self.tableView.reloadData()
-            self.toolBar.items?.last?.isEnabled = !self.hideGameOptionSwitch.isOn
-        }.disposed(by: self.disposebag)
+        hideGameOptionView.isHidden = AdminOptions.shared.canPlayPoker == false
+        
+        headerStackView.frame.size.height = AdminOptions.shared.canPlayPoker ? 130 : 90
+        if AdminOptions.shared.canPlayPoker {
+            toolBar.items?.append(UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:))))
+
+            hideGameOptionSwitch.rx.isOn.subscribe { (event) in
+                UserDefaults.standard.isHideGameTalk = self.hideGameOptionSwitch.isOn
+                self.tableView.reloadData()
+                self.toolBar.items?.last?.isEnabled = !self.hideGameOptionSwitch.isOn
+            }.disposed(by: self.disposebag)
+        }
         
         nearTalkOptionSwitch.rx.isOn.subscribe { (event) in
             UserDefaults.standard.isShowNearTalk = self.nearTalkOptionSwitch.isOn
@@ -239,6 +246,13 @@ class TodaysTalksTableViewController: UITableViewController {
             self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
         }))
         
+        if UserInfo.info?.email == "kongbaguni@gmail.com" {
+            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
+                let vc = AdminViewController.viewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
+        }
+        
         vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
             self.isNeedScrollToBottomWhenRefresh = true
             self.performSegue(withIdentifier: "showTalk", sender: nil)
@@ -295,13 +309,13 @@ class TodaysTalksTableViewController: UITableViewController {
         if data.imageURL != nil {
             let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableImageViewCell
-            cell.setData(data: list[indexPath.row])
+            cell.talkId = list[indexPath.row].id
             return cell
         }
         
         let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
-        cell.setData(data: list[indexPath.row])
+        cell.talkId = list[indexPath.row].id
         return cell
     }
     
@@ -341,8 +355,13 @@ class TodaysTalksTableViewController: UITableViewController {
         action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.15, alpha: 1)
         let iconRed =  #imageLiteral(resourceName: "heart").af.imageAspectScaled(toFit: CGSize(width: 20, height: 20))
                       
-        let iconWhite =  iconRed.withTintColor(.white)
-        action.image = model.isLike ? iconRed : iconWhite
+        if #available(iOS 13.0, *) {
+            let iconWhite =  iconRed.withTintColor(.white)
+            action.image = model.isLike ? iconRed : iconWhite
+        } else {
+            action.image = model.isLike ? iconRed : nil
+        }
+        
         
         return UISwipeActionsConfiguration(actions: [action])
     }
@@ -350,7 +369,7 @@ class TodaysTalksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let data = list[indexPath.row]
         var actions:[UIContextualAction] = []
-        if data.creatorId == UserInfo.info?.id && data.cardSet == nil {
+        if data.creatorId == UserInfo.info?.id && data.bettingPoint == 0 {
             let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
                 if let data = self?.list[indexPath.row] {
                     self?.needScrolIndex = indexPath
@@ -378,7 +397,8 @@ class TodaysTalksTableViewController: UITableViewController {
 extension TodaysTalksTableViewController : HoldemViewControllerDelegate {
     func didGameFinish(isBettingGame: Bool) {
         if isBettingGame {
-            self.tableView.reloadData()
+            self.isNeedScrollToBottomWhenRefresh = true
+            self.onRefreshControl(UIRefreshControl())            
         }
     }
     

@@ -20,7 +20,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var versionLabel: UILabel!
     
     class var viewController : LoginViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! LoginViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! LoginViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "first") as! LoginViewController
+        }
     }
     
     @IBOutlet weak var loginGoogleBtn:UIButton!
@@ -34,6 +38,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("\(#file) \(#function)")
         maskNowBtn.setTitle("mask now".localized, for: .normal)
         loginGoogleBtn.setTitle("login with google".localized, for: .normal)
         GIDSignIn.sharedInstance()?.presentingViewController = self
@@ -48,9 +53,15 @@ class LoginViewController: UIViewController {
         let icon = #imageLiteral(resourceName: "google").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
         loginGoogleBtn.setImage(icon, for: .normal)
         
-        let maskIcon = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width:30,height:30))
-            .withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_text_color)
-        maskNowBtn.setImage(maskIcon, for: .normal)
+        if #available(iOS 13.0, *) {
+            let maskIcon = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width:30,height:30))
+                .withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_text_color)
+            maskNowBtn.setImage(maskIcon, for: .normal)
+        } else {
+            let maskIcon = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width:30,height:30))
+                .withRenderingMode(.alwaysTemplate)
+            maskNowBtn.setImage(maskIcon, for: .normal)
+        }
         versionLabel.text = "ver : \(UIApplication.shared.version)"
         
     }

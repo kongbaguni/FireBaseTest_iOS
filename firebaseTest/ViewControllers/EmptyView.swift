@@ -11,6 +11,7 @@ protocol EmptyViewDelegate : class {
     func onTouchupButton(viewType:EmptyView.ViewType)
 }
 
+
 class EmptyView: UIView {
     enum ViewType {
         case locationNotAllow
@@ -45,13 +46,22 @@ class EmptyView: UIView {
             label.text = "Waiting for server to respond.".localized
             button.isHidden = true
         case .empty:
-            imageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_bold_text_color)
+            if #available(iOS 13.0, *) {
+                imageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_bold_text_color)
+            } else {
+                imageView.image = #imageLiteral(resourceName: "dentist-mask").withRenderingMode(.alwaysTemplate)
+                // Fallback on earlier versions
+            }
             label.text = "There are no public mask vendors nearby.".localized
             button.setTitle("retry".localized, for: .normal)
             button.isHidden = false
             
         case .locationNotAllow:
-            imageView.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_bold_text_color)
+            if #available(iOS 13.0, *) {
+                imageView.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_bold_text_color)
+            } else {
+                imageView.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate)
+            }
             label.text = "Location information access is required.\nPlease make your location accessible.".localized
             button.setTitle("Setting up".localized, for: .normal)
             button.isHidden = false

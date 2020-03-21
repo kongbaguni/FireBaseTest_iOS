@@ -17,13 +17,19 @@ protocol HoldemViewControllerDelegate : class {
 class HoldemViewController : UIViewController {
     weak var delegate:HoldemViewControllerDelegate? = nil
     
+    @IBOutlet weak var jackPotBoxImageView: UIImageView!
+    @IBOutlet weak var jackPotPointLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var myPointTitleLabel: UILabel!
     @IBOutlet weak var myPointLabel: UILabel!
     @IBOutlet weak var gamePlayButton: UIButton!
     static var viewController : HoldemViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "holdem") as! HoldemViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "holdem") as! HoldemViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "holdem") as! HoldemViewController
+        }
     }
     @IBOutlet weak var holdemView:HoldemView!
     let disposebag = DisposeBag()
@@ -55,13 +61,29 @@ class HoldemViewController : UIViewController {
         holdemView.insertCard()
         let closeBtnImage =
             #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
-        closeButton.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
-        closeButton.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
-        
-        loadData()
+        if #available(iOS 13.0, *) {
+            closeButton.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
+            closeButton.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
+        } else {
+            closeButton.setImage(closeBtnImage, for: .normal)
+            closeButton.setImage(closeBtnImage, for: .highlighted)
+        }
+        JackPotManager.shared.getData { (sucess) in
+            self.loadData()
+        }
         setTitle()
+        NotificationCenter.default.addObserver(forName: .jackpotChangeNotification, object: nil, queue: nil) { [weak self](notification) in
+            self?.jackPotPointLabel.text = (notification.object as? Int)?.decimalForamtString
+        }
     }
     
+    let googleAd = GoogleAd()
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        jackPotBoxImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "boxDark") : #imageLiteral(resourceName: "boxLight")
+    }
     
     private func setTitle() {
         titleLabel.text = gameState.rawValue.localized
@@ -96,9 +118,13 @@ class HoldemViewController : UIViewController {
                 titleLabel.text = "lose".localized
             }
         }
+        loadData()
     }
+    
     private func loadData() {
         myPointLabel.text = UserInfo.info?.point.decimalForamtString
+        
+        jackPotPointLabel.text = JackPotManager.shared.point.decimalForamtString
     }
     
     @IBAction func onTouchupCloseBtn(_ sender: Any) {
@@ -114,7 +140,11 @@ class HoldemViewController : UIViewController {
         func bettingPointAlert(didBetting:@escaping(_ bettingPoint:Int)->Void) {
             let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
             let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
-            let lastBetting = try! Realm().objects(TalkModel.self).filter("creatorId = %@ && bettingPoint > 0",UserInfo.info!.id).last?.bettingPoint ?? UserInfo.info!.point / 10
+            var lastBetting = self.bettingPoint > 0 ? self.bettingPoint : AdminOptions.shared.maxBettingPoint / 10
+            if UserDefaults.standard.lastBettingPoint > 0 {
+                lastBetting = UserDefaults.standard.lastBettingPoint
+            }
+            
             vc.addTextField { (textFiled) in
                 textFiled.text = "\(lastBetting)"
                 textFiled.keyboardType = .numberPad
@@ -122,13 +152,13 @@ class HoldemViewController : UIViewController {
                     .rx.text.orEmpty.subscribe(onNext: { (query) in
                         let up = UserInfo.info?.point ?? 0
                         let number = NSString(string: query).integerValue
-                        if number > Consts.BETTING_LIMIT {
-                            textFiled.text = "\(Consts.BETTING_LIMIT)"
+                        if number > AdminOptions.shared.maxBettingPoint {
+                            textFiled.text = AdminOptions.shared.maxBettingPoint.decimalForamtString
                         }
                         else if number > up {
-                            textFiled.text = "\(up)"
+                            textFiled.text = up.decimalForamtString
                         } else {
-                            textFiled.text = "\(number)"
+                            textFiled.text = number.decimalForamtString
                         }
                     }).disposed(by: self.disposebag)
             }
@@ -137,19 +167,50 @@ class HoldemViewController : UIViewController {
                     return
                 }
                 let betting = NSString(string:text).integerValue
+                UserDefaults.standard.lastBettingPoint = betting
                 didBetting(betting)
             }))
-            vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+            vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
             present(vc, animated: true, completion: nil)
         }
         
         func gameMenuPopup(
             didBetting:@escaping(_ bettingPoint:Int)->Void
             ,didFold:(()->Void)?) {
+            func showAd() {
+                let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
+                let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
+                    self.googleAd.showAd(targetViewController: self) { (isSucess) in
+                        if isSucess {
+                            GameManager.shared.addPoint(point: AdminOptions.shared.adRewardPoint) { [weak self] (isSucess) in
+                                if isSucess {
+                                    self?.setTitle()
+                                    let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
+                                    Toast.makeToast(message: msg)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                                        bettingPointAlert { (bettingPoint) in
+                                            didBetting(bettingPoint)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }))
+                vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+                self.present(vc, animated: true, completion: nil)
+            }
+
+            
             let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "betting".localized, style: .default, handler: { (action) in
-                bettingPointAlert { (bettingPoint) in
-                    didBetting(bettingPoint)
+                if UserInfo.info?.point == 0 {
+                    showAd()
+                } else {
+                    bettingPointAlert { (bettingPoint) in
+                        didBetting(bettingPoint)
+                    }
                 }
             }))
             if let foldAction = didFold {
@@ -177,6 +238,7 @@ class HoldemViewController : UIViewController {
             gameMenuPopup(didBetting: { (point) in
                 GameManager.shared.usePoint(point: point) { (sucess) in
                     if sucess {
+                        self.loadData()
                         self.bettingPoint += point
                         self.holdemView.insertTurnRiver { (card) in
                             self.holdemView.communityCards.append(card)
@@ -200,6 +262,7 @@ class HoldemViewController : UIViewController {
             gameMenuPopup(didBetting: { (point) in
                 GameManager.shared.usePoint(point: point) { (sucess) in
                     if sucess {
+                        self.loadData()
                         self.bettingPoint += point
                         self.holdemView.insertTurnRiver { (card) in
                             self.holdemView.communityCards.append(card)
@@ -227,13 +290,47 @@ class HoldemViewController : UIViewController {
                 }
                 switch self.holdemView.gameResult {
                 case .win:
-                    let point = self.holdemView.bettingPoint * 2 + self.holdemView.dealarBetting
-                    GameManager.shared.addPoint(point: point) { (sucess) in
-                        self.setTitle()
-                        showStatusView(statusChange:
-                            StatusChange(
-                                addedExp: point,
-                                pointChange: point - self.bettingPoint))
+                    JackPotManager.shared.addPoint(self.holdemView.dealarBetting) { [weak self](isSucess) in
+                        let point = self?.holdemView.bettingPoint ?? 0  * 2
+                        GameManager.shared.addPoint(point: point) { (sucess) in
+                            self?.setTitle()
+                            let set = self?.holdemView.myBestCardSet?.cardSet
+                            
+                            var isJackPod:Bool {
+                                #if JACKPOTTEST
+                                return true
+                                #endif
+                                if set?.cardValue == CardSet.CardValue.straightFlush {
+                                    if (set?.cards.filter({ (card) -> Bool in
+                                        return card.index == 13
+                                    }).count == 1) {
+                                        return true
+                                    }
+                                }
+                                return false
+                            }
+                            
+                            if isJackPod {
+                                // 로티플이다!!
+                                Toast.makeToast(message: "JackPot!!")
+                                JackPotManager.shared.dropJackPot { (jackPod) in
+                                    if let point = jackPod {
+                                        GameManager.shared.addPoint(point: point) { (sucess) in
+                                            showStatusView(statusChange:
+                                                StatusChange(
+                                                    addedExp: point,
+                                                    pointChange: point - (self?.bettingPoint ?? 0)))
+
+                                        }
+                                    }
+                                }
+                            } else {
+                                showStatusView(statusChange:
+                                    StatusChange(
+                                        addedExp: point,
+                                        pointChange: point - (self?.bettingPoint ?? 0)))
+                            }
+                        }
                     }
                 case .tie:
                     GameManager.shared.addPoint(point: self.holdemView.bettingPoint) { (sucess) in
@@ -244,10 +341,11 @@ class HoldemViewController : UIViewController {
 
                     }
                 case .lose:
-                    showStatusView(statusChange:
-                        StatusChange(addedExp: self.bettingPoint,
-                                     pointChange: -self.bettingPoint))
-                    break
+                    JackPotManager.shared.addPoint(self.bettingPoint) { (isSucess) in
+                        showStatusView(statusChange:
+                            StatusChange(addedExp: self.bettingPoint,
+                                         pointChange: -self.bettingPoint))
+                    }
                 default:
                     break
                 }
@@ -256,12 +354,14 @@ class HoldemViewController : UIViewController {
         case .finish:
             // 승패 판정
             func newGame() {
+                
                 self.bettingPoint = 0
                 self.holdemView.bettingPoint = 0
                 self.holdemView.dealarBetting = 0
                 self.holdemView.insertCard()
                 self.gameState = .wait
                 self.setTitle()
+                self.loadData()
             }
             
             if bettingPoint > 0 {
@@ -290,10 +390,12 @@ class HoldemViewController : UIViewController {
                 holdemView.insertCard()
                 self.gameState = .wait
                 setTitle()
+                loadData()
                 self.delegate?.didGameFinish(isBettingGame: false)
             }
         }
         setTitle()
+        loadData()
     }
     
     func postTalk(complete:@escaping(_ sucess:Bool)->Void) {

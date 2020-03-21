@@ -29,6 +29,7 @@ extension AuthDataResult {
                     userInfo.email = email
                     userInfo.idToken = idToken
                     userInfo.accessToken = accessToken
+                    userInfo.point = AdminOptions.shared.defaultPoint
                     realm.add(userInfo, update: .modified)
                 }
                 try! realm.commitWrite()

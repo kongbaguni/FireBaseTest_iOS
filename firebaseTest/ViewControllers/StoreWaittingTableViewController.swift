@@ -15,7 +15,11 @@ import RxSwift
 
 class StoreWaittingTableViewController: UITableViewController {
     static var viewController:StoreWaittingTableViewController {
-        return UIStoryboard(name:"Main", bundle: nil).instantiateViewController(identifier: "storeWaitting") as! StoreWaittingTableViewController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name:"Main", bundle: nil).instantiateViewController(identifier: "storeWaitting") as! StoreWaittingTableViewController
+        } else {
+            return UIStoryboard(name:"Main", bundle: nil).instantiateViewController(withIdentifier: "storeWaitting") as! StoreWaittingTableViewController
+        }
     }
     
     @IBOutlet weak var headerLabel: UILabel!
@@ -91,6 +95,7 @@ class StoreWaittingTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         self.onRefreshControl(UIRefreshControl())
     }
+        
     
     let loading = Loading()
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
@@ -106,6 +111,8 @@ class StoreWaittingTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         LocationManager.shared.manager.startUpdatingLocation()
+        refreshControl?.endRefreshing()
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -138,7 +145,10 @@ class StoreWaittingTableViewController: UITableViewController {
         if let distance = store?.getLiveDistance(coodinate: mc) {
             let value = Double(Int(distance * 100))/100
             headerLabel.text = "\("distance".localized) : \(value)m"
-            postLogBtn.isEnabled = value < Double(Consts.WAITING_REPORT_DISTANCE)
+            postLogBtn.isEnabled = value < Double(AdminOptions.shared.waitting_report_distance)
+            if UserInfo.info == nil {
+                postLogBtn.isEnabled = false
+            }
             postLogBtn.setTitle("waitting btn title desable".localized, for: .normal)
 
 //            if postLogBtn.isEnabled {
@@ -180,6 +190,16 @@ class StoreWaittingTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: id, for: indexPath) as! WaittingLogTableViewCell
         cell.logid = log.id
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let log = getLogs(beforeDay: indexPath.section)?[indexPath.row] else {
+            return
+        }
+        let vc = StatusViewController.viewController
+        vc.userId = log.creatorId
+        present(vc, animated: true, completion: nil)
     }
 }
 

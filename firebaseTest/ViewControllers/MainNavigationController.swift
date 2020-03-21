@@ -9,7 +9,11 @@
 import UIKit
 class MainNavigationController: UINavigationController {
     class var viewController : MainNavigationController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "mainNavigation") as! MainNavigationController
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "mainNavigation") as! MainNavigationController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainNavigation") as! MainNavigationController
+        }
     }
     
     deinit {

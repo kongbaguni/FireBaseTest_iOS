@@ -38,7 +38,11 @@ extension UserDefaults {
             set(newValue, forKey: "hideGameTalk")
         }
         get {
-            bool(forKey: "hideGameTalk")
+            if AdminOptions.shared.canPlayPoker == false {
+                return true
+            } else {
+                return bool(forKey: "hideGameTalk")
+            }
         }
     }
     
@@ -49,6 +53,15 @@ extension UserDefaults {
         }
         get {
             bool(forKey: "showNearTalk")
+        }
+    }
+    
+    var lastBettingPoint:Int {
+        set {
+            set(newValue, forKey: "lastBettingPoint")
+        }
+        get {
+            integer(forKey: "lastBettingPoint")
         }
     }
 }

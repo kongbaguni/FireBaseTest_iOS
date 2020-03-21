@@ -15,32 +15,19 @@ import GoogleMobileAds
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window:UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         migrationRealm()
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-        signin()
-        
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        signin()
         return true
     }
 
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance()?.handle(url) ?? false
@@ -59,9 +46,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if error == nil {
                 userInfo.syncData { (isNew) in
                     if isNew {
-                        UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                        AdminOptions.shared.getData {
+                                UIApplication.shared.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                        }
                     } else {
-                        UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                        AdminOptions.shared.getData {
+                            UIApplication.shared.rootViewController  = MainTabBarController.viewController
+                        }
                     }
                 }
             }
@@ -96,7 +87,7 @@ extension AppDelegate : GIDSignInDelegate {
         }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
-        if let vc = UIApplication.shared.windows.first?.rootViewController as? LoginViewController {
+        if let vc = UIApplication.shared.rootViewController as? LoginViewController {
             vc.autologinBgView.isHidden = false
             vc.indicator.startAnimating()
         }
@@ -108,15 +99,19 @@ extension AppDelegate : GIDSignInDelegate {
                     authResult?.saveUserInfo(idToken: authentication.idToken, accessToken: authentication.accessToken)
                     StoreModel.deleteAll()
                     UserInfo.info?.syncData(complete: { (isNew) in
-                        if isNew {
-                            UIApplication.shared.windows.first?.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
-                        }
-                        else {
-                            UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                        AdminOptions.shared.getData {
+                            if isNew {
+                                UIApplication.shared.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                            }
+                            else {
+                                UIApplication.shared.rootViewController  = MainTabBarController.viewController
+                            }
                         }
                     })
                 } else {
-                    UIApplication.shared.windows.first?.rootViewController  = MainTabBarController.viewController
+                    AdminOptions.shared.getData {
+                        UIApplication.shared.rootViewController  = MainTabBarController.viewController
+                    }
                 }
                 
             }

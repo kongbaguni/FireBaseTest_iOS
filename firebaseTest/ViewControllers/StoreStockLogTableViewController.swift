@@ -56,6 +56,12 @@ class StoreStockLogTableViewController: UITableViewController {
         }.disposed(by: self.disposeBag)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshControl?.endRefreshing()
+        tableView.reloadData()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "showWaitting":

@@ -42,7 +42,7 @@ class CardDeckBoxView: UIView {
         for i in 0...GameManager.shared.deckBoxCardsCount {
             let view = UIImageView(image: #imageLiteral(resourceName: "gray_back"))
             view.frame.size = CGSize(width: 40, height: 70)
-            view.frame.origin = CGPoint(x: i*6, y: 0)
+            view.frame.origin = CGPoint(x: i*5, y: 0)
             addSubview(view)
         }
     }

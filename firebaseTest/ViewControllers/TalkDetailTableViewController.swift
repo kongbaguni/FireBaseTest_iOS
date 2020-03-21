@@ -64,7 +64,7 @@ class TalkDetailTableViewController: UITableViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo") as! TalkDetailUserInfoTableViewCell
             if let userInfo = talkModel?.creator {
-                cell.setData(info: userInfo)
+                cell.userId = userInfo.id
             }
             
             return cell
@@ -99,12 +99,12 @@ class TalkDetailTableViewController: UITableViewController {
                 let data = editList[indexPath.row - 1]
                 if data.imageUrl != nil {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "editHistoryImage") as! TalkDetailEditHistoryImageTableViewCell
-                    cell.setData(data: data)
+                    cell.editLogID = data.id
                     return cell
 
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "editHistory") as! TalkDetailEditHistoryTableViewCell
-                    cell.setData(data: data)
+                    cell.editLogID = data.id
                     return cell
                 }
             }
@@ -113,7 +113,7 @@ class TalkDetailTableViewController: UITableViewController {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo") as! TalkDetailUserInfoTableViewCell
             if let likeList = talkModel?.likes {
-                cell.setData(like: likeList[indexPath.row])
+                cell.likeId = likeList[indexPath.row].id
             }
             
             return cell
