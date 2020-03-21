@@ -193,39 +193,43 @@ class HoldemViewController : UIViewController {
             present(vc, animated: true, completion: nil)
         }
         
-        func gameMenuPopup(
-            didBetting:@escaping(_ bettingPoint:Int)->Void
-            ,didFold:(()->Void)?) {
-            func showAd() {
-                let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
-                let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-                vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
-                    self.googleAd.showAd(targetViewController: self) { (isSucess) in
-                        if isSucess {
-                            GameManager.shared.addPoint(point: AdminOptions.shared.adRewardPoint) { [weak self] (isSucess) in
-                                if isSucess {
-                                    self?.setTitle()
-                                    let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
-                                    Toast.makeToast(message: msg)
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                                        bettingPointAlert { (bettingPoint) in
-                                            didBetting(bettingPoint)
-                                        }
+        func showAd(complete:@escaping(_ point:Int)->Void) {
+            let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
+            let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+            vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
+                self.googleAd.showAd(targetViewController: self) { (isSucess) in
+                    if isSucess {
+                        GameManager.shared.addPoint(point: AdminOptions.shared.adRewardPoint) { [weak self] (isSucess) in
+                            if isSucess {
+                                self?.setTitle()
+                                let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
+                                Toast.makeToast(message: msg)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                                    bettingPointAlert { (bettingPoint) in
+                                        complete(bettingPoint)
                                     }
                                 }
                             }
                         }
                     }
-                }))
-                vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-                self.present(vc, animated: true, completion: nil)
-            }
+                }
+            }))
+            vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+        func gameMenuPopup(
+            didBetting:@escaping(_ bettingPoint:Int)->Void
+            ,didFold:(()->Void)?) {
+            
 
             
             let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "betting".localized, style: .default, handler: { (action) in
                 if UserInfo.info?.point ?? 0 < AdminOptions.shared.minBettingPoint {
-                    showAd()
+                    showAd { (point) in
+                        didBetting(point)
+                    }
                 } else {
                     bettingPointAlert { (bettingPoint) in
                         didBetting(bettingPoint)
@@ -243,16 +247,22 @@ class HoldemViewController : UIViewController {
         
         switch gameState {
         case .wait:
-            bettingPointAlert { (bettingPoint) in
-                GameManager.shared.usePoint(point: bettingPoint) { [weak self](sucess) in
-                    if sucess {
-                        self?.bettingPoint += bettingPoint
-                        self?.holdemView.showMyCard()
-                        self?.gameState = .preflop
-                        sender.isEnabled = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                            self?.onTouchupButton(sender)
-                            sender.isEnabled = true
+            if UserInfo.info?.point ?? 0 < AdminOptions.shared.minBettingPoint {
+                showAd { (_) in
+                    self.onTouchupButton(sender)
+                }
+            } else {
+                bettingPointAlert { (bettingPoint) in
+                    GameManager.shared.usePoint(point: bettingPoint) { [weak self](sucess) in
+                        if sucess {
+                            self?.bettingPoint += bettingPoint
+                            self?.holdemView.showMyCard()
+                            self?.gameState = .preflop
+                            sender.isEnabled = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                                self?.onTouchupButton(sender)
+                                sender.isEnabled = true
+                            }
                         }
                     }
                 }
