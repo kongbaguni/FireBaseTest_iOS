@@ -67,6 +67,7 @@
 		C3DC5B91241224E100A028E0 /* TalkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B90241224E100A028E0 /* TalkModel.swift */; };
 		C3DC5B93241234A100A028E0 /* TodayTalksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B92241234A100A028E0 /* TodayTalksTableViewCell.swift */; };
 		C3DC5B95241243D400A028E0 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B94241243D400A028E0 /* Consts.swift */; };
+		C3EB27A624263BF200CA59F7 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB27A524263BF200CA59F7 /* ChipView.swift */; };
 		C3EDFB05241C6137003EF787 /* StoreStockLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EDFB04241C6137003EF787 /* StoreStockLogModel.swift */; };
 		C3EDFB07241C653A003EF787 /* StoreStockLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EDFB06241C653A003EF787 /* StoreStockLogTableViewController.swift */; };
 		C3EF51C3240CE56A00A4C29E /* UserInfoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EF51C2240CE56A00A4C29E /* UserInfoDetailViewController.swift */; };
@@ -142,6 +143,7 @@
 		C3DC5B90241224E100A028E0 /* TalkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkModel.swift; sourceTree = "<group>"; };
 		C3DC5B92241234A100A028E0 /* TodayTalksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTalksTableViewCell.swift; sourceTree = "<group>"; };
 		C3DC5B94241243D400A028E0 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
+		C3EB27A524263BF200CA59F7 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		C3EDFB04241C6137003EF787 /* StoreStockLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreStockLogModel.swift; sourceTree = "<group>"; };
 		C3EDFB06241C653A003EF787 /* StoreStockLogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreStockLogTableViewController.swift; sourceTree = "<group>"; };
 		C3EF51C2240CE56A00A4C29E /* UserInfoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDetailViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				C3630FD4241B5C7B003479C2 /* CardDackView.swift */,
+				C3EB27A524263BF200CA59F7 /* ChipView.swift */,
 				C3630FD5241B5C7C003479C2 /* CardDackView.xib */,
 				C3630FD2241B51CE003479C2 /* Card.swift */,
 				C39A6ECB241F368000460705 /* HoldemView.xib */,
@@ -492,6 +495,7 @@
 				C39A6ED624208ABA00460705 /* Dealar.swift in Sources */,
 				C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */,
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
+				C3EB27A624263BF200CA59F7 /* ChipView.swift in Sources */,
 				C37E86912423410700F87D4D /* JackPotHistoryLogTableViewController.swift in Sources */,
 				C3630FD3241B51CE003479C2 /* Card.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,

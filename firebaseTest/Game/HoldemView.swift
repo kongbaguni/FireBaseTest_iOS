@@ -32,9 +32,10 @@ class HoldemView: UIView {
     @IBOutlet var mySelectionViews:[UIImageView]!
     
     @IBOutlet weak var dealarGameValueLabel: UILabel!
-    @IBOutlet weak var dealarBettingLabel: UILabel!
+    @IBOutlet weak var dealarBettingView: ChipView!
     
-    @IBOutlet weak var myBettingLabel: UILabel!
+    @IBOutlet weak var myBettingView: ChipView!
+
     @IBOutlet weak var myGameValueLabel: UILabel!
     let dealar = Dealar()
     
@@ -53,14 +54,16 @@ class HoldemView: UIView {
     
     var dealarBetting:Int = 0 {
         didSet {
-            dealarBettingLabel?.isHidden = dealarBetting == 0
-            dealarBettingLabel?.text = "\("betting".localized) : \(dealarBetting.decimalForamtString)"
+            dealarBettingView.isRightAlign = false
+            dealarBettingView?.isHidden = dealarBetting == 0
+            dealarBettingView.value = dealarBetting
         }
     }
     var bettingPoint:Int = 0 {
         didSet {
-            myBettingLabel?.isHidden = bettingPoint == 0
-            myBettingLabel?.text =  "\("betting".localized) : \(bettingPoint.decimalForamtString)"
+            myBettingView.isRightAlign = true
+            myBettingView?.isHidden = bettingPoint == 0
+            myBettingView?.value = bettingPoint
         }
     }
 
@@ -177,7 +180,7 @@ class HoldemView: UIView {
         bettingPoint = result.playersBetting
         showSelection(selection: result.playersCommunityCardSelect, isPlayer: true)
         showSelection(selection: result.dealarsCommunityCardSelect, isPlayer: false)
-        dealarBettingLabel.text = "\("betting".localized) : \(result.dealarsBetting.decimalForamtString)"
+        dealarBettingView.value = result.dealarsBetting
         showMyCard()
         showDealerCard()
         showCommunityCard(number: 5)
@@ -336,9 +339,6 @@ class HoldemView: UIView {
             contentView.layer.borderWidth = 1
             contentView.layer.masksToBounds = true
             contentView.backgroundColor = .autoColor_bg_color
-        }
-        for view in [dealarBettingLabel, myBettingLabel] {
-            view?.textColor = .autoColor_weak_text_color
         }
         for view in mySelectionViews {
             if #available(iOS 13.0, *) {
