@@ -193,7 +193,7 @@ class HoldemViewController : UIViewController {
             present(vc, animated: true, completion: nil)
         }
         
-        func showAd(complete:@escaping(_ point:Int)->Void) {
+        func showAd(adcomplete:@escaping()->Void) {
             let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
             let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
             vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
@@ -205,9 +205,7 @@ class HoldemViewController : UIViewController {
                                 let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
                                 Toast.makeToast(message: msg)
                                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                                    bettingPointAlert { (bettingPoint) in
-                                        complete(bettingPoint)
-                                    }
+                                    adcomplete()
                                 }
                             }
                         }
@@ -227,8 +225,10 @@ class HoldemViewController : UIViewController {
             let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "betting".localized, style: .default, handler: { (action) in
                 if UserInfo.info?.point ?? 0 < AdminOptions.shared.minBettingPoint {
-                    showAd { (point) in
-                        didBetting(point)
+                    showAd {
+                        bettingPointAlert { (bettingPoint) in
+                            didBetting(bettingPoint)
+                        }
                     }
                 } else {
                     bettingPointAlert { (bettingPoint) in
@@ -247,11 +247,7 @@ class HoldemViewController : UIViewController {
         
         switch gameState {
         case .wait:
-            if UserInfo.info?.point ?? 0 < AdminOptions.shared.minBettingPoint {
-                showAd { (_) in
-                    self.onTouchupButton(sender)
-                }
-            } else {
+            func bettingFirst() {
                 bettingPointAlert { (bettingPoint) in
                     GameManager.shared.usePoint(point: bettingPoint) { [weak self](sucess) in
                         if sucess {
@@ -267,6 +263,15 @@ class HoldemViewController : UIViewController {
                     }
                 }
             }
+
+            if UserInfo.info?.point ?? 0 < AdminOptions.shared.minBettingPoint {
+                showAd {
+                    bettingFirst()
+                }
+            } else {
+                bettingFirst()
+            }
+            
         case .preflop:
             holdemView.showCommunityCard(number: 3)
             gameState = .flop
