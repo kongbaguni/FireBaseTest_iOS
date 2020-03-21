@@ -313,7 +313,7 @@ class HoldemViewController : UIViewController {
                 switch self.holdemView.gameResult {
                 case .win:
                     JackPotManager.shared.addPoint(self.holdemView.dealarBetting) { [weak self](isSucess) in
-                        let point = self?.holdemView.bettingPoint ?? 0  * 2
+                        let point = (self?.holdemView.bettingPoint ?? 0) * 2
                         GameManager.shared.addPoint(point: point) { (sucess) in
                             self?.setTitle()
                             let set = self?.holdemView.myBestCardSet?.cardSet
