@@ -176,7 +176,7 @@ class HoldemViewController : UIViewController {
                 guard let text = vc?.textFields?.first?.text else {
                     return
                 }
-                let betting = NSString(string:text).integerValue
+                let betting = NSString(string:text.replacingOccurrences(of: ",", with: "")).integerValue
                 if betting < AdminOptions.shared.minBettingPoint {
                     let msg = String(format:"min betting err %@".localized, AdminOptions.shared.minBettingPoint.decimalForamtString)
                     let errAlert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
