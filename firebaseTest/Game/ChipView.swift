@@ -17,6 +17,21 @@ class ChipView: UIView {
             }
             
             var a = self.value
+            let chip10000s = a / 10000
+            a -= chip10000s * 10000
+            
+            let chip5000s = a / 5000
+            a -= chip5000s * 1000
+
+            let chip1000s = a / 1000
+            a -= chip1000s * 1000
+            
+            let chip500s = a / 500
+            a -= chip500s * 500
+            
+            let chip100s = a / 100
+            a -= chip100s * 100
+            
             let chip50s = a / 50
             a -= chip50s * 50
             
@@ -27,15 +42,10 @@ class ChipView: UIView {
             a -= chip5s * 5
             
             let chip1s = a
-            print("total : \(self.value)")
-            print("50 : \(chip50s)")
-            print("10 : \(chip10s)")
-            print("5 : \(chip5s)")
-            print("1 : \(chip1s)")
 
             let chipSize = CGSize(width: 30, height: 30)
             
-            let chipHeight:CGFloat = 2.5
+            let chipHeight:CGFloat = 8
             
             func makeChip(count:Int,image:UIImage)->[UIImageView] {
                 var result:[UIImageView] = []
@@ -48,6 +58,11 @@ class ChipView: UIView {
             }
             
             let sets = [
+                makeChip(count: chip10000s, image: #imageLiteral(resourceName: "chip10000")),
+                makeChip(count: chip5000s, image: #imageLiteral(resourceName: "chip5000")),
+                makeChip(count: chip1000s, image: #imageLiteral(resourceName: "chip1000")),
+                makeChip(count: chip500s, image: #imageLiteral(resourceName: "chip500")),
+                makeChip(count: chip100s, image: #imageLiteral(resourceName: "chip100")),
                 makeChip(count: chip50s, image: #imageLiteral(resourceName: "chip50")),
                 makeChip(count: chip10s, image: #imageLiteral(resourceName: "chip10")),
                 makeChip(count: chip5s, image: #imageLiteral(resourceName: "chip5")),
