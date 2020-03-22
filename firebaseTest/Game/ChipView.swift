@@ -21,7 +21,7 @@ class ChipView: UIView {
             a -= chip10000s * 10000
             
             let chip5000s = a / 5000
-            a -= chip5000s * 1000
+            a -= chip5000s * 5000
 
             let chip1000s = a / 1000
             a -= chip1000s * 1000
