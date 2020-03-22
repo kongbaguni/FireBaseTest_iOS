@@ -167,23 +167,23 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="J7S-5U-AQF">
                     <rect key="frame" x="192" y="57" width="212" height="80"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hup-Gj-nQ1">
+                            <rect key="frame" x="0.0" y="0.0" width="212" height="18.5"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K6m-a4-QSh" customClass="ChipView" customModule="mask_now" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="212" height="40"/>
+                            <rect key="frame" x="0.0" y="18.5" width="212" height="40"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="g0j-AN-l3V"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Highcard 30" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcx-YD-0Do">
-                            <rect key="frame" x="0.0" y="40" width="212" height="21.5"/>
+                            <rect key="frame" x="0.0" y="58.5" width="212" height="21.5"/>
                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hup-Gj-nQ1">
-                            <rect key="frame" x="0.0" y="61.5" width="212" height="18.5"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </view>
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KVl-qs-ITy">
