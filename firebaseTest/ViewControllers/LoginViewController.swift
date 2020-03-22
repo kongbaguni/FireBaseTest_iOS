@@ -30,12 +30,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginGoogleBtn:UIButton!
     @IBOutlet weak var maskNowBtn: UIButton!
     
-    let indicator = NVActivityIndicatorView(
-        frame: UIScreen.main.bounds,
-        type: .ballRotateChase,
-        color: .autoColor_indicator_color,
-        padding: UIScreen.main.bounds.width)
-    
+
+    let loading = Loading()
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(#file) \(#function)")
@@ -43,9 +39,9 @@ class LoginViewController: UIViewController {
         loginGoogleBtn.setTitle("login with google".localized, for: .normal)
         GIDSignIn.sharedInstance()?.presentingViewController = self
         autologinBgView.isHidden = UserInfo.info == nil
-        view.addSubview(indicator)
+        
         if UserInfo.info != nil {
-            indicator.startAnimating()
+            loading.show(viewController: self)
         }
         
         titleBubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")

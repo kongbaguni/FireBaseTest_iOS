@@ -89,7 +89,7 @@ extension AppDelegate : GIDSignInDelegate {
                                                        accessToken: authentication.accessToken)
         if let vc = UIApplication.shared.rootViewController as? LoginViewController {
             vc.autologinBgView.isHidden = false
-            vc.indicator.startAnimating()
+            vc.loading.show(viewController: vc)
         }
 
         Auth.auth().signIn(with: credential) {(authResult, error) in

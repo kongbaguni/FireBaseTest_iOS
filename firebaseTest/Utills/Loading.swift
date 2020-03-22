@@ -22,10 +22,12 @@ class Loading {
             indicator.startAnimating()
         } else {
             let indicator = NVActivityIndicatorView(
-                frame: UIScreen.main.bounds,
+                frame: CGRect(x: UIScreen.main.bounds.width/2 - 25,
+                              y: UIScreen.main.bounds.height/2 - 25,
+                              width: 50, height: 50),
                 type: .ballRotateChase,
                 color: .autoColor_indicator_color,
-                padding: UIScreen.main.bounds.width)
+                padding: 0)
             view.addSubview(indicator)
             view.tag = tag
             indicator.startAnimating()

@@ -60,7 +60,7 @@ class MyProfileViewController: UITableViewController {
     let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
     
     let storageRef = Storage.storage().reference()
-    let indicatorView = NVActivityIndicatorView(frame: UIScreen.main.bounds, type: .ballRotateChase, color: .autoColor_indicator_color, padding: UIScreen.main.bounds.width)
+    let loading = Loading()
     
     @IBOutlet weak var introduceCell: UITableViewCell!
     @IBOutlet weak var nameLabel: UILabel!
@@ -91,7 +91,6 @@ class MyProfileViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "myProfile".localized
-        view.addSubview(indicatorView)
         
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -193,11 +192,11 @@ class MyProfileViewController: UITableViewController {
             }
         }
         
-        indicatorView.startAnimating()
+        loading.show(viewController: self)
         uploadImage { isSucess in
             if (isSucess) {
                 updateProfile {
-                    self.indicatorView.stopAnimating()
+                    self.loading.hide()
                     if self.navigationController?.viewControllers.first == self {
                         UIApplication.shared.rootViewController = MainTabBarController.viewController
                     } else {
