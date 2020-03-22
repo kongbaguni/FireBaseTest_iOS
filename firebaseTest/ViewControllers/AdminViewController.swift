@@ -48,6 +48,9 @@ class AdminViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
         let key = keys[indexPath.section][indexPath.row]
         let vc = UIAlertController(title: "input Option", message: key.localized, preferredStyle: .alert)
         vc.addTextField { (textField) in
@@ -66,6 +69,7 @@ class AdminViewController: UITableViewController {
             }
         }))
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: cell)
         present(vc, animated: true, completion: nil)
     }
     

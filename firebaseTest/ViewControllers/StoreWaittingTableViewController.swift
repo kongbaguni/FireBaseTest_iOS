@@ -89,6 +89,7 @@ class StoreWaittingTableViewController: UITableViewController {
                     }))
                 }
                 ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+                ac.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: self.postLogBtn)
                 self.present(ac, animated: true, completion: nil)
         }.disposed(by: disposebag)
         

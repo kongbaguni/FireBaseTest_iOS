@@ -183,6 +183,7 @@ class HoldemViewController : UIViewController {
                     errAlert.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { (_) in
                         bettingPointAlert(didBetting: didBetting)
                     }))
+                    errAlert.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: sender)
                     self.present(errAlert, animated: true, completion: nil)
                     return
                 }
@@ -190,6 +191,7 @@ class HoldemViewController : UIViewController {
                 didBetting(betting)
             }))
             vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: sender)
             present(vc, animated: true, completion: nil)
         }
         
@@ -213,6 +215,7 @@ class HoldemViewController : UIViewController {
                 }
             }))
             vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: sender)
             self.present(vc, animated: true, completion: nil)
         }
         
@@ -240,6 +243,7 @@ class HoldemViewController : UIViewController {
                 }))
             }
             ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            ac.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: self.gamePlayButton!)
             present(ac, animated: true, completion: nil)
         }
         
@@ -423,6 +427,7 @@ class HoldemViewController : UIViewController {
                 vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: { (_) in
                     newGame()
                 }))
+                vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: self.gamePlayButton)
                 present(vc, animated: true, completion: nil)
                 return
             } else {

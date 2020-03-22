@@ -236,6 +236,7 @@ class TodaysTalksTableViewController: UITableViewController {
             }
         }))
         vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        vc.popoverPresentationController?.barButtonItem = self.toolBar.items?.last
         present(vc, animated: true, completion: nil)
     }
     
@@ -271,6 +272,7 @@ class TodaysTalksTableViewController: UITableViewController {
         }))
         
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        vc.popoverPresentationController?.barButtonItem = sender
         present(vc, animated: true, completion: nil)
     }
     

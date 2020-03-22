@@ -144,6 +144,7 @@
 		C3DC5B92241234A100A028E0 /* TodayTalksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTalksTableViewCell.swift; sourceTree = "<group>"; };
 		C3DC5B94241243D400A028E0 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 		C3EB27A524263BF200CA59F7 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
+		C3EB27A724270FB400CA59F7 /* mask now.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mask now.entitlements"; sourceTree = "<group>"; };
 		C3EDFB04241C6137003EF787 /* StoreStockLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreStockLogModel.swift; sourceTree = "<group>"; };
 		C3EDFB06241C653A003EF787 /* StoreStockLogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreStockLogTableViewController.swift; sourceTree = "<group>"; };
 		C3EF51C2240CE56A00A4C29E /* UserInfoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDetailViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +273,7 @@
 		C3BDFBFD240CD79D006AE2B3 /* firebaseTest */ = {
 			isa = PBXGroup;
 			children = (
+				C3EB27A724270FB400CA59F7 /* mask now.entitlements */,
 				C3630FD1241B51C1003479C2 /* Game */,
 				C3DC5B8D241221EE00A028E0 /* Utills */,
 				C3FED0B7240F7C90007A4F4F /* firebaseUtil */,
@@ -689,6 +691,7 @@
 			baseConfigurationReference = 0F06ABC7138C7FD26E1EA293 /* Pods-firebaseTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "firebaseTest/mask now.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = QU9EPTU238;
@@ -700,6 +703,7 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.kongbaguni.masknow;
 				PRODUCT_NAME = "mask now";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -710,6 +714,7 @@
 			baseConfigurationReference = FB28C5BE5C3633710658148E /* Pods-firebaseTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "firebaseTest/mask now.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = QU9EPTU238;
@@ -721,6 +726,7 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.kongbaguni.masknow;
 				PRODUCT_NAME = "mask now";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

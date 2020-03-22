@@ -137,6 +137,7 @@ class StoresTableViewController: UITableViewController {
     
     @objc func onTouchupNavigationBarButton(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
         vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (_) in
             self.performSegue(withIdentifier: "showProfile", sender: nil)
         }))
@@ -150,6 +151,7 @@ class StoresTableViewController: UITableViewController {
             UserInfo.info?.logout()
         }))
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        vc.popoverPresentationController?.barButtonItem = sender
         present(vc, animated: true, completion: nil)        
     }
     

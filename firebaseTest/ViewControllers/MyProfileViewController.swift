@@ -236,6 +236,7 @@ class MyProfileViewController: UITableViewController {
             self.profileImageDeleteMode = .delete
         }))
         ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        ac.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: sender)
         present(ac, animated: true, completion: nil)
     }
     

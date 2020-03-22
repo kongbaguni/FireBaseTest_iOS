@@ -88,20 +88,22 @@ class UserInfoDetailViewController: UITableViewController {
         print(indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let cell = tableView.cellForRow(at: indexPath)
-        switch cell?.reuseIdentifier {
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
+        switch cell.reuseIdentifier {
         case "profileImage":
             let vc = StatusViewController.viewController
             vc.userId = self.userId
             present(vc, animated: true, completion: nil)
         case "email":
-            if cell?.textLabel?.text == UserInfo.info?.email {
+            if cell.textLabel?.text == UserInfo.info?.email {
                 return
             }
             let msg = String(format:"Send an email to %@".localized, user?.name ?? "")
             let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
             vc.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { (_) in
-                if let txt = cell?.textLabel?.text {
+                if let txt = cell.textLabel?.text {
                     if let url = URL(string: "mailto:\(txt)") {
                         if UIApplication.shared.canOpenURL(url) {
                             UIApplication.shared.open(url)
@@ -110,6 +112,7 @@ class UserInfoDetailViewController: UITableViewController {
                 }
             }))
             vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: cell.contentView)
             present(vc, animated: true, completion: nil)
         case "point":
             googlead.showAd(targetViewController: self) { (isSucess) in

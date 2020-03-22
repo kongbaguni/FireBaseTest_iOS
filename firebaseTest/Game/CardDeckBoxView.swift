@@ -38,7 +38,7 @@ class CardDeckBoxView: UIView {
     func setCards() {
         for view in self.subviews {
             view.removeFromSuperview()
-        }
+        }        
         for i in 0...GameManager.shared.deckBoxCardsCount {
             let view = UIImageView(image: #imageLiteral(resourceName: "gray_back"))
             view.frame.size = CGSize(width: 40, height: 70)

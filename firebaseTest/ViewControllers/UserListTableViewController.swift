@@ -129,6 +129,7 @@ class UserListTableViewController: UITableViewController {
         }))
         
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        vc.popoverPresentationController?.barButtonItem = sender
         present(vc, animated: true, completion: nil)
         
     }

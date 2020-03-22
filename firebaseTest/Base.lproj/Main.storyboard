@@ -2558,7 +2558,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J5O-pV-YWe" customClass="CardDeckBoxView" customModule="mask_now" customModuleProvider="target">
-                                            <rect key="frame" x="10" y="199" width="394" height="80"/>
+                                            <rect key="frame" x="32" y="199" width="350" height="80"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="80" id="RkN-tI-27l"/>
@@ -2579,6 +2579,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Zy4-o4-U0q" firstAttribute="centerY" secondItem="MeE-v7-bLj" secondAttribute="centerY" constant="50" id="20L-ze-d9P"/>
+                                        <constraint firstItem="J5O-pV-YWe" firstAttribute="trailing" secondItem="Zy4-o4-U0q" secondAttribute="trailing" id="2yr-EE-oub"/>
                                         <constraint firstItem="u0s-Fa-hk6" firstAttribute="bottom" secondItem="hdT-Lo-UEW" secondAttribute="bottom" constant="5" id="4AG-6n-ChV"/>
                                         <constraint firstItem="8tw-Uq-2L6" firstAttribute="trailing" secondItem="u0s-Fa-hk6" secondAttribute="trailing" id="DNL-kg-57H"/>
                                         <constraint firstItem="plR-gG-kWZ" firstAttribute="top" secondItem="Zy4-o4-U0q" secondAttribute="bottom" constant="10" id="DdX-JB-ct3"/>
@@ -2594,14 +2595,13 @@
                                         <constraint firstItem="GVh-WT-zEW" firstAttribute="top" secondItem="Zy4-o4-U0q" secondAttribute="top" constant="10" id="MnH-ys-WnI"/>
                                         <constraint firstItem="plR-gG-kWZ" firstAttribute="trailing" secondItem="Zy4-o4-U0q" secondAttribute="trailing" id="N7y-Yp-ghz"/>
                                         <constraint firstItem="hdT-Lo-UEW" firstAttribute="centerX" secondItem="8CQ-3m-Qol" secondAttribute="centerX" id="NMv-DE-uzh"/>
-                                        <constraint firstItem="J5O-pV-YWe" firstAttribute="leading" secondItem="MeE-v7-bLj" secondAttribute="leading" constant="10" id="Qy7-cg-vK8"/>
+                                        <constraint firstItem="J5O-pV-YWe" firstAttribute="leading" secondItem="Zy4-o4-U0q" secondAttribute="leading" id="QUl-qF-w68"/>
                                         <constraint firstItem="8CQ-3m-Qol" firstAttribute="centerX" secondItem="Zy4-o4-U0q" secondAttribute="centerX" id="bfX-VX-61N"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hdT-Lo-UEW" secondAttribute="trailing" constant="20" id="clW-SF-1lU"/>
                                         <constraint firstItem="Pdd-7N-gew" firstAttribute="centerX" secondItem="Zy4-o4-U0q" secondAttribute="centerX" id="du6-0U-rYp"/>
                                         <constraint firstItem="plR-gG-kWZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zCi-UF-Uxv" secondAttribute="trailing" constant="10" id="how-QM-trj"/>
                                         <constraint firstItem="Zy4-o4-U0q" firstAttribute="centerX" secondItem="MeE-v7-bLj" secondAttribute="centerX" id="lhg-3r-EEf"/>
                                         <constraint firstItem="8tw-Uq-2L6" firstAttribute="bottom" secondItem="u0s-Fa-hk6" secondAttribute="bottom" id="maJ-FZ-39u"/>
-                                        <constraint firstAttribute="trailing" secondItem="J5O-pV-YWe" secondAttribute="trailing" constant="10" id="reG-1J-jp1"/>
                                         <constraint firstItem="hdT-Lo-UEW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MeE-v7-bLj" secondAttribute="leading" constant="20" id="s1v-rd-FiW"/>
                                         <constraint firstItem="8tw-Uq-2L6" firstAttribute="top" secondItem="u0s-Fa-hk6" secondAttribute="top" id="smz-Ka-yIa"/>
                                         <constraint firstItem="J5O-pV-YWe" firstAttribute="top" secondItem="8CQ-3m-Qol" secondAttribute="bottom" constant="15" id="vHW-Ja-3Wh"/>

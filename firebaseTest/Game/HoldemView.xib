@@ -42,63 +42,63 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="qdI-Dh-Me7">
-                    <rect key="frame" x="187" y="167" width="50.000000000000057" height="80"/>
+                    <rect key="frame" x="187" y="167" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="0nf-ai-TIm"/>
                         <constraint firstAttribute="height" constant="80" id="BtN-S6-SUy"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="g2l-VP-CPv">
-                    <rect key="frame" x="241.99999999999997" y="167" width="50.000000000000085" height="80"/>
+                    <rect key="frame" x="242" y="167" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="KaH-cF-JDi"/>
                         <constraint firstAttribute="height" constant="80" id="ZNh-pd-kn2"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="5bX-tq-M9H">
-                    <rect key="frame" x="297" y="167" width="50.000000000000057" height="80"/>
+                    <rect key="frame" x="297" y="167" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="6s0-tm-qSw"/>
                         <constraint firstAttribute="height" constant="80" id="ZID-96-q0b"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="7sT-Nt-Xbx">
-                    <rect key="frame" x="132" y="167" width="50.000000000000057" height="80"/>
+                    <rect key="frame" x="132" y="167" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="vVe-Xv-R4m"/>
                         <constraint firstAttribute="height" constant="80" id="z95-GG-osH"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="RPS-DB-kwX">
-                    <rect key="frame" x="77" y="167" width="50.000000000000057" height="80"/>
+                    <rect key="frame" x="77" y="167" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="38z-tO-eQ0"/>
                         <constraint firstAttribute="width" constant="50" id="hfK-Od-FGj"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="t39-6w-zY2">
-                    <rect key="frame" x="241.99999999999997" y="277" width="50.000000000000085" height="80"/>
+                    <rect key="frame" x="242" y="277" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="DcG-ag-KoX"/>
                         <constraint firstAttribute="width" constant="50" id="s7s-eI-1XU"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="nfK-lu-oz0">
-                    <rect key="frame" x="297" y="277" width="50.000000000000057" height="80"/>
+                    <rect key="frame" x="297" y="277" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="5wb-mG-x8x"/>
                         <constraint firstAttribute="width" constant="50" id="Q22-Rh-c69"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="ekM-LH-aD2">
-                    <rect key="frame" x="77" y="57" width="50.000000000000057" height="80"/>
+                    <rect key="frame" x="77" y="57" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="64E-JT-a98"/>
                         <constraint firstAttribute="width" constant="50" id="NIO-Ar-JfK"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_back" translatesAutoresizingMaskIntoConstraints="NO" id="j9s-Yn-r5l">
-                    <rect key="frame" x="132" y="57" width="50.000000000000057" height="80"/>
+                    <rect key="frame" x="132" y="57" width="50" height="80"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="caK-a6-miv"/>
                         <constraint firstAttribute="height" constant="80" id="sG8-Ko-4z4"/>

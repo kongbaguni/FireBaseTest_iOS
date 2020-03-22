@@ -205,6 +205,7 @@ class PostTalkViewController: UITableViewController {
                     }
                 }))
                 vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+                vc.popoverPresentationController?.barButtonItem = sender
                 self.present(vc, animated: true, completion: nil)
                 sender.isEnabled = true
                 return
@@ -223,7 +224,9 @@ class PostTalkViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let cell = tableView.cellForRow(at: indexPath)
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
         if cell == imageView.superview?.superview {
             let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "camera".localized, style: .default, handler: { (_) in
@@ -243,6 +246,7 @@ class PostTalkViewController: UITableViewController {
                 self.imageWillDelete = true
             }))
             ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            ac.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: cell.contentView)
             present(ac, animated: true, completion: nil)
         }
     }
