@@ -458,7 +458,7 @@
                                             <constraint firstItem="LOl-5Q-YRh" firstAttribute="leading" secondItem="3Kd-rm-rjk" secondAttribute="leading" constant="20" id="iPC-E6-LCB"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="anonymousInventoryReport" id="Mpz-U6-KaN">
+                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="anonymousInventoryReport" id="Mpz-U6-KaN">
                                         <rect key="frame" x="0.0" y="365.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mpz-U6-KaN" id="dZW-tY-EWJ">
@@ -2700,7 +2700,7 @@
         <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
         <segue reference="qKc-Bh-NmP"/>
-        <segue reference="IOd-bS-gNt"/>
+        <segue reference="XpR-Cm-hF3"/>
         <segue reference="tNh-p3-JAq"/>
     </inferredMetricsTieBreakers>
 </document>

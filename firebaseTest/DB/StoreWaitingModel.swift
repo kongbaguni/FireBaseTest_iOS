@@ -69,9 +69,9 @@ class StoreWaitingModel : Object {
         let subColection = shopDoc.collection("waiting_logs")
         let document = subColection.document("\(storeCode)_\(time)")
         
-        var uploaderId = UserInfo.info?.id ?? "guest"
-        if UserInfo.info?.isAnonymousInventoryReport == true {
-            uploaderId = "guest"
+        guard let uploaderId = UserInfo.info?.id else {
+            complete(false)
+            return
         }
         
         let data:[String:Any] = [

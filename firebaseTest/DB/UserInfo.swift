@@ -118,7 +118,8 @@ class UserInfo : Object {
         if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
             self.lastTalkTimeInterval = lastTalkTime
         }
-        isAnonymousInventoryReport = info["isAnonymousInventoryReport"] as? Bool ?? false
+//        isAnonymousInventoryReport = info["isAnonymousInventoryReport"] as? Bool ?? false
+        isAnonymousInventoryReport = false
         updateDt = Date(timeIntervalSince1970: (info["updateTimeIntervalSince1970"] as? Double ?? 0))
         point = info["point"] as? Int ?? 0
         distanceForSearch = info["distanceForSearch"] as? Int ?? Consts.DISTANCE_STORE_SEARCH
@@ -211,7 +212,7 @@ class UserInfo : Object {
             "point" : point,
             "level" : level,
             "exp" : exp,
-            "isAnonymousInventoryReport" : isAnonymousInventoryReport,
+            "isAnonymousInventoryReport" : false //isAnonymousInventoryReport,
         ]
         
         document.updateData(data) {(error) in

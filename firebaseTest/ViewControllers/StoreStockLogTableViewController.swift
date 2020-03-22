@@ -75,6 +75,11 @@ class StoreStockLogTableViewController: UITableViewController {
     
     func uploadLogIfNeed(complete:@escaping(_ isSucess:Bool)->Void) {
         guard let store = self.store else {
+            complete(false)
+            return
+        }
+        guard let id = UserInfo.info?.id else {
+            complete(false)
             return
         }
         if logs?.first?.remain_stat != store.remain_stat {
@@ -82,11 +87,8 @@ class StoreStockLogTableViewController: UITableViewController {
             model.code = store.code
             model.remain_stat = store.remain_stat
             model.regDt = store.updateDt
-            if UserInfo.info?.isAnonymousInventoryReport == true {
-                model.uploaderId = "guest"
-            } else {
-                model.uploaderId = UserInfo.info?.id ?? "guest"
-            }
+            model.uploaderId = id
+            
             let realm = try! Realm()
             realm.beginWrite()
             realm.add(model, update: .all)

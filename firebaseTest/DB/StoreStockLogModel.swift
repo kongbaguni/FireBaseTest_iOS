@@ -53,7 +53,10 @@ class StoreStockLogModel: Object {
             complete(false)
             return
         }
-        
+        guard let uploaderId = UserInfo.info?.id else {
+            complete(false)
+            return
+        }
         let collection = Firestore.firestore().collection(FSCollectionName.STORE_STOCK)
         let docuId = id
         
@@ -62,10 +65,6 @@ class StoreStockLogModel: Object {
         let subColection = shopDoc.collection("stock_logs")
         let document = subColection.document("\(code)_\(time)")
         
-        var uploaderId = UserInfo.info?.id ?? "guest"
-        if UserInfo.info?.isAnonymousInventoryReport == true {
-            uploaderId = "guest"
-        }
         let data:[String:Any] = [
             "id":id,
             "shopcode":code,
