@@ -270,7 +270,10 @@ extension PostTalkViewController : UIImagePickerControllerDelegate {
             present(cropvc, animated: true, completion: nil)
         }
     }
-
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }
 extension PostTalkViewController : UINavigationControllerDelegate {
     
@@ -279,10 +282,12 @@ extension PostTalkViewController : UINavigationControllerDelegate {
 extension PostTalkViewController : CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropImageToRect rect: CGRect, angle: Int) {
         debugPrint(#function)
+        cropViewController.dismiss(animated: true, completion: nil)
     }
     
     func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
         debugPrint(#function)
+        cropViewController.dismiss(animated: true, completion: nil)
     }
     
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {

@@ -262,7 +262,7 @@ extension MyProfileViewController : UINavigationControllerDelegate {
 
 extension MyProfileViewController : UIImagePickerControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
+        picker.dismiss(animated: true, completion: nil)
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print(info)
@@ -279,11 +279,11 @@ extension MyProfileViewController : UIImagePickerControllerDelegate {
 
 extension MyProfileViewController : CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropImageToRect rect: CGRect, angle: Int) {
-        debugPrint(#function)
+        cropViewController.dismiss(animated: true, completion: nil)
     }
     
     func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
-        debugPrint(#function)
+        cropViewController.dismiss(animated: true, completion: nil)
     }
     
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
@@ -320,4 +320,5 @@ extension MyProfileViewController : UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectSearchDistance = Consts.SEARCH_DISTANCE_LIST[row]
     }
+    
 }
