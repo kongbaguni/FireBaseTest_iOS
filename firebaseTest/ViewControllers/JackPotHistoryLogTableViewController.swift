@@ -19,7 +19,7 @@ class JackPotHistoryLogTableViewController: UITableViewController {
     }
     
     var logs:Results<JackPotLogModel> {
-        try! Realm().objects(JackPotLogModel.self).sorted(byKeyPath: "regTimeIntervalSince1970", ascending: true)
+        try! Realm().objects(JackPotLogModel.self).sorted(byKeyPath: "regTimeIntervalSince1970", ascending: false)
     }
     
     override func viewDidLoad() {
@@ -49,6 +49,18 @@ class JackPotHistoryLogTableViewController: UITableViewController {
         let log = logs[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = log.point.decimalForamtString
+
+        let title = NSMutableAttributedString()
+        title.append(NSAttributedString(string: abs(log.point).decimalForamtString, attributes: [
+            .foregroundColor : log.point < 0 ? UIColor.autoColor_bold_text_color : UIColor.autoColor_weak_text_color ,
+            .font : UIFont.boldSystemFont(ofSize: 15)
+        ]))
+        title.append(NSAttributedString(string: log.point < 0 ?  "Paid".localized :  "Earned".localized , attributes: [
+            .foregroundColor : UIColor.autoColor_weak_text_color,
+            .font : UIFont.systemFont(ofSize: 10)
+        ]))
+        cell.textLabel?.attributedText = title
+        
         let text = NSMutableAttributedString()
         
         text.append(NSAttributedString(string: log.regDt.relativeTimeStringValue, attributes: [

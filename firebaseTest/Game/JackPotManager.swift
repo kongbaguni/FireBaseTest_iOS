@@ -39,7 +39,14 @@ class JackPotManager {
         if p > AdminOptions.shared.maxJackPotPoint {
             p = AdminOptions.shared.maxJackPotPoint
         }
-        setPoint(p, complete: complete)
+        addJackPotHistoryLog(jackPotPoint: value) { [weak self](sucess) in
+            if sucess {
+                self?.setPoint(p, complete: complete)
+            }
+            else {
+                complete(false)
+            }
+        }
     }
     
     fileprivate func setPoint(_ value:Int, complete:@escaping(_ isSucess:Bool)->Void) {
@@ -57,6 +64,7 @@ class JackPotManager {
         }
     }
     
+    /** 잭팟 로그 작성.  잭팟 적립은 젝팟 포인트 양수로  잭팟  지금은 은 음수로 입력.*/
     fileprivate func addJackPotHistoryLog(jackPotPoint:Int, complete:@escaping(_ isSucess:Bool)->Void) {
         let id = "\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)"
         dbcollection.document("history").collection("log").addDocument(data: [
@@ -103,7 +111,7 @@ class JackPotManager {
             if isSucess == false {
                 complete(nil)
             } else {
-                self.addJackPotHistoryLog(jackPotPoint: jackPot) { (isSucess) in
+                self.addJackPotHistoryLog(jackPotPoint: -jackPot) { (isSucess) in
                     if isSucess {
                         self.getData { (isSucess) in
                             if isSucess {
