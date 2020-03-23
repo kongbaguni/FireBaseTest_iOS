@@ -115,6 +115,7 @@ class MyProfileViewController: UITableViewController {
         
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
+        leaveCell.isHidden = hideLeaveCell
     }
         
     private func loadData() {

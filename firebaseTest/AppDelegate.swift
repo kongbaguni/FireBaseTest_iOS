@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if isNew {
                         AdminOptions.shared.getData {
                             let vc = MyProfileViewController.viewController
-                            vc.hideLeaveCell = true                            
+                            vc.hideLeaveCell = true
                             UIApplication.shared.rootViewController = UINavigationController(rootViewController:vc)
                         }
                     } else {
@@ -103,7 +103,9 @@ extension AppDelegate : GIDSignInDelegate {
                     UserInfo.info?.syncData(complete: { (isNew) in
                         AdminOptions.shared.getData {
                             if isNew {
-                                UIApplication.shared.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                                let vc = MyProfileViewController.viewController
+                                vc.hideLeaveCell = true
+                                UIApplication.shared.rootViewController = UINavigationController(rootViewController: vc)
                             }
                             else {
                                 UIApplication.shared.rootViewController  = MainTabBarController.viewController
