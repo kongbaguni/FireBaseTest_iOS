@@ -178,10 +178,20 @@ class UserInfo : Object {
             }
         }
 
-        
+       
         document.getDocument { (snapshot, error) in
             if let doc = snapshot {
                 isNew = false
+                if doc.data()?.count == 0 || doc.data() == nil {
+                    if syncAll {
+                        getOtherUserInfo {
+                            complete(true)
+                        }
+                    } else {
+                        complete(true)
+                    }
+                    return
+                }
                 doc.data().map { info in
                     let realm = try! Realm()
                     if let uinfo = realm.object(ofType: UserInfo.self, forPrimaryKey: userId) {
@@ -189,17 +199,18 @@ class UserInfo : Object {
                         uinfo.setData(info: info)
                         try! realm.commitWrite()
                         if syncAll == false {
-                            complete(isNew)
+                            complete(false)
                         } else {
                             getOtherUserInfo {
-                                complete(isNew)
+                                complete(false)
                             }
                         }
-                        
                     }
                 }
             }
-        }        
+        }
+        
+    
     }
     
     /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
