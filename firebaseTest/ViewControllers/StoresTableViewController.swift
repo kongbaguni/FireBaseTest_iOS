@@ -205,6 +205,9 @@ class StoresTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell") as! StoresTableViewCell
         
         let list = getStoreList(type: getSectionType(section: indexPath.section))
+        if indexPath.row >= list.count {
+            return UITableViewCell()
+        }
         let data = list[indexPath.row]
         cell.storeId = data.code
         return cell
@@ -252,6 +255,9 @@ class StoresTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let list = getStoreList(type: getSectionType(section: indexPath.section))
+        if indexPath.row >= list.count {
+            return
+        }
         let data = list[indexPath.row]
         performSegue(withIdentifier: "showMap", sender: data.code)
     }

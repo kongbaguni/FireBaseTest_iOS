@@ -59,7 +59,12 @@ class LoginViewController: UIViewController {
             maskNowBtn.setImage(maskIcon, for: .normal)
         }
         versionLabel.text = "ver : \(UIApplication.shared.version)"
-        
+        versionLabel.alpha = 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
+            UIView.animate(withDuration: 0.5) {
+                self?.versionLabel.alpha = 1
+            }
+        }
     }
     
     @IBAction func onTouchupLoginGoogleBtn(_ sender:UIButton) {

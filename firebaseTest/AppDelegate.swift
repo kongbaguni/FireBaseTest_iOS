@@ -47,7 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 userInfo.syncData { (isNew) in
                     if isNew {
                         AdminOptions.shared.getData {
-                                UIApplication.shared.rootViewController = UINavigationController(rootViewController:  MyProfileViewController.viewController)
+                            let vc = MyProfileViewController.viewController
+                            vc.hideLeaveCell = true
+                            UIApplication.shared.rootViewController = UINavigationController(rootViewController:vc)
                         }
                     } else {
                         AdminOptions.shared.getData {

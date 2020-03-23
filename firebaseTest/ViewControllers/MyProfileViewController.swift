@@ -24,7 +24,7 @@ class MyProfileViewController: UITableViewController {
     }
     
     private var profileImageBase64String:String? = nil
-    
+    var hideLeaveCell = false 
     enum ProfileImageDeleteMode {
         case delete
         case googlePhoto
@@ -71,7 +71,10 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var searchDistanceLabel: UILabel!
     @IBOutlet weak var searchDistanceTextField: UITextField!
-    
+    /** 탈퇴하기 라벨*/
+    @IBOutlet weak var leaveLabel: UILabel!
+
+    @IBOutlet weak var leaveCell: UITableViewCell!
     @IBOutlet weak var anonymousInventoryReportTitleLabel: UILabel!
     @IBOutlet weak var anonymousInventoryReportTitleSwitch: UISwitch!
     
@@ -110,7 +113,6 @@ class MyProfileViewController: UITableViewController {
         
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
-
     }
     
     private func loadData() {
@@ -132,6 +134,8 @@ class MyProfileViewController: UITableViewController {
         nameLabel.text = "name".localized
         searchDistanceLabel.text = "search distance".localized
         anonymousInventoryReportTitleLabel.text = "anonymousInventoryReportTitle".localized
+        leaveLabel.text = "leave".localized
+        leaveCell.isHidden = self.hideLeaveCell
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
@@ -246,6 +250,36 @@ class MyProfileViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
+        switch cell.reuseIdentifier {
+        case "leave":
+            let vc = UIAlertController(title: "leave alert msg title".localized,
+                                       message: "leave alert msg desc".localized, preferredStyle: .alert)
+            vc.addAction(UIAlertAction(title: "leave".localized, style: .default, handler: { (_) in
+                Firestore.firestore().collection(FSCollectionName.USERS).document(UserInfo.info?.id ?? "").delete { [weak self] (error) in
+                    self?.tableView.deselectRow(at: indexPath, animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                        if error == nil {
+                            UserInfo.info?.logout(isDeleteAll: true)
+                        }
+                    }
+                }
+            }))
+            vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel){ [weak self] _ in
+                self?.tableView.deselectRow(at: indexPath, animated: true)
+            })
+            vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: cell.contentView)
+            present(vc, animated: true, completion: nil)
+        default:
+            tableView.deselectRow(at: indexPath, animated: true)
+
+            break
+        }
     }
 
 }

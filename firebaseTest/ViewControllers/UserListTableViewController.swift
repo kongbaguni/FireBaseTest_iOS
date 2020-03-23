@@ -96,7 +96,9 @@ class UserListTableViewController: UITableViewController {
         case 0:
             cell.userId = UserInfo.info!.id
         case 1:
-            cell.userId = users[indexPath.row].id
+            if indexPath.row < users.count {
+                cell.userId = users[indexPath.row].id
+            }
         default:
             break
         }

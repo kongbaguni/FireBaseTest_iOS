@@ -46,6 +46,9 @@ class JackPotHistoryLogTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row >= logs.count {
+            return UITableViewCell()
+        }
         let log = logs[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = log.point.decimalForamtString

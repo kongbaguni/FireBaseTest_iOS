@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import FirebaseFirestore
 import RealmSwift
+import FirebaseAuth
+
 class UserInfo : Object {
     var id:String {
         return email
@@ -132,68 +134,72 @@ class UserInfo : Object {
         let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
         let document = dbCollection.document(self.email)
         let userId = self.id
-        var isNew = false
+        var isNew = true
+        /** 다른 유저 정보 가져오기 */
+        func getOtherUserInfo(getOtherUserComplete:@escaping()->Void) {
+            var query =
+                dbCollection
+                    .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
+            
+            if let lastUser =
+                try! Realm().objects(UserInfo.self).filter("email != %@", UserInfo.info!.email)
+                    .sorted(byKeyPath: "updateDt").last {
+                query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateDt.timeIntervalSince1970)
+            }
+            
+            query
+                .getDocuments { (snapShot, error) in
+                    var newUsers:[UserInfo] = []
+                    for doc in snapShot?.documents ?? [] {
+                        let info = doc.data()
+                        guard let email = info["email"] as? String else {
+                            continue
+                        }
+                        if email == self.email {
+                            continue
+                        }
+                        let userInfo = UserInfo()
+                        userInfo.email = email
+                        userInfo.setData(info: info)
+                        if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
+                            userInfo.lastTalkTimeInterval = lastTalkTime
+                        }
+                        
+                        newUsers.append(userInfo)
+                    }
+                    debugPrint("사용자 정보 갱신 : \(newUsers.count)")
+                    if newUsers.count > 0 {
+                        let realm = try! Realm()
+                        realm.beginWrite()
+                        realm.add(newUsers,update: .all)
+                        try! realm.commitWrite()
+                    }
+                    getOtherUserComplete()
+            }
+        }
+
+        
         document.getDocument { (snapshot, error) in
             if let doc = snapshot {
-                var count = 0
+                isNew = false
                 doc.data().map { info in
                     let realm = try! Realm()
                     if let uinfo = realm.object(ofType: UserInfo.self, forPrimaryKey: userId) {
                         realm.beginWrite()
                         uinfo.setData(info: info)
                         try! realm.commitWrite()
+                        if syncAll == false {
+                            complete(isNew)
+                        } else {
+                            getOtherUserInfo {
+                                complete(isNew)
+                            }
+                        }
+                        
                     }
-                    count += 1
-                }
-                isNew = count == 0
-                if syncAll == false {
-                    complete(isNew)
                 }
             }
-        }
-        if syncAll == false {
-            return
-        }
-        // 다른 유저 정보 가져오기
-        var query =
-            dbCollection
-                .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
-
-        if let lastUser =
-            try! Realm().objects(UserInfo.self).filter("email != %@", UserInfo.info!.email)
-                .sorted(byKeyPath: "updateDt").last {
-            query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateDt.timeIntervalSince1970)
-        }
-        
-        query
-            .getDocuments { (snapShot, error) in
-            var newUsers:[UserInfo] = []
-            for doc in snapShot?.documents ?? [] {
-                let info = doc.data()
-                guard let email = info["email"] as? String else {
-                    continue
-                }
-                if email == self.email {
-                    continue
-                }
-                let userInfo = UserInfo()
-                userInfo.email = email
-                userInfo.setData(info: info)
-                if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
-                    userInfo.lastTalkTimeInterval = lastTalkTime
-                }
-
-                newUsers.append(userInfo)
-            }
-                debugPrint("사용자 정보 갱신 : \(newUsers.count)")
-            if newUsers.count > 0 {
-                let realm = try! Realm()
-                realm.beginWrite()
-                realm.add(newUsers,update: .all)
-                try! realm.commitWrite()
-            }
-            complete(isNew)
-        }
+        }        
     }
     
     /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
@@ -234,15 +240,25 @@ class UserInfo : Object {
         }
     }
     
-    func logout() {
+    func logout(isDeleteAll:Bool = false) {
         UIApplication.shared.rootViewController = UIViewController()
         
         let realm = try! Realm()
         realm.beginWrite()
-        UserInfo.info?.idToken = ""
-        UserInfo.info?.accessToken = ""
+        if isDeleteAll {
+            realm.deleteAll()
+        } else {
+            UserInfo.info?.idToken = ""
+            UserInfo.info?.accessToken = ""
+        }
         try! realm.commitWrite()
         StoreModel.deleteAll()
+        
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print(error.localizedDescription)
+        }
         
         UIApplication.shared.rootViewController = LoginViewController.viewController
     }
