@@ -56,7 +56,11 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        
+        #if targetEnvironment(simulator)
+        let testLocations = [CLLocation(latitude: 37.0075355, longitude: 126.9816988)]
+        self.getLocation?(testLocations)
+        NotificationCenter.default.post(Notification(name: .locationUpdateNotification, object: testLocations, userInfo: nil))
+        #endif
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -65,7 +69,7 @@ extension LocationManager: CLLocationManagerDelegate {
         #if targetEnvironment(simulator)
         let testLocations = [CLLocation(latitude: 37.0075355, longitude: 126.9816988)]
         self.getLocation?(testLocations)
-        NotificationCenter.default.post(Notification(name: .locationUpdateNotification, object: locations, userInfo: nil))
+        NotificationCenter.default.post(Notification(name: .locationUpdateNotification, object: testLocations, userInfo: nil))
         #else
         self.getLocation?(locations)
         NotificationCenter.default.post(Notification(name: .locationUpdateNotification, object: locations, userInfo: nil))

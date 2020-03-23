@@ -118,6 +118,7 @@ class StoresTableViewController: UITableViewController {
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
         var cnt = 0
         ApiManager.shard.getStores { [weak self](count) in
+            sender.endRefreshing()
             switch LocationManager.shared.authStatus {
             case .denied, .none:
                 self?.emptyView.type = .locationNotAllow
@@ -125,7 +126,6 @@ class StoresTableViewController: UITableViewController {
                 break
             }
             if cnt == 0 {
-                sender.endRefreshing()
                 self?.emptyView.type = .empty
                 self?.setTableStyle()
                 self?.tableView.reloadData()
