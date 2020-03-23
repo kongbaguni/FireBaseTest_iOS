@@ -67,11 +67,15 @@ struct FSCollectionName {
     static let ADMIN = "admin_TEST"
     static let TALKS = "talks_TEST"
     static let USERS = "users_TEST"
+    static let STORAGE_PROFILE_IMAGE = "profileImages_TEST"
+    static let STORAGE_TLAK_IMAGE = "tlak_images_TEST"
     #else
     static let STORE_STOCK = "storeStock"
     static let JACKPOT = "jackPot"
     static let ADMIN = "admin"
     static let TALKS = "talks"
     static let USERS = "users"
+    static let STORAGE_PROFILE_IMAGE = "profileImages_TEST"
+    static let STORAGE_TLAK_IMAGE = "tlak_images"
     #endif
 }

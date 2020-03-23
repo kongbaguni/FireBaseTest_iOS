@@ -170,7 +170,7 @@ class PostTalkViewController: UITableViewController {
         
         func uploadImage(complete:@escaping(_ url:String?)->Void) {
             if let data = selectedImage?.af.imageAspectScaled(toFit: CGSize(width: 800, height: 800)).pngData() {
-                let uploadURL = "images/\(documentId):\(UUID().uuidString):\(Date().timeIntervalSince1970).png"
+                let uploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(documentId):\(UUID().uuidString):\(Date().timeIntervalSince1970).png"
                 print(uploadURL)
                 FirebaseStorageHelper().uploadImage(
                     withData: data,

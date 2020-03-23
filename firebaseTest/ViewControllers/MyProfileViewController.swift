@@ -150,7 +150,7 @@ class MyProfileViewController: UITableViewController {
                     FirebaseStorageHelper().uploadImage(
                         withData: data,
                         contentType: "image/png",
-                        uploadURL: "profileImages/\(UserInfo.info!.id).png") { (downloadUrl) in
+                        uploadURL: "\(FSCollectionName.STORAGE_PROFILE_IMAGE)/\(UserInfo.info!.id).png") { (downloadUrl) in
                             if (downloadUrl != nil) {
                                 print(downloadUrl?.absoluteString ?? "없다")
                                 do {

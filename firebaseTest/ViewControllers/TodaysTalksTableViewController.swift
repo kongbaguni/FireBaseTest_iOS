@@ -55,14 +55,23 @@ class TodaysTalksTableViewController: UITableViewController {
     @IBOutlet weak var nearTalkOptionLabel: UILabel!
     @IBOutlet weak var nearTalkOptionSwitch: UISwitch!
     
+    @IBOutlet weak var emptyViewLabel: UILabel!
+    @IBOutlet var emptyView: UIView!
+    
+    @IBOutlet weak var emptyViewWriteBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        emptyViewLabel.text = "todays talk desc".localized
+        emptyViewWriteBtn.setTitle("write talk".localized, for: .normal)
         title = "todays talks".localized
         searchBar.placeholder = "text search".localized
         hideGameOptionLabel.text = "hide game talk".localized
         hideGameOptionSwitch.isOn = UserDefaults.standard.isHideGameTalk
         nearTalkOptionLabel.text = "show near talk".localized
         nearTalkOptionSwitch.isOn = UserDefaults.standard.isShowNearTalk
+        if list.count == 0 {
+            tableView.addSubview(emptyView)
+        }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
@@ -128,8 +137,13 @@ class TodaysTalksTableViewController: UITableViewController {
         for view in [nearTalkOptionSwitch, hideGameOptionSwitch] {
             view?.onTintColor = .autoColor_switch_color
         }
+        emptyView.frame = tableView.frame
+        emptyView.frame.size.height -= (UIApplication.shared.statusBarFrame.height
+            + (navigationController?.navigationBar.frame.height ?? 0)
+            + 40
+        )
+        
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.onRefreshControl(UIRefreshControl())
@@ -154,20 +168,22 @@ class TodaysTalksTableViewController: UITableViewController {
     
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
         let oldCount = self.tableView.numberOfRows(inSection: 0)
-        UserInfo.info?.syncData(complete: { (_) in
+        UserInfo.info?.syncData(complete: { [weak self] (_) in
             TalkModel.syncDatas {
                 sender.endRefreshing()
-                self.tableView.reloadData()
-                if self.isNeedScrollToBottomWhenRefresh {
-                    let number = self.tableView.numberOfRows(inSection: 0)
-                    if oldCount != number {
-                        self.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
+                self?.emptyView.isHidden = self?.list.count != 0
+                self?.tableView.reloadData()
+                if self?.isNeedScrollToBottomWhenRefresh == true {
+                    if let number = self?.tableView.numberOfRows(inSection: 0) {
+                        if oldCount != number {
+                            self?.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
+                        }
+                        self?.isNeedScrollToBottomWhenRefresh = false
                     }
-                    self.isNeedScrollToBottomWhenRefresh = false
                 }
-                if let index = self.needScrolIndex {
-                    self.tableView.scrollToRow(at: index, at: .middle, animated: true)
-                    self.needScrolIndex = nil
+                if let index = self?.needScrolIndex {
+                    self?.tableView.scrollToRow(at: index, at: .middle, animated: true)
+                    self?.needScrolIndex = nil
                 }
             }
         })
@@ -276,8 +292,12 @@ class TodaysTalksTableViewController: UITableViewController {
         present(vc, animated: true, completion: nil)
     }
     
+    @IBAction func onTouchupWriteBtn(_ sender: UIButton) {
+        self.isNeedScrollToBottomWhenRefresh = true
+        self.performSegue(withIdentifier: "showTalk", sender: nil)
+    }
+    
     @objc func onTouchupAddBtn(_ sender:UIBarButtonItem) {
-        
         self.isNeedScrollToBottomWhenRefresh = true
         self.performSegue(withIdentifier: "showTalk", sender: nil)
         

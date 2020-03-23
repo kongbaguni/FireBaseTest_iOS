@@ -45,8 +45,6 @@ class StoresTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshCongrol(_:)), for: .valueChanged)
         setTableStyle()
         emptyView.delegate = self
-        emptyView.frame = view.frame
-        emptyView.frame.size.height = view.frame.height - 100
         tableViewHeaderButton.setTitle("view on map".localized, for: .normal)
         setHeaderTitle()
         NotificationCenter.default.addObserver(forName: .deletedStoreModel, object: nil, queue: nil) { [weak self](_) in
@@ -90,6 +88,11 @@ class StoresTableViewController: UITableViewController {
             dismiss(animated: true, completion: nil)
         }
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        emptyView.frame = view.frame
+        emptyView.frame.size.height = view.frame.height - 100
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -119,6 +122,7 @@ class StoresTableViewController: UITableViewController {
         var cnt = 0
         ApiManager.shard.getStores { [weak self](count) in
             sender.endRefreshing()
+            self?.emptyView.isHidden = count != 0
             switch LocationManager.shared.authStatus {
             case .denied, .none:
                 self?.emptyView.type = .locationNotAllow

@@ -319,7 +319,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="myProfile" title="todays talks" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ABD-kk-8hZ" customClass="MyProfileViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="loq-6k-dyw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <inset key="separatorInset" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -780,27 +780,28 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstItem="xfC-xj-2Q5" firstAttribute="leading" secondItem="Rxc-z7-abo" secondAttribute="leading" constant="20" id="CZh-K0-Gjd"/>
+                                <constraint firstItem="qxV-j9-f7E" firstAttribute="trailing" secondItem="xfC-xj-2Q5" secondAttribute="trailing" constant="20" id="2zc-Cn-qot"/>
+                                <constraint firstItem="xfC-xj-2Q5" firstAttribute="leading" secondItem="qxV-j9-f7E" secondAttribute="leading" constant="20" id="ALk-Pg-plg"/>
+                                <constraint firstItem="qxV-j9-f7E" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gNY-cj-drS" secondAttribute="trailing" constant="20" id="CAa-RW-5TT"/>
                                 <constraint firstItem="xfC-xj-2Q5" firstAttribute="top" secondItem="Rxc-z7-abo" secondAttribute="top" constant="10" id="MJj-N9-eWI"/>
                                 <constraint firstItem="gNY-cj-drS" firstAttribute="top" secondItem="xfC-xj-2Q5" secondAttribute="bottom" constant="8" id="Phn-wk-pTR"/>
-                                <constraint firstItem="gNY-cj-drS" firstAttribute="leading" secondItem="Rxc-z7-abo" secondAttribute="leading" constant="20" id="Ryf-1J-NhL"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gNY-cj-drS" secondAttribute="trailing" constant="20" id="Yd7-bU-U3g"/>
-                                <constraint firstAttribute="trailing" secondItem="xfC-xj-2Q5" secondAttribute="trailing" constant="20" id="bJw-sT-CY7"/>
+                                <constraint firstItem="gNY-cj-drS" firstAttribute="leading" secondItem="qxV-j9-f7E" secondAttribute="leading" constant="20" id="yrf-hr-9r9"/>
                             </constraints>
+                            <viewLayoutGuide key="safeArea" id="qxV-j9-f7E"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" id="uZR-JW-aLq" customClass="WaittingLogTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="108" width="414" height="135"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="82.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uZR-JW-aLq" id="1Zu-gV-7J8">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="135"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="82.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myBubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="rKI-J7-Xjx">
-                                            <rect key="frame" x="240.5" y="10" width="103.5" height="105"/>
+                                            <rect key="frame" x="240.5" y="10" width="103.5" height="52.5"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사람 많다" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rg9-aA-Wvy">
-                                            <rect key="frame" x="250.5" y="10" width="63.5" height="105"/>
+                                            <rect key="frame" x="250.5" y="10" width="63.5" height="52.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="z0e-Gt-nHc"/>
                                             </constraints>
@@ -846,10 +847,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="t1i-C0-ZwR" customClass="WaittingLogTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="243" width="414" height="135"/>
+                                <rect key="frame" x="0.0" y="190.5" width="414" height="82.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t1i-C0-ZwR" id="cco-In-jVs">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="135"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="82.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5vn-c1-SjP">
@@ -860,10 +861,10 @@
                                             </constraints>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="zYv-fE-wv2">
-                                            <rect key="frame" x="55" y="10" width="103.5" height="105"/>
+                                            <rect key="frame" x="55" y="10" width="103.5" height="52.5"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사람 많다" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xov-hZ-uR9">
-                                            <rect key="frame" x="85" y="10" width="63.5" height="105"/>
+                                            <rect key="frame" x="85" y="10" width="63.5" height="52.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="cfO-rW-IU8"/>
                                             </constraints>
@@ -939,7 +940,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000미터 근처에 마스크 살 수 있는 곳 : 10곳" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzc-dl-KTD">
-                                    <rect key="frame" x="10" y="91" width="394" height="20.5"/>
+                                    <rect key="frame" x="10" y="91" width="302.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -958,19 +959,20 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstItem="MaA-hW-Bua" firstAttribute="leading" secondItem="RUK-rH-DcN" secondAttribute="leading" constant="10" id="0u1-Ud-bY6"/>
                                 <constraint firstItem="oPW-yY-Bgc" firstAttribute="top" secondItem="RUK-rH-DcN" secondAttribute="top" symbolic="YES" id="3Ef-LZ-UOS"/>
                                 <constraint firstItem="nzc-dl-KTD" firstAttribute="top" secondItem="MaA-hW-Bua" secondAttribute="bottom" constant="10" id="465-I5-EqA"/>
-                                <constraint firstAttribute="trailing" secondItem="nzc-dl-KTD" secondAttribute="trailing" constant="10" id="7gV-rT-TfL"/>
+                                <constraint firstItem="atg-xI-0Pa" firstAttribute="leading" secondItem="Kg1-PC-j3f" secondAttribute="leading" constant="10" id="6Qk-1z-tbI"/>
                                 <constraint firstItem="atg-xI-0Pa" firstAttribute="top" secondItem="nzc-dl-KTD" secondAttribute="bottom" constant="10" id="A7J-IE-C7D"/>
-                                <constraint firstItem="atg-xI-0Pa" firstAttribute="leading" secondItem="RUK-rH-DcN" secondAttribute="leading" constant="10" id="K3O-Ez-NZQ"/>
+                                <constraint firstItem="Kg1-PC-j3f" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MaA-hW-Bua" secondAttribute="trailing" constant="10" id="KxV-RR-PMu"/>
                                 <constraint firstItem="MaA-hW-Bua" firstAttribute="top" secondItem="RUK-rH-DcN" secondAttribute="top" constant="60" id="LNc-1A-1bk"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MaA-hW-Bua" secondAttribute="trailing" constant="20" symbolic="YES" id="Ueh-He-5wr"/>
+                                <constraint firstItem="Kg1-PC-j3f" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="atg-xI-0Pa" secondAttribute="trailing" constant="10" id="Msa-xx-p9p"/>
+                                <constraint firstItem="Kg1-PC-j3f" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nzc-dl-KTD" secondAttribute="trailing" constant="10" id="bJM-lM-mSe"/>
+                                <constraint firstItem="nzc-dl-KTD" firstAttribute="leading" secondItem="Kg1-PC-j3f" secondAttribute="leading" constant="10" id="eW8-Tc-4gy"/>
                                 <constraint firstAttribute="trailing" secondItem="oPW-yY-Bgc" secondAttribute="trailing" symbolic="YES" id="iVy-ib-MjX"/>
-                                <constraint firstItem="nzc-dl-KTD" firstAttribute="leading" secondItem="RUK-rH-DcN" secondAttribute="leading" constant="10" id="jVa-xp-NV4"/>
                                 <constraint firstItem="oPW-yY-Bgc" firstAttribute="leading" secondItem="RUK-rH-DcN" secondAttribute="leading" symbolic="YES" id="nvF-eC-8bm"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="atg-xI-0Pa" secondAttribute="trailing" constant="20" symbolic="YES" id="toL-dk-A1h"/>
+                                <constraint firstItem="MaA-hW-Bua" firstAttribute="leading" secondItem="Kg1-PC-j3f" secondAttribute="leading" constant="10" id="qIl-rw-wDJ"/>
                             </constraints>
+                            <viewLayoutGuide key="safeArea" id="Kg1-PC-j3f"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="W3n-Hm-MmF">
                             <rect key="frame" x="0.0" y="316" width="414" height="50"/>
@@ -1346,8 +1348,6 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
                                         <constraint firstItem="SRS-gH-ePs" firstAttribute="centerY" secondItem="2gB-9q-kTy" secondAttribute="centerY" id="1g9-7j-kMA"/>
-                                        <constraint firstAttribute="trailing" secondItem="SRS-gH-ePs" secondAttribute="trailing" constant="20" id="3S5-m6-rPD"/>
-                                        <constraint firstItem="ZZU-wC-HfS" firstAttribute="leading" secondItem="2gB-9q-kTy" secondAttribute="leading" constant="20" id="KqN-e7-qen"/>
                                         <constraint firstItem="ZZU-wC-HfS" firstAttribute="centerY" secondItem="2gB-9q-kTy" secondAttribute="centerY" id="Vpe-0Z-JHn"/>
                                         <constraint firstItem="SRS-gH-ePs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZZU-wC-HfS" secondAttribute="trailing" constant="10" id="awj-kE-4jc"/>
                                         <constraint firstAttribute="height" constant="40" id="fhM-kO-CHD"/>
@@ -1368,11 +1368,9 @@
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="Me8-wq-QHJ" secondAttribute="trailing" constant="20" id="2cy-TD-xPT"/>
                                         <constraint firstItem="Me8-wq-QHJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z8G-MQ-Q8K" secondAttribute="trailing" constant="20" id="2m1-Cg-5dq"/>
                                         <constraint firstItem="Z8G-MQ-Q8K" firstAttribute="centerY" secondItem="pQx-b5-Akl" secondAttribute="centerY" id="ClC-mW-gIO"/>
                                         <constraint firstItem="Me8-wq-QHJ" firstAttribute="centerY" secondItem="pQx-b5-Akl" secondAttribute="centerY" id="UkX-jX-UZw"/>
-                                        <constraint firstItem="Z8G-MQ-Q8K" firstAttribute="leading" secondItem="pQx-b5-Akl" secondAttribute="leading" constant="20" id="ahq-7S-sWL"/>
                                         <constraint firstAttribute="height" constant="40" id="wON-JU-dnS"/>
                                     </constraints>
                                 </view>
@@ -1381,6 +1379,15 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="V1q-sx-yve" firstAttribute="trailing" secondItem="Me8-wq-QHJ" secondAttribute="trailing" constant="20" id="ItD-yN-GVr"/>
+                                <constraint firstItem="ZZU-wC-HfS" firstAttribute="leading" secondItem="V1q-sx-yve" secondAttribute="leading" constant="20" id="RkG-8q-nFR"/>
+                                <constraint firstItem="2gB-9q-kTy" firstAttribute="leading" secondItem="V1q-sx-yve" secondAttribute="leading" id="elA-Ti-Jrl"/>
+                                <constraint firstItem="V1q-sx-yve" firstAttribute="trailing" secondItem="2gB-9q-kTy" secondAttribute="trailing" id="l27-8P-hfV"/>
+                                <constraint firstItem="Z8G-MQ-Q8K" firstAttribute="leading" secondItem="V1q-sx-yve" secondAttribute="leading" constant="20" id="vGu-Yq-iYI"/>
+                                <constraint firstItem="V1q-sx-yve" firstAttribute="trailing" secondItem="SRS-gH-ePs" secondAttribute="trailing" constant="20" id="z3c-DF-Rbh"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="V1q-sx-yve"/>
                         </stackView>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Don-dR-dDV">
                             <rect key="frame" x="0.0" y="1963.5" width="414" height="44"/>
@@ -1909,6 +1916,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
+                        <outlet property="emptyView" destination="Svm-Tw-HPs" id="dFE-8k-Aqf"/>
+                        <outlet property="emptyViewLabel" destination="BMp-Kt-g7a" id="28c-kb-fNj"/>
+                        <outlet property="emptyViewWriteBtn" destination="6Xz-Fi-cFi" id="g04-Cs-QBH"/>
                         <outlet property="headerStackView" destination="TuX-nd-MPF" id="zlM-fU-oLR"/>
                         <outlet property="hideGameOptionLabel" destination="ZZU-wC-HfS" id="N8P-I4-txB"/>
                         <outlet property="hideGameOptionSwitch" destination="SRS-gH-ePs" id="MUt-9p-CqK"/>
@@ -1923,16 +1933,32 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sf3-h0-e65" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="Svm-Tw-HPs">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <rect key="frame" x="0.0" y="0.0" width="271" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘 무슨 일이 있었나요?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMp-Kt-g7a">
+                            <rect key="frame" x="20" y="112" width="231" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xz-Fi-cFi">
+                            <rect key="frame" x="114" y="142.5" width="43" height="30"/>
+                            <state key="normal" title="글 쓰기"/>
+                            <connections>
+                                <action selector="onTouchupWriteBtn:" destination="fhw-9x-wS1" eventType="touchUpInside" id="SXf-br-JJH"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="BMp-Kt-g7a" firstAttribute="centerY" secondItem="KVq-Yz-ThB" secondAttribute="centerY" id="1cG-PO-dHY"/>
+                        <constraint firstItem="KVq-Yz-ThB" firstAttribute="trailing" secondItem="BMp-Kt-g7a" secondAttribute="trailing" constant="20" id="Kqz-R1-l7E"/>
+                        <constraint firstItem="6Xz-Fi-cFi" firstAttribute="top" secondItem="BMp-Kt-g7a" secondAttribute="bottom" constant="10" id="SE8-Kp-F34"/>
+                        <constraint firstItem="BMp-Kt-g7a" firstAttribute="leading" secondItem="KVq-Yz-ThB" secondAttribute="leading" constant="20" id="s5l-1N-yRj"/>
+                        <constraint firstItem="6Xz-Fi-cFi" firstAttribute="centerX" secondItem="BMp-Kt-g7a" secondAttribute="centerX" id="uiq-fD-2jd"/>
+                    </constraints>
                     <viewLayoutGuide key="safeArea" id="KVq-Yz-ThB"/>
-                </view>
-                <view contentMode="scaleToFill" id="FmG-aC-ASl">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <viewLayoutGuide key="safeArea" id="r0Q-xM-Gbs"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="2492.753623188406" y="-91.071428571428569"/>
@@ -2724,10 +2750,10 @@
         <image name="title" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ccb-Uq-rfI"/>
+        <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
         <segue reference="qKc-Bh-NmP"/>
-        <segue reference="1aU-la-qB8"/>
+        <segue reference="IOd-bS-gNt"/>
         <segue reference="CyJ-tB-mFG"/>
     </inferredMetricsTieBreakers>
 </document>
