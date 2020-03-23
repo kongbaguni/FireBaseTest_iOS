@@ -24,7 +24,9 @@ class MyProfileViewController: UITableViewController {
     }
     
     private var profileImageBase64String:String? = nil
-    var hideLeaveCell = false 
+    
+    var hideLeaveCell = false
+    
     enum ProfileImageDeleteMode {
         case delete
         case googlePhoto
@@ -114,7 +116,7 @@ class MyProfileViewController: UITableViewController {
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
     }
-    
+        
     private func loadData() {
         if let userInfo = UserInfo.info {
             self.nameTextField.text = userInfo.name
@@ -282,6 +284,14 @@ class MyProfileViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        if cell.reuseIdentifier == "leave" {
+            cell.isHidden = hideLeaveCell
+        }
+        return cell
+    }
 }
 
 extension MyProfileViewController : UITextViewDelegate {

@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if isNew {
                         AdminOptions.shared.getData {
                             let vc = MyProfileViewController.viewController
-                            vc.hideLeaveCell = true
+                            vc.hideLeaveCell = true                            
                             UIApplication.shared.rootViewController = UINavigationController(rootViewController:vc)
                         }
                     } else {
