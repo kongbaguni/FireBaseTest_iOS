@@ -218,7 +218,7 @@ class MyProfileViewController: UITableViewController {
         }
     }
     
-    @IBAction func onTouchupProfileImageBtn(_ sender: UIButton) {
+    func onTouchupProfileImageBtn(sender:UIView,complete:@escaping()->Void) {
         //        "camera" = "카메라";
         //        "photoLibrary" = "사진 앨범";
         //        "cancel" = "취소";
@@ -230,22 +230,28 @@ class MyProfileViewController: UITableViewController {
             picker.sourceType = .camera
             picker.delegate = self
             self.present(picker, animated: true, completion: nil)
+            complete()
         }))
         ac.addAction(UIAlertAction(title: "photoLibrary".localized, style: .default, handler: { (_) in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .photoLibrary
             self.present(picker, animated: true, completion: nil)
+            complete()
         }))
         ac.addAction(UIAlertAction(title: "use google profile image".localized, style: .default, handler: { (_) in
             self.profileImageDeleteMode = .googlePhoto
             self.profileImageView.setImageUrl(url: UserInfo.info?.profileImageURLgoogle, placeHolder: #imageLiteral(resourceName: "profile"))
+            complete()
         }))
         
         ac.addAction(UIAlertAction(title: "delete".localized, style: .default, handler: { (_) in
             self.profileImageDeleteMode = .delete
+            complete()
         }))
-        ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel) { _ in
+            complete()
+        })
         ac.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: sender)
         present(ac, animated: true, completion: nil)
     }
@@ -264,6 +270,10 @@ class MyProfileViewController: UITableViewController {
             return
         }
         switch cell.reuseIdentifier {
+        case "photo":
+            self.onTouchupProfileImageBtn(sender: cell.contentView) {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
         case "leave":
             let vc = UIAlertController(title: "leave alert msg title".localized,
                                        message: "leave alert msg desc".localized, preferredStyle: .alert)
