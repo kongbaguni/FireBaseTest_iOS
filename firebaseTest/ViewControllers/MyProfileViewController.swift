@@ -139,6 +139,10 @@ class MyProfileViewController: UITableViewController {
         anonymousInventoryReportTitleLabel.text = "anonymousInventoryReportTitle".localized
         leaveLabel.text = "leave".localized
         leaveCell.isHidden = self.hideLeaveCell
+        
+        for view in [introduceTextView, searchDistanceTextField, nameTextField] {
+            view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 5)
+        }
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
