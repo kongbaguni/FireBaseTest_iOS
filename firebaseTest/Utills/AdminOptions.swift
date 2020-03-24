@@ -133,8 +133,8 @@ class AdminOptions {
             "defaultPoint"
         ],
         [
-            "canUsePokerLevel",
             "isUsePoker",
+            "canUsePokerLevel",
             "minBettingPoint",
             "maxBettingPoint",
             "maxJackPotPoint",
