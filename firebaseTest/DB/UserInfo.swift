@@ -341,4 +341,23 @@ class UserInfo : Object {
             complete(err == nil)
         }
     }
+    
+    /** 이전 레벨까지 경험치*/
+    var prevLevelExp:Int {
+        let level = self.level
+        var exp = 0
+        for i in 0..<level-1 {
+            exp += AdminOptions.shared.levelup_req_exp_base + (AdminOptions.shared.levelup_req_exp_plus * i)
+        }
+        return exp
+    }
+    /** 다음 레벨까지 경험치*/
+    var nextLevelupExp:Int {
+        let level = self.level
+        var exp = 0
+        for i in 0...level-1 {
+            exp += AdminOptions.shared.levelup_req_exp_base + (AdminOptions.shared.levelup_req_exp_plus * i)
+        }
+        return exp
+    }
 }

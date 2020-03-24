@@ -152,14 +152,16 @@ class StatusViewController: UIViewController {
         levelLabel.textColor = .autoColor_bold_text_color
 
         func setExp(exp:Int,animated:Bool) {
-            let maxExp = AdminOptions.shared.levelup_req_exp_base + (user.level * AdminOptions.shared.levelup_req_exp_plus)
-            let newProgress = Float(exp) / Float(maxExp)
+            let a = user.prevLevelExp
+            let b = user.nextLevelupExp
+            print("prevLevelExp : \(a) nextLevelExp: \(b) user exp: \(user.exp) set exp:\(exp)")
+            let newProgress = Float(exp - a) / Float(b - a)
             if animated {
                 expProgressView.setProgress(newProgress, animated: true)
             } else {
                 expProgressView.progress = newProgress
             }
-            expLabel.text = "\(exp.decimalForamtString)/\(maxExp.decimalForamtString)"
+            expLabel.text = "\((exp-a).decimalForamtString)/\((b-a).decimalForamtString)"
         }
         
         if let change = statusChange {
