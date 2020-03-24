@@ -21,7 +21,7 @@ class LikeModel: Object {
             }
         }
     }
-    @objc dynamic private var creatorId:String = ""
+    @objc dynamic var creatorId:String = ""
     
     func set(creatorId:String, targetTalkId:String) {
         self.creatorId = creatorId

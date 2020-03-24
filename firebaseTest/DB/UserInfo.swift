@@ -36,6 +36,9 @@ class UserInfo : Object {
     
     /** 익명으로 마스크재고 보고하기*/
     @objc dynamic var isAnonymousInventoryReport : Bool = false
+
+    /** 사용자 정보 동기화로 전송받은 정보인가? */
+    @objc dynamic var isFromUserInfoSync        :Bool = false
     var levelStrValue:String {
         return (level + 1).decimalForamtString
     }
@@ -129,67 +132,16 @@ class UserInfo : Object {
         exp = info["exp"] as? Int ?? 0
     }
     
-    /** firebase 에서 데이터를 받아와서 사용자 정보를 갱신합니다.*/
-    func syncData(syncAll:Bool = true,complete:@escaping(_ isNew:Bool)->Void) {
+    /** firebase 에서 데이터를 받아와서 자신의 사용자 정보를 갱신합니다.*/
+    func syncData(complete:@escaping(_ isNew:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
         let document = dbCollection.document(self.email)
         let userId = self.id
-        var isNew = true
-        /** 다른 유저 정보 가져오기 */
-        func getOtherUserInfo(getOtherUserComplete:@escaping()->Void) {
-            var query =
-                dbCollection
-                    .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
-            
-            if let lastUser =
-                try! Realm().objects(UserInfo.self).filter("email != %@", UserInfo.info!.email)
-                    .sorted(byKeyPath: "updateDt").last {
-                query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateDt.timeIntervalSince1970)
-            }
-            
-            query
-                .getDocuments { (snapShot, error) in
-                    var newUsers:[UserInfo] = []
-                    for doc in snapShot?.documents ?? [] {
-                        let info = doc.data()
-                        guard let email = info["email"] as? String else {
-                            continue
-                        }
-                        if email == self.email {
-                            continue
-                        }
-                        let userInfo = UserInfo()
-                        userInfo.email = email
-                        userInfo.setData(info: info)
-                        if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
-                            userInfo.lastTalkTimeInterval = lastTalkTime
-                        }
-                        
-                        newUsers.append(userInfo)
-                    }
-                    debugPrint("사용자 정보 갱신 : \(newUsers.count)")
-                    if newUsers.count > 0 {
-                        let realm = try! Realm()
-                        realm.beginWrite()
-                        realm.add(newUsers,update: .all)
-                        try! realm.commitWrite()
-                    }
-                    getOtherUserComplete()
-            }
-        }
-
-       
+        
         document.getDocument { (snapshot, error) in
             if let doc = snapshot {
-                isNew = false
                 if doc.data()?.count == 0 || doc.data() == nil {
-                    if syncAll {
-                        getOtherUserInfo {
-                            complete(true)
-                        }
-                    } else {
-                        complete(true)
-                    }
+                    complete(true)
                     return
                 }
                 doc.data().map { info in
@@ -198,21 +150,81 @@ class UserInfo : Object {
                         realm.beginWrite()
                         uinfo.setData(info: info)
                         try! realm.commitWrite()
-                        if syncAll == false {
-                            complete(false)
-                        } else {
-                            getOtherUserInfo {
-                                complete(false)
-                            }
-                        }
+                        complete(false)
                     }
                 }
             }
         }
+    }
+    /** 사용자 정보 동기화 (최근 7일간 글을 작성한 이력이 있는 사용자만 긁어옴*/
+    static func syncUserInfo(getOtherUserComplete:@escaping()->Void) {
+        let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
+        var query =
+            dbCollection
+                .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
         
-    
+        if var users = try? Realm().objects(UserInfo.self)
+            .filter("isFromUserInfoSync = %@", true)
+            .sorted(byKeyPath: "updateDt") {
+            if let email = UserInfo.info?.email {
+                users  = users.filter("email != %@", email)
+            }
+            if let lastUser = users.last {
+                query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateDt.timeIntervalSince1970)
+            }
+        }
+                
+        query
+            .getDocuments { (snapShot, error) in
+                var newUsers:[UserInfo] = []
+                for doc in snapShot?.documents ?? [] {
+                    let info = doc.data()
+                    guard let email = info["email"] as? String else {
+                        continue
+                    }
+                    if email == UserInfo.info?.email {
+                        continue
+                    }
+                    let userInfo = UserInfo()
+                    userInfo.email = email
+                    userInfo.setData(info: info)
+                    userInfo.isFromUserInfoSync = true
+                    if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
+                        userInfo.lastTalkTimeInterval = lastTalkTime
+                    }
+                    
+                    newUsers.append(userInfo)
+                }
+                debugPrint("사용자 정보 갱신 : \(newUsers.count)")
+                if newUsers.count > 0 {
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    realm.add(newUsers,update: .all)
+                    try! realm.commitWrite()
+                }
+                getOtherUserComplete()
+        }
     }
     
+    /** 사용자 정보 가져오기*/
+    static func getUserInfo(id:String,complete:@escaping(_ isSucess:Bool)->Void) {
+        let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
+        let document = dbCollection.document(id)
+        document.getDocument { (snapShot, error) in
+            if let data = snapShot?.data() , let email = data["email"] as? String  {
+                let realm = try? Realm()
+                let user = UserInfo()
+                user.email = email
+                user.setData(info: data)
+                realm?.beginWrite()
+                realm?.add(user, update: .all)
+                try? realm?.commitWrite()
+                complete(true)
+                return
+            }
+            complete(false)
+        }
+    }
     /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
     func updateData(complete:@escaping(_ isSucess:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
@@ -225,6 +237,7 @@ class UserInfo : Object {
             "profileImageUrl" : profileImageURLfirebase,
             "profileImageUrlGoogle" : profileImageURLgoogle,
             "updateTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970,
+            "lastTalkTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970,
             "distanceForSearch" : distanceForSearch,
             "point" : point,
             "level" : level,

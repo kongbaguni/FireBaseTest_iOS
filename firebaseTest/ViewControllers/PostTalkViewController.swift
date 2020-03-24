@@ -183,7 +183,7 @@ class PostTalkViewController: UITableViewController {
             }
         }
         
-        UserInfo.info?.syncData(syncAll: false, complete: { (_) in
+        UserInfo.info?.syncData(complete: { (_) in
             if UserInfo.info?.point ?? 0 < self.needPoint {
                 let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
                 let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)

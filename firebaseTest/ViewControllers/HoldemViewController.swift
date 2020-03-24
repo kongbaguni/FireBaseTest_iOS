@@ -326,8 +326,7 @@ class HoldemViewController : UIViewController {
             self.gameState = .finish
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 func showStatusView(statusChange:StatusChange) {
-                    let vc = StatusViewController.viewController
-                    vc.userId = UserInfo.info?.id
+                    let vc = StatusViewController.viewController(withUserId: UserInfo.info?.id)
                     vc.statusChange = statusChange
                     self.present(vc, animated: true, completion: nil)
                 }

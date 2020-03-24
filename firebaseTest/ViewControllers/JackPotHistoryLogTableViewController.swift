@@ -81,8 +81,7 @@ class JackPotHistoryLogTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let log = logs[indexPath.row]
-        let vc = StatusViewController.viewController
-        vc.userId = log.userId
+        let vc = StatusViewController.viewController(withUserId: log.userId)
         present(vc, animated: true, completion: nil)
     }
 }

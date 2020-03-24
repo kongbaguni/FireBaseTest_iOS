@@ -115,9 +115,8 @@ class TodaysTalksTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(forName: .game_usePointAndGetExpNotification, object: nil, queue: nil) { [weak self](notification) in
             func showStatus(change:StatusChange) {
                 if self?.presentingViewController == nil {
-                    let vc = StatusViewController.viewController
+                    let vc = StatusViewController.viewController(withUserId: UserInfo.info?.id)
                     vc.statusChange = change
-                    vc.userId = UserInfo.info?.id
                     self?.present(vc, animated: true, completion: nil)
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
@@ -168,25 +167,23 @@ class TodaysTalksTableViewController: UITableViewController {
     
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
         let oldCount = self.tableView.numberOfRows(inSection: 0)
-        UserInfo.info?.syncData(complete: { [weak self] (_) in
-            TalkModel.syncDatas {
-                sender.endRefreshing()
-                self?.emptyView.isHidden = self?.list.count != 0
-                self?.tableView.reloadData()
-                if self?.isNeedScrollToBottomWhenRefresh == true {
-                    if let number = self?.tableView.numberOfRows(inSection: 0) {
-                        if oldCount != number {
-                            self?.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
-                        }
-                        self?.isNeedScrollToBottomWhenRefresh = false
+        TalkModel.syncDatas { [weak self] in
+            sender.endRefreshing()
+            self?.emptyView.isHidden = self?.list.count != 0
+            self?.tableView.reloadData()
+            if self?.isNeedScrollToBottomWhenRefresh == true {
+                if let number = self?.tableView.numberOfRows(inSection: 0) {
+                    if oldCount != number {
+                        self?.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
                     }
-                }
-                if let index = self?.needScrolIndex {
-                    self?.tableView.scrollToRow(at: index, at: .middle, animated: true)
-                    self?.needScrolIndex = nil
+                    self?.isNeedScrollToBottomWhenRefresh = false
                 }
             }
-        })
+            if let index = self?.needScrolIndex {
+                self?.tableView.scrollToRow(at: index, at: .middle, animated: true)
+                self?.needScrolIndex = nil
+            }
+        }
 
     }
     
@@ -370,6 +367,10 @@ class TodaysTalksTableViewController: UITableViewController {
         let model = list[indexPath.row]
         let action = UIContextualAction(style: .normal, title: "like", handler: { (action, view, complete) in
             model.toggleLike()
+            let realm = try! Realm()
+            realm.beginWrite()
+            model.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
+            try! realm.commitWrite()
             model.update { (sucess) in
                 complete(true)
                 DispatchQueue.main.async {

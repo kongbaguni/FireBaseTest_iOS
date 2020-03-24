@@ -86,7 +86,7 @@ class TodayTalksTableViewCell: UITableViewCell {
         }
         
         talkTextView.attributedText = text
-        nameLabel.text = data.creator?.name ?? "unknown people".localized
+        nameLabel.text = data.creator?.name ?? data.creatorId //"unknown people".localized
         self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
     }
 }

@@ -16,7 +16,7 @@ struct StatusChange {
 }
 
 class StatusViewController: UIViewController {
-    var userId:String? = nil
+    fileprivate var userId:String? = nil
     
     var statusChange:StatusChange? = nil
     
@@ -27,11 +27,15 @@ class StatusViewController: UIViewController {
         return nil
     }
     
-    static var viewController : StatusViewController {
+    static func viewController(withUserId id:String?)-> StatusViewController {
         if #available(iOS 13.0, *) {
-            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "status") as! StatusViewController
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "status") as! StatusViewController
+            vc.userId = id
+            return vc
         } else {
-            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "status") as! StatusViewController
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "status") as! StatusViewController
+            vc.userId = id
+            return vc
         }
     }
     
@@ -65,6 +69,13 @@ class StatusViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let id = userId {
+            if self.userInfo == nil {
+                UserInfo.getUserInfo(id: id) { [weak self](complete) in
+                    self?.loadData()
+                }
+            }
+        }
         setTitle()
         loadData()
         isHideIntro = true
@@ -120,7 +131,7 @@ class StatusViewController: UIViewController {
             if userId == "guest" {
                 nameLabel.text = "guest".localized
             } else {
-                nameLabel.text = "unknown people".localized
+                nameLabel.text = self.userId ?? "unknown people".localized
             }
             pointLabel.text = ""
             levelLabel.text = ""

@@ -41,6 +41,10 @@ class StoresTableViewController: UITableViewController {
         emptyView.setTitle()
         if try! Realm().objects(StoreModel.self).count == 0 {
             onRefreshCongrol(UIRefreshControl())
+        } else {
+            UserInfo.syncUserInfo {
+                
+            }
         }
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshCongrol(_:)), for: .valueChanged)
         setTableStyle()
@@ -133,9 +137,9 @@ class StoresTableViewController: UITableViewController {
                 self?.emptyView.type = .empty
                 self?.setTableStyle()
                 self?.tableView.reloadData()
-                self?.setHeaderTitle()                
+                self?.setHeaderTitle()
             }
-            cnt += 1            
+            cnt += 1
         }
     }
     

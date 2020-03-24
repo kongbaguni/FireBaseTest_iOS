@@ -21,6 +21,16 @@ class TalkDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "detail View".localized
+        
+        if let id = talkModel?.creatorId {
+            if try! Realm().object(ofType: UserInfo.self, forPrimaryKey: id) == nil {
+                UserInfo.getUserInfo(id: id) { [weak self](sucess) in
+                    if sucess {
+                        self?.tableView.reloadData()
+                    }
+                }
+            }
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -63,8 +73,9 @@ class TalkDetailTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo") as! TalkDetailUserInfoTableViewCell
-            if let userInfo = talkModel?.creator {
-                cell.userId = userInfo.id
+            
+            if let userid = talkModel?.creatorId {
+                cell.userId = userid
             }
             
             return cell
@@ -151,15 +162,13 @@ class TalkDetailTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.section {
         case 0:
-            let vc = StatusViewController.viewController
-            vc.userId = self.talkModel?.creatorId
+            let vc = StatusViewController.viewController(withUserId: self.talkModel?.creatorId)
             present(vc, animated: true, completion: nil)
 //            performSegue(withIdentifier: "showUserInfoDetail", sender: self.talkModel?.creatorId)
         case 2:
             if let likes = talkModel?.likes {
-                let id = likes[indexPath.row].creator?.id
-                let vc = StatusViewController.viewController
-                vc.userId = id
+                let id = likes[indexPath.row].creatorId
+                let vc = StatusViewController.viewController(withUserId: id)
                 present(vc, animated: true, completion: nil)
             }
         default:

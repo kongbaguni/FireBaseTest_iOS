@@ -198,16 +198,14 @@ class StoreStockLogTableViewController: UITableViewController {
             guard let log = todayLogs?[indexPath.row] else {
                 return
             }
-            let vc = StatusViewController.viewController
-            vc.userId = log.uploader?.id
+            let vc = StatusViewController.viewController(withUserId: log.uploaderId)
             present(vc, animated: true, completion: nil)
             
         default:
             guard let log = getList(dayBefore: indexPath.section-1)?[indexPath.row] else {
                 return
             }
-            let vc = StatusViewController.viewController
-            vc.userId = log.uploader?.id
+            let vc = StatusViewController.viewController(withUserId: log.uploaderId)
             present(vc, animated: true, completion: nil)
         }
     }

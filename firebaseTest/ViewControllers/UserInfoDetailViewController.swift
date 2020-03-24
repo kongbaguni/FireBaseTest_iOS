@@ -93,8 +93,7 @@ class UserInfoDetailViewController: UITableViewController {
         }
         switch cell.reuseIdentifier {
         case "profileImage":
-            let vc = StatusViewController.viewController
-            vc.userId = self.userId
+            let vc = StatusViewController.viewController(withUserId: self.userId)
             present(vc, animated: true, completion: nil)
         case "email":
             if cell.textLabel?.text == UserInfo.info?.email {

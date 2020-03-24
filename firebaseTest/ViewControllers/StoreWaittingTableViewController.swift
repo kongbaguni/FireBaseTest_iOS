@@ -198,8 +198,7 @@ class StoreWaittingTableViewController: UITableViewController {
         guard let log = getLogs(beforeDay: indexPath.section)?[indexPath.row] else {
             return
         }
-        let vc = StatusViewController.viewController
-        vc.userId = log.creatorId
+        let vc = StatusViewController.viewController(withUserId: log.creatorId)
         present(vc, animated: true, completion: nil)
     }
 }
