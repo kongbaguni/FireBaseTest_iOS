@@ -130,6 +130,14 @@ class TodaysTalksTableViewController: UITableViewController {
                 }
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: .postTalkNotification, object: nil, queue: nil) { [weak self] (notification) in
+            if let needPoint = notification.object as? Int {
+                let vc = StatusViewController.viewController(withUserId: UserInfo.info!.id)
+                vc.statusChange = StatusChange(addedExp: needPoint, pointChange: -needPoint)
+                self?.present(vc, animated: true, completion: nil)
+            }
+        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

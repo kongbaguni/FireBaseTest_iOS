@@ -11,6 +11,9 @@ import RealmSwift
 import RxCocoa
 import RxSwift
 import CropViewController
+extension Notification.Name {
+    static let postTalkNotification = Notification.Name(rawValue: "postTalkNotificationObserver")
+}
 
 class PostTalkViewController: UITableViewController {
     @IBOutlet weak var textView:UITextView!
@@ -143,6 +146,7 @@ class PostTalkViewController: UITableViewController {
                             loading.hide()
                             if isSucess {
                                 self?.navigationController?.popViewController(animated: true)
+                                NotificationCenter.default.post(name: .postTalkNotification, object: self?.needPoint)
                             }
                         }
                     }
@@ -163,6 +167,7 @@ class PostTalkViewController: UITableViewController {
                     loading.hide()
                     if sucess {
                         self?.navigationController?.popViewController(animated: true)
+                        NotificationCenter.default.post(name: .postTalkNotification, object: self?.needPoint)
                     }
                 }
             }
