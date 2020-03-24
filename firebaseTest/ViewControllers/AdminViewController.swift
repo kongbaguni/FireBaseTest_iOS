@@ -27,7 +27,7 @@ class AdminViewController: UITableViewController {
         AdminOptions.shared.getData {[weak self] in
             self?.tableView.reloadData()
         }
-        title = "admin menu"
+        title = "admin menu".localized
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
