@@ -144,6 +144,12 @@ class AdminOptions {
         ]
     ]
     
+    let sessionTitles = [
+        "discance",
+        "exp",
+        "point",
+        "game"
+    ]
     
     func setData(key:String, value:String)->Bool {
         let intValue = NSString(string:value).integerValue

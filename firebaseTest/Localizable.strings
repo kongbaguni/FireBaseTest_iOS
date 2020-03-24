@@ -150,6 +150,9 @@
 
 
 //admin options
+"discance" = "거리";
+"exp" = "경험치";
+"game" = "게임";
 "waitting_report_distance"  = "대기열 리포팅 거리 제한 (미터)";
 "isUsePoker"                = "포커 게임 사용 여부";
 "minBettingPoint" = "최소 베팅 포인트";
