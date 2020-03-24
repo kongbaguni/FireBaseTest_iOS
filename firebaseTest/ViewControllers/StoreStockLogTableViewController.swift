@@ -78,10 +78,11 @@ class StoreStockLogTableViewController: UITableViewController {
             complete(false)
             return
         }
-        guard let id = UserInfo.info?.id else {
+        guard let userInfo = UserInfo.info, let id = UserInfo.info?.id else {
             complete(false)
             return
         }
+
         if logs?.first?.remain_stat != store.remain_stat {
             let model = StoreStockLogModel()
             model.code = store.code
@@ -92,12 +93,18 @@ class StoreStockLogTableViewController: UITableViewController {
             let realm = try! Realm()
             realm.beginWrite()
             realm.add(model, update: .all)
+            UserInfo.info?.exp += AdminOptions.shared.exp_for_report_store_stock
             try!realm.commitWrite()
             model.uploadStoreStocks { (sucess) in
                 complete(sucess)
             }
-            UserInfo.info?.updateLastTalkTime(complete: { (sucess) in
-                
+            
+            UserInfo.info?.updateLastTalkTime(complete: { [weak self](sucess) in
+                if sucess {
+                    let vc = StatusViewController.viewController(withUserId: userInfo.id)
+                    vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_stock, pointChange: 0)
+                    self?.present(vc, animated: true, completion: nil)
+                }
             })
             return
         }

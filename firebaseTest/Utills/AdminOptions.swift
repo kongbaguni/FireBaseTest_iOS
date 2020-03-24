@@ -30,6 +30,10 @@ fileprivate let POINT_USE_POSTING = 1
 fileprivate let POINT_USE_IMAGE = 100
 
 fileprivate let POINT_DEFAULT = 1000
+
+fileprivate let EXP_FOR_REPORT_STOCK = 10
+fileprivate let EXP_FOR_REPORT_WAIT = 10
+
 /**  관리자가 원격으로 제어하는 옵션값 관리하는 클래스*/
 class AdminOptions {
     
@@ -81,6 +85,9 @@ class AdminOptions {
     var levelup_req_exp_base = Consts.LEVELUP_REQ_EXP_BASE
     var levelup_req_exp_plus = Consts.LEVELUP_REQ_EXP_PLUS
     
+    var exp_for_report_store_stock = EXP_FOR_REPORT_STOCK
+    var exp_for_report_store_wait = EXP_FOR_REPORT_WAIT
+    
     var allData:[String:Any] {
         return [
             // report
@@ -102,13 +109,18 @@ class AdminOptions {
             "pointUseUploadPicture"     : pointUseUploadPicture,
             "defaultPoint"              : defaultPoint,
             "levelup_req_exp_base"      : levelup_req_exp_base,
-            "levelup_req_exp_plus"      : levelup_req_exp_plus
+            "levelup_req_exp_plus"      : levelup_req_exp_plus,
+            
+            "exp_for_report_store_stock": exp_for_report_store_stock,
+            "exp_for_report_store_wait" :exp_for_report_store_wait
         ]
     }
     
     let keys = [
         [
-            "waitting_report_distance"
+            "waitting_report_distance",
+            "exp_for_report_store_stock",
+            "exp_for_report_store_wait"
         ],
         [
             "canUsePokerLevel",
@@ -137,6 +149,12 @@ class AdminOptions {
         let intValue = NSString(string:value).integerValue
         if intValue >= 0 {
             switch key {
+            case "exp_for_report_store_stock":
+                exp_for_report_store_stock = intValue
+                return true
+            case "exp_for_report_store_wait":
+                exp_for_report_store_wait = intValue
+                return true
             case "levelup_req_exp_base":
                 levelup_req_exp_base = intValue
                 return true
@@ -255,5 +273,7 @@ class AdminOptions {
         defaultPoint = data["defaultPoint"] as? Int ?? POINT_DEFAULT
         levelup_req_exp_plus = data["levelup_req_exp_plus"] as? Int ?? Consts.LEVELUP_REQ_EXP_PLUS
         levelup_req_exp_base = data["levelup_req_exp_base"] as? Int ?? Consts.LEVELUP_REQ_EXP_BASE
+        exp_for_report_store_wait = data["exp_for_report_store_wait"] as? Int ?? EXP_FOR_REPORT_WAIT
+        exp_for_report_store_stock = data["exp_for_report_store_stock"] as? Int ?? EXP_FOR_REPORT_STOCK
     }
 }

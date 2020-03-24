@@ -136,23 +136,18 @@ class StoreWaitingModel : Object {
                         , let status = data["status"] as? String
                         , let storeCode = data["storeCode"] as? String
                     {
-                        let lastLog = realm.objects(StoreWaitingModel.self).filter("storeCode = %@", storeCode).sorted(byKeyPath: "regDt").last
+                        let logModel = StoreWaitingModel()
+                        logModel.id = id
+                        logModel.storeCode =  storeCode
+                        logModel.status = status
+                        logModel.creatorId = data["uploader"] as? String ?? "guest"
                         
-                        if lastLog?.status != status || lastLog?.isInvalidated == true {
-                            
-                            let logModel = StoreWaitingModel()
-                            logModel.id = id
-                            logModel.storeCode =  storeCode
-                            logModel.status = status
-                            logModel.creatorId = data["uploader"] as? String ?? "guest"
-                            
-                            if let int = data["regDtTimeIntervalSince1970"] as? Double {
-                                logModel.regDt = Date(timeIntervalSince1970: int)
-                            }
-                            realm.beginWrite()
-                            realm.add(logModel, update: .all)
-                            try! realm.commitWrite()
+                        if let int = data["regDtTimeIntervalSince1970"] as? Double {
+                            logModel.regDt = Date(timeIntervalSince1970: int)
                         }
+                        realm.beginWrite()
+                        realm.add(logModel, update: .all)
+                        try! realm.commitWrite()
                     }
                 }
                 complete(snap.documents.count)

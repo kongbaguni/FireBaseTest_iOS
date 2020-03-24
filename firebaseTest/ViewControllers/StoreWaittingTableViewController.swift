@@ -132,10 +132,25 @@ class StoreWaittingTableViewController: UITableViewController {
         data.status = status.rawValue
         data.storeCode = storecode
         data.uploadLog { [weak self](isSucess) in
-            self?.store?.getStoreWaittingLogs(complete: {[weak self] (count) in
-                self?.tableView.reloadData()
+            if isSucess {
+                let realm = try! Realm()
+                realm.beginWrite()
+                UserInfo.info?.exp += AdminOptions.shared.exp_for_report_store_wait
+                try! realm.commitWrite()
+                UserInfo.info?.updateData(complete: { (sucess) in
+                    self?.store?.getStoreWaittingLogs(complete: {[weak self] (count) in
+                        self?.tableView.reloadData()
+                        loading.hide()
+                        if sucess {
+                            let vc = StatusViewController.viewController(withUserId: UserInfo.info?.id)
+                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_wait, pointChange: 0)
+                            self?.present(vc, animated: true, completion: nil)
+                        }
+                    })
+                })
+            } else {
                 loading.hide()
-            })
+            }
         }
     }
     
