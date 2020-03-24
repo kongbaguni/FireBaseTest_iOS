@@ -165,8 +165,8 @@
 "defaultPoint"              = "최초 가입시 기본 포인트";
 "admin menu" = "관리자 메뉴";
 
-"LEVELUP_REQ_EXP_BASE" = "레벨업 : 기본 경험치";
-"LEVELUP_REQ_EXP_PLUS" = "레벨업 : 레벨에 비례하여 상승하는 계수";
+"levelup_req_exp_base" = "레벨업 : 기본 경험치";
+"levelup_req_exp_plus" = "레벨업 : 레벨에 비례하여 상승하는 계수";
 
 
 "storeList footer btn title" = "식약처 공적마스크 구매 안내";
