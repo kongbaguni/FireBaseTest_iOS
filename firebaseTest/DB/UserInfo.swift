@@ -33,15 +33,11 @@ class UserInfo : Object {
     @objc dynamic var exp                       : Int       = 0
     /** 레벨*/
     @objc dynamic var fcmID                     : String    = ""
+    
     var level:Int {
-        var e = self.exp
-        var level = 0
-        while e > 0 {
-            e -= (AdminOptions.shared.levelup_req_exp_base + level * AdminOptions.shared.levelup_req_exp_plus)
-            level += 1
-        }
-        return level
+        return Exp(exp).level
     }
+    
     /** 익명으로 마스크재고 보고하기*/
     @objc dynamic var isAnonymousInventoryReport : Bool = false
 
@@ -344,20 +340,10 @@ class UserInfo : Object {
     
     /** 이전 레벨까지 경험치*/
     var prevLevelExp:Int {
-        let level = self.level
-        var exp = 0
-        for i in 0..<level-1 {
-            exp += AdminOptions.shared.levelup_req_exp_base + (AdminOptions.shared.levelup_req_exp_plus * i)
-        }
-        return exp
+        return Exp(exp).prevLevelExp
     }
     /** 다음 레벨까지 경험치*/
     var nextLevelupExp:Int {
-        let level = self.level
-        var exp = 0
-        for i in 0...level-1 {
-            exp += AdminOptions.shared.levelup_req_exp_base + (AdminOptions.shared.levelup_req_exp_plus * i)
-        }
-        return exp
+        return Exp(exp).nextLevelupExp
     }
 }

@@ -56,6 +56,7 @@
 		C39E49872428A36F0094E16B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E49862428A36F0094E16B /* UIView+Extensions.swift */; };
 		C39E49932429D6690094E16B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E49922429D6690094E16B /* NotificationService.swift */; };
 		C39E49972429D6690094E16B /* noficationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C39E49902429D6690094E16B /* noficationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C39E499E2429E20A0094E16B /* Exp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E499D2429E20A0094E16B /* Exp.swift */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
 		C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */; };
@@ -158,6 +159,7 @@
 		C39E49902429D6690094E16B /* noficationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = noficationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39E49922429D6690094E16B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		C39E49942429D6690094E16B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C39E499D2429E20A0094E16B /* Exp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exp.swift; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* mask now.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask now.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC05240CD79D006AE2B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				C34C6B562418C2B1001D8CF4 /* ApiManager.swift */,
 				C3630FCF241B339E003479C2 /* GameManager.swift */,
 				C36650112422F73F00E2BD24 /* AdminOptions.swift */,
+				C39E499D2429E20A0094E16B /* Exp.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				C3630FD3241B51CE003479C2 /* Card.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3DC5B95241243D400A028E0 /* Consts.swift in Sources */,
+				C39E499E2429E20A0094E16B /* Exp.swift in Sources */,
 				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,
 				C38EF933242493B1006D6732 /* WebViewController.swift in Sources */,
 				C34C6B5B2419CC77001D8CF4 /* EmptyView.swift in Sources */,

@@ -56,7 +56,6 @@ class StatusViewController: UIViewController {
     @IBOutlet weak var introduceLabel: UILabel!
     @IBOutlet weak var introduceBubble: UIImageView!
     
-    @IBOutlet weak var addLevelLabel: UILabel!
     @IBOutlet weak var addPointLabel: UILabel!
     @IBOutlet weak var addExpLabel: UILabel!
     var isHideIntro:Bool = true {
@@ -83,7 +82,7 @@ class StatusViewController: UIViewController {
         statusCardView.layer.borderWidth = 1
         statusCardView.layer.masksToBounds = true
         statusCardView.layer.cornerRadius = 10
-        for view in [addExpLabel, addLevelLabel, addPointLabel] {
+        for view in [addExpLabel, addPointLabel] {
             view?.alpha = 0
         }
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTapGesture(_:))))
@@ -109,7 +108,7 @@ class StatusViewController: UIViewController {
         }
         print(value)
         target?.alpha = 1
-        
+        target?.isHidden = false
         target?.textColor = value > 0 ? UIColor.autoColor_bold_text_color : .red
         target?.text = "\(value > 0 ? "+" : "") \(value.decimalForamtString)"
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
@@ -161,21 +160,28 @@ class StatusViewController: UIViewController {
             } else {
                 expProgressView.progress = newProgress
             }
-            expLabel.text = "\((exp-a).decimalForamtString)/\((b-a).decimalForamtString)"
+            expLabel.text = "\((exp - a < 0 ? 0 : exp - a ).decimalForamtString)/\((b-a).decimalForamtString)"
         }
         
         if let change = statusChange {
-            var oldExp = user.exp - change.addedExp
-            if oldExp < 0 {
-                oldExp = 0
-                self.setAddLabel(value: 1, target: self.addLevelLabel)
-                levelLabel.text = user.level.decimalForamtString
+            let oldExp = user.exp - change.addedExp
+            let beforeLevel = Exp(oldExp).level
+            let newLevel = user.level
+            var interval:Int = 1
+            if newLevel > beforeLevel {
+                levelLabel.text = beforeLevel.decimalForamtString
                 levelLabel.textColor = .autoColor_weak_text_color
+                interval = 3
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    self.levelLabel.textColor = .autoColor_bold_text_color
+                    self.levelLabel.text = "+\((newLevel - beforeLevel).decimalForamtString)".localized
+                }
             }
+            
             pointLabel.text = (user.point - change.pointChange).decimalForamtString
             setExp(exp: oldExp, animated: false)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(interval)) {
                 setExp(exp: user.exp, animated: true)
                 self.pointLabel.text = user.point.decimalForamtString
                 self.setAddLabel(value: change.addedExp, target: self.addExpLabel)
