@@ -103,8 +103,10 @@ extension MapViewController : MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let code = (view.annotation as? MyPointAnnotation)?.storeCode {
-            performSegue(withIdentifier: "showStoreStockLogs", sender: code)
+        if UserInfo.info != nil {
+            if let code = (view.annotation as? MyPointAnnotation)?.storeCode {
+                performSegue(withIdentifier: "showStoreStockLogs", sender: code)
+            }
         }
     }
 }

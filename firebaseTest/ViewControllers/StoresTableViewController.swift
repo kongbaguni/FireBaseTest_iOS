@@ -303,18 +303,22 @@ class StoresTableViewController: UITableViewController {
         let action1 = UIContextualAction(style: .normal, title: "view on map".localized) { (action, view, complete) in
             self.performSegue(withIdentifier: "showMap", sender: code)
         }
-        action1.backgroundColor = UIColor(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
-        let action2 = UIContextualAction(style: .normal, title: "show stock log".localized) { (action, view, complete) in
-            self.performSegue(withIdentifier: "showStoreStockLogs", sender: code)
-        }
-        action2.backgroundColor = UIColor(red: 0.8, green: 0.6, blue: 0.2, alpha: 1)
         
-        let action3 = UIContextualAction(style: .normal, title: "show waitting log".localized) { (action, view, complete) in
-            self.performSegue(withIdentifier: "showWaitting", sender: code)
-        }
-        action3.backgroundColor = UIColor(red: 0.5, green: 0.7, blue: 0.2, alpha: 1)
-        
-        return UISwipeActionsConfiguration(actions: [action1,action3,action2])
+        if UserInfo.info != nil {
+            action1.backgroundColor = UIColor(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
+            let action2 = UIContextualAction(style: .normal, title: "show stock log".localized) { (action, view, complete) in
+                self.performSegue(withIdentifier: "showStoreStockLogs", sender: code)
+            }
+            action2.backgroundColor = UIColor(red: 0.8, green: 0.6, blue: 0.2, alpha: 1)
+            
+            let action3 = UIContextualAction(style: .normal, title: "show waitting log".localized) { (action, view, complete) in
+                self.performSegue(withIdentifier: "showWaitting", sender: code)
+            }
+            action3.backgroundColor = UIColor(red: 0.5, green: 0.7, blue: 0.2, alpha: 1)
+            return UISwipeActionsConfiguration(actions: [action1,action3,action2])
+        } else {
+            return UISwipeActionsConfiguration(actions: [action1])
+        }        
     }
         
 }
