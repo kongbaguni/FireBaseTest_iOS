@@ -83,7 +83,7 @@ class StoreStockLogTableViewController: UITableViewController {
             return
         }
 
-        if logs?.first?.remain_stat != store.remain_stat {
+        if todayLogs?.first?.remain_stat != store.remain_stat || todayLogs?.count == 0 {
             let model = StoreStockLogModel()
             model.code = store.code
             model.remain_stat = store.remain_stat
