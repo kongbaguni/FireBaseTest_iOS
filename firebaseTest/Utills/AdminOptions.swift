@@ -119,8 +119,18 @@ class AdminOptions {
     let keys = [
         [
             "waitting_report_distance",
+        ],
+        [
             "exp_for_report_store_stock",
-            "exp_for_report_store_wait"
+            "exp_for_report_store_wait",
+            "levelup_req_exp_base",
+            "levelup_req_exp_plus"
+        ],
+        [
+            "adRewardPoint",
+            "pointUseRatePosting",
+            "pointUseUploadPicture",
+            "defaultPoint"
         ],
         [
             "canUsePokerLevel",
@@ -131,16 +141,6 @@ class AdminOptions {
             "minJackPotPoint",
             "dealarZeroPointBettingRate",
             "dealarMaxBettingRate"
-        ],
-        [
-            "adRewardPoint",
-            "pointUseRatePosting",
-            "pointUseUploadPicture",
-            "defaultPoint"
-        ],
-        [
-            "levelup_req_exp_base",
-            "levelup_req_exp_plus",
         ]
     ]
     
