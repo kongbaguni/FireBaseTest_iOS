@@ -164,6 +164,11 @@ class UserInfo : Object {
     }
     /** 사용자 정보 동기화 (최근 7일간 글을 작성한 이력이 있는 사용자만 긁어옴*/
     static func syncUserInfo(getOtherUserComplete:@escaping()->Void) {
+        if UserInfo.info == nil {
+            getOtherUserComplete()
+            return
+        }
+        
         let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
         var query =
             dbCollection
