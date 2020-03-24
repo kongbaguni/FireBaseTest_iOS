@@ -26,6 +26,9 @@ class Exp {
     /** 이전 레벨까지 경험치*/
     var prevLevelExp:Int {
         var exp = 0
+        if level == 0 {
+            return 0
+        }
         for i in 0..<level-1 {
             exp += AdminOptions.shared.levelup_req_exp_base + (AdminOptions.shared.levelup_req_exp_plus * i)
         }
@@ -35,6 +38,9 @@ class Exp {
     /** 다음 레벨까지 경험치*/
     var nextLevelupExp:Int {
         var exp = 0
+        if level == 0 {
+            return AdminOptions.shared.levelup_req_exp_base
+        }
         for i in 0...level-1 {
             exp += AdminOptions.shared.levelup_req_exp_base + (AdminOptions.shared.levelup_req_exp_plus * i)
         }
