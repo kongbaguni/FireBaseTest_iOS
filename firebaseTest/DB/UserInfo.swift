@@ -36,7 +36,7 @@ class UserInfo : Object {
     var level:Int {
         var e = self.exp
         var level = 0
-        while e < 0 {
+        while e > 0 {
             e -= (AdminOptions.shared.levelup_req_exp_base + level * AdminOptions.shared.levelup_req_exp_plus)
             level += 1
         }
@@ -48,7 +48,7 @@ class UserInfo : Object {
     /** 사용자 정보 동기화로 전송받은 정보인가? */
     @objc dynamic var isFromUserInfoSync        :Bool = false
     var levelStrValue:String {
-        return (level + 1).decimalForamtString
+        return level.decimalForamtString
     }
     var lastTalkDt:Date? {
         get {
