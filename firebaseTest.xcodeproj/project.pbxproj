@@ -54,6 +54,8 @@
 		C39A6ED624208ABA00460705 /* Dealar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ED524208ABA00460705 /* Dealar.swift */; };
 		C39A6ED82420A04B00460705 /* TalkDetailHoldemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ED72420A04B00460705 /* TalkDetailHoldemTableViewCell.swift */; };
 		C39E49872428A36F0094E16B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E49862428A36F0094E16B /* UIView+Extensions.swift */; };
+		C39E49932429D6690094E16B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E49922429D6690094E16B /* NotificationService.swift */; };
+		C39E49972429D6690094E16B /* noficationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C39E49902429D6690094E16B /* noficationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
 		C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */; };
@@ -79,6 +81,30 @@
 		C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FED0BA240F84BD007A4F4F /* MainTabBarController.swift */; };
 		C3FED0BD240F9F8E007A4F4F /* AuthDataResult+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FED0BC240F9F8E007A4F4F /* AuthDataResult+Extensions.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C39E49952429D6690094E16B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3BDFBF3240CD79D006AE2B3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C39E498F2429D6690094E16B;
+			remoteInfo = noficationServiceExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C39E49982429D6690094E16B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C39E49972429D6690094E16B /* noficationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0F06ABC7138C7FD26E1EA293 /* Pods-firebaseTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firebaseTest.debug.xcconfig"; path = "Target Support Files/Pods-firebaseTest/Pods-firebaseTest.debug.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +155,9 @@
 		C39A6ED524208ABA00460705 /* Dealar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dealar.swift; sourceTree = "<group>"; };
 		C39A6ED72420A04B00460705 /* TalkDetailHoldemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailHoldemTableViewCell.swift; sourceTree = "<group>"; };
 		C39E49862428A36F0094E16B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		C39E49902429D6690094E16B /* noficationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = noficationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C39E49922429D6690094E16B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		C39E49942429D6690094E16B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* mask now.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask now.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC05240CD79D006AE2B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -160,6 +189,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C39E498D2429D6690094E16B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3BDFBF8240CD79D006AE2B3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,10 +290,20 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		C39E49912429D6690094E16B /* noficationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				C39E49922429D6690094E16B /* NotificationService.swift */,
+				C39E49942429D6690094E16B /* Info.plist */,
+			);
+			path = noficationServiceExtension;
+			sourceTree = "<group>";
+		};
 		C3BDFBF2240CD79D006AE2B3 = {
 			isa = PBXGroup;
 			children = (
 				C3BDFBFD240CD79D006AE2B3 /* firebaseTest */,
+				C39E49912429D6690094E16B /* noficationServiceExtension */,
 				C3BDFBFC240CD79D006AE2B3 /* Products */,
 				5078255D45C7ABEAB94EEF59 /* Pods */,
 				50F9E479A00CD2C03663B0C9 /* Frameworks */,
@@ -268,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				C3BDFBFB240CD79D006AE2B3 /* mask now.app */,
+				C39E49902429D6690094E16B /* noficationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -336,6 +383,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C39E498F2429D6690094E16B /* noficationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C39E499B2429D6690094E16B /* Build configuration list for PBXNativeTarget "noficationServiceExtension" */;
+			buildPhases = (
+				C39E498C2429D6690094E16B /* Sources */,
+				C39E498D2429D6690094E16B /* Frameworks */,
+				C39E498E2429D6690094E16B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = noficationServiceExtension;
+			productName = noficationServiceExtension;
+			productReference = C39E49902429D6690094E16B /* noficationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C3BDFBFA240CD79D006AE2B3 /* firebaseTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3BDFC0F240CD7A1006AE2B3 /* Build configuration list for PBXNativeTarget "firebaseTest" */;
@@ -347,10 +411,12 @@
 				39EDDF3081B93368F35F9EB3 /* [CP] Embed Pods Frameworks */,
 				D324A7017D568B367D56C86E /* [CP] Copy Pods Resources */,
 				C39003882421DDB000CC4E3A /* ShellScript */,
+				C39E49982429D6690094E16B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C39E49962429D6690094E16B /* PBXTargetDependency */,
 			);
 			name = firebaseTest;
 			productName = firebaseTest;
@@ -367,6 +433,9 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Changyul Seo";
 				TargetAttributes = {
+					C39E498F2429D6690094E16B = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					C3BDFBFA240CD79D006AE2B3 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -386,11 +455,19 @@
 			projectRoot = "";
 			targets = (
 				C3BDFBFA240CD79D006AE2B3 /* firebaseTest */,
+				C39E498F2429D6690094E16B /* noficationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C39E498E2429D6690094E16B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3BDFBF9240CD79D006AE2B3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -484,6 +561,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C39E498C2429D6690094E16B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C39E49932429D6690094E16B /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3BDFBF7240CD79D006AE2B3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -556,6 +641,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C39E49962429D6690094E16B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C39E498F2429D6690094E16B /* noficationServiceExtension */;
+			targetProxy = C39E49952429D6690094E16B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		C3BDFC04240CD79D006AE2B3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -576,6 +669,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C39E49992429D6690094E16B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QU9EPTU238;
+				INFOPLIST_FILE = noficationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.kongbaguni.masknow.noficationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C39E499A2429D6690094E16B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QU9EPTU238;
+				INFOPLIST_FILE = noficationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.kongbaguni.masknow.noficationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C3BDFC0D240CD7A1006AE2B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -694,10 +827,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0F06ABC7138C7FD26E1EA293 /* Pods-firebaseTest.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "firebaseTest/mask now.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = QU9EPTU238;
 				INFOPLIST_FILE = firebaseTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -717,10 +851,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FB28C5BE5C3633710658148E /* Pods-firebaseTest.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "firebaseTest/mask now.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = QU9EPTU238;
 				INFOPLIST_FILE = firebaseTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -739,6 +874,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C39E499B2429D6690094E16B /* Build configuration list for PBXNativeTarget "noficationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C39E49992429D6690094E16B /* Debug */,
+				C39E499A2429D6690094E16B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C3BDFBF6240CD79D006AE2B3 /* Build configuration list for PBXProject "firebaseTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
