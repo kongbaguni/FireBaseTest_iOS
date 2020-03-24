@@ -32,8 +32,16 @@ class UserInfo : Object {
     /** 경험치*/
     @objc dynamic var exp                       : Int       = 0
     /** 레벨*/
-    @objc dynamic var level                     : Int       = 0
-    
+    @objc dynamic var fcmID                     : String    = ""
+    var level:Int {
+        var e = self.exp
+        var level = 0
+        while e < 0 {
+            e -= (AdminOptions.shared.levelup_req_exp_base + level * AdminOptions.shared.levelup_req_exp_plus)
+            level += 1
+        }
+        return level
+    }
     /** 익명으로 마스크재고 보고하기*/
     @objc dynamic var isAnonymousInventoryReport : Bool = false
 
@@ -123,12 +131,14 @@ class UserInfo : Object {
         if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
             self.lastTalkTimeInterval = lastTalkTime
         }
+        if let id = info["fmcID"] as? String {
+            self.fcmID = id
+        }
 //        isAnonymousInventoryReport = info["isAnonymousInventoryReport"] as? Bool ?? false
         isAnonymousInventoryReport = false
         updateDt = Date(timeIntervalSince1970: (info["updateTimeIntervalSince1970"] as? Double ?? 0))
         point = info["point"] as? Int ?? 0
         distanceForSearch = info["distanceForSearch"] as? Int ?? Consts.DISTANCE_STORE_SEARCH
-        level = info["level"] as? Int ?? 0
         exp = info["exp"] as? Int ?? 0
     }
     
@@ -225,6 +235,7 @@ class UserInfo : Object {
             complete(false)
         }
     }
+    
     /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
     func updateData(complete:@escaping(_ isSucess:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
@@ -240,8 +251,8 @@ class UserInfo : Object {
             "lastTalkTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970,
             "distanceForSearch" : distanceForSearch,
             "point" : point,
-            "level" : level,
             "exp" : exp,
+            "fcmID" : fcmID,
             "isAnonymousInventoryReport" : false //isAnonymousInventoryReport,
         ]
         
@@ -292,10 +303,9 @@ class UserInfo : Object {
             let realm = try! Realm()
             realm.beginWrite()
             self.point += point
+            let oldLevel = level
             exp += abs(point)
-            if exp > Consts.LEVELUP_REQ_EXP {
-                exp -= Consts.LEVELUP_REQ_EXP
-                level += 1
+            if oldLevel > level {
                 NotificationCenter.default.post(name: .game_levelupNotification, object: level)
             }
             try! realm.commitWrite()

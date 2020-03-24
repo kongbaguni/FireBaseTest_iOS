@@ -78,6 +78,8 @@ class AdminOptions {
     
     let collection = Firestore.firestore().collection(FSCollectionName.ADMIN)
     
+    var levelup_req_exp_base = Consts.LEVELUP_REQ_EXP_BASE
+    var levelup_req_exp_plus = Consts.LEVELUP_REQ_EXP_PLUS
     
     var allData:[String:Any] {
         return [
@@ -98,7 +100,9 @@ class AdminOptions {
             "adRewardPoint"             : adRewardPoint,
             "pointUseRatePosting"       : pointUseRatePosting,
             "pointUseUploadPicture"     : pointUseUploadPicture,
-            "defaultPoint"              : defaultPoint
+            "defaultPoint"              : defaultPoint,
+            "levelup_req_exp_base"      : levelup_req_exp_base,
+            "levelup_req_exp_plus"      : levelup_req_exp_plus
         ]
     }
     
@@ -107,20 +111,24 @@ class AdminOptions {
             "waitting_report_distance"
         ],
         [
+            "canUsePokerLevel",
             "isUsePoker",
             "minBettingPoint",
             "maxBettingPoint",
             "maxJackPotPoint",
             "minJackPotPoint",
             "dealarZeroPointBettingRate",
-            "dealarMaxBettingRate",
-            "canUsePokerLevel"
+            "dealarMaxBettingRate"
         ],
         [
             "adRewardPoint",
             "pointUseRatePosting",
             "pointUseUploadPicture",
             "defaultPoint"
+        ],
+        [
+            "levelup_req_exp_base",
+            "levelup_req_exp_plus",
         ]
     ]
     
@@ -129,6 +137,12 @@ class AdminOptions {
         let intValue = NSString(string:value).integerValue
         if intValue >= 0 {
             switch key {
+            case "levelup_req_exp_base":
+                levelup_req_exp_base = intValue
+                return true
+            case "levelup_req_exp_plus":
+                levelup_req_exp_plus = intValue
+                return true
             case "waitting_report_distance":
                 waitting_report_distance = intValue
                 return true
@@ -239,5 +253,7 @@ class AdminOptions {
         pointUseUploadPicture = data["pointUseUploadPicture"] as? Int ?? POINT_USE_IMAGE
         pointUseRatePosting = data["pointUseRatePosting"] as? Int ?? POINT_USE_POSTING
         defaultPoint = data["defaultPoint"] as? Int ?? POINT_DEFAULT
+        levelup_req_exp_plus = data["levelup_req_exp_plus"] as? Int ?? Consts.LEVELUP_REQ_EXP_PLUS
+        levelup_req_exp_base = data["levelup_req_exp_base"] as? Int ?? Consts.LEVELUP_REQ_EXP_BASE
     }
 }

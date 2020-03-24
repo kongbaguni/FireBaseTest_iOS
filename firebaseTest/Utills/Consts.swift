@@ -15,12 +15,12 @@ struct Consts {
         let level = UserInfo.info?.level ?? 0
         return 3 + (level/10)
     }
-    /** 레벨업에 필요한 경험치*/
-    static var LEVELUP_REQ_EXP:Int {
-        let level = UserInfo.info?.level ?? 0
-        return 10000 + (level * 100)
-    }
     
+    /** 레벨업에 필요한 경험치 기본값*/
+    static var LEVELUP_REQ_EXP_BASE:Int = 1000
+    
+    /** 렙벨업에 필요한 경험치 1레벨당 증가하는 계수*/
+    static var LEVELUP_REQ_EXP_PLUS:Int = 100
     
     /** 최대 베팅 포인트 제한*/
     static var BETTING_LIMIT = 1000
@@ -55,7 +55,7 @@ struct Consts {
     /** 구글 광고 아이디*/
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
     
-    static let REALM_VERSION:UInt64 = 2
+    static let REALM_VERSION:UInt64 = 4
         
 }
 

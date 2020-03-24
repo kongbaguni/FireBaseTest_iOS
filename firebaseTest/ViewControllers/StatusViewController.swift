@@ -152,7 +152,7 @@ class StatusViewController: UIViewController {
         levelLabel.textColor = .autoColor_bold_text_color
 
         func setExp(exp:Int,animated:Bool) {
-            let maxExp = Consts.LEVELUP_REQ_EXP
+            let maxExp = AdminOptions.shared.levelup_req_exp_base + (user.level * AdminOptions.shared.levelup_req_exp_plus)
             let newProgress = Float(exp) / Float(maxExp)
             if animated {
                 expProgressView.setProgress(newProgress, animated: true)

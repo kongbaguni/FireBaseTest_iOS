@@ -12,6 +12,7 @@ target 'firebaseTest' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Auth'
+  pod 'Firebase/Messaging'
   pod 'GoogleSignIn'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'

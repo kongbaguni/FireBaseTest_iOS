@@ -12,6 +12,9 @@ import GoogleSignIn
 import RealmSwift
 import GoogleMobileAds
 
+fileprivate let gcmMessageIDKey = "gcm.message_id"
+fileprivate let gcmNotificationTarget = "gcm.notification.target"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,14 +23,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         migrationRealm()
+        
+        Messaging.messaging().isAutoInitEnabled = true
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         signin()
+        
+        getNotificationSettings()
+//        Messaging.messaging().delegate = self
+
         return true
     }
 
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+        Messaging.messaging().delegate = self
+    }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance()?.handle(url) ?? false
@@ -122,4 +148,54 @@ extension AppDelegate : GIDSignInDelegate {
         }
     }
 }
+extension AppDelegate : UNUserNotificationCenterDelegate {
+        
+        func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+            let userInfo = response.notification.request.content.userInfo
+            if let messageID = userInfo[gcmMessageIDKey] {
+                print("Message ID: \(messageID)")
+            }
+            debugPrint(userInfo)
+            let target = userInfo[gcmNotificationTarget]
+            debugPrint(target)
+    //        switch target {
+    //        case "catPrint":
+    //            break
+    //        default:
+    //            break
+    //        }
+            
+//            let vc = MessageViewController.viewController
+//            vc.userInfo = userInfo
+//            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            
+            
+            completionHandler()
+        }
+        
+        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            debugPrint("UNUserNotificationCenterDelegate willPresent notification = \(notification)")
+            let userInfo = notification.request.content.userInfo
+            print(userInfo)
+            if let messageID = userInfo[gcmMessageIDKey] {
+                print("Message ID: \(messageID)")
+            }
+            completionHandler([.alert, .sound, .badge])
+        }
 
+}
+
+extension AppDelegate : MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+//        UserDefaults.standard.fcmToken = fcmToken
+        let realm = try! Realm()
+        realm.beginWrite()
+        UserInfo.info?.fcmID = fcmToken
+        try! realm.commitWrite()
+        UserInfo.info?.updateData(complete: { (sucess) in
+            
+        })
+        debugPrint("\(#function) \(#line)")
+        debugPrint("fcmToken : \(fcmToken)")
+    }
+}
