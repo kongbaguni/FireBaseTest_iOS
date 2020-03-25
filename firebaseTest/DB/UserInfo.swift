@@ -11,6 +11,7 @@ import UIKit
 import FirebaseFirestore
 import RealmSwift
 import FirebaseAuth
+import MapKit
 
 class UserInfo : Object {
     var id:String {
@@ -33,6 +34,44 @@ class UserInfo : Object {
     @objc dynamic var exp                       : Int       = 0
     /** 레벨*/
     @objc dynamic var fcmID                     : String    = ""
+    /** 멥 타입*/
+    @objc dynamic var mapType                   : String    = "standard"
+    
+    enum MapType : String, CaseIterable {
+        case standard = "standard"
+        case satellite = "satellite"
+        case hybrid = "hybrid"
+        case satelliteFlyover = "satelliteFlyover"
+        case hybridFlyover = "hybridFlyover"
+        case mutedStandard = "mutedStandard"
+        var mapTypeValue:MKMapType {
+            get {
+                switch self {
+                case .standard:
+                    return MKMapType.standard
+                case .satellite:
+                    return MKMapType.satellite
+                case .hybrid:
+                    return MKMapType.hybrid
+                case .satelliteFlyover:
+                    return MKMapType.satelliteFlyover
+                case .mutedStandard:
+                    return MKMapType.mutedStandard
+                case .hybridFlyover:
+                    return MKMapType.hybridFlyover
+                }
+            }
+        }
+    }
+    
+    var mapTypeValue : MapType {
+        get {
+            MapType(rawValue: mapType) ?? .standard
+        }
+        set {
+            mapType = newValue.rawValue
+        }
+    }
     
     var level:Int {
         return Exp(exp).level
@@ -130,6 +169,7 @@ class UserInfo : Object {
         if let id = info["fmcID"] as? String {
             self.fcmID = id
         }
+        mapType = info["mapType"] as? String ?? "standard"
 //        isAnonymousInventoryReport = info["isAnonymousInventoryReport"] as? Bool ?? false
         isAnonymousInventoryReport = false
         updateDt = Date(timeIntervalSince1970: (info["updateTimeIntervalSince1970"] as? Double ?? 0))
@@ -254,7 +294,8 @@ class UserInfo : Object {
             "point" : point,
             "exp" : exp,
             "fcmID" : fcmID,
-            "isAnonymousInventoryReport" : false //isAnonymousInventoryReport,
+            "mapType" : mapType,
+            "isAnonymousInventorfrffyReport" : false //isAnonymousInventoryReport,
         ]
         
         document.updateData(data) {(error) in

@@ -27,7 +27,7 @@ class TalkDetailMapTableViewCell: UITableViewCell {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        
+        mapView.mapType = UserInfo.info?.mapTypeValue.mapTypeValue ?? .standard
         let camera = MKMapCamera()
         camera.pitch = 45
         camera.altitude = 400

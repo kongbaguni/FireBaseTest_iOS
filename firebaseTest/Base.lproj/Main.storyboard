@@ -325,7 +325,7 @@
                         <viewLayoutGuide key="safeArea" id="TfR-as-uzW"/>
                         <inset key="separatorInset" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="7OI-ab-Q2M">
-                            <rect key="frame" x="0.0" y="593.5" width="414" height="128"/>
+                            <rect key="frame" x="0.0" y="637.5" width="414" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <viewLayoutGuide key="safeArea" id="ydU-ke-nlE"/>
@@ -472,8 +472,40 @@
                                             <constraint firstItem="LOl-5Q-YRh" firstAttribute="centerY" secondItem="3Kd-rm-rjk" secondAttribute="centerY" id="fVg-jt-6w4"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="anonymousInventoryReport" id="Mpz-U6-KaN">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="DtM-Oc-CHl">
                                         <rect key="frame" x="0.0" y="421.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DtM-Oc-CHl" id="CVF-l0-aNI">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g2x-td-7MK">
+                                                    <rect key="frame" x="100" y="5" width="294" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="지도 형식" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42n-SU-YW2">
+                                                    <rect key="frame" x="20" y="11.5" width="63.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="g2x-td-7MK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="42n-SU-YW2" secondAttribute="trailing" constant="10" id="eS8-U8-Uat"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="g2x-td-7MK" firstAttribute="centerY" secondItem="g8p-js-V6A" secondAttribute="centerY" id="0mZ-HP-WXO"/>
+                                            <constraint firstItem="42n-SU-YW2" firstAttribute="centerY" secondItem="g8p-js-V6A" secondAttribute="centerY" id="D0E-wH-j2J"/>
+                                            <constraint firstItem="g8p-js-V6A" firstAttribute="trailing" secondItem="g2x-td-7MK" secondAttribute="trailing" constant="20" id="UYA-q6-phg"/>
+                                            <constraint firstItem="42n-SU-YW2" firstAttribute="leading" secondItem="g8p-js-V6A" secondAttribute="leading" constant="20" id="qXm-XN-OCM"/>
+                                            <constraint firstItem="g2x-td-7MK" firstAttribute="leading" secondItem="g8p-js-V6A" secondAttribute="leading" constant="100" id="wJJ-xv-FSS"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="safeArea" id="g8p-js-V6A"/>
+                                    </tableViewCell>
+                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="anonymousInventoryReport" id="Mpz-U6-KaN">
+                                        <rect key="frame" x="0.0" y="465.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mpz-U6-KaN" id="dZW-tY-EWJ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -503,7 +535,7 @@
                             <tableViewSection id="4dS-RF-Lzq">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="leave" textLabel="CCY-pW-GRt" style="IBUITableViewCellStyleDefault" id="8ok-yR-6rx">
-                                        <rect key="frame" x="0.0" y="521.5" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="565.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8ok-yR-6rx" id="ShW-KQ-kgv">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -537,6 +569,8 @@
                         <outlet property="introduceTextView" destination="b6p-bq-IpB" id="ivS-cv-4Py"/>
                         <outlet property="leaveCell" destination="8ok-yR-6rx" id="pBG-Dr-tIK"/>
                         <outlet property="leaveLabel" destination="CCY-pW-GRt" id="3UG-0H-ppO"/>
+                        <outlet property="mapTypeTextFiled" destination="g2x-td-7MK" id="xdH-63-tT6"/>
+                        <outlet property="mapTypeTitleLabel" destination="42n-SU-YW2" id="SUz-fS-gKp"/>
                         <outlet property="nameLabel" destination="XBJ-gV-guz" id="ike-Mp-y2b"/>
                         <outlet property="nameTextField" destination="JPL-OQ-zEG" id="M2E-pQ-tju"/>
                         <outlet property="photoLabel" destination="zrx-R1-MKC" id="8fU-Sr-gcf"/>
@@ -2741,7 +2775,7 @@
         <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
         <segue reference="qKc-Bh-NmP"/>
-        <segue reference="IOd-bS-gNt"/>
+        <segue reference="XpR-Cm-hF3"/>
         <segue reference="CyJ-tB-mFG"/>
     </inferredMetricsTieBreakers>
 </document>

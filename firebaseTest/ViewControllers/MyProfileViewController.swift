@@ -75,10 +75,13 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var searchDistanceTextField: UITextField!
     /** 탈퇴하기 라벨*/
     @IBOutlet weak var leaveLabel: UILabel!
-
+    
     @IBOutlet weak var leaveCell: UITableViewCell!
     @IBOutlet weak var anonymousInventoryReportTitleLabel: UILabel!
     @IBOutlet weak var anonymousInventoryReportTitleSwitch: UISwitch!
+    
+    @IBOutlet weak var mapTypeTitleLabel: UILabel!
+    @IBOutlet weak var mapTypeTextFiled: UITextField!
     
     var selectSearchDistance:Int = 0 {
         didSet {
@@ -86,21 +89,32 @@ class MyProfileViewController: UITableViewController {
         }
     }
     
-    
+    var selectMapViewMapType:UserInfo.MapType = .standard {
+        didSet {
+            print("--------------------------")
+            print(selectMapViewMapType.rawValue.localized)
+            DispatchQueue.main.async {[weak self] in
+                self?.mapTypeTextFiled.text = self?.selectMapViewMapType.rawValue.localized
+            }
+        }
+    }
     
     deinit {
         debugPrint("deinit \(#file)")
     }
-    let pickerView = UIPickerView()
+    
+    let searchDistancePickerView = UIPickerView()
+    let mapTypePickerView = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "myProfile".localized
-        
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        searchDistanceTextField.inputView = pickerView
-
+        for pickerView in [searchDistancePickerView, mapTypePickerView] {
+            pickerView.delegate = self
+            pickerView.dataSource = self
+        }
+        searchDistanceTextField.inputView = searchDistancePickerView
+        mapTypeTextFiled.inputView = mapTypePickerView
         setTitle()
         introduceTextView.delegate = self
         navigationItem.rightBarButtonItem =
@@ -117,7 +131,7 @@ class MyProfileViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         leaveCell.isHidden = hideLeaveCell
     }
-        
+    
     private func loadData() {
         if let userInfo = UserInfo.info {
             self.nameTextField.text = userInfo.name
@@ -125,9 +139,15 @@ class MyProfileViewController: UITableViewController {
             self.profileImageView.kf.setImage(with: userInfo.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
             self.selectSearchDistance = userInfo.distanceForSearch
             if let index = Consts.SEARCH_DISTANCE_LIST.lastIndex(of: userInfo.distanceForSearch) {
-                self.pickerView.selectRow(index, inComponent: 0, animated: false)
+                self.searchDistancePickerView.selectRow(index, inComponent: 0, animated: false)
             }
+            if let index = UserInfo.MapType.allCases.lastIndex(of: userInfo.mapTypeValue) {
+                self.mapTypePickerView.selectRow(index, inComponent: 0, animated: false)
+            }
+            
+            selectMapViewMapType = userInfo.mapTypeValue
             anonymousInventoryReportTitleSwitch.isOn = userInfo.isAnonymousInventoryReport
+            mapTypeTextFiled.text = userInfo.mapType.localized
         }
     }
     
@@ -140,7 +160,7 @@ class MyProfileViewController: UITableViewController {
         leaveLabel.text = "leave".localized
         leaveCell.isHidden = self.hideLeaveCell
         
-        for view in [introduceTextView, searchDistanceTextField, nameTextField] {
+        for view in [introduceTextView, searchDistanceTextField, nameTextField, mapTypeTextFiled] {
             view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 5)
         }
     }
@@ -193,6 +213,7 @@ class MyProfileViewController: UITableViewController {
             userinfo.distanceForSearch = selectSearchDistance
             userinfo.isAnonymousInventoryReport = anonymousInventoryReportTitleSwitch.isOn
             userinfo.updateDt = Date()
+            userinfo.mapTypeValue = selectMapViewMapType
             if profileImageDeleteMode != nil {
                 userinfo.profileImageURLfirebase = ""
             }
@@ -294,11 +315,11 @@ class MyProfileViewController: UITableViewController {
             present(vc, animated: true, completion: nil)
         default:
             tableView.deselectRow(at: indexPath, animated: true)
-
+            
             break
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
@@ -365,7 +386,14 @@ extension MyProfileViewController : UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Consts.SEARCH_DISTANCE_LIST.count
+        switch pickerView{
+        case mapTypePickerView:
+            return UserInfo.MapType.allCases.count
+        case searchDistancePickerView:
+            return Consts.SEARCH_DISTANCE_LIST.count
+        default:
+            return 0
+        }
     }
     
 }
@@ -373,11 +401,27 @@ extension MyProfileViewController : UIPickerViewDataSource {
 extension MyProfileViewController : UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(Consts.SEARCH_DISTANCE_LIST[row])m"
+        switch pickerView {
+        case mapTypePickerView:
+            return UserInfo.MapType.allCases[row].rawValue.localized
+        case searchDistancePickerView:
+            return "\(Consts.SEARCH_DISTANCE_LIST[row])m"
+        default:
+            return nil
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectSearchDistance = Consts.SEARCH_DISTANCE_LIST[row]
+        switch pickerView{
+        case mapTypePickerView:
+            mapTypeTextFiled.text = UserInfo.MapType.allCases[row].rawValue.localized
+            selectMapViewMapType = UserInfo.MapType.allCases[row]
+            
+        case searchDistancePickerView:
+            selectSearchDistance = Consts.SEARCH_DISTANCE_LIST[row]
+        default:
+            break
+        }
     }
     
 }
