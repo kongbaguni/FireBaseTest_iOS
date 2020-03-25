@@ -61,13 +61,14 @@ class MapViewController: UIViewController {
         }
         
         let camera = MKMapCamera()
+        camera.altitude = stores.count == 1 ? 1500 : 2000
         if stores.count == 1 {
             camera.centerCoordinate = coordinate
+            camera.altitude = (stores.first?.distance ?? 150)*10
         } else {
             camera.centerCoordinate = UserDefaults.standard.lastMyCoordinate ?? coordinate
         }
         camera.pitch = 45
-        camera.altitude = stores.count == 1 ? 1500 : 2000
         camera.heading = 45
         mapView.camera = camera
     }
