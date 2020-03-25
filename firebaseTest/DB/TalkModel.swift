@@ -358,6 +358,6 @@ class TalkModel: Object {
             UserInfo.info?.updateForRanking(type: .count_of_like, addValue: isLike ? 1 : -1) { (sucess) in
                 
             }
-        }        
+        } 
     }
 }

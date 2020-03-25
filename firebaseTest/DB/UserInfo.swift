@@ -367,6 +367,7 @@ class UserInfo : Object {
             let realm = try! Realm()
             realm.beginWrite()
             self.point += point
+            self.updateDt = Date()
             let oldLevel = level
             exp += abs(point)
             if oldLevel > level {

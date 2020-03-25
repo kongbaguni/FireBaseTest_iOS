@@ -683,6 +683,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="Odu-qM-Iax"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="peN-Sx-bfG">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="rankingTypeTextField" destination="yLr-HF-OQI" id="Kkk-KA-T8L"/>
                         <outlet property="rankingTypeTitleLabel" destination="JPl-4U-d4J" id="VYp-ap-h43"/>

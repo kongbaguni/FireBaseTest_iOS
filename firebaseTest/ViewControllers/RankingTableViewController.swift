@@ -70,6 +70,8 @@ class RankingTableViewController: UITableViewController {
             rankingTypePikcer.selectRow(index, inComponent: 0, animated: false)
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
+        
+        refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
     }
         
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,6 +90,13 @@ class RankingTableViewController: UITableViewController {
         let vc = StatusViewController.viewController(withUserId: userId)
         present(vc, animated: true) {
             tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    @objc func onRefreshControll(_ sender:UIRefreshControl) {
+        UserInfo.syncUserInfo {[weak self] in
+            sender.endRefreshing()
+            self?.tableView.reloadData()
         }
     }
     
