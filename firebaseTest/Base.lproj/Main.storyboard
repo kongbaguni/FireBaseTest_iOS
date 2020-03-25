@@ -632,26 +632,26 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="7LV-XO-dhq">
-                                            <rect key="frame" x="80" y="10" width="50" height="50.5"/>
+                                            <rect key="frame" x="88" y="10" width="50" height="50.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="9j6-hH-Vzi"/>
                                                 <constraint firstAttribute="width" constant="50" id="l6w-Ck-syb"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfc-S8-2yl">
-                                            <rect key="frame" x="140" y="10" width="44.5" height="21"/>
+                                            <rect key="frame" x="148" y="10" width="44.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33,333" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uy3-r9-VHh">
-                                            <rect key="frame" x="140" y="39.5" width="62" height="21"/>
+                                            <rect key="frame" x="148" y="39.5" width="62" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uA9-7N-O4g">
-                                            <rect key="frame" x="20" y="17.5" width="50" height="36"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="333" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uA9-7N-O4g">
+                                            <rect key="frame" x="20" y="17.5" width="58" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="UqU-HE-Ktr"/>
                                             </constraints>
@@ -1181,20 +1181,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오성당약국" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ky9-u2-GSn">
-                                            <rect key="frame" x="130" y="11" width="74" height="20.5"/>
+                                            <rect key="frame" x="140" y="11" width="74" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jOJ-4f-SOy">
-                                            <rect key="frame" x="70" y="15" width="50" height="50"/>
+                                            <rect key="frame" x="80" y="15" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="7BV-4C-f1m"/>
                                                 <constraint firstAttribute="height" constant="50" id="jsd-ty-TvL"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="경기도 평택시 오성면 숙성시장길 34-1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCu-z7-WmF">
-                                            <rect key="frame" x="130" y="35" width="185.5" height="15"/>
+                                            <rect key="frame" x="140" y="35" width="185.5" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="rUj-Yr-PEK"/>
                                             </constraints>
@@ -1203,21 +1203,21 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="없음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qcf-pT-MEH">
-                                            <rect key="frame" x="130" y="60" width="24.5" height="17"/>
+                                            <rect key="frame" x="140" y="60" width="24.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="입고 : 2020/03/11 13:40:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHy-jP-GDC">
-                                            <rect key="frame" x="130" y="77" width="171" height="17"/>
+                                            <rect key="frame" x="140" y="77" width="171" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsf-Mk-zJA">
-                                            <rect key="frame" x="10" y="32" width="50" height="36"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsf-Mk-zJA">
+                                            <rect key="frame" x="0.0" y="32" width="70" height="36"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="kf8-5G-YAo"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="kf8-5G-YAo"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
                                             <nil key="textColor"/>
@@ -1237,7 +1237,7 @@
                                         <constraint firstItem="cHy-jP-GDC" firstAttribute="leading" secondItem="Qcf-pT-MEH" secondAttribute="leading" id="Yjf-Th-pBO"/>
                                         <constraint firstItem="ky9-u2-GSn" firstAttribute="leading" secondItem="jOJ-4f-SOy" secondAttribute="trailing" constant="10" id="blD-ox-VQ3"/>
                                         <constraint firstItem="jOJ-4f-SOy" firstAttribute="top" secondItem="ukZ-ET-gex" secondAttribute="top" constant="15" id="iCP-6A-ZMS"/>
-                                        <constraint firstItem="Vsf-Mk-zJA" firstAttribute="leading" secondItem="ocT-YD-N2H" secondAttribute="leading" constant="10" id="kxM-sq-qoU"/>
+                                        <constraint firstItem="Vsf-Mk-zJA" firstAttribute="leading" secondItem="ocT-YD-N2H" secondAttribute="leading" id="kxM-sq-qoU"/>
                                         <constraint firstItem="oCu-z7-WmF" firstAttribute="top" secondItem="ukZ-ET-gex" secondAttribute="top" constant="35" id="lez-7F-gd0"/>
                                         <constraint firstItem="oCu-z7-WmF" firstAttribute="leading" secondItem="jOJ-4f-SOy" secondAttribute="trailing" constant="10" id="nB3-4A-iRB"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ky9-u2-GSn" secondAttribute="trailing" constant="20" symbolic="YES" id="qxM-bf-yg5"/>
@@ -1245,7 +1245,7 @@
                                     </constraints>
                                     <viewLayoutGuide key="safeArea" id="ocT-YD-N2H"/>
                                 </tableViewCellContentView>
-                                <inset key="separatorInset" minX="130" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="separatorInset" minX="140" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="addrLabel" destination="oCu-z7-WmF" id="dwN-WO-7VM"/>
                                     <outlet property="distanceLabel" destination="Qcf-pT-MEH" id="WW9-0o-dGc"/>
