@@ -1152,7 +1152,7 @@
                             <viewLayoutGuide key="safeArea" id="Kg1-PC-j3f"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="W3n-Hm-MmF">
-                            <rect key="frame" x="0.0" y="316" width="414" height="50"/>
+                            <rect key="frame" x="0.0" y="359.5" width="414" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FV-Be-ylF">
@@ -1244,7 +1244,7 @@
                                     </constraints>
                                     <viewLayoutGuide key="safeArea" id="ocT-YD-N2H"/>
                                 </tableViewCellContentView>
-                                <inset key="separatorInset" minX="80" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="separatorInset" minX="130" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="addrLabel" destination="oCu-z7-WmF" id="dwN-WO-7VM"/>
                                     <outlet property="distanceLabel" destination="Qcf-pT-MEH" id="WW9-0o-dGc"/>
@@ -1253,6 +1253,14 @@
                                     <outlet property="stockDtLabel" destination="cHy-jP-GDC" id="deI-4n-pfh"/>
                                     <outlet property="storeImageView" destination="jOJ-4f-SOy" id="GdB-xV-USm"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="x1Y-DM-e72">
+                                <rect key="frame" x="0.0" y="288" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x1Y-DM-e72" id="4N9-tr-VZN">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -2940,7 +2948,7 @@
         <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
         <segue reference="Ujg-ye-w9Q"/>
-        <segue reference="L7P-z6-uCB"/>
+        <segue reference="IOd-bS-gNt"/>
         <segue reference="CyJ-tB-mFG"/>
     </inferredMetricsTieBreakers>
     <resources>
