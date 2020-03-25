@@ -136,6 +136,7 @@ class StoreWaittingTableViewController: UITableViewController {
                 let realm = try! Realm()
                 realm.beginWrite()
                 UserInfo.info?.exp += AdminOptions.shared.exp_for_report_store_wait
+                UserInfo.info?.point += AdminOptions.shared.point_for_report_store_wait
                 try! realm.commitWrite()
                 UserInfo.info?.updateData(complete: { (sucess) in
                     self?.store?.getStoreWaittingLogs(complete: {[weak self] (count) in
@@ -143,7 +144,7 @@ class StoreWaittingTableViewController: UITableViewController {
                         loading.hide()
                         if sucess {
                             let vc = StatusViewController.viewController(withUserId: UserInfo.info?.id)
-                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_wait, pointChange: 0)
+                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_wait, pointChange:  AdminOptions.shared.point_for_report_store_wait)
                             self?.present(vc, animated: true, completion: nil)
                         }
                     })

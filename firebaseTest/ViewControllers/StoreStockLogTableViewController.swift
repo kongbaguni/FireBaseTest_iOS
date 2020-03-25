@@ -94,6 +94,7 @@ class StoreStockLogTableViewController: UITableViewController {
             realm.beginWrite()
             realm.add(model, update: .all)
             UserInfo.info?.exp += AdminOptions.shared.exp_for_report_store_stock
+            UserInfo.info?.point += AdminOptions.shared.point_for_report_store_stock
             try!realm.commitWrite()
             model.uploadStoreStocks { (sucess) in
                 complete(sucess)
@@ -102,7 +103,7 @@ class StoreStockLogTableViewController: UITableViewController {
             UserInfo.info?.updateLastTalkTime(complete: { [weak self](sucess) in
                 if sucess {
                     let vc = StatusViewController.viewController(withUserId: userInfo.id)
-                    vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_stock, pointChange: 0)
+                    vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_stock, pointChange: AdminOptions.shared.point_for_report_store_stock)
                     self?.present(vc, animated: true, completion: nil)
                 }
             })
