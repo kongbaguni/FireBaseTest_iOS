@@ -190,3 +190,12 @@
 
 "todays talk desc" = "오늘 무슨 일이 있었나요?";
 "Level UP" = "레벨업";
+
+
+"sum_points_of_gameWin" = "게임에서 획득한 포인트";
+"sum_points_of_gameLose" = "게임에서 잃은 포인트";
+"count_of_gamePlay" = "게임 플레이 횟수";
+"count_of_like" = "좋아요 많이한 횟수";
+"count_of_ad" = "광고 본 횟수 ";
+
+"ranking" = "순위표";

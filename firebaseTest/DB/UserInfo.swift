@@ -415,14 +415,20 @@ class UserInfo : Object {
         return Exp(exp).nextLevelupExp
     }
     
-    enum RankingType:String {
+    enum RankingType:String, CaseIterable {
         case sum_points_of_gameWin = "sum_points_of_gameWin"
         case sum_points_of_gameLose = "sum_points_of_gameLose"
         case count_of_gamePlay = "count_of_gamePlay"
         case count_of_like = "count_of_like"
         case count_of_ad = "count_of_ad"
+        case point = "point"
+        case exp = "exp"
+        static var withOutGameValues:[RankingType] {
+            return [.count_of_ad, .count_of_like, .point, .exp]
+        }
     }
-    
+    /** 랭킹 계산 위한 프로퍼티 갱신.
+     주의: 포인트와 경험치는 여기서 갱신하지 않습니다.*/
     func updateForRanking(type:RankingType, addValue:Int, complete:@escaping(_ sucess:Bool)->Void) {
         let id = self.id
         let userInfo = Firestore.firestore().collection(FSCollectionName.USERS).document(self.id)
@@ -449,6 +455,8 @@ class UserInfo : Object {
                                 model.count_of_like = newValue
                             case .count_of_ad:
                                 model.count_of_ad = newValue
+                            default:
+                                break
                             }
                             model.updateDt = now
                             try! realm.commitWrite()

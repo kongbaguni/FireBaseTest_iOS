@@ -65,7 +65,8 @@ class StoreWaittingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = store?.name
+        title = "show waitting log".localized
+        navigationItem.prompt = store?.name
         setTitle()
         postLogBtn.isEnabled = false
         postLogBtn.setTitle("", for: .normal)

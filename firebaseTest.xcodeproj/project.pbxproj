@@ -19,6 +19,8 @@
 		C34C6B572418C2B1001D8CF4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B562418C2B1001D8CF4 /* ApiManager.swift */; };
 		C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */; };
 		C34C6B5B2419CC77001D8CF4 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */; };
+		C36149E7242B209C005C2C0B /* RankingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36149E6242B209C005C2C0B /* RankingTableViewController.swift */; };
+		C36149E9242B2439005C2C0B /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36149E8242B2439005C2C0B /* RankingTableViewCell.swift */; };
 		C3630FD0241B339E003479C2 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FCF241B339E003479C2 /* GameManager.swift */; };
 		C3630FD3241B51CE003479C2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FD2241B51CE003479C2 /* Card.swift */; };
 		C3630FD6241B5C7C003479C2 /* CardDackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630FD4241B5C7B003479C2 /* CardDackView.swift */; };
@@ -121,6 +123,8 @@
 		C34C6B562418C2B1001D8CF4 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
 		C34C6B5A2419CC77001D8CF4 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		C36149E6242B209C005C2C0B /* RankingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewController.swift; sourceTree = "<group>"; };
+		C36149E8242B2439005C2C0B /* RankingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewCell.swift; sourceTree = "<group>"; };
 		C3630FCF241B339E003479C2 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		C3630FD2241B51CE003479C2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C3630FD4241B5C7B003479C2 /* CardDackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDackView.swift; sourceTree = "<group>"; };
@@ -274,6 +278,8 @@
 				C3665013242300E700E2BD24 /* AdminViewController.swift */,
 				C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */,
 				C38EF932242493B1006D6732 /* WebViewController.swift */,
+				C36149E6242B209C005C2C0B /* RankingTableViewController.swift */,
+				C36149E8242B2439005C2C0B /* RankingTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -596,6 +602,7 @@
 				C39E499E2429E20A0094E16B /* Exp.swift in Sources */,
 				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,
 				C38EF933242493B1006D6732 /* WebViewController.swift in Sources */,
+				C36149E9242B2439005C2C0B /* RankingTableViewCell.swift in Sources */,
 				C34C6B5B2419CC77001D8CF4 /* EmptyView.swift in Sources */,
 				C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */,
 				C39E49872428A36F0094E16B /* UIView+Extensions.swift in Sources */,
@@ -619,6 +626,7 @@
 				C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */,
 				C3C25C062421A998006DB36E /* CardDeckBoxView.swift in Sources */,
 				C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */,
+				C36149E7242B209C005C2C0B /* RankingTableViewController.swift in Sources */,
 				C3C43A1C241A6E95002788B1 /* TalkDetailMapTableViewCell.swift in Sources */,
 				C3630FD0241B339E003479C2 /* GameManager.swift in Sources */,
 				C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */,

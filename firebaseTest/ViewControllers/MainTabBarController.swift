@@ -23,6 +23,8 @@ class MainTabBarController: UITabBarController {
             items[0].image = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
             items[1].title = "todays talks".localized
             items[1].image = #imageLiteral(resourceName: "talkBubble").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
+            items[2].title = "ranking".localized
+            items[2].image = #imageLiteral(resourceName: "Leaderboard").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
         }
     }
 }

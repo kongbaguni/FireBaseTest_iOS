@@ -47,7 +47,8 @@ class StoreStockLogTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = store?.name
+        title = "show stock log".localized
+        navigationItem.prompt = store?.name
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         onRefreshControl(UIRefreshControl())
         footerBtn.setTitle("show waitting log".localized, for: .normal)
