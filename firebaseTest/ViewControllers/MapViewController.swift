@@ -67,7 +67,7 @@ class MapViewController: UIViewController {
             camera.centerCoordinate = UserDefaults.standard.lastMyCoordinate ?? coordinate
         }
         camera.pitch = 45
-        camera.altitude = stores.count == 1 ? 500 : 1000
+        camera.altitude = stores.count == 1 ? 1500 : 2000
         camera.heading = 45
         mapView.camera = camera
     }
