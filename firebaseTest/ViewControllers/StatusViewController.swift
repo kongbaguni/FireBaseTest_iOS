@@ -157,7 +157,7 @@ class StatusViewController: UIViewController {
             if userId == "guest" {
                 nameLabel.text = "guest".localized
             } else {
-                nameLabel.text = self.userId ?? "unknown people".localized
+                nameLabel.text = ""
             }
             pointLabel.text = ""
             levelLabel.text = ""
@@ -166,10 +166,10 @@ class StatusViewController: UIViewController {
             pointTitleLabel.isHidden = true
             expProgressView.progress = 0
             expTitleLabel.isHidden = true
-            
+            emailBtn.setTitle(self.userId, for: .normal)
             return
         }
-        emailBtn.setTitle(self.userId ?? user.email, for: .normal)
+        emailBtn.setTitle(user.email, for: .normal)
         profileImageView.kf.setImage(with: user.profileImageURL, placeholder:#imageLiteral(resourceName: "profile"))
         nameLabel.text = user.name
         introduceBubble.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
