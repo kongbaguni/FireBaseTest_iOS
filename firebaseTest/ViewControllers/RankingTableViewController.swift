@@ -14,10 +14,9 @@ import RxSwift
 import FirebaseAuth
 
 class RankingTableViewController: UITableViewController {
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var rankingTypeTitleLabel: UILabel!
     @IBOutlet weak var rankingTypeTextField: UITextField!
-    var rankingType:UserInfo.RankingType = .exp {
+    var rankingType:UserInfo.RankingType = UserDefaults.standard.lastTypeOfRanking ?? .exp {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.rankingTypeTextField.text = self?.rankingType.rawValue.localized
@@ -57,17 +56,13 @@ class RankingTableViewController: UITableViewController {
         rankingTypeTextField.inputView = rankingTypePikcer
         rankingTypePikcer.delegate = self
         rankingTypePikcer.dataSource = self
-        searchBar.rx.text.orEmpty.subscribe(onNext: { [weak self] (query) in
-            let txt = query.trimmingCharacters(in: CharacterSet(charactersIn: " "))
-            self?.searchBar.text = txt
-            self?.filterText = txt.isEmpty ? nil : txt
-            self?.tableView.reloadData()
-        }).disposed(by: disposeBag)
-        
         rankingTypeTextField.text = rankingType.rawValue.localized
         
         if let index = rankingTypes.lastIndex(of: self.rankingType) {
             rankingTypePikcer.selectRow(index, inComponent: 0, animated: false)
+        } else {
+            rankingTypePikcer.selectRow(0, inComponent: 0, animated: false)
+            rankingType = rankingTypes[0]
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
         
@@ -79,9 +74,17 @@ class RankingTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let userId = users[indexPath.row].id
+        let user = users[indexPath.row]
+        let userId = user.id
+        let index = (users.lastIndex(of: user) ?? 0) + 1
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RankingTableViewCell
         cell.setData(userId: userId, rankingType: self.rankingType)
+        cell.rankingLabel.text = index.decimalForamtString
+        if index <= 3 {
+            cell.rankingLabel.textColor = UIColor.autoColor_bold_text_color
+        } else {
+            cell.rankingLabel.textColor = UIColor.autoColor_text_color
+        }
         return cell
     }
     
@@ -150,5 +153,6 @@ extension RankingTableViewController : UIPickerViewDelegate {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.rankingType = rankingTypes[row]
+        UserDefaults.standard.lastTypeOfRanking = rankingTypes[row]
     }
 }

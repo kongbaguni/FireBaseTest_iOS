@@ -43,11 +43,12 @@ class UserInfo : Object {
     @objc dynamic var count_of_like             : Int      = 0
     /** 게임 플레이한 횟수*/
     @objc dynamic var count_of_gamePlay         : Int      = 0
+    /** 재고 리포트 성공 횟수*/
+    @objc dynamic var count_of_report_stock     : Int      = 0
     /** 게임에서 잃은 포인트 총합*/
     @objc dynamic var sum_points_of_gameLose    : Int      = 0
     /** 게임에서 얻은 포인트 총합*/
     @objc dynamic var sum_points_of_gameWin     : Int      = 0
-    
     enum MapType : String, CaseIterable {
         case standard = "standard"
         case satellite = "satellite"
@@ -180,7 +181,7 @@ class UserInfo : Object {
         if let id = info["fmcID"] as? String {
             self.fcmID = id
         }
-        
+        count_of_report_stock = info["count_of_report_stock"] as? Int ?? 0
         count_of_ad = info["count_of_ad"] as? Int ?? 0
         count_of_like = info["count_of_like"] as? Int ?? 0
         count_of_gamePlay = info["count_of_gamePlay"] as? Int ?? 0
@@ -317,6 +318,7 @@ class UserInfo : Object {
             "count_of_gamePlay":count_of_gamePlay,
             "count_of_like":count_of_like,
             "count_of_ad":count_of_ad,
+            "count_of_report_stock" : count_of_report_stock,
             "isAnonymousInventorfrffyReport" : false //isAnonymousInventoryReport,
         ]
         
@@ -419,13 +421,14 @@ class UserInfo : Object {
     enum RankingType:String, CaseIterable {
         case sum_points_of_gameWin = "sum_points_of_gameWin"
         case sum_points_of_gameLose = "sum_points_of_gameLose"
+        case count_of_report_stock = "count_of_report_stock"
         case count_of_gamePlay = "count_of_gamePlay"
         case count_of_like = "count_of_like"
         case count_of_ad = "count_of_ad"
         case point = "point"
         case exp = "exp"
         static var withOutGameValues:[RankingType] {
-            return [.count_of_ad, .count_of_like, .point, .exp]
+            return [.count_of_report_stock, .count_of_ad, .count_of_like, .point, .exp]
         }
     }
     /** 랭킹 계산 위한 프로퍼티 갱신.
@@ -446,6 +449,8 @@ class UserInfo : Object {
                         if let model = realm.object(ofType: UserInfo.self, forPrimaryKey: id) {
                             realm.beginWrite()
                             switch type {
+                            case .count_of_report_stock:
+                                model.count_of_report_stock = newValue
                             case .sum_points_of_gameWin:
                                 model.sum_points_of_gameWin = newValue
                             case .sum_points_of_gameLose:

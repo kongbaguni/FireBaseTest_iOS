@@ -64,4 +64,16 @@ extension UserDefaults {
             integer(forKey: "lastBettingPoint")
         }
     }
+    
+    var lastTypeOfRanking:UserInfo.RankingType? {
+        set {
+            set(newValue?.rawValue, forKey:"lastRankingTypeOfRanking")
+        }
+        get {
+            if let str = string(forKey: "lastRankingTypeOfRanking") {
+                return UserInfo.RankingType(rawValue: str)
+            }
+            return nil
+        }
+    }
 }

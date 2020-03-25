@@ -103,9 +103,13 @@ class StoreStockLogTableViewController: UITableViewController {
             
             UserInfo.info?.updateLastTalkTime(complete: { [weak self](sucess) in
                 if sucess {
-                    let vc = StatusViewController.viewController(withUserId: userInfo.id)
-                    vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_stock, pointChange: AdminOptions.shared.point_for_report_store_stock)
-                    self?.present(vc, animated: true, completion: nil)
+                    UserInfo.info?.updateForRanking(type: .count_of_report_stock, addValue: 1, complete: { (sucess) in
+                        if sucess {
+                            let vc = StatusViewController.viewController(withUserId: userInfo.id)
+                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_stock, pointChange: AdminOptions.shared.point_for_report_store_stock)
+                            self?.present(vc, animated: true, completion: nil)
+                        }
+                    })
                 }
             })
             return

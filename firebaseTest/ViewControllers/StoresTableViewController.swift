@@ -213,11 +213,15 @@ class StoresTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell") as! StoresTableViewCell
         
         let list = getStoreList(type: getSectionType(section: indexPath.section))
+        
         if indexPath.row >= list.count {
             return UITableViewCell()
         }
+        
         let data = list[indexPath.row]
+        let ranking = (list.lastIndex(of: data) ?? 0)+1
         cell.storeId = data.code
+        cell.rankingLabel.text = ranking.decimalForamtString
         return cell
     }
         

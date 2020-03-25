@@ -11,6 +11,7 @@ import UIKit
 import RealmSwift
 
 class RankingTableViewCell: UITableViewCell {
+    @IBOutlet weak var rankingLabel:UILabel!
     @IBOutlet weak var profileImageView:UIImageView!
     @IBOutlet weak var nameLabel:UILabel!
     @IBOutlet weak var valueLabel:UILabel!
@@ -30,6 +31,11 @@ class RankingTableViewCell: UITableViewCell {
         super.layoutSubviews()
         if let id = self.userId {
             setData(userId: id, rankingType: self.rankingType)
+            if id == UserInfo.info?.id {
+                nameLabel.textColor = .autoColor_bold_text_color
+            } else {
+                nameLabel.textColor = .autoColor_text_color
+            }
         }
     }
     
@@ -39,7 +45,10 @@ class RankingTableViewCell: UITableViewCell {
         
         profileImageView.kf.setImage(with: user?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
         nameLabel.text = user?.name
+        valueLabel.textColor = .autoColor_bold_text_color
         switch rankingType {
+        case .count_of_report_stock:
+            valueLabel.text = user?.count_of_report_stock.decimalForamtString
         case .count_of_ad:
             valueLabel.text = user?.count_of_ad.decimalForamtString
         case .count_of_like:
@@ -77,7 +86,7 @@ class RankingTableViewCell: UITableViewCell {
             str.append(a)
             str.append(NSAttributedString(string: Exp(user?.exp ?? 0).level.decimalForamtString , attributes: [
                 .foregroundColor : UIColor.autoColor_bold_text_color,
-                .font : UIFont.boldSystemFont(ofSize: 30)]
+                .font : UIFont.boldSystemFont(ofSize: 20)]
             ))
             valueLabel.attributedText = str
         case .none:
