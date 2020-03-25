@@ -49,6 +49,9 @@ class StatusViewController: UIViewController {
     @IBOutlet weak var expTitleLabel: UILabel!
     @IBOutlet weak var expLabel: UILabel!
     @IBOutlet weak var expProgressView: UIProgressView!
+    @IBOutlet weak var emailTitleLabel: UILabel!
+    
+    @IBOutlet weak var emailBtn: UIButton!
     
     @IBOutlet weak var pointLabel: UILabel!
     @IBOutlet weak var pointTitleLabel: UILabel!
@@ -146,6 +149,7 @@ class StatusViewController: UIViewController {
         levelTitleLabel.text = "level".localized
         expTitleLabel.text = "exp".localized
         pointTitleLabel.text = "point".localized
+        emailTitleLabel.text = "email".localized
     }
     
     func loadData() {
@@ -162,9 +166,10 @@ class StatusViewController: UIViewController {
             pointTitleLabel.isHidden = true
             expProgressView.progress = 0
             expTitleLabel.isHidden = true
+            
             return
         }
-        
+        emailBtn.setTitle(self.userId ?? user.email, for: .normal)
         profileImageView.kf.setImage(with: user.profileImageURL, placeholder:#imageLiteral(resourceName: "profile"))
         nameLabel.text = user.name
         introduceBubble.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
@@ -229,5 +234,17 @@ class StatusViewController: UIViewController {
     
     @IBAction func onTouchupCloseBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onTouchupEmailBtn(_ sender: UIButton) {
+        guard let email = self.userInfo?.email else {
+            return
+        }
+        
+        if let url = URL(string:"mailto:\(email)") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
     }
 }

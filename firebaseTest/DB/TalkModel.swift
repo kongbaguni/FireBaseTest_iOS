@@ -340,9 +340,12 @@ class TalkModel: Object {
         }
         let realm = try! Realm()
         realm.beginWrite()
+        var isLike = false
+        
         if let like = self.likes.filter("creatorId == %@",userId).first {
             realm.delete(like)
         } else {
+            isLike = true
             let likeModel = LikeModel()
             likeModel.set(creatorId: userId, targetTalkId: self.id)
             self.likes.append(likeModel)
@@ -350,5 +353,11 @@ class TalkModel: Object {
             debugPrint("좋아요 : \(likes.count) 개")
         }
         try! realm.commitWrite()
+
+        if creatorId != UserInfo.info?.id {
+            UserInfo.info?.updateForRanking(type: .count_of_like, addValue: isLike ? 1 : -1) { (sucess) in
+                
+            }
+        }        
     }
 }

@@ -37,6 +37,17 @@ class UserInfo : Object {
     /** 멥 타입*/
     @objc dynamic var mapType                   : String    = "standard"
     
+    /** 광고 시청 횟수*/
+    @objc dynamic var count_of_ad               : Int      = 0
+    /** 좋아요 받은 횟수*/
+    @objc dynamic var count_of_like             : Int      = 0
+    /** 게임 플레이한 횟수*/
+    @objc dynamic var count_of_gamePlay         : Int      = 0
+    /** 게임에서 잃은 포인트 총합*/
+    @objc dynamic var sum_points_of_gameLose    : Int      = 0
+    /** 게임에서 얻은 포인트 총합*/
+    @objc dynamic var sum_points_of_gameWin     : Int      = 0
+    
     enum MapType : String, CaseIterable {
         case standard = "standard"
         case satellite = "satellite"
@@ -169,6 +180,12 @@ class UserInfo : Object {
         if let id = info["fmcID"] as? String {
             self.fcmID = id
         }
+        
+        count_of_ad = info["count_of_ad"] as? Int ?? 0
+        count_of_like = info["count_of_like"] as? Int ?? 0
+        count_of_gamePlay = info["count_of_gamePlay"] as? Int ?? 0
+        sum_points_of_gameLose = info["sum_points_of_gameLose"] as? Int ?? 0
+        sum_points_of_gameWin = info["sum_points_of_gameWin"] as? Int ?? 0
         mapType = info["mapType"] as? String ?? "standard"
 //        isAnonymousInventoryReport = info["isAnonymousInventoryReport"] as? Bool ?? false
         isAnonymousInventoryReport = false
@@ -295,6 +312,11 @@ class UserInfo : Object {
             "exp" : exp,
             "fcmID" : fcmID,
             "mapType" : mapType,
+            "sum_points_of_gameWin":sum_points_of_gameWin,
+            "sum_points_of_gameLose":sum_points_of_gameLose,
+            "count_of_gamePlay":count_of_gamePlay,
+            "count_of_like":count_of_like,
+            "count_of_ad":count_of_ad,
             "isAnonymousInventorfrffyReport" : false //isAnonymousInventoryReport,
         ]
         
@@ -391,5 +413,57 @@ class UserInfo : Object {
     /** 다음 레벨까지 경험치*/
     var nextLevelupExp:Int {
         return Exp(exp).nextLevelupExp
+    }
+    
+    enum RankingType:String {
+        case sum_points_of_gameWin = "sum_points_of_gameWin"
+        case sum_points_of_gameLose = "sum_points_of_gameLose"
+        case count_of_gamePlay = "count_of_gamePlay"
+        case count_of_like = "count_of_like"
+        case count_of_ad = "count_of_ad"
+    }
+    
+    func updateForRanking(type:RankingType, addValue:Int, complete:@escaping(_ sucess:Bool)->Void) {
+        let id = self.id
+        let userInfo = Firestore.firestore().collection(FSCollectionName.USERS).document(self.id)
+        userInfo.getDocument { (snapshot, error) in
+            let now = Date()
+            if let data = snapshot?.data() {
+                if let value = data[type.rawValue] as? Int {
+                    let newValue = value + addValue
+                    userInfo.updateData([
+                        type.rawValue : newValue
+                        , "updateTimeIntervalSince1970" : now.timeIntervalSince1970
+                    ]) { (error) in
+                        let realm = try! Realm()
+                        if let model = realm.object(ofType: UserInfo.self, forPrimaryKey: id) {
+                            realm.beginWrite()
+                            switch type {
+                            case .sum_points_of_gameWin:
+                                model.sum_points_of_gameWin = newValue
+                            case .sum_points_of_gameLose:
+                                model.sum_points_of_gameLose = newValue
+                            case .count_of_gamePlay:
+                                model.count_of_gamePlay = newValue
+                            case .count_of_like:
+                                model.count_of_like = newValue
+                            case .count_of_ad:
+                                model.count_of_ad = newValue
+                            }
+                            model.updateDt = now
+                            try! realm.commitWrite()
+                        }
+                        complete(error == nil)
+                    }
+                }
+            } else {
+                complete(false)
+            }
+        }
+//        "sum_points_of_gameWin":sum_points_of_gameWin,
+//                 "sum_points_of_gameLose":sum_points_of_gameLose,
+//                 "count_of_gamePlay":count_of_gamePlay,
+//                 "count_of_like":count_of_like,
+//                 "count_of_ad":count_of_ad,
     }
 }

@@ -33,6 +33,13 @@ extension GoogleAd : GADRewardedAdDelegate {
         isSucess = true
     }
     func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
-        complete(self.isSucess)
+        UserInfo.info?.updateForRanking(type: .count_of_ad, addValue: 1, complete: { [weak self](sucess) in
+            if sucess {
+                self?.complete(self?.isSucess ?? false)
+            }
+            else {
+                self?.complete(false)
+            }
+        })
     }
 }

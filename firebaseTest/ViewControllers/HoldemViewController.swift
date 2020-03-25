@@ -257,10 +257,13 @@ class HoldemViewController : UIViewController {
                             self?.holdemView.showMyCard()
                             self?.gameState = .preflop
                             sender.isEnabled = false
-                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                                self?.onTouchupButton(sender)
-                                sender.isEnabled = true
-                            }
+                            UserInfo.info?.updateForRanking(type: .count_of_gamePlay, addValue: 1, complete: { (sucess) in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                                    self?.onTouchupButton(sender)
+                                    sender.isEnabled = true
+                                }
+                            })
+                            
                         }
                     }
                 }
@@ -293,13 +296,17 @@ class HoldemViewController : UIViewController {
                 }
             }) {
                 //Fold Action
-                let card = GameManager.shared.popCards(number: 4)
-                self.holdemView.communityCards.append(card[1])
-                self.holdemView.communityCards.append(card[3])
-                self.holdemView.showCommunityCard(number: 5)
-                self.holdemView.showDealerCard()
-                self.gameState = .finish
-                self.setTitle()
+                UserInfo.info?.updateForRanking(type: .sum_points_of_gameLose, addValue: self.bettingPoint, complete: { (sucess) in
+                    if sucess {
+                        let card = GameManager.shared.popCards(number: 4)
+                        self.holdemView.communityCards.append(card[1])
+                        self.holdemView.communityCards.append(card[3])
+                        self.holdemView.showCommunityCard(number: 5)
+                        self.holdemView.showDealerCard()
+                        self.gameState = .finish
+                        self.setTitle()
+                    }                    
+                })
             }
         case .turn:
             gameMenuPopup(didBetting: { (point) in
@@ -333,46 +340,49 @@ class HoldemViewController : UIViewController {
                 switch self.holdemView.gameResult {
                 case .win:
                     JackPotManager.shared.addPoint(self.holdemView.dealarBetting) { [weak self](isSucess) in
-                        let point = (self?.holdemView.bettingPoint ?? 0) * 2
-                        GameManager.shared.addPoint(point: point) { (sucess) in
-                            self?.setTitle()
-                            let set = self?.holdemView.myBestCardSet?.cardSet
-                            
-                            var isJackPod:Bool {
-                                #if JACKPOTTEST
-                                return true
-                                #endif
-                                if set?.cardValue == CardSet.CardValue.straightFlush {
-                                    if (set?.cards.filter({ (card) -> Bool in
-                                        return card.index == 13
-                                    }).count == 1) {
-                                        return true
-                                    }
-                                }
-                                return false
-                            }
-                            
-                            if isJackPod {
-                                // 로티플이다!!
-                                Toast.makeToast(message: "JackPot!!")
-                                JackPotManager.shared.dropJackPot { (jackPod) in
-                                    if let point = jackPod {
-                                        GameManager.shared.addPoint(point: point) { (sucess) in
-                                            showStatusView(statusChange:
-                                                StatusChange(
-                                                    addedExp: point,
-                                                    pointChange: point - (self?.bettingPoint ?? 0)))
-
+                        UserInfo.info?.updateForRanking(type: .sum_points_of_gameWin, addValue: self?.holdemView.bettingPoint ?? 0, complete: { (sucess) in
+                            let point = (self?.holdemView.bettingPoint ?? 0) * 2
+                            GameManager.shared.addPoint(point: point) { (sucess) in
+                                self?.setTitle()
+                                let set = self?.holdemView.myBestCardSet?.cardSet
+                                
+                                var isJackPod:Bool {
+                                    #if JACKPOTTEST
+                                    return true
+                                    #endif
+                                    if set?.cardValue == CardSet.CardValue.straightFlush {
+                                        if (set?.cards.filter({ (card) -> Bool in
+                                            return card.index == 13
+                                        }).count == 1) {
+                                            return true
                                         }
                                     }
+                                    return false
                                 }
-                            } else {
-                                showStatusView(statusChange:
-                                    StatusChange(
-                                        addedExp: point,
-                                        pointChange: point - (self?.bettingPoint ?? 0)))
+                                
+                                if isJackPod {
+                                    // 로티플이다!!
+                                    Toast.makeToast(message: "JackPot!!")
+                                    JackPotManager.shared.dropJackPot { (jackPod) in
+                                        if let point = jackPod {
+                                            GameManager.shared.addPoint(point: point) { (sucess) in
+                                                showStatusView(statusChange:
+                                                    StatusChange(
+                                                        addedExp: point,
+                                                        pointChange: point - (self?.bettingPoint ?? 0)))
+
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    showStatusView(statusChange:
+                                        StatusChange(
+                                            addedExp: point,
+                                            pointChange: point - (self?.bettingPoint ?? 0)))
+                                }
                             }
-                        }
+
+                        })
                     }
                 case .tie:
                     GameManager.shared.addPoint(point: self.holdemView.bettingPoint) { (sucess) in
@@ -383,11 +393,14 @@ class HoldemViewController : UIViewController {
 
                     }
                 case .lose:
-                    JackPotManager.shared.addPoint(self.bettingPoint) { (isSucess) in
-                        showStatusView(statusChange:
-                            StatusChange(addedExp: self.bettingPoint,
-                                         pointChange: -self.bettingPoint))
-                    }
+                    UserInfo.info?.updateForRanking(type: .sum_points_of_gameLose, addValue: self.bettingPoint, complete: { (sucess) in
+                        JackPotManager.shared.addPoint(self.bettingPoint) { (isSucess) in
+                            
+                            showStatusView(statusChange:
+                                StatusChange(addedExp: self.bettingPoint,
+                                             pointChange: -self.bettingPoint))
+                        }
+                    })
                 default:
                     break
                 }
