@@ -39,9 +39,9 @@ class StatusViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var blurView:UIVisualEffectView!
     @IBOutlet weak var statusCardView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var levelTitleLabel: UILabel!
@@ -98,6 +98,29 @@ class StatusViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        blurView.alpha = 0.0
+        if self.statusChange != nil {
+            UIView.animate(withDuration: 0.5) {[weak self] in
+                self?.blurView.alpha = 0.5
+            }
+        }
+        else {
+            UIView.animate(withDuration: 1) {[weak self] in
+                self?.blurView.alpha = 1
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.statusChange != nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
     @objc func onTapGesture(_ sender:UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
