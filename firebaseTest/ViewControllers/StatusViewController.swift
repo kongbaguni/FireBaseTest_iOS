@@ -244,8 +244,9 @@ class StatusViewController: UIViewController {
         case talkLogsBtn:
             let vc = TalkHistoryTableViewController.viewController
             vc.userId = self.userId
-            
-            self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+            let navi = UINavigationController(rootViewController: vc)
+            navi.modalPresentationStyle = .overFullScreen
+            self.present(navi, animated: true, completion: nil)
         case emailBtn:
             if let email = self.userInfo?.email {
                 if let url = URL(string:"mailto:\(email)") {

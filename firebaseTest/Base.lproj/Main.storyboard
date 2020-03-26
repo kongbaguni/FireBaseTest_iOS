@@ -2379,6 +2379,9 @@
                             <outlet property="delegate" destination="muF-ia-Umn" id="5gL-JZ-Kkn"/>
                         </connections>
                     </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="HqB-s5-mWL">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="emailButton" destination="kNK-M4-q5K" id="6MR-GO-r4G"/>
                         <outlet property="introLabel" destination="LJI-cd-Pd5" id="3vB-Va-A7N"/>

@@ -56,9 +56,7 @@ class TalkHistoryTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userInfo?.getTalkList(complete: { [weak self] (sucess) in
-            self?.tableView.reloadData()
-        })
+        onRefreshControll(UIRefreshControl())
         searchBar.placeholder = "text search".localized
         searchBar
             .rx.text
@@ -79,6 +77,19 @@ class TalkHistoryTableViewController: UITableViewController {
             navigationItem.leftBarButtonItem =
                 UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
         }
+        refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
+    }
+    
+    let loading = Loading()
+    @objc func onRefreshControll(_ sender:UIRefreshControl) {
+        if sender != self.refreshControl {
+            loading.show(viewController: self)
+        }
+        userInfo?.getTalkList(complete: { [weak self] (sucess) in
+            sender.endRefreshing()
+            self?.loading.hide()
+            self?.tableView.reloadData()
+        })
     }
     
     @objc func onTouchupCloseBtn(_ sender:UIBarButtonItem) {
