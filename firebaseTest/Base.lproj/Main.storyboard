@@ -2373,6 +2373,67 @@
                                     <outlet property="textView" destination="fhv-PC-KLa" id="3q3-AX-Btu"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageCell" id="8S3-b1-BQ6" customClass="TalkHistoryImageTableViewCell" customModule="mask_now" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="494.5" width="414" height="403.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8S3-b1-BQ6" id="aRW-Q0-d2D">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="403.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="PpH-q3-DrT">
+                                            <rect key="frame" x="20" y="40" width="261.5" height="353.5"/>
+                                        </imageView>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Gbp-ov-1SY">
+                                            <rect key="frame" x="50" y="50" width="211.5" height="333.5"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="evJ-0s-WWX"/>
+                                            </constraints>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3월 10일 13시 33분 30초" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIZ-rd-CE7">
+                                            <rect key="frame" x="20" y="10" width="178.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qBe-jC-aYr">
+                                            <rect key="frame" x="291.5" y="40" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="Qmp-ZT-Rgt"/>
+                                                <constraint firstAttribute="height" constant="100" id="vUT-DF-RKM"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Gbp-ov-1SY" firstAttribute="leading" secondItem="aRW-Q0-d2D" secondAttribute="leading" constant="50" id="8UN-Qz-YFy"/>
+                                        <constraint firstItem="PpH-q3-DrT" firstAttribute="bottom" secondItem="Gbp-ov-1SY" secondAttribute="bottom" constant="10" id="Feu-jz-337"/>
+                                        <constraint firstItem="TIZ-rd-CE7" firstAttribute="top" secondItem="bbC-Zg-BIx" secondAttribute="top" constant="10" id="GLV-tR-i4o"/>
+                                        <constraint firstItem="bbC-Zg-BIx" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TIZ-rd-CE7" secondAttribute="trailing" constant="20" id="KRk-aT-6Ti"/>
+                                        <constraint firstItem="bbC-Zg-BIx" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qBe-jC-aYr" secondAttribute="bottom" constant="10" id="LS7-O2-rDq"/>
+                                        <constraint firstItem="PpH-q3-DrT" firstAttribute="top" secondItem="Gbp-ov-1SY" secondAttribute="top" constant="-10" id="Mi6-92-kzt"/>
+                                        <constraint firstAttribute="bottom" secondItem="Gbp-ov-1SY" secondAttribute="bottom" constant="20" id="TnL-wA-G0f"/>
+                                        <constraint firstItem="Gbp-ov-1SY" firstAttribute="top" secondItem="aRW-Q0-d2D" secondAttribute="top" constant="50" id="ZpC-6C-bTF"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Gbp-ov-1SY" secondAttribute="trailing" constant="150" id="cC9-XT-Auq"/>
+                                        <constraint firstItem="PpH-q3-DrT" firstAttribute="leading" secondItem="Gbp-ov-1SY" secondAttribute="leading" constant="-30" id="dS9-Go-MsZ"/>
+                                        <constraint firstItem="qBe-jC-aYr" firstAttribute="top" secondItem="PpH-q3-DrT" secondAttribute="top" id="hSH-Qi-I1J"/>
+                                        <constraint firstItem="bbC-Zg-BIx" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qBe-jC-aYr" secondAttribute="trailing" constant="20" id="mMi-Yf-CIn"/>
+                                        <constraint firstItem="PpH-q3-DrT" firstAttribute="trailing" secondItem="Gbp-ov-1SY" secondAttribute="trailing" constant="20" id="oqd-ph-5xc"/>
+                                        <constraint firstItem="qBe-jC-aYr" firstAttribute="leading" secondItem="PpH-q3-DrT" secondAttribute="trailing" constant="10" id="w7N-rS-vXE"/>
+                                        <constraint firstItem="TIZ-rd-CE7" firstAttribute="leading" secondItem="bbC-Zg-BIx" secondAttribute="leading" constant="20" id="yfq-wD-nHR"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="safeArea" id="bbC-Zg-BIx"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="attachImageView" destination="qBe-jC-aYr" id="16z-Bh-z38"/>
+                                    <outlet property="bubbleImageView" destination="PpH-q3-DrT" id="r8G-wf-9Fx"/>
+                                    <outlet property="dateLabel" destination="TIZ-rd-CE7" id="zCD-aj-b6S"/>
+                                    <outlet property="textView" destination="Gbp-ov-1SY" id="mfc-ey-y7m"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="muF-ia-Umn" id="XSr-B2-Usu"/>

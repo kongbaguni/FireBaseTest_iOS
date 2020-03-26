@@ -88,9 +88,9 @@ class PostTalkViewController: UITableViewController {
                 self?.updateNeedPointLabel()
                             
             }).disposed(by: self.disposebag)
-
+        
     }
-    
+        
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
         /** 생성될 문서 아이디*/
         let documentId:String = self.documentId == nil ? "\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)" : self.documentId!

@@ -167,4 +167,32 @@ class GameManager {
         }
         
     }
+    
+    func showAd(popoverView:Any,adcomplete:@escaping()->Void) {
+        let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
+        let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+        vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
+            self.googleAd.showAd(targetViewController: UIApplication.shared.lastViewController!) { (isSucess) in
+                if isSucess {
+                    GameManager.shared.addPoint(point: AdminOptions.shared.adRewardPoint) { (isSucess) in
+                        if isSucess {
+                            let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
+                            Toast.makeToast(message: msg)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                                adcomplete()
+                            }
+                        }
+                    }
+                }
+            }
+        }))
+        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        if let view = popoverView as? UIView {
+            vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: view)
+        }
+        if let item = popoverView as? UIBarButtonItem {
+            vc.popoverPresentationController?.barButtonItem = item
+        }
+        UIApplication.shared.lastViewController!.present(vc, animated: true, completion: nil)
+    }
 }

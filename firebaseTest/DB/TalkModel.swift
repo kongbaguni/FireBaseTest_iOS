@@ -367,4 +367,28 @@ class TalkModel: Object {
         }
         return false
     }
+    
+    func delete(complete:@escaping(_ sucess:Bool)->Void) {
+        GameManager.shared.usePoint(point: AdminOptions.shared.pointUseDeleteTalk) { (sucess) in
+            if sucess {
+                Firestore.firestore().collection(FSCollectionName.TALKS).document(self.id).delete { (error) in
+                    if error == nil {
+                        let realm = try! Realm()
+                        realm.beginWrite()
+                        realm.delete(self)
+                        try! realm.commitWrite()
+                        Toast.makeToast(message: "delete talk sucess".localized)
+                        complete(true)
+                    }
+                    else {
+                        complete(false)
+                    }
+                }
+            }
+            else {
+                complete(false)
+            }
+
+        }
+    }
 }

@@ -80,6 +80,11 @@ class TalkHistoryTableViewController: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     let loading = Loading()
     @objc func onRefreshControll(_ sender:UIRefreshControl) {
         if sender != self.refreshControl {
@@ -122,10 +127,18 @@ class TalkHistoryTableViewController: UITableViewController {
             return UITableViewCell()
         }
         let data = talks[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
-        cell.textView.text = data.textForSearch
-        cell.dateLabel.text = data.regDt.simpleFormatStringValue
-        return cell
+        if let url = data.imageURL {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
+            cell.textView.text = data.textForSearch
+            cell.dateLabel.text = data.regDt.simpleFormatStringValue
+            cell.attachImageView.kf.setImage(with: url,placeholder: #imageLiteral(resourceName: "placeholder") )
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
+            cell.textView.text = data.textForSearch
+            cell.dateLabel.text = data.regDt.simpleFormatStringValue
+            return cell
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -154,4 +167,8 @@ class TalkHistoryTableViewCell : UITableViewCell {
         dateLabel.textColor = .autoColor_weak_text_color
         textView.textColor = .autoColor_text_color
     }
+}
+
+class TalkHistoryImageTableViewCell : TalkHistoryTableViewCell {
+    @IBOutlet weak var attachImageView:UIImageView!
 }

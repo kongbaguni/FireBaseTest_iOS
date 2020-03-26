@@ -39,6 +39,8 @@ fileprivate let EXP_FOR_REPORT_WAIT = 10
 fileprivate let POINT_FOR_REPORT_STOCK = 10
 fileprivate let POINT_FOR_REPORT_WAIT = -10
 
+/** 작성글 삭제를 위해 필요한 포인트*/
+fileprivate let POINT_FOR_DELETE_TALK = 1000
 
 /**  관리자가 원격으로 제어하는 옵션값 관리하는 클래스*/
 class AdminOptions {
@@ -100,6 +102,9 @@ class AdminOptions {
     var point_for_report_store_stock = POINT_FOR_REPORT_STOCK
     var point_for_report_store_wait = POINT_FOR_REPORT_WAIT
 
+    /** talk 삭제 위해 필요한 포인트*/
+    var pointUseDeleteTalk = POINT_FOR_DELETE_TALK
+    
     
     var allData:[String:Any] {
         return [
@@ -126,6 +131,8 @@ class AdminOptions {
             "levelup_req_exp_plus"      : levelup_req_exp_plus,
             "point_for_report_store_stock" : point_for_report_store_stock,
             "point_for_report_store_wait" : point_for_report_store_wait,
+            
+            "pointUseDeleteTalk"     : pointUseDeleteTalk,
             // exp
             "exp_for_report_store_stock": exp_for_report_store_stock,
             "exp_for_report_store_wait" :exp_for_report_store_wait
@@ -146,9 +153,10 @@ class AdminOptions {
             "adRewardPoint",
             "pointUseRatePosting",
             "pointUseUploadPicture",
+            "pointUseDeleteTalk",
             "defaultPoint",
             "point_for_report_store_stock",
-            "point_for_report_store_wait"
+            "point_for_report_store_wait",
         ],
         [
             "isUsePoker",
@@ -177,6 +185,9 @@ class AdminOptions {
         let intValue = NSString(string:value).integerValue
         if intValue >= 0 {
             switch key {
+            case "pointUseDeleteTalk":
+                pointUseDeleteTalk = intValue
+                return true
             case "can_view_talk_log_level":
                 can_view_talk_log_level = intValue
                 return true
@@ -307,6 +318,7 @@ class AdminOptions {
         adRewardPoint = data["adRewardPoint"] as? Int ?? AD_REWORD
         pointUseUploadPicture = data["pointUseUploadPicture"] as? Int ?? POINT_USE_IMAGE
         pointUseRatePosting = data["pointUseRatePosting"] as? Int ?? POINT_USE_POSTING
+        pointUseDeleteTalk = data["pointUseDeleteTalk"] as? Int ?? POINT_FOR_DELETE_TALK
         defaultPoint = data["defaultPoint"] as? Int ?? POINT_DEFAULT
         levelup_req_exp_plus = data["levelup_req_exp_plus"] as? Int ?? Consts.LEVELUP_REQ_EXP_PLUS
         levelup_req_exp_base = data["levelup_req_exp_base"] as? Int ?? Consts.LEVELUP_REQ_EXP_BASE

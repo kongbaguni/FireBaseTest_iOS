@@ -203,3 +203,9 @@
 "permission" = "권한";
 "You do not have permission to look up" = "권한이 없습니다.";
 "err_talk_log_policy_msg %@" = "다른 사람이 쓴 글의 이력 조회는 %@레벨 이상 가능합니다.";
+
+"delete talk title" = "글 삭제";
+"delete talk msg %@" = "글 삭제를 위해서 %@포인트 필요합니다.\n지금 이 글을 삭제하더라도 다른 사용자의 기기에 노출된 글은 완전히 삭제 되지 않습니다.\n\n삭제하시겠습니까?";
+"delete" = "삭제";
+"delete talk fail msg" = "글 삭제에 실패했습니다. 나중에 다시 시도해주세요";
+"delete talk sucess" = "글이 삭제되었습니다.";

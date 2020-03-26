@@ -76,9 +76,7 @@ class HoldemViewController : UIViewController {
             self?.jackPotPointLabel.text = (notification.object as? Int)?.decimalForamtString
         }
     }
-    
-    let googleAd = GoogleAd()
-    
+        
     @IBAction func onTouchupJackPotBtn(_ sender: Any) {
         JackPotManager.shared.getJackPotHistoryLog { (isSucess) in
             if (isSucess) {
@@ -196,27 +194,10 @@ class HoldemViewController : UIViewController {
         }
         
         func showAd(adcomplete:@escaping()->Void) {
-            let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
-            let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-            vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
-                self.googleAd.showAd(targetViewController: self) { (isSucess) in
-                    if isSucess {
-                        GameManager.shared.addPoint(point: AdminOptions.shared.adRewardPoint) { [weak self] (isSucess) in
-                            if isSucess {
-                                self?.setTitle()
-                                let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPoint.decimalForamtString)
-                                Toast.makeToast(message: msg)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                                    adcomplete()
-                                }
-                            }
-                        }
-                    }
-                }
-            }))
-            vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-            vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: sender)
-            self.present(vc, animated: true, completion: nil)
+            GameManager.shared.showAd(popoverView: sender) {
+                self.setTitle()
+                adcomplete()
+            }
         }
         
         func gameMenuPopup(

@@ -40,6 +40,52 @@ class TalkDetailTableViewController: UITableViewController {
                 }
             }
         }
+        if self.talkModel?.creatorId == UserInfo.info?.id {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNaviBarButton(_:)))
+        }
+    }
+        
+    @objc func onTouchupNaviBarButton(_ sender:UIBarButtonItem) {
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        vc.popoverPresentationController?.barButtonItem = sender
+        
+        let talkId = self.talkModel?.id
+        if self.talkModel?.creatorId == UserInfo.info?.id {
+            vc.addAction(UIAlertAction(title: "delete talk title".localized, style: .default, handler: { (action) in
+                let msg = String(format : "delete talk msg %@".localized, AdminOptions.shared.pointUseDeleteTalk.decimalForamtString)
+                
+                let ac = UIAlertController(title: "delete talk title".localized, message: msg, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+                ac.addAction(UIAlertAction(title: "delete".localized, style: .default, handler: { (action) in
+                    func deleteAction() {
+                        if UserInfo.info?.point ?? 0 < AdminOptions.shared.pointUseDeleteTalk {
+                            GameManager.shared.showAd(popoverView: sender) {
+                                deleteAction()
+                            }
+                        } else {
+                            let model = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: talkId)
+                            model?.delete(complete: {[weak self] (sucess) in
+                                if sucess {
+                                    if self?.navigationController?.viewControllers.first == self {
+                                        self?.dismiss(animated: true, completion: nil)
+                                    } else {
+                                        self?.navigationController?.popViewController(animated: true)
+                                    }
+                                }
+                                else {
+                                    Toast.makeToast(message: "delete talk fail msg".localized)
+                                }
+                            })
+                        }
+                    }
+                    deleteAction()
+                }))
+                self.present(ac, animated: true, completion: nil)
+                
+            }))
+        }        
+        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        present(vc, animated: true, completion: nil)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,7 +99,7 @@ class TalkDetailTableViewController: UITableViewController {
         switch segue.identifier {
         case "showUserInfoDetail":
             if
-            let id = sender as? String,
+                let id = sender as? String,
                 let vc = segue.destination as? UserInfoDetailViewController {
                 vc.userId = id
             }
@@ -76,7 +122,7 @@ class TalkDetailTableViewController: UITableViewController {
             return 0
         }
     }
-        
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -121,7 +167,7 @@ class TalkDetailTableViewController: UITableViewController {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "editHistoryImage") as! TalkDetailEditHistoryImageTableViewCell
                     cell.editLogID = data.id
                     return cell
-
+                    
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "editHistory") as! TalkDetailEditHistoryTableViewCell
                     cell.editLogID = data.id
@@ -173,7 +219,7 @@ class TalkDetailTableViewController: UITableViewController {
         case 0:
             let vc = StatusViewController.viewController(withUserId: self.talkModel?.creatorId)
             present(vc, animated: true, completion: nil)
-//            performSegue(withIdentifier: "showUserInfoDetail", sender: self.talkModel?.creatorId)
+        //            performSegue(withIdentifier: "showUserInfoDetail", sender: self.talkModel?.creatorId)
         case 2:
             if let likes = talkModel?.likes {
                 let id = likes[indexPath.row].creatorId
@@ -184,5 +230,5 @@ class TalkDetailTableViewController: UITableViewController {
             break
         }
     }
-
+    
 }
