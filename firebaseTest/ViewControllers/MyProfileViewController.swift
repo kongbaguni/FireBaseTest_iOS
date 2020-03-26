@@ -13,6 +13,8 @@ import CropViewController
 import FirebaseStorage
 import AlamofireImage
 import RealmSwift
+import RxCocoa
+import RxSwift
 
 class MyProfileViewController: UITableViewController {
     class var viewController : MyProfileViewController {
@@ -105,7 +107,7 @@ class MyProfileViewController: UITableViewController {
     
     let searchDistancePickerView = UIPickerView()
     let mapTypePickerView = UIPickerView()
-    
+    let disposebag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "myProfile".localized
@@ -130,6 +132,20 @@ class MyProfileViewController: UITableViewController {
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
         leaveCell.isHidden = hideLeaveCell
+        nameTextField.rx.text.orEmpty.bind { [weak self](string) in
+            let trimTxt = string.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+            if trimTxt.count > 20 {
+                let newValue = trimTxt[0..<20]
+                self?.nameTextField.text = newValue
+            }
+        }.disposed(by: disposebag)
+        introduceTextView.rx.text.orEmpty.bind { [weak self] (string) in
+            let trimTxt = string.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+            if trimTxt.count > 300 {
+                let newValue = trimTxt[0..<300]
+                self?.introduceTextView.text = newValue
+            }
+        }.disposed(by: disposebag)
     }
     
     private func loadData() {
@@ -207,8 +223,8 @@ class MyProfileViewController: UITableViewController {
             
             let realm = try! Realm()
             realm.beginWrite()
-            userinfo.name = nameTextField.text ?? ""
-            userinfo.introduce = introduceTextView.text ?? ""
+            userinfo.name = nameTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) ?? ""
+            userinfo.introduce = introduceTextView.text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
             userinfo.isDeleteProfileImage = profileImageDeleteMode == .delete
             userinfo.distanceForSearch = selectSearchDistance
             userinfo.isAnonymousInventoryReport = anonymousInventoryReportTitleSwitch.isOn
