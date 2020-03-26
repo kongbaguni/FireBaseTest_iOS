@@ -40,6 +40,11 @@ class TodaysTalksTableViewController: UITableViewController {
         
         return result
     }
+    
+    var notices:Results<NoticeModel> {
+        return try! Realm().objects(NoticeModel.self).sorted(byKeyPath: "updateDtTimeinterval1970", ascending: false)
+    }
+    
     let disposebag = DisposeBag()
     
     var isNeedScrollToBottomWhenRefresh = false
@@ -176,6 +181,11 @@ class TodaysTalksTableViewController: UITableViewController {
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
         let oldCount = self.tableView.numberOfRows(inSection: 0)
         TalkModel.syncDatas { [weak self] in
+            NoticeModel.syncNotices { (isSucess) in
+                if isSucess {
+                    self?.tableView.reloadData()
+                }
+            }
             sender.endRefreshing()
             self?.emptyView.isHidden = self?.list.count != 0
             self?.tableView.reloadData()
@@ -264,16 +274,22 @@ class TodaysTalksTableViewController: UITableViewController {
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
-            self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
-        }))
-        
         if UserInfo.info?.email == "kongbaguni@gmail.com" {
             vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
                 let vc = AdminViewController.viewController
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
+            
+            vc.addAction(UIAlertAction(title: "write notice", style: .default, handler: { (action) in
+                let vc = PostNoticeViewController.viewController                
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
         }
+        
+        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
+            self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
+        }))
+        
         
         vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
             self.isNeedScrollToBottomWhenRefresh = true
@@ -309,45 +325,64 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        switch section {
+        case 0:
+            return notices.count
+        case 1:
+            return list.count
+        default:
+            return 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row >= list.count {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "notice", for: indexPath)
+            let notice = notices[indexPath.row]
+            cell.textLabel?.text = notice.title
+            cell.backgroundColor = .autoColor_indicator_color
+            return cell
+        case 1:
+            if indexPath.row >= list.count {
+                return UITableViewCell()
+            }
+            
+            let data = list[indexPath.row]
+            if data.holdemResult != nil {
+                let cellId = data.creatorId == UserInfo.info?.id ? "myHoldemCell" : "holdemCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TalkDetailHoldemTableViewCell
+                
+                cell.talkId = data.id
+                
+                return cell
+            }
+            if data.cardSet != nil {
+                let cellId = data.creatorId == UserInfo.info?.id ? "myCardCell" : "cardCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TalkDetailCardTableViewCell
+                cell.talkId = data.id
+                return cell
+            }
+            
+            if data.imageURL != nil {
+                let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableImageViewCell
+                cell.talkId = list[indexPath.row].id
+                return cell
+            }
+            
+            let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
+            cell.talkId = list[indexPath.row].id
+            return cell
+        default:
             return UITableViewCell()
         }
         
-        let data = list[indexPath.row]
-        if data.holdemResult != nil {
-            let cellId = data.creatorId == UserInfo.info?.id ? "myHoldemCell" : "holdemCell"
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TalkDetailHoldemTableViewCell
-            
-            cell.talkId = data.id
-            
-            return cell
-        }
-        if data.cardSet != nil {
-            let cellId = data.creatorId == UserInfo.info?.id ? "myCardCell" : "cardCell"
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TalkDetailCardTableViewCell
-            cell.talkId = data.id            
-            return cell
-        }
-        
-        if data.imageURL != nil {
-            let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableImageViewCell
-            cell.talkId = list[indexPath.row].id
-            return cell
-        }
-        
-        let cellId = data.creatorId == UserInfo.info?.id ? "myCell" : "cell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableViewCell
-        cell.talkId = list[indexPath.row].id
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -359,8 +394,15 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let talk = list[indexPath.row]
-        performSegue(withIdentifier: "showDetail", sender: talk.id)
+        switch indexPath.section {
+        case 0:
+            break
+        case 1:
+            let talk = list[indexPath.row]
+            performSegue(withIdentifier: "showDetail", sender: talk.id)
+        default:
+            break
+        }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

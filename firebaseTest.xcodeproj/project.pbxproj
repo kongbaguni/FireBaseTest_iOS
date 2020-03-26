@@ -31,6 +31,8 @@
 		C36650162423271300E2BD24 /* JackPotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36650152423271300E2BD24 /* JackPotManager.swift */; };
 		C366501824233C5600E2BD24 /* JackPotLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C366501724233C5600E2BD24 /* JackPotLogModel.swift */; };
 		C36A18FE242C3EA4007B9D71 /* TalkHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A18FD242C3EA4007B9D71 /* TalkHistoryTableViewController.swift */; };
+		C36A1900242C95C0007B9D71 /* NoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A18FF242C95BF007B9D71 /* NoticeModel.swift */; };
+		C36A1902242C9CEA007B9D71 /* PostNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A1901242C9CEA007B9D71 /* PostNoticeViewController.swift */; };
 		C370C9F12415F94300026E86 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F02415F94300026E86 /* LikeModel.swift */; };
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
@@ -136,6 +138,8 @@
 		C36650152423271300E2BD24 /* JackPotManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotManager.swift; sourceTree = "<group>"; };
 		C366501724233C5600E2BD24 /* JackPotLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotLogModel.swift; sourceTree = "<group>"; };
 		C36A18FD242C3EA4007B9D71 /* TalkHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkHistoryTableViewController.swift; sourceTree = "<group>"; };
+		C36A18FF242C95BF007B9D71 /* NoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeModel.swift; sourceTree = "<group>"; };
+		C36A1901242C9CEA007B9D71 /* PostNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNoticeViewController.swift; sourceTree = "<group>"; };
 		C370C9F02415F94300026E86 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				C36149E6242B209C005C2C0B /* RankingTableViewController.swift */,
 				C36149E8242B2439005C2C0B /* RankingTableViewCell.swift */,
 				C36A18FD242C3EA4007B9D71 /* TalkHistoryTableViewController.swift */,
+				C36A1901242C9CEA007B9D71 /* PostNoticeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				C33839E02418AC0F00CADC60 /* StoreModel.swift */,
 				C3EDFB04241C6137003EF787 /* StoreStockLogModel.swift */,
 				C39003862421D38800CC4E3A /* StoreWaitingModel.swift */,
+				C36A18FF242C95BF007B9D71 /* NoticeModel.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -596,6 +602,7 @@
 				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
 				C39A6ED624208ABA00460705 /* Dealar.swift in Sources */,
 				C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */,
+				C36A1900242C95C0007B9D71 /* NoticeModel.swift in Sources */,
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
 				C3EB27A624263BF200CA59F7 /* ChipView.swift in Sources */,
 				C37E86912423410700F87D4D /* JackPotHistoryLogTableViewController.swift in Sources */,
@@ -642,6 +649,7 @@
 				C3EDFB07241C653A003EF787 /* StoreStockLogTableViewController.swift in Sources */,
 				C3DC5B8C24121BA500A028E0 /* PostTalkViewController.swift in Sources */,
 				C3DC5B91241224E100A028E0 /* TalkModel.swift in Sources */,
+				C36A1902242C9CEA007B9D71 /* PostNoticeViewController.swift in Sources */,
 				C3FED0B9240F7CB7007A4F4F /* FirebaseStorageHelper.swift in Sources */,
 				C3FED0BD240F9F8E007A4F4F /* AuthDataResult+Extensions.swift in Sources */,
 				C3757AF8241BC76500FB1819 /* GoogleAd.swift in Sources */,
