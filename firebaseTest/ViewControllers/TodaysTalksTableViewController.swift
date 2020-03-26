@@ -385,6 +385,17 @@ class TodaysTalksTableViewController: UITableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "notice".localized
+        case 1:
+            return "talks".localized
+        default:
+            return nil
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -396,6 +407,10 @@ class TodaysTalksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
+            let vc = NoticeViewController.viewController
+            vc.noticeId = notices[indexPath.row].id
+            present(vc, animated: true, completion: nil)
+            tableView.deselectRow(at: indexPath, animated: true)
             break
         case 1:
             let talk = list[indexPath.row]
