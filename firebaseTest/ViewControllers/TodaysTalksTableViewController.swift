@@ -409,7 +409,7 @@ class TodaysTalksTableViewController: UITableViewController {
         case 0:
             let vc = NoticeViewController.viewController
             vc.noticeId = notices[indexPath.row].id
-            present(vc, animated: true, completion: nil)
+            self.tabBarController?.present(vc, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)
             break
         case 1:
