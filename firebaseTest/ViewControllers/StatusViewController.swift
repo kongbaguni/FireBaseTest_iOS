@@ -27,6 +27,7 @@ class StatusViewController: UIViewController {
         return nil
     }
     
+    @IBOutlet weak var statusViewLayoutHeight: NSLayoutConstraint!
     static func viewController(withUserId id:String?)-> StatusViewController {
         if #available(iOS 13.0, *) {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "status") as! StatusViewController
@@ -100,6 +101,11 @@ class StatusViewController: UIViewController {
         } else {
             closeBtn.setImage(closeBtnImage, for: .normal)
             closeBtn.setImage(closeBtnImage, for: .highlighted)
+        }
+        
+        statusViewLayoutHeight.constant = statusChange == nil ? 200 : 150
+        for view in [emailBtn, emailTitleLabel, talkLogsBtn] {
+            view?.isHidden = statusChange != nil
         }
     }
     

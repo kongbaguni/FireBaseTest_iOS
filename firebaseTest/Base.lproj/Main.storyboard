@@ -2949,6 +2949,7 @@
                         <outlet property="pointTitleLabel" destination="vml-Kh-L9p" id="tBG-AJ-JM7"/>
                         <outlet property="profileImageView" destination="XDz-Cx-erm" id="MGE-o6-YLQ"/>
                         <outlet property="statusCardView" destination="9ug-v2-iMd" id="zva-9S-O4A"/>
+                        <outlet property="statusViewLayoutHeight" destination="Kj0-JE-IgY" id="Wvr-KG-MxR"/>
                         <outlet property="talkLogsBtn" destination="ek6-GE-U80" id="lSV-QF-PLe"/>
                     </connections>
                 </viewController>
