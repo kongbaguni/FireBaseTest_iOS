@@ -165,6 +165,8 @@
 "adRewardPoint"             = "광고 보면 받는 포인트";
 "pointUseRatePosting"       = "글 쓸 때 포인트 사용 비율 1글자당 몇포인트?";
 "pointUseUploadPicture"     = "이미지 첨부시 소모되는 포인트";
+"pointUseDeleteTalk"        = "글 삭제 위해 필요햔 포인트";
+
 "defaultPoint"              = "최초 가입시 기본 포인트";
 "admin menu" = "관리자 메뉴";
 "exp_for_report_store_wait" = "대기열 보고시 보상 경험치";

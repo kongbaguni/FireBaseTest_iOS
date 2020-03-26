@@ -126,13 +126,13 @@ class AdminOptions {
             "adRewardPoint"             : adRewardPoint,
             "pointUseRatePosting"       : pointUseRatePosting,
             "pointUseUploadPicture"     : pointUseUploadPicture,
+            "pointUseDeleteTalk"        : pointUseDeleteTalk,
             "defaultPoint"              : defaultPoint,
             "levelup_req_exp_base"      : levelup_req_exp_base,
             "levelup_req_exp_plus"      : levelup_req_exp_plus,
             "point_for_report_store_stock" : point_for_report_store_stock,
             "point_for_report_store_wait" : point_for_report_store_wait,
             
-            "pointUseDeleteTalk"     : pointUseDeleteTalk,
             // exp
             "exp_for_report_store_stock": exp_for_report_store_stock,
             "exp_for_report_store_wait" :exp_for_report_store_wait
