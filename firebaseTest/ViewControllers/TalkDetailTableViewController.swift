@@ -46,10 +46,14 @@ class TalkDetailTableViewController: UITableViewController {
     }
         
     @objc func onTouchupNaviBarButton(_ sender:UIBarButtonItem) {
+        guard
+            let talkId = self.talkModel?.id,
+            let userId = self.talkModel?.creatorId else {
+                return
+        }
+
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         vc.popoverPresentationController?.barButtonItem = sender
-        
-        let talkId = self.talkModel?.id
         if self.talkModel?.creatorId == UserInfo.info?.id {
             vc.addAction(UIAlertAction(title: "delete talk title".localized, style: .default, handler: { (action) in
                 let msg = String(format : "delete talk msg %@".localized, AdminOptions.shared.pointUseDeleteTalk.decimalForamtString)
@@ -64,18 +68,23 @@ class TalkDetailTableViewController: UITableViewController {
                             }
                         } else {
                             let model = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: talkId)
-                            model?.delete(complete: {[weak self] (sucess) in
+                            model?.delete(){[weak self] (sucess) in
                                 if sucess {
                                     if self?.navigationController?.viewControllers.first == self {
                                         self?.dismiss(animated: true, completion: nil)
                                     } else {
                                         self?.navigationController?.popViewController(animated: true)
                                     }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                                        let vc = StatusViewController.viewController(withUserId: userId)
+                                        vc.statusChange = StatusChange(addedExp: 0, pointChange: -AdminOptions.shared.pointUseDeleteTalk)
+                                        UIApplication.shared.lastViewController?.present(vc, animated: true, completion: nil)
+                                    }
                                 }
                                 else {
                                     Toast.makeToast(message: "delete talk fail msg".localized)
                                 }
-                            })
+                            }
                         }
                     }
                     deleteAction()
@@ -83,7 +92,7 @@ class TalkDetailTableViewController: UITableViewController {
                 self.present(ac, animated: true, completion: nil)
                 
             }))
-        }        
+        }
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)
     }

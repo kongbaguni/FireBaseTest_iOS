@@ -118,14 +118,14 @@ class StatusViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if self.statusChange != nil {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
-                self?.dismiss(animated: true, completion: nil)
-            }
-        }
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+////        if self.statusChange != nil {
+////            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10)) { [weak self] in
+////                self?.dismiss(animated: true, completion: nil)
+////            }
+////        }
+//    }
     @objc func onTapGesture(_ sender:UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
