@@ -373,7 +373,7 @@ class TodaysTalksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let model = list[indexPath.row]
-        let action = UIContextualAction(style: .normal, title: "like", handler: { (action, view, complete) in
+        let action = UIContextualAction(style: .normal, title: "like".localized, handler: { (action, view, complete) in
             model.toggleLike()
             let realm = try! Realm()
             realm.beginWrite()
@@ -383,7 +383,6 @@ class TodaysTalksTableViewController: UITableViewController {
                 complete(true)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-//                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
             }
         })

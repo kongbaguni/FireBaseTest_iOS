@@ -40,9 +40,12 @@ class TalkDetailTableViewController: UITableViewController {
                 }
             }
         }
-        if self.talkModel?.creatorId == UserInfo.info?.id {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNaviBarButton(_:)))
-        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNaviBarButton(_:)))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
         
     @objc func onTouchupNaviBarButton(_ sender:UIBarButtonItem) {
@@ -52,14 +55,39 @@ class TalkDetailTableViewController: UITableViewController {
                 return
         }
 
+        let isLike = self.talkModel?.isLike ?? false
+        
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         vc.popoverPresentationController?.barButtonItem = sender
+        
+        vc.addAction(UIAlertAction(title: isLike ? "like cancel".localized : "like".localized, style: .default, handler: { (action) in
+            guard let talk = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: talkId) else {
+                return
+            }
+            talk.toggleLike()
+            let realm = try! Realm()
+            realm.beginWrite()
+            talk.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
+            try! realm.commitWrite()
+            talk.update { [weak self](sucess) in
+                self?.tableView.reloadData()
+            }
+        }))
+        
+
         if self.talkModel?.creatorId == UserInfo.info?.id {
+            vc.addAction(UIAlertAction(title: "edit".localized, style: .default, handler: { (action) in
+                let vc = PostTalkViewController.viewController
+                vc.documentId = talkId
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
+            
             vc.addAction(UIAlertAction(title: "delete talk title".localized, style: .default, handler: { (action) in
                 let msg = String(format : "delete talk msg %@".localized, AdminOptions.shared.pointUseDeleteTalk.decimalForamtString)
                 
                 let ac = UIAlertController(title: "delete talk title".localized, message: msg, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+                
                 ac.addAction(UIAlertAction(title: "delete".localized, style: .default, handler: { (action) in
                     func deleteAction() {
                         if UserInfo.info?.point ?? 0 < AdminOptions.shared.pointUseDeleteTalk {

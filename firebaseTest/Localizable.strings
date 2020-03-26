@@ -20,6 +20,8 @@
 "logout" = "로그아웃";
 "use google profile image" = "구글 프로필이미지 사용";
 "like : " = "좋아요 : ";
+"like" = "좋아요";
+"like cancel" = "좋아요 취소";
 "write talk" = "글 쓰기";
 "edit talk" = "글 수정";
 "unknown people" = "모르는 사람";

@@ -16,6 +16,15 @@ extension Notification.Name {
 }
 
 class PostTalkViewController: UITableViewController {
+    static var viewController : PostTalkViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if #available(iOS 13.0, *) {
+            return storyboard.instantiateViewController(identifier: "postArticle") as! PostTalkViewController
+        } else {
+            return storyboard.instantiateViewController(withIdentifier: "postArticle") as! PostTalkViewController
+        }
+    }
+    
     @IBOutlet weak var textView:UITextView!
     @IBOutlet weak var textCountLabel: UILabel!
     @IBOutlet weak var imageView:UIImageView!

@@ -2165,7 +2165,7 @@
         <!--Post Talk View Controller-->
         <scene sceneID="CN9-xC-Irj">
             <objects>
-                <tableViewController id="WTO-xV-Mvo" customClass="PostTalkViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="postArticle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WTO-xV-Mvo" customClass="PostTalkViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="a3l-B4-gmI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
