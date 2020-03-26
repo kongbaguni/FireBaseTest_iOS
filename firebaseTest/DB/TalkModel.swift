@@ -273,44 +273,9 @@ class TalkModel: Object {
                 print(snap.documents.count)
                 for doc in snap.documents {
                     let data = doc.data()
-                    if let regTimeIntervalSince1970 = data["regTimeIntervalSince1970"] as? Double,
-                        let modifiedTimeIntervalSince1970 = data["modifiedTimeIntervalSince1970"] as? Double,
-                        let creatorId = data["creator_id"] as? String,
-                        let text = data["talk"] as? String,
-                        let id = data["documentId"] as? String {
-                        let model = TalkModel()
-                        model.imageUrl = data["imageUrl"] as? String ?? ""
-                        model.lng = data["lng"] as? Double ?? 0
-                        model.lat = data["lat"] as? Double ?? 0
-                        model.regTimeIntervalSince1970 = regTimeIntervalSince1970
-                        model.modifiedTimeIntervalSince1970 = modifiedTimeIntervalSince1970
-                        model.creatorId = creatorId
-                        model.text = text
-                        model.id = id
-                        model.cards = data["cards"] as? String ?? ""
-                        model.delarCards = data["delarCards"] as? String ?? ""
-                        model.bettingPoint = data["bettingPoint"] as? Int ?? 0
-                        model.holdemResultBase64encodingSting = data["holdemResultBase64encodingSting"] as? String ?? ""
-                        if let likeIds = data["likeIds"] as? [String] {
-                            var cnt = 0
-                            for likeId in likeIds {
-                                let likeModel = LikeModel()
-                                likeModel.id = likeId
-                                cnt += 1
-                                model.likes.append(likeModel)
-                            }
-                        }
-                        
-                        model.editList.removeAll()
-                        if let editTextIds = data["editTextIds"] as? [String] {
-                            for id in editTextIds {
-                                let edit = TextEditModel()
-                                edit.id = id
-                                model.insertEdit(data: edit)
-                            }
-                        }
-                        
-                        realm.add(model, update: .modified)
+                    let model = TalkModel()
+                    if model.loadData(data: data) {
+                        realm.add(model, update: .all)
                     }
                 }
                 try! realm.commitWrite()
@@ -359,5 +324,47 @@ class TalkModel: Object {
                 
             }
         } 
+    }
+    
+    func loadData(data:[String:Any])->Bool {
+        if let regTimeIntervalSince1970 = data["regTimeIntervalSince1970"] as? Double,
+            let modifiedTimeIntervalSince1970 = data["modifiedTimeIntervalSince1970"] as? Double,
+            let creatorId = data["creator_id"] as? String,
+            let text = data["talk"] as? String,
+            let id = data["documentId"] as? String {
+
+            imageUrl = data["imageUrl"] as? String ?? ""
+            lng = data["lng"] as? Double ?? 0
+            lat = data["lat"] as? Double ?? 0
+            self.regTimeIntervalSince1970 = regTimeIntervalSince1970
+            self.modifiedTimeIntervalSince1970 = modifiedTimeIntervalSince1970
+            self.creatorId = creatorId
+            self.text = text
+            self.id = id
+            cards = data["cards"] as? String ?? ""
+            delarCards = data["delarCards"] as? String ?? ""
+            bettingPoint = data["bettingPoint"] as? Int ?? 0
+            holdemResultBase64encodingSting = data["holdemResultBase64encodingSting"] as? String ?? ""
+            if let likeIds = data["likeIds"] as? [String] {
+                var cnt = 0
+                for likeId in likeIds {
+                    let likeModel = LikeModel()
+                    likeModel.id = likeId
+                    cnt += 1
+                    likes.append(likeModel)
+                }
+            }
+            
+            editList.removeAll()
+            if let editTextIds = data["editTextIds"] as? [String] {
+                for id in editTextIds {
+                    let edit = TextEditModel()
+                    edit.id = id
+                    insertEdit(data: edit)
+                }
+            }
+            return true
+        }
+        return false
     }
 }

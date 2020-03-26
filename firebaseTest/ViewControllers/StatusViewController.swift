@@ -61,6 +61,8 @@ class StatusViewController: UIViewController {
     
     @IBOutlet weak var addPointLabel: UILabel!
     @IBOutlet weak var addExpLabel: UILabel!
+    @IBOutlet weak var talkLogsBtn: UIButton!
+    
     var isHideIntro:Bool = true {
         didSet {
             for view in [introduceLabel, introduceBubble] {
@@ -150,6 +152,7 @@ class StatusViewController: UIViewController {
         expTitleLabel.text = "exp".localized
         pointTitleLabel.text = "point".localized
         emailTitleLabel.text = "email".localized
+        talkLogsBtn.setTitle("talk logs".localized, for: .normal)
     }
     
     func loadData() {
@@ -236,15 +239,23 @@ class StatusViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func onTouchupEmailBtn(_ sender: UIButton) {
-        guard let email = self.userInfo?.email else {
-            return
-        }
-        
-        if let url = URL(string:"mailto:\(email)") {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
+    @IBAction func onTouchupBtn(_ sender: UIButton) {
+        switch sender {
+        case talkLogsBtn:
+            let vc = TalkHistoryTableViewController.viewController
+            vc.userId = self.userId
+            
+            self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        case emailBtn:
+            if let email = self.userInfo?.email {
+                if let url = URL(string:"mailto:\(email)") {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
             }
+        default:
+            break
         }
     }
 }

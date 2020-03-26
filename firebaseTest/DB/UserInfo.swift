@@ -480,4 +480,32 @@ class UserInfo : Object {
 //                 "count_of_like":count_of_like,
 //                 "count_of_ad":count_of_ad,
     }
+    
+    func getTalkList(complete:@escaping(_ isSucess:Bool)->Void) {
+        Firestore.firestore().collection(FSCollectionName.TALKS)
+            .whereField("creator_id", isEqualTo: self.id)
+            .getDocuments { (snapshot, error) in
+                if let data = snapshot {
+                    var newModels:[Object] = []
+                    for documant in data.documents {
+                        let data = documant.data()
+                        let model = TalkModel()
+                        if model.loadData(data: data) {
+                            newModels.append(model)
+                        }
+                    }
+                    debugPrint("대화 이력 검색 \(newModels.count)건")
+                    if newModels.count > 0 {
+                        if let realm = try? Realm() {
+                            realm.beginWrite()
+                            realm.add(newModels, update: .all)
+                            try? realm.commitWrite()
+                        }
+                    }
+                    complete(true)
+                    return
+                }
+                complete(false)
+        }
+    }
 }

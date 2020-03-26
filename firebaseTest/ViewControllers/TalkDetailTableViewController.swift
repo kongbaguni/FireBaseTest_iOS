@@ -9,6 +9,15 @@
 import UIKit
 import RealmSwift
 class TalkDetailTableViewController: UITableViewController {
+    static var viewController:TalkDetailTableViewController {
+        let storeyBoard = UIStoryboard(name: "Main", bundle: nil)
+        if #available(iOS 13.0, *) {
+            return storeyBoard.instantiateViewController(identifier: "talkDetail") as! TalkDetailTableViewController
+        } else {
+            return storeyBoard.instantiateViewController(withIdentifier: "talkDetail") as! TalkDetailTableViewController
+        }
+    }
+    
     var documentId:String? = nil
     
     var talkModel:TalkModel? {

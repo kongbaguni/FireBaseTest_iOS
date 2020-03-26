@@ -92,6 +92,12 @@ class StoresTableViewController: UITableViewController {
             dismiss(animated: true, completion: nil)
         }
     }
+    
+    func isRangeOut(indexPath:IndexPath)->Bool {
+        let list = getStoreList(type: getSectionType(section: indexPath.section))
+        return indexPath.row >= list.count
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         emptyView.frame = view.frame
@@ -211,13 +217,10 @@ class StoresTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell") as! StoresTableViewCell
-        
-        let list = getStoreList(type: getSectionType(section: indexPath.section))
-        
-        if indexPath.row >= list.count {
+        if isRangeOut(indexPath: indexPath) {
             return UITableViewCell()
         }
-        
+        let list = getStoreList(type: getSectionType(section: indexPath.section))
         let data = list[indexPath.row]
         let ranking = (list.lastIndex(of: data) ?? 0)+1
         cell.storeId = data.code
@@ -237,7 +240,7 @@ class StoresTableViewController: UITableViewController {
         let view = UIButton()
         view.backgroundColor = .autoColor_text_color
         view.setTitleColor(.autoColor_bg_color, for: .normal)        
-        view.setTitle("\(list.first?.remain_stat.localized ?? "") \(list.count)", for: .normal)
+        view.setTitle("\(list.first?.remain_stat.localized ?? "")", for: .normal)
         view.tag = section
         view.backgroundColor = type.colorValue
         view.addTarget(self, action: #selector(self.ontouchupFooterBtn(_:)), for: .touchUpInside)
@@ -256,6 +259,13 @@ class StoresTableViewController: UITableViewController {
         return 30
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if isRangeOut(indexPath: indexPath) {
+            return CGFloat.leastNormalMagnitude
+        }
+        return UITableView.automaticDimension
+    }
+    
     @objc func ontouchupFooterBtn(_ sender:UIButton) {
         let list = getStoreList(type: getSectionType(section: sender.tag))
         var ids:[String] = []
@@ -266,10 +276,11 @@ class StoresTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let list = getStoreList(type: getSectionType(section: indexPath.section))
-        if indexPath.row >= list.count {
+        if isRangeOut(indexPath: indexPath) {
+            tableView.reloadData()
             return
         }
+        let list = getStoreList(type: getSectionType(section: indexPath.section))
         let data = list[indexPath.row]
         performSegue(withIdentifier: "showMap", sender: data.code)
     }

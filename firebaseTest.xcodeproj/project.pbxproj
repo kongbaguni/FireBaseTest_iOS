@@ -30,6 +30,7 @@
 		C3665014242300E700E2BD24 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3665013242300E700E2BD24 /* AdminViewController.swift */; };
 		C36650162423271300E2BD24 /* JackPotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36650152423271300E2BD24 /* JackPotManager.swift */; };
 		C366501824233C5600E2BD24 /* JackPotLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C366501724233C5600E2BD24 /* JackPotLogModel.swift */; };
+		C36A18FE242C3EA4007B9D71 /* TalkHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A18FD242C3EA4007B9D71 /* TalkHistoryTableViewController.swift */; };
 		C370C9F12415F94300026E86 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F02415F94300026E86 /* LikeModel.swift */; };
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
@@ -134,6 +135,7 @@
 		C3665013242300E700E2BD24 /* AdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		C36650152423271300E2BD24 /* JackPotManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotManager.swift; sourceTree = "<group>"; };
 		C366501724233C5600E2BD24 /* JackPotLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotLogModel.swift; sourceTree = "<group>"; };
+		C36A18FD242C3EA4007B9D71 /* TalkHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkHistoryTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F02415F94300026E86 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				C38EF932242493B1006D6732 /* WebViewController.swift */,
 				C36149E6242B209C005C2C0B /* RankingTableViewController.swift */,
 				C36149E8242B2439005C2C0B /* RankingTableViewCell.swift */,
+				C36A18FD242C3EA4007B9D71 /* TalkHistoryTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				C3FED0BB240F84BD007A4F4F /* MainTabBarController.swift in Sources */,
 				C39E49872428A36F0094E16B /* UIView+Extensions.swift in Sources */,
 				C3665014242300E700E2BD24 /* AdminViewController.swift in Sources */,
+				C36A18FE242C3EA4007B9D71 /* TalkHistoryTableViewController.swift in Sources */,
 				C370C9F92417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift in Sources */,
 				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
 				C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */,
