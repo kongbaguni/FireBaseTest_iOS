@@ -42,7 +42,7 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     var notices:Results<NoticeModel> {
-        return try! Realm().objects(NoticeModel.self).sorted(byKeyPath: "updateDtTimeinterval1970", ascending: false)
+        return try! Realm().objects(NoticeModel.self).sorted(byKeyPath: "updateDtTimeinterval1970", ascending: false).filter("isShow = %@ && isRead = %@",true,false)
     }
     
     let disposebag = DisposeBag()
@@ -142,6 +142,9 @@ class TodaysTalksTableViewController: UITableViewController {
                 vc.statusChange = StatusChange(addedExp: needPoint, pointChange: -needPoint)
                 self?.present(vc, animated: true, completion: nil)
             }
+        }
+        NotificationCenter.default.addObserver(forName: .noticeUpdateNotification, object: nil, queue: nil) {[weak self] (notification) in
+            self?.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
         }
     }
     override func viewDidLayoutSubviews() {
@@ -274,17 +277,21 @@ class TodaysTalksTableViewController: UITableViewController {
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        if UserInfo.info?.email == "kongbaguni@gmail.com" {
+        if Consts.isAdmin {
             vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
                 let vc = AdminViewController.viewController
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
             
-            vc.addAction(UIAlertAction(title: "write notice", style: .default, handler: { (action) in
+            vc.addAction(UIAlertAction(title: "write notice".localized, style: .default, handler: { (action) in
                 let vc = PostNoticeViewController.viewController                
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
         }
+        
+        vc.addAction(UIAlertAction(title: "view notices".localized, style: .default, handler: { (action) in
+            self.performSegue(withIdentifier: "showNoticeList", sender: nil)
+        }))
         
         vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
             self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
@@ -388,6 +395,9 @@ class TodaysTalksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
+            if notices.count == 0 {
+                return nil
+            }
             return "notice".localized
         case 1:
             return "talks".localized

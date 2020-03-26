@@ -47,7 +47,7 @@ class RankingTableViewController: UITableViewController {
     }
     
     let rankingTypePikcer = UIPickerView()
- 
+    
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -68,7 +68,7 @@ class RankingTableViewController: UITableViewController {
         
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
     }
-        
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
@@ -104,34 +104,34 @@ class RankingTableViewController: UITableViewController {
     }
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
-           let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-           vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
-               self.performSegue(withIdentifier: "showMyProfile", sender: nil)
-           }))
-           
-           if UserInfo.info?.email == "kongbaguni@gmail.com" {
-               vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
-                   let vc = AdminViewController.viewController
-                   self.navigationController?.pushViewController(vc, animated: true)
-               }))
-           }
-           
-           vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
-               let firebaseAuth = Auth.auth()
-               do {
-                   try firebaseAuth.signOut()
-               } catch let signOutError as NSError {
-                   print ("Error signing out: %@", signOutError)
-                   return
-               }
-               
-               UserInfo.info?.logout()
-           }))
-           
-           vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-           vc.popoverPresentationController?.barButtonItem = sender
-           present(vc, animated: true, completion: nil)
-       }
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
+            self.performSegue(withIdentifier: "showMyProfile", sender: nil)
+        }))
+        
+        if Consts.isAdmin {
+            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
+                let vc = AdminViewController.viewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
+        }
+        
+        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+                return
+            }
+            
+            UserInfo.info?.logout()
+        }))
+        
+        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        vc.popoverPresentationController?.barButtonItem = sender
+        present(vc, animated: true, completion: nil)
+    }
 }
 
 

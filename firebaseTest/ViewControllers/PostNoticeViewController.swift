@@ -21,7 +21,9 @@ class PostNoticeViewController: UITableViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
     
-    @IBOutlet weak var noticeTextField: UITextView!
+    @IBOutlet weak var noticeTextView: UITextView!
+    @IBOutlet weak var isShowOptionLabel: UILabel!
+    @IBOutlet weak var isShowOptionSwitch: UISwitch!
     
     var noticeId:String? = nil
     
@@ -37,58 +39,58 @@ class PostNoticeViewController: UITableViewController {
         loadData()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save".localized, style: .plain, target: self, action: #selector(self.onTouchupSaveBtn(_:)))
+        
+        if navigationController?.viewControllers.first == self {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
+        }
     }
     
     func loadData() {
+        isShowOptionLabel.text = "isShowNotice".localized
         titleTextField.text = notice?.title
-        noticeTextField.text = notice?.text
+        noticeTextView.text = notice?.text
+        isShowOptionSwitch.isOn = notice?.isShow ?? false
     }
     
     let loading = Loading()
     
+    @objc func onTouchupCloseBtn(_ sender:UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
-        let realm = try! Realm()
-        let title = noticeTextField.text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
-        let text = noticeTextField.text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+        guard let title = titleTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")),
+            let text = noticeTextView.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) else {
+                return
+        }
         if title.isEmpty || text.isEmpty {
             Toast.makeToast(message: "There is no content.".localized)
             return
         }
-        let now = Date().timeIntervalSince1970
         
         if let notice = self.notice {
-            realm.beginWrite()
-            notice.text = text
-            notice.title = title
-            notice.updateDtTimeinterval1970 = now
-            try! realm.commitWrite()
-            loading.show(viewController: self)
-            notice.update { [weak self](sucess) in
+            notice.edit(title: title, text: text, isShow: isShowOptionSwitch.isOn) { [weak self] (sucess) in
                 if sucess {
                     self?.loading.hide()
-                    self?.navigationController?.popViewController(animated: true)
+                    self?.exit()
                 }
             }
         } else {
-            let notice = NoticeModel()
-            notice.id = "\(UUID().uuidString)\(now)\(UserInfo.info!.id)"
-            notice.title = title
-            notice.text = text
-            notice.regDtTimeinterval1970 = now
-            notice.updateDtTimeinterval1970 = now
-            notice.creatorId = UserInfo.info!.id
-            
-            realm.beginWrite()
-            realm.add(notice, update: .all)
-            try! realm.commitWrite()
-            notice.update {[weak self] (sucess) in
+            NoticeModel.create(title: title, text: text, isShow: isShowOptionSwitch.isOn) { [weak self](sucess) in
                 if sucess {
                     self?.loading.hide()
-                    self?.navigationController?.popViewController(animated: true)
+                    self?.exit()
                 }
 
             }
         }
-        
+    }
+    
+    func exit() {
+        if navigationController?.viewControllers.first == self {
+            dismiss(animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
 }

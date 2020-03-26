@@ -9,6 +9,9 @@
 import Foundation
 import RealmSwift
 import FirebaseFirestore
+extension Notification.Name {
+    static let noticeUpdateNotification = Notification.Name("noticeUpdateNotification_observer")
+}
 
 class NoticeModel: Object {
     @objc dynamic var id:String = ""
@@ -17,6 +20,10 @@ class NoticeModel: Object {
     @objc dynamic var creatorId:String = ""
     @objc dynamic var regDtTimeinterval1970:Double = 0
     @objc dynamic var updateDtTimeinterval1970:Double = 0
+    /** 관리자가 설정함. */
+    @objc dynamic var isShow:Bool = false
+    /** 사용자가 봤는지 설정.*/
+    @objc dynamic var isRead:Bool = false
     
     override static func primaryKey() -> String? {
         return "id"
@@ -25,17 +32,75 @@ class NoticeModel: Object {
     override static func indexedProperties() -> [String] {
         return ["creatorId"]
     }
-    func update(complete:@escaping(_ isSucess:Bool)->Void) {
+    
+    
+    func read() {
+        let realm = try! Realm()
+        realm.beginWrite()
+        self.isRead = true
+        try! realm.commitWrite()
+        NotificationCenter.default.post(name: .noticeUpdateNotification, object: nil, userInfo: nil)
+    }
+    
+    static func create(title:String,text:String,isShow:Bool,complete:@escaping(_ isSucess:Bool)->Void) {
+        let now = Date().timeIntervalSince1970
+        let id = "\(UUID().uuidString)_\(now)_\(UserInfo.info!.id)"
         let data:[String:Any] = [
             "id"    : id,
             "title" : title,
             "text"  : text,
-            "creatorId" : creatorId,
-            "regDtTimeinterval1970" : regDtTimeinterval1970,
-            "updateDtTimeinterval1970" : updateDtTimeinterval1970
+            "creatorId" : UserInfo.info!.id,
+            "regDtTimeinterval1970" : now,
+            "updateDtTimeinterval1970" : now,
+            "isShow" : isShow,
+            "isRead" : false
         ]
         let doc = Firestore.firestore().collection(FSCollectionName.NOTICE).document(id)
         doc.setData(data) { (error) in
+            if error == nil {
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(NoticeModel.self, value: data, update: .all)
+                try! realm.commitWrite()
+            }
+            complete(error == nil)
+        }
+    }
+    
+    func edit(title:String, text:String, isShow:Bool,complete:@escaping(_ isSucess:Bool)->Void) {
+        let doc = Firestore.firestore().collection(FSCollectionName.NOTICE).document(id)
+        let now = Date().timeIntervalSince1970
+        let data:[String:Any] = [
+            "title" : title,
+            "text" : text,
+            "updateDtTimeinterval1970" : now,
+            "isShow" : isShow
+        ]
+        let id = self.id
+        doc.updateData(data) { (error) in
+            if error == nil {
+                let realm = try! Realm()
+                if let model = realm.object(ofType: NoticeModel.self, forPrimaryKey: id) {
+                    realm.beginWrite()
+                    model.title = title
+                    model.text = text
+                    model.updateDtTimeinterval1970 = now
+                    model.isShow = isShow
+                    try! realm.commitWrite()
+                    NotificationCenter.default.post(name: .noticeUpdateNotification, object: self.id)
+                }
+            }
+            complete(error == nil)
+        }
+    }
+
+    /** firebase 에서 공지 삭제*/
+    func delete(complete:@escaping(_ isSucess:Bool)->Void) {
+        let doc = Firestore.firestore().collection(FSCollectionName.NOTICE).document(id)
+        doc.delete { (error) in
+            if error == nil {
+                NotificationCenter.default.post(name: .noticeUpdateNotification, object: self.id)
+            }
             complete(error == nil)
         }
     }

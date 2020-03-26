@@ -215,3 +215,9 @@
 "delete talk sucess" = "글이 삭제되었습니다.";
 "notice" = "공지사항";
 "talks" = "이야기";
+
+"admin" = "관리";
+
+"isShowNotice" = "공지사항 노출하기";
+"view notices" = "공지사항";
+"write notice" = "공지 작성";

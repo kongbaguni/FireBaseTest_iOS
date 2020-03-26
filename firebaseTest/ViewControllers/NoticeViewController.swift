@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import RealmSwift
+import RxCocoa
+import RxSwift
 
 class NoticeViewController: UIViewController {
     static var viewController : NoticeViewController {
@@ -19,10 +21,11 @@ class NoticeViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var closeBtn:UIButton!
     @IBOutlet weak var titleLabel:UILabel!
     @IBOutlet weak var textView:UITextView!
-    
+    @IBOutlet weak var confirmBtn:UIButton!
     var noticeId:String? = nil
     
     var notice:NoticeModel? {
@@ -31,14 +34,47 @@ class NoticeViewController: UIViewController {
         }
         return nil
     }
+    let disoposebag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var closeBtnImage =
+            #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
+        if #available(iOS 13.0, *) {
+            closeBtnImage = closeBtnImage.withTintColor(.autoColor_text_color)
+        }
+        closeBtn.setImage(closeBtnImage, for: .normal)
+        textView.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5)
+        contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 20, masksToBounds: true)
+        if Consts.isAdmin {
+            confirmBtn.setTitle("edit".localized, for: .normal)
+        } else {
+            confirmBtn.setTitle("confirm".localized, for: .normal)
+        }
+        
+        confirmBtn.rx.tap.bind { (action) in
+            if Consts.isAdmin {
+                let vc = PostNoticeViewController.viewController
+                vc.noticeId = self.noticeId
+                let nc = UINavigationController(rootViewController: vc)
+                self.present(nc, animated: true, completion: nil)
+            } else {
+                if self.notice?.isRead == false {
+                    self.notice?.read()
+                }
+                self.dismiss(animated: true, completion: nil)
+            }
+        }.disposed(by: disoposebag)
+        
+        NotificationCenter.default.addObserver(forName: .noticeUpdateNotification, object: nil, queue: nil) { [weak self](notification) in
+            self?.loadData()
+        }
+        loadData()
+    }
+    
+    func loadData() {
         titleLabel.text = notice?.title
         textView.text = notice?.text
-        let closeBtnImage =
-        #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
-        closeBtn.setImage(closeBtnImage, for: .normal)        
     }
     
     @IBAction func onTouchupCloseBtn(_ sender: Any) {

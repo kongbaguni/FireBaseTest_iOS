@@ -155,7 +155,7 @@ class StoresTableViewController: UITableViewController {
         vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (_) in
             self.performSegue(withIdentifier: "showProfile", sender: nil)
         }))
-        if UserInfo.info?.email == "kongbaguni@gmail.com" {
+        if Consts.isAdmin {
             vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
                 let vc = AdminViewController.viewController
                 self.navigationController?.pushViewController(vc, animated: true)

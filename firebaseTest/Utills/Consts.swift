@@ -27,10 +27,10 @@ struct Consts {
     
     /** 검색 거리 목록*/
     static var SEARCH_DISTANCE_LIST:[Int] {
+        if Consts.isAdmin {
+            return [500,1000,2000,3000,4000,5000,6000]
+        }
         if let userInfo = UserInfo.info {
-            if userInfo.email == "kongbaguni@gmail.com" {
-                return [500,1000,2000,3000,4000,5000,6000]
-            }
             if userInfo.level < 10 {
                 return [500,1000]
             }
@@ -55,7 +55,11 @@ struct Consts {
     /** 구글 광고 아이디*/
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
     
-    static let REALM_VERSION:UInt64 = 7
+    static let REALM_VERSION:UInt64 = 8
+    
+    static var isAdmin:Bool {
+        return UserInfo.info?.id == "kongbaguni@gmail.com"
+    }
         
 }
 
