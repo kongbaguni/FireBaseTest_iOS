@@ -62,14 +62,21 @@ class MapViewController: UIViewController {
         
         let camera = MKMapCamera()
         camera.altitude = stores.count == 1 ? 1500 : 2000
+        camera.pitch = 45
+        camera.heading = 45
         if stores.count == 1 {
             camera.centerCoordinate = coordinate
-            camera.altitude = (stores.first?.distance ?? 150)*10
+            var a = (stores.first?.distance ?? 80)*5
+            if a < 500 {
+                a = 500
+            }
+            if a > 2000 {
+                a = 2000
+            }
+            camera.altitude = a
         } else {
             camera.centerCoordinate = UserDefaults.standard.lastMyCoordinate ?? coordinate
         }
-        camera.pitch = 45
-        camera.heading = 45
         mapView.camera = camera
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
