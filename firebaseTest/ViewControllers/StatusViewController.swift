@@ -242,11 +242,19 @@ class StatusViewController: UIViewController {
     @IBAction func onTouchupBtn(_ sender: UIButton) {
         switch sender {
         case talkLogsBtn:
-            let vc = TalkHistoryTableViewController.viewController
-            vc.userId = self.userId
-            let navi = UINavigationController(rootViewController: vc)
-            navi.modalPresentationStyle = .overFullScreen
-            self.present(navi, animated: true, completion: nil)
+            let level = AdminOptions.shared.can_view_talk_log_level
+            if level <= UserInfo.info?.level ?? 0 || userId == UserInfo.info?.id {
+                let vc = TalkHistoryTableViewController.viewController
+                vc.userId = self.userId
+                let navi = UINavigationController(rootViewController: vc)
+                navi.modalPresentationStyle = .overFullScreen
+                self.present(navi, animated: true, completion: nil)
+            } else {
+                let msg = String(format: "err_talk_log_policy_msg %@".localized, level.decimalForamtString)
+                let vc = UIAlertController(title: "You do not have permission to look up".localized, message: msg, preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "confirm".localized, style: .cancel, handler: nil))
+                self.present(vc, animated: true, completion: nil)
+            }
         case emailBtn:
             if let email = self.userInfo?.email {
                 if let url = URL(string:"mailto:\(email)") {

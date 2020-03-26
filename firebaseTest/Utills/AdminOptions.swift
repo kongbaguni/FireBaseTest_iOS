@@ -25,6 +25,8 @@ fileprivate let D_ZERO_BETTING_RATE:Float = 0.1
 fileprivate let D_MAX_BETTING_RATE:Float = 0.2
 fileprivate let POKER_LEVEL_LIMIG = 0
 fileprivate let AD_REWORD = 500
+/** 작성글 로그 조회 가능한 레벨*/
+fileprivate let CAN_VIEW_TALK_LOG_LEVEL = 10
 
 fileprivate let POINT_USE_POSTING = 1
 fileprivate let POINT_USE_IMAGE = 100
@@ -84,6 +86,9 @@ class AdminOptions {
     /** 최초 가입시 받은 포인트*/
     var defaultPoint : Int = POINT_DEFAULT
     
+    /** 다른 사용자의 작성글 이력을 조회할 수 있는 레벨*/
+    var can_view_talk_log_level : Int = CAN_VIEW_TALK_LOG_LEVEL
+    
     let collection = Firestore.firestore().collection(FSCollectionName.ADMIN)
     
     var levelup_req_exp_base = Consts.LEVELUP_REQ_EXP_BASE
@@ -100,6 +105,7 @@ class AdminOptions {
         return [
             // report
             "waitting_report_distance"  : waitting_report_distance,
+            "can_view_talk_log_level"   : can_view_talk_log_level,
             
             // game
             "isUsePoker"                : isUsePoker,
@@ -153,6 +159,9 @@ class AdminOptions {
             "minJackPotPoint",
             "dealarZeroPointBettingRate",
             "dealarMaxBettingRate"
+        ],
+        [
+            "can_view_talk_log_level"
         ]
     ]
     
@@ -160,13 +169,17 @@ class AdminOptions {
         "discance",
         "exp",
         "point",
-        "game"
+        "game",
+        "permission"
     ]
     
     func setData(key:String, value:String)->Bool {
         let intValue = NSString(string:value).integerValue
         if intValue >= 0 {
             switch key {
+            case "can_view_talk_log_level":
+                can_view_talk_log_level = intValue
+                return true
             case "point_for_report_store_stock":
                 point_for_report_store_stock = intValue
                 return true
@@ -301,5 +314,6 @@ class AdminOptions {
         exp_for_report_store_stock = data["exp_for_report_store_stock"] as? Int ?? EXP_FOR_REPORT_STOCK
         point_for_report_store_stock = data["point_for_report_store_stock"] as? Int ?? POINT_FOR_REPORT_STOCK
         point_for_report_store_wait = data["point_for_report_store_wait"] as? Int ?? POINT_FOR_REPORT_WAIT
+        can_view_talk_log_level = data["can_view_talk_log_level"] as? Int ?? CAN_VIEW_TALK_LOG_LEVEL
     }
 }

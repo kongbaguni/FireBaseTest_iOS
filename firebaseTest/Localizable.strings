@@ -173,7 +173,7 @@
 "point_for_report_store_wait" = "대기열 보고 보상포인트";
 "levelup_req_exp_base" = "레벨업 : 기본 경험치";
 "levelup_req_exp_plus" = "레벨업 : 레벨에 비례하여 상승하는 계수";
-
+"can_view_talk_log_level" = "글 쓴 이력 조회 가능 레벨";
 
 "storeList footer btn title" = "식약처 공적마스크 구매 안내";
 "Food and Drug Administration Official Blog" = "식품의약품안전처 공식 블로그";
@@ -200,3 +200,6 @@
 
 "ranking" = "순위표";
 "talk logs" = "작성글 이력";
+"permission" = "권한";
+"You do not have permission to look up" = "권한이 없습니다.";
+"err_talk_log_policy_msg %@" = "다른 사람이 쓴 글의 이력 조회는 %@레벨 이상 가능합니다.";
