@@ -31,10 +31,8 @@ class TextEditModel : Object {
     
 }
 extension TextEditModel {
-    var regDt:Date {
-        let str = id.components(separatedBy: "[__##__]").last
-        let interval = TimeInterval(NSString(string: str!).doubleValue)
-        return Date(timeIntervalSince1970: interval)
+    var regDt:Date {        
+        return Date(timeIntervalSince1970: regTimeIntervalSince1970)
     }
     
     var isImageDeleted:Bool {
