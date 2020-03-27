@@ -163,7 +163,7 @@ class TalkHistoryTableViewCell : UITableViewCell {
     @IBOutlet weak var dateLabel:UILabel!
     override func layoutSubviews() {
         super.layoutSubviews()
-        bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") :#imageLiteral(resourceName: "bubble_light")
+        bubbleImageView.image = .bubble
         dateLabel.textColor = .autoColor_weak_text_color
         textView.textColor = .autoColor_text_color
     }

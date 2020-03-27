@@ -36,9 +36,9 @@ class TalkDetailHoldemTableViewCell: UITableViewCell {
     fileprivate func setData() {
         switch reuseIdentifier {
         case "myHoldemCell":
-            bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "myBubble_dark") : #imageLiteral(resourceName: "myBubble_light")
+            bubbleImageView.image = .myBubble
         default:
-            bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
+            bubbleImageView.image = .bubble
         }
         
         guard let talk = talkModel else {

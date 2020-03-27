@@ -56,9 +56,9 @@ class TodayTalksTableViewCell: UITableViewCell {
         }
         switch reuseIdentifier {
         case "myCell","myImageCell":
-            bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "myBubble_dark") : #imageLiteral(resourceName: "myBubble_light")
+            bubbleImageView.image = .myBubble
         default:
-            bubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
+            bubbleImageView.image = .bubble
         }
         
         talkTextView.textColor = .autoColor_text_color

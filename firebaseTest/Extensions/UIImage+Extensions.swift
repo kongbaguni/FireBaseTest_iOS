@@ -27,5 +27,11 @@ extension UIImage {
         }
     }
 
+    open class var myBubble:UIImage {
+        UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "myBubble_dark") : #imageLiteral(resourceName: "myBubble_light")
+    }
     
+    open class var bubble:UIImage {
+        UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
+    }
 }

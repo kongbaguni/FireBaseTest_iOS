@@ -44,7 +44,7 @@ class LoginViewController: UIViewController {
             loading.show(viewController: self)
         }
         
-        titleBubbleImageView.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
+        titleBubbleImageView.image = .bubble
         
         let icon = #imageLiteral(resourceName: "google").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
         loginGoogleBtn.setImage(icon, for: .normal)

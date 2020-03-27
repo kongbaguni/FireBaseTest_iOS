@@ -55,6 +55,7 @@ class PopupMapViewController: UIViewController {
         closeBtn.rx.tap.bind { (_) in
             self.dismiss(animated: true, completion: nil)
         }.disposed(by: disposebag)
+ 
         
     }
 }

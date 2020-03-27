@@ -175,7 +175,7 @@ class StatusViewController: UIViewController {
         emailBtn.setTitle(user.email, for: .normal)
         profileImageView.kf.setImage(with: user.profileImageURL, placeholder:#imageLiteral(resourceName: "profile"))
         nameLabel.text = user.name
-        introduceBubble.image = UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
+        introduceBubble.image = .bubble
         introduceLabel.text = user.introduce
         pointLabel.text = user.point.decimalForamtString
         levelLabel.text = user.levelStrValue
