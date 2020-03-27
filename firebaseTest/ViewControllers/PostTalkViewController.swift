@@ -132,17 +132,27 @@ class PostTalkViewController: UITableViewController {
 
         func write() {
             if self.documentId == nil {
-                TalkModel.create(text: text, image: self.selectedImage) { [weak self](sucess) in
+                TalkModel.create(text: text, image: self.selectedImage) { [weak self] (sucess) in
                     if sucess {
-                        self?.navigationController?.popViewController(animated: true)
-                        NotificationCenter.default.post(name: .postTalkNotification, object: self?.needPoint)
+                        if let id = self?.documentId, let point = self?.needPoint {
+                            self?.navigationController?.popViewController(animated: true)
+                            NotificationCenter.default.post(name: .postTalkNotification,
+                                                             object: nil,
+                                                             userInfo:["talkId":id,"point":point]
+                            )
+                        }
                     }
                 }
             } else {
                 self.document?.edit(text: text, image: self.selectedImage, complete: { [weak self](sucess) in
                     if sucess {
-                        self?.navigationController?.popViewController(animated: true)
-                        NotificationCenter.default.post(name: .postTalkNotification, object: self?.needPoint)
+                        if let id = self?.documentId, let point = self?.needPoint {
+                            self?.navigationController?.popViewController(animated: true)
+                            NotificationCenter.default.post(name: .postTalkNotification,
+                                                             object: nil,
+                                                             userInfo:["talkId":id,"point":point]
+                            )
+                        }
                     }
                 })
             }

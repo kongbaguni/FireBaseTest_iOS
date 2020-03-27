@@ -137,11 +137,21 @@ class TodaysTalksTableViewController: UITableViewController {
         }
         
         NotificationCenter.default.addObserver(forName: .postTalkNotification, object: nil, queue: nil) { [weak self] (notification) in
-            if let needPoint = notification.object as? Int {
+//            userInfo:["talkId":id,"point":point]
+            if let id = notification.userInfo?["talkId"] as? String,
+                let needPoint = notification.userInfo?["point"] as? Int {
                 let vc = StatusViewController.viewController(withUserId: UserInfo.info!.id)
                 vc.statusChange = StatusChange(addedExp: needPoint, pointChange: -needPoint)
                 self?.present(vc, animated: true, completion: nil)
+                if let model = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
+                    if let idx = self?.list.lastIndex(of: model) {
+                        let indexPath = IndexPath(row: idx, section: 1)
+                        self?.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+                        return
+                    }
+                }
             }
+            self?.scrollToBottom()
         }
         NotificationCenter.default.addObserver(forName: .noticeUpdateNotification, object: nil, queue: nil) {[weak self] (notification) in
             self?.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
@@ -210,7 +220,7 @@ class TodaysTalksTableViewController: UITableViewController {
             if self?.isNeedScrollToBottomWhenRefresh == true {
                 if let number = self?.tableView.numberOfRows(inSection: 0) {
                     if oldCount != number {
-                        self?.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
+                        self?.scrollToBottom()
                     }
                     self?.isNeedScrollToBottomWhenRefresh = false
                 }
@@ -220,31 +230,19 @@ class TodaysTalksTableViewController: UITableViewController {
                 self?.needScrolIndex = nil
             }
         }
-
+    }
+    
+    func scrollToBottom() {
+        tableView.reloadData()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {[weak self] in
+            self?.tableView.scrollTableViewToBottom(animated: true)
+        }
     }
     
     @objc func onTouchupCardGame(_ sender:UIBarButtonItem) {
         let vc = HoldemViewController.viewController
-        vc.delegate = self
         self.present(vc, animated: true, completion: nil)
-
-//        let gameCount = UserInfo.info?.todaysMyGameCount ?? 0
-//        if gameCount > Consts.MAX_GAME_COUNT {
-//            debugPrint("game count : \(gameCount)")
-//            Toast.makeToast(message: "game count limit over msg".localized)
-//            return
-//        }
-//        let ac = UIAlertController(title: nil, message: "game select", preferredStyle: .actionSheet)
-//        ac.addAction(UIAlertAction(title: "simple porker", style: .default, handler: { (action) in
-//            self.playSimplePorker()
-//        }))
-//        ac.addAction(UIAlertAction(title: "holdem", style: .default, handler: { (action) in
-//            let vc = HoldemViewController.viewController
-//            vc.delegate = self
-//            self.present(vc, animated: true, completion: nil)
-//        }))
-//        ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-//        present(ac, animated: true, completion: nil)
     }
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
@@ -466,16 +464,4 @@ class TodaysTalksTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: actions)
     }
  
-}
-
-
-extension TodaysTalksTableViewController : HoldemViewControllerDelegate {
-    func didGameFinish(isBettingGame: Bool) {
-        if isBettingGame {
-            self.isNeedScrollToBottomWhenRefresh = true
-            self.onRefreshControl(UIRefreshControl())            
-        }
-    }
-    
-    
 }

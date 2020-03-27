@@ -10,13 +10,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RealmSwift
-protocol HoldemViewControllerDelegate : class {
-    func didGameFinish(isBettingGame:Bool)
-}
+
 
 class HoldemViewController : UIViewController {
-    weak var delegate:HoldemViewControllerDelegate? = nil
-    
     @IBOutlet weak var jackPotBoxImageView: UIImageView!
     @IBOutlet weak var jackPotPointLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -408,7 +404,7 @@ class HoldemViewController : UIViewController {
                 vc.addAction(UIAlertAction(title: "posting".localized, style: .default, handler: { (_) in
                     self.postTalk { (sucess) in
                         self.dismiss(animated: true) {
-                            self.delegate?.didGameFinish(isBettingGame: true)
+                            NotificationCenter.default.post(name: .postTalkNotification, object: nil, userInfo: nil)
                         }
                     }
                 }))
@@ -422,8 +418,7 @@ class HoldemViewController : UIViewController {
                 holdemView.insertCard()
                 self.gameState = .wait
                 setTitle()
-                loadData()
-                self.delegate?.didGameFinish(isBettingGame: false)
+                loadData()                
             }
         }
         setTitle()

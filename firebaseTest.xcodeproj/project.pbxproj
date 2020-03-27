@@ -55,6 +55,7 @@
 		C390038A2421E9B700CC4E3A /* StoreWaittingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39003892421E9B700CC4E3A /* StoreWaittingTableViewController.swift */; };
 		C390038C24220DC100CC4E3A /* WattingLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */; };
 		C3952901242DBE3F0050C80D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3952900242DBE3F0050C80D /* UIImage+Extensions.swift */; };
+		C3952905242DE8BA0050C80D /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3952904242DE8BA0050C80D /* UITableView+Extensions.swift */; };
 		C39A6ECA241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6EC9241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift */; };
 		C39A6ECC241F368000460705 /* HoldemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C39A6ECB241F368000460705 /* HoldemView.xib */; };
 		C39A6ECE241F386400460705 /* HoldemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ECD241F386400460705 /* HoldemView.swift */; };
@@ -166,6 +167,7 @@
 		C39003892421E9B700CC4E3A /* StoreWaittingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWaittingTableViewController.swift; sourceTree = "<group>"; };
 		C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WattingLogTableViewCell.swift; sourceTree = "<group>"; };
 		C3952900242DBE3F0050C80D /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		C3952904242DE8BA0050C80D /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		C39A6EC9241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailCardDackTavleViewCell.swift; sourceTree = "<group>"; };
 		C39A6ECB241F368000460705 /* HoldemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HoldemView.xib; sourceTree = "<group>"; };
 		C39A6ECD241F386400460705 /* HoldemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldemView.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				C370C9FA2417688A00026E86 /* Date+extensions.swift */,
 				C39E49862428A36F0094E16B /* UIView+Extensions.swift */,
 				C3952900242DBE3F0050C80D /* UIImage+Extensions.swift */,
+				C3952904242DE8BA0050C80D /* UITableView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				C370C9F92417516100026E86 /* TalkDetailEditHistoryTableViewCell.swift in Sources */,
 				C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */,
 				C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */,
+				C3952905242DE8BA0050C80D /* UITableView+Extensions.swift in Sources */,
 				C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */,
 				C390038C24220DC100CC4E3A /* WattingLogTableViewCell.swift in Sources */,
 				C39A6ECA241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift in Sources */,
