@@ -367,13 +367,13 @@ extension TalkModel {
                 "lat":UserDefaults.standard.lastMyCoordinate?.latitude ?? 0,
                 "lng":UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
             ]
-            
+                        
             if let url = uploadUrl {
                 editData["imageUrlStr"] = url.absoluteString
             }
             let doc = Firestore.firestore().collection(FSCollectionName.TALKS).document(id)
             doc.updateData(data) { (error1) in
-                doc.collection("edit").document(editId).setData(data) { (error2) in
+                doc.collection("edit").document(editId).setData(editData) { (error2) in
                     if error1 == nil && error2 == nil {
                         let realm = try! Realm()
                         realm.beginWrite()
@@ -431,20 +431,24 @@ extension TalkModel {
                     collection.document(id).collection("edit").getDocuments { (queryShot, error) in
                         if let data = queryShot {
                             let realm = try! Realm()
+                            let editList = realm.object(ofType: TalkModel.self, forPrimaryKey: id)?.editList
                             realm.beginWrite()
+                            editList?.removeAll()
                             for edits in data.documents {
                                 let edit = realm.create(TextEditModel.self, value: edits.data(), update: .all)
-                                realm.object(ofType: TalkModel.self, forPrimaryKey: id)?.editList.append(edit)
+                                editList?.append(edit)
                             }
                             try! realm.commitWrite()
                             
                             collection.document(id).collection("like").getDocuments { (likeQueryShot, error) in
                                 if let data = likeQueryShot {
                                     let realm = try! Realm()
+                                    let likes = realm.object(ofType: TalkModel.self, forPrimaryKey: id)?.likes
                                     realm.beginWrite()
+                                    likes?.removeAll()
                                     for info in data.documents {
                                         let like = realm.create(LikeModel.self, value: info.data(), update: .all)
-                                        realm.object(ofType: TalkModel.self, forPrimaryKey: id)?.likes.append(like)
+                                        likes?.append(like)
                                     }
                                     try! realm.commitWrite()
                                     complete(true)

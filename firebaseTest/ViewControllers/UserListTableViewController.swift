@@ -19,7 +19,7 @@ class UserListTableViewController: UITableViewController {
     let disposebag = DisposeBag()
     
     var users:Results<UserInfo> {
-        var result = try! Realm().objects(UserInfo.self).sorted(byKeyPath: "updateDt")
+        var result = try! Realm().objects(UserInfo.self).sorted(byKeyPath: "updateTimeIntervalSince1970")
         
         if let text = filterText {
             result = result.filter("name CONTAINS[c] %@", text)

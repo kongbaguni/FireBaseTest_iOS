@@ -148,9 +148,11 @@ class TodaysTalksTableViewController: UITableViewController {
         }
         NotificationCenter.default.addObserver(forName: .talkUpdateNotification, object: nil, queue: nil) {[weak self] (_) in
             self?.tableView.reloadData()
-            self?.emptyView.isHidden = self?.list.count != 0 && self?.notices.count != 0
+            self?.emptyView.isHidden = self?.list.count != 0 || self?.notices.count != 0
         }
+        onRefreshControl(UIRefreshControl())
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         for view in [nearTalkOptionSwitch, hideGameOptionSwitch] {
@@ -163,11 +165,15 @@ class TodaysTalksTableViewController: UITableViewController {
         )
         
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.refreshControl?.endRefreshing()
+        emptyView.isHidden = list.count != 0 || notices.count != 0
         tableView.reloadData()
     }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -199,7 +205,7 @@ class TodaysTalksTableViewController: UITableViewController {
                 sender.endRefreshing()
             }
             
-            self?.emptyView.isHidden = self?.list.count != 0 && self?.notices.count != 0
+            self?.emptyView.isHidden = self?.list.count != 0 || self?.notices.count != 0
             self?.tableView.reloadData()
             if self?.isNeedScrollToBottomWhenRefresh == true {
                 if let number = self?.tableView.numberOfRows(inSection: 0) {

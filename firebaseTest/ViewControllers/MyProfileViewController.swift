@@ -228,7 +228,7 @@ class MyProfileViewController: UITableViewController {
             userinfo.isDeleteProfileImage = profileImageDeleteMode == .delete
             userinfo.distanceForSearch = selectSearchDistance
             userinfo.isAnonymousInventoryReport = anonymousInventoryReportTitleSwitch.isOn
-            userinfo.updateDt = Date()
+            userinfo.updateTimeIntervalSince1970 = Date().timeIntervalSince1970
             userinfo.mapTypeValue = selectMapViewMapType
             if profileImageDeleteMode != nil {
                 userinfo.profileImageURLfirebase = ""

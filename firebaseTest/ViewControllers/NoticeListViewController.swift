@@ -46,6 +46,7 @@ class NoticeListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let notice = notices[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NoticeListTableViewCell
+        cell.accessoryType = notice.isRead ? .checkmark : .none
         cell.titleLabel.text = notice.title
         cell.dateLabel.text = Date(timeIntervalSince1970: notice.updateDtTimeinterval1970).simpleFormatStringValue
         cell.backgroundColor = notice.isShow ? .clear : .autoColor_indicator_color

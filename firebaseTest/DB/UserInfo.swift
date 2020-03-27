@@ -17,19 +17,31 @@ class UserInfo : Object {
     var id:String {
         return email
     }
-    
-    @objc dynamic var email                     : String    = ""
-    @objc dynamic var name                      : String    = ""
-    @objc dynamic var introduce                 : String    = ""
-    @objc dynamic var profileImageURLgoogle     : String    = ""
-    @objc dynamic var profileImageURLfirebase   : String    = ""
+    /** 로그인 정보 */
     @objc dynamic var idToken                   : String    = ""
     @objc dynamic var accessToken               : String    = ""
-    @objc dynamic var updateDt                  : Date      = Date()
-    /** 프로필 이미지 사용하지 않을 경우 true*/
-    @objc dynamic var _lastTalkDt               : Date      = Date(timeIntervalSince1970: 0)
+
+    /** 이메일*/
+    @objc dynamic var email                     : String    = ""
+    /** 사용자 닉네임*/
+    @objc dynamic var name                      : String    = ""
+    /** 사용자의 자기소개*/
+    @objc dynamic var introduce                 : String    = ""
+    /** 프로필 이미지 (구글)*/
+    @objc dynamic var profileImageURLgoogle     : String    = ""
+    /** 업로드한 프로필 이미지*/
+    @objc dynamic var profileImageURLfirebase   : String    = ""
+    /** 최근 갱신 시각*/
+    @objc dynamic var updateTimeIntervalSince1970: Double   = 0
+    /** 마지막 대화 작성 시각*/
+    @objc dynamic var lastTalkTimeIntervalSince1970: Double = 0
+
+    /** 포인트*/
     @objc dynamic var point                     : Int       = 0
+
+    /** 검색 거리 설정*/
     @objc dynamic var distanceForSearch         : Int       = Consts.DISTANCE_STORE_SEARCH
+
     /** 경험치*/
     @objc dynamic var exp                       : Int       = 0
     /** 레벨*/
@@ -39,7 +51,7 @@ class UserInfo : Object {
     
     /** 광고 시청 횟수*/
     @objc dynamic var count_of_ad               : Int      = 0
-    /** 좋아요 받은 횟수*/
+    /** 다른 사람의 글을 좋아요 한 횟수*/
     @objc dynamic var count_of_like             : Int      = 0
     /** 게임 플레이한 횟수*/
     @objc dynamic var count_of_gamePlay         : Int      = 0
@@ -49,6 +61,7 @@ class UserInfo : Object {
     @objc dynamic var sum_points_of_gameLose    : Int      = 0
     /** 게임에서 얻은 포인트 총합*/
     @objc dynamic var sum_points_of_gameWin     : Int      = 0
+    
     enum MapType : String, CaseIterable {
         case standard = "standard"
         case satellite = "satellite"
@@ -97,34 +110,23 @@ class UserInfo : Object {
     var levelStrValue:String {
         return level.decimalForamtString
     }
+    
     var lastTalkDt:Date? {
         get {
-            if _lastTalkDt == Date(timeIntervalSince1970: 0) {
+            if lastTalkTimeIntervalSince1970 == 0 {
                 return nil
             }
-            return _lastTalkDt
+            return Date(timeIntervalSince1970: self.lastTalkTimeIntervalSince1970)
         }
         set {
             if let value = newValue {
-                _lastTalkDt = value
+                lastTalkTimeIntervalSince1970 = value.timeIntervalSince1970
             } else {
-                _lastTalkDt = Date(timeIntervalSince1970: 0)
+                lastTalkTimeIntervalSince1970 = 0
             }
         }
     }
-    
-    var lastTalkTimeInterval:Double? {
-        get {
-            return lastTalkDt?.timeIntervalSince1970
-        }
-        set {
-            if let value = newValue {
-                lastTalkDt = Date(timeIntervalSince1970: TimeInterval(value))
-            }
-        }
-    }
-    
-    
+           
     @objc dynamic var isDeleteProfileImage      : Bool      = false {
         didSet {
             if isDeleteProfileImage {
@@ -158,49 +160,65 @@ class UserInfo : Object {
     }
     
 
-    
-    func setData(info:[String:Any]) {
-        if let name = info["name"] as? String {
-            self.name = name
+    static func createUser(
+        email:String,
+        name:String,
+        searchDistance:Int,
+        mapType:String,
+        profileImage:UIImage?,
+        googleProfileUrl:String?,
+        complete:@escaping(_ isSucess:Bool)->Void) {
+        
+        func create(fileUrl:URL?) {
+            let user = Firestore.firestore().collection(FSCollectionName.USERS).document(email)
+            var data:[String:Any] = [
+                "id":email,
+                "email":email,
+                "name":name,
+                "searchDistance":searchDistance,
+                "mapType":mapType,
+            ]
+            if let url = googleProfileUrl {
+                data["googleProfileUrl"] = url
+            }
+            if let url = fileUrl {
+                data["profileImageURLfirebase"] = url
+            }
+            user.setData(data) { (error) in
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(UserInfo.self, value: data, update: .all)
+                try! realm.commitWrite()
+                complete(error == nil)
+            }
+
         }
-        if let intro = info["intro"] as? String {
-            self.introduce = intro
+        
+        let fileUploadURL = "\(FSCollectionName.STORAGE_PROFILE_IMAGE)"
+        if let image = profileImage {
+            if let data = image.af.imageAspectScaled(toFit: CGSize(width: 500, height: 500)).jpegData(compressionQuality: 0.7) {
+                FirebaseStorageHelper().uploadImage(withData: data, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
+                    create(fileUrl: url)
+                }
+            }
+        } else {
+            create(fileUrl: nil)
         }
-        if let url = info["profileImageUrl"] as? String {
-            self.profileImageURLfirebase = url
-        }
-        if let value = info["isDefaultProfile"] as? Bool {
-            self.isDeleteProfileImage = value
-        }
-        if let url = info["profileImageUrlGoogle"] as? String {
-            self.profileImageURLgoogle = url
-        }
-        if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
-            self.lastTalkTimeInterval = lastTalkTime
-        }
-        if let id = info["fmcID"] as? String {
-            self.fcmID = id
-        }
-        count_of_report_stock = info["count_of_report_stock"] as? Int ?? 0
-        count_of_ad = info["count_of_ad"] as? Int ?? 0
-        count_of_like = info["count_of_like"] as? Int ?? 0
-        count_of_gamePlay = info["count_of_gamePlay"] as? Int ?? 0
-        sum_points_of_gameLose = info["sum_points_of_gameLose"] as? Int ?? 0
-        sum_points_of_gameWin = info["sum_points_of_gameWin"] as? Int ?? 0
-        mapType = info["mapType"] as? String ?? "standard"
-//        isAnonymousInventoryReport = info["isAnonymousInventoryReport"] as? Bool ?? false
-        isAnonymousInventoryReport = false
-        updateDt = Date(timeIntervalSince1970: (info["updateTimeIntervalSince1970"] as? Double ?? 0))
-        point = info["point"] as? Int ?? 0
-        distanceForSearch = info["distanceForSearch"] as? Int ?? Consts.DISTANCE_STORE_SEARCH
-        exp = info["exp"] as? Int ?? 0
     }
+    
+    func updateToken(idToken:String,accessToken:String) {
+        let realm = try! Realm()
+        realm.beginWrite()
+        self.idToken = idToken
+        self.accessToken = accessToken
+        try! realm.commitWrite()
+    }
+    
     
     /** firebase 에서 데이터를 받아와서 자신의 사용자 정보를 갱신합니다.*/
     func syncData(complete:@escaping(_ isNew:Bool)->Void) {
         let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
         let document = dbCollection.document(self.email)
-        let userId = self.id
         
         document.getDocument { (snapshot, error) in
             if let doc = snapshot {
@@ -210,16 +228,15 @@ class UserInfo : Object {
                 }
                 doc.data().map { info in
                     let realm = try! Realm()
-                    if let uinfo = realm.object(ofType: UserInfo.self, forPrimaryKey: userId) {
-                        realm.beginWrite()
-                        uinfo.setData(info: info)
-                        try! realm.commitWrite()
-                        complete(false)
-                    }
+                    realm.beginWrite()
+                    realm.create(UserInfo.self, value: info, update: .modified)
+                    try! realm.commitWrite()
+                    complete(false)
                 }
             }
         }
     }
+    
     /** 사용자 정보 동기화 (최근 7일간 글을 작성한 이력이 있는 사용자만 긁어옴*/
     static func syncUserInfo(getOtherUserComplete:@escaping()->Void) {
         if UserInfo.info == nil {
@@ -234,43 +251,25 @@ class UserInfo : Object {
         
         if var users = try? Realm().objects(UserInfo.self)
             .filter("isFromUserInfoSync = %@", true)
-            .sorted(byKeyPath: "updateDt") {
+            .sorted(byKeyPath: "updateTimeIntervalSince1970") {
             if let email = UserInfo.info?.email {
                 users  = users.filter("email != %@", email)
             }
             if let lastUser = users.last {
-                query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateDt.timeIntervalSince1970)
+                query = dbCollection.whereField("updateTimeIntervalSince1970", isGreaterThan: lastUser.updateTimeIntervalSince1970)
             }
         }
                 
         query
             .getDocuments { (snapShot, error) in
-                var newUsers:[UserInfo] = []
+                let realm = try! Realm()
+                realm.beginWrite()
                 for doc in snapShot?.documents ?? [] {
                     let info = doc.data()
-                    guard let email = info["email"] as? String else {
-                        continue
-                    }
-                    if email == UserInfo.info?.email {
-                        continue
-                    }
-                    let userInfo = UserInfo()
-                    userInfo.email = email
-                    userInfo.setData(info: info)
-                    userInfo.isFromUserInfoSync = true
-                    if let lastTalkTime = info["lastTalkTimeIntervalSince1970"] as? Double {
-                        userInfo.lastTalkTimeInterval = lastTalkTime
-                    }
-                    
-                    newUsers.append(userInfo)
+                    realm.create(UserInfo.self, value: info, update: .all)
                 }
-                debugPrint("사용자 정보 갱신 : \(newUsers.count)")
-                if newUsers.count > 0 {
-                    let realm = try! Realm()
-                    realm.beginWrite()
-                    realm.add(newUsers,update: .all)
-                    try! realm.commitWrite()
-                }
+                try! realm.commitWrite()
+                debugPrint("사용자 정보 갱신 : \(snapShot?.documents.count ?? 0)")
                 getOtherUserComplete()
         }
     }
@@ -280,13 +279,10 @@ class UserInfo : Object {
         let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
         let document = dbCollection.document(id)
         document.getDocument { (snapShot, error) in
-            if let data = snapShot?.data() , let email = data["email"] as? String  {
+            if let data = snapShot?.data() {
                 let realm = try? Realm()
-                let user = UserInfo()
-                user.email = email
-                user.setData(info: data)
                 realm?.beginWrite()
-                realm?.add(user, update: .all)
+                realm?.create(UserInfo.self, value: data, update: .all)
                 try? realm?.commitWrite()
                 complete(true)
                 return
@@ -302,12 +298,12 @@ class UserInfo : Object {
         let data:[String:Any] = [            
             "name": self.name,
             "email" : self.email,
-            "intro": self.introduce,
-            "isDefaultProfile" : isDeleteProfileImage,
-            "profileImageUrl" : profileImageURLfirebase,
-            "profileImageUrlGoogle" : profileImageURLgoogle,
-            "updateTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970,
-            "lastTalkTimeIntervalSince1970" : self.updateDt.timeIntervalSince1970,
+            "introduce": self.introduce,
+            "isDeleteProfileImage" : isDeleteProfileImage,
+            "profileImageURLfirebase" : profileImageURLfirebase,
+            "profileImageURLgoogle" : profileImageURLgoogle,
+            "updateTimeIntervalSince1970" : self.updateTimeIntervalSince1970,
+            "lastTalkTimeIntervalSince1970" : self.lastTalkTimeIntervalSince1970,
             "distanceForSearch" : distanceForSearch,
             "point" : point,
             "exp" : exp,
@@ -319,7 +315,6 @@ class UserInfo : Object {
             "count_of_like":count_of_like,
             "count_of_ad":count_of_ad,
             "count_of_report_stock" : count_of_report_stock,
-            "isAnonymousInventorfrffyReport" : false //isAnonymousInventoryReport,
         ]
         
         document.updateData(data) {(error) in
@@ -369,7 +364,7 @@ class UserInfo : Object {
             let realm = try! Realm()
             realm.beginWrite()
             self.point += point
-            self.updateDt = Date()
+            self.updateTimeIntervalSince1970 = Date().timeIntervalSince1970
             let oldLevel = level
             exp += abs(point)
             if oldLevel > level {
@@ -404,7 +399,18 @@ class UserInfo : Object {
     
     func updateLastTalkTime(timeInterval:Double = Date().timeIntervalSince1970, complete:@escaping(_ isSucess:Bool)->Void) {
         let userInfo = Firestore.firestore().collection(FSCollectionName.USERS).document(self.id)
-        userInfo.updateData(["lastTalkTimeIntervalSince1970": timeInterval]) { (err) in
+        let userId = self.id
+        let data:[String:Any] = [
+            "id":userId,
+            "lastTalkTimeIntervalSince1970": timeInterval
+        ]
+        userInfo.updateData(data) { (err) in
+            if err == nil {
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(UserInfo.self, value: data, update: .modified)
+                try! realm.commitWrite()
+            }
             complete(err == nil)
         }
     }
@@ -464,7 +470,7 @@ class UserInfo : Object {
                             default:
                                 break
                             }
-                            model.updateDt = now
+                            model.updateTimeIntervalSince1970 = now.timeIntervalSince1970
                             try! realm.commitWrite()
                         }
                         complete(error == nil)
