@@ -93,16 +93,10 @@ class StatusViewController: UIViewController {
         }
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTapGesture(_:))))
         
-        let closeBtnImage =
-        #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
-        if #available(iOS 13.0, *) {
-            closeBtn.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
-            closeBtn.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
-        } else {
-            closeBtn.setImage(closeBtnImage, for: .normal)
-            closeBtn.setImage(closeBtnImage, for: .highlighted)
-        }
         
+        closeBtn.setImage(.closeBtnImage_normal, for: .normal)
+        closeBtn.setImage(.closeBtnImage_highlighted, for: .highlighted)
+                
         statusViewLayoutHeight.constant = statusChange == nil ? 200 : 150
         for view in [emailBtn, emailTitleLabel, talkLogsBtn] {
             view?.isHidden = statusChange != nil

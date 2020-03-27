@@ -59,15 +59,9 @@ class HoldemViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         holdemView.insertCard()
-        let closeBtnImage =
-            #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))//.withRenderingMode(.alwaysTemplate)
-        if #available(iOS 13.0, *) {
-            closeButton.setImage(closeBtnImage.withTintColor(.autoColor_text_color), for: .normal)
-            closeButton.setImage(closeBtnImage.withTintColor(.autoColor_weak_text_color), for: .highlighted)
-        } else {
-            closeButton.setImage(closeBtnImage, for: .normal)
-            closeButton.setImage(closeBtnImage, for: .highlighted)
-        }
+        
+        closeButton.setImage(.closeBtnImage_normal, for: .normal)
+        closeButton.setImage(.closeBtnImage_highlighted, for: .highlighted)
         JackPotManager.shared.getData { (sucess) in
             self.loadData()
         }

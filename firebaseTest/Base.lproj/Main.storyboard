@@ -2800,7 +2800,7 @@
                                     <outlet property="profileImageView" destination="ypc-Qv-Y4L" id="61e-GZ-27y"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="editHistory" id="4oA-1c-S8T" customClass="TalkDetailEditHistoryTableViewCell" customModule="mask_now" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="editHistory" id="4oA-1c-S8T" customClass="TalkDetailEditHistoryTableViewCell" customModule="mask_now" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="108.5" width="414" height="209"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4oA-1c-S8T" id="Ce6-bV-wog">
@@ -2841,7 +2841,7 @@
                                     <outlet property="textView" destination="49L-lk-brM" id="jVl-Kl-gib"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="editHistoryImage" id="GsF-So-0VR" customClass="TalkDetailEditHistoryImageTableViewCell" customModule="mask_now" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="editHistoryImage" id="GsF-So-0VR" customClass="TalkDetailEditHistoryImageTableViewCell" customModule="mask_now" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="317.5" width="414" height="259"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GsF-So-0VR" id="5au-Oo-yHA">
@@ -3238,6 +3238,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nuB-ug-9m2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4372" y="-1463"/>
+        </scene>
+        <!--Popup Map View Controller-->
+        <scene sceneID="Nt7-ED-Fmq">
+            <objects>
+                <viewController storyboardIdentifier="popupMapView" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gzB-RY-D6w" customClass="PopupMapViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zXb-ao-g5g">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rvu-xh-MEh">
+                                <rect key="frame" x="-100" y="44" width="614" height="818"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wvQ-yx-tSf">
+                                    <rect key="frame" x="0.0" y="0.0" width="614" height="818"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpq-NO-4LK">
+                                <rect key="frame" x="57" y="303" width="300" height="300"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="WHc-yc-6or">
+                                        <rect key="frame" x="10" y="50" width="280" height="240"/>
+                                    </mapView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FV0-GY-Oeg">
+                                        <rect key="frame" x="260" y="10" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="QVj-6c-40W"/>
+                                            <constraint firstAttribute="height" constant="30" id="wnz-aA-r8L"/>
+                                        </constraints>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miG-Wg-Pas">
+                                        <rect key="frame" x="10" y="14.5" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="A2l-S7-wje"/>
+                                    <constraint firstItem="FV0-GY-Oeg" firstAttribute="top" secondItem="wpq-NO-4LK" secondAttribute="top" constant="10" id="BVT-UO-9Oz"/>
+                                    <constraint firstItem="WHc-yc-6or" firstAttribute="top" secondItem="FV0-GY-Oeg" secondAttribute="bottom" constant="10" id="DmM-wx-cfZ"/>
+                                    <constraint firstItem="FV0-GY-Oeg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="miG-Wg-Pas" secondAttribute="trailing" constant="10" id="Fef-or-BKh"/>
+                                    <constraint firstItem="miG-Wg-Pas" firstAttribute="centerY" secondItem="FV0-GY-Oeg" secondAttribute="centerY" id="Gn6-hC-16j"/>
+                                    <constraint firstItem="miG-Wg-Pas" firstAttribute="leading" secondItem="wpq-NO-4LK" secondAttribute="leading" constant="10" id="dCq-IL-8yT"/>
+                                    <constraint firstItem="WHc-yc-6or" firstAttribute="leading" secondItem="wpq-NO-4LK" secondAttribute="leading" constant="10" id="dPr-fE-itM"/>
+                                    <constraint firstAttribute="trailing" secondItem="FV0-GY-Oeg" secondAttribute="trailing" constant="10" id="eQK-vI-DTq"/>
+                                    <constraint firstAttribute="height" constant="300" id="gG5-mA-Fpd"/>
+                                    <constraint firstAttribute="bottom" secondItem="WHc-yc-6or" secondAttribute="bottom" constant="10" id="kzK-iE-BpF"/>
+                                    <constraint firstAttribute="trailing" secondItem="WHc-yc-6or" secondAttribute="trailing" constant="10" id="otv-19-JUf"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rvu-xh-MEh" firstAttribute="top" secondItem="1lr-Ns-CvH" secondAttribute="top" id="1wp-32-Uma"/>
+                            <constraint firstItem="1lr-Ns-CvH" firstAttribute="trailing" secondItem="rvu-xh-MEh" secondAttribute="trailing" constant="-100" id="K9O-A8-pBA"/>
+                            <constraint firstItem="wpq-NO-4LK" firstAttribute="centerX" secondItem="1lr-Ns-CvH" secondAttribute="centerX" id="Txc-aF-Ga6"/>
+                            <constraint firstItem="wpq-NO-4LK" firstAttribute="centerY" secondItem="1lr-Ns-CvH" secondAttribute="centerY" id="hnc-mK-cMh"/>
+                            <constraint firstItem="1lr-Ns-CvH" firstAttribute="bottom" secondItem="rvu-xh-MEh" secondAttribute="bottom" id="rjv-Vi-XUB"/>
+                            <constraint firstItem="rvu-xh-MEh" firstAttribute="leading" secondItem="1lr-Ns-CvH" secondAttribute="leading" constant="-100" id="xyp-HS-Rlp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1lr-Ns-CvH"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeBtn" destination="FV0-GY-Oeg" id="9fo-sl-vtK"/>
+                        <outlet property="contentView" destination="wpq-NO-4LK" id="cNb-dJ-p4c"/>
+                        <outlet property="mapView" destination="WHc-yc-6or" id="RzH-1L-sEq"/>
+                        <outlet property="titleLabel" destination="miG-Wg-Pas" id="dth-vX-nLN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w4t-E0-jUm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5268" y="-1463"/>
         </scene>
         <!--Holdem View Controller-->
         <scene sceneID="kur-G6-iCN">

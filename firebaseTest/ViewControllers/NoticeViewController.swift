@@ -38,12 +38,8 @@ class NoticeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var closeBtnImage =
-            #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
-        if #available(iOS 13.0, *) {
-            closeBtnImage = closeBtnImage.withTintColor(.autoColor_text_color)
-        }
-        closeBtn.setImage(closeBtnImage, for: .normal)
+        closeBtn.setImage(.closeBtnImage_normal, for: .normal)
+        closeBtn.setImage(.closeBtnImage_highlighted, for: .highlighted)
         textView.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5)
         contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 20, masksToBounds: true)
         if Consts.isAdmin {

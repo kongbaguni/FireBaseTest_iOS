@@ -246,6 +246,18 @@ class TalkDetailTableViewController: UITableViewController {
             let vc = StatusViewController.viewController(withUserId: self.talkModel?.creatorId)
             present(vc, animated: true, completion: nil)
         //            performSegue(withIdentifier: "showUserInfoDetail", sender: self.talkModel?.creatorId)
+        case 1:
+            switch indexPath.row {
+            case 0:
+                let vc = PopupMapViewController.viewController(coordinate: talkModel?.cordinate, title: "posting location".localized)
+                present(vc, animated: true, completion: nil)
+            default:
+                if let editList = talkModel?.editList {
+                    let data = editList[indexPath.row - 1]
+                    let vc = PopupMapViewController.viewController(coordinate: data.cordinate, title: "editing location".localized)
+                    present(vc, animated: true, completion: nil)
+                }
+            }
         case 2:
             if let likes = talkModel?.likes {
                 let id = likes[indexPath.row].creatorId

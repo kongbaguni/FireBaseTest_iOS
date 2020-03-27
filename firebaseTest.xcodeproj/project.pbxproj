@@ -35,6 +35,7 @@
 		C36A1900242C95C0007B9D71 /* NoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A18FF242C95BF007B9D71 /* NoticeModel.swift */; };
 		C36A1902242C9CEA007B9D71 /* PostNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A1901242C9CEA007B9D71 /* PostNoticeViewController.swift */; };
 		C36A1904242CA92B007B9D71 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A1903242CA92B007B9D71 /* NoticeViewController.swift */; };
+		C36A1906242DB492007B9D71 /* PopupMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A1905242DB492007B9D71 /* PopupMapViewController.swift */; };
 		C370C9F12415F94300026E86 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F02415F94300026E86 /* LikeModel.swift */; };
 		C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */; };
 		C370C9F72417506600026E86 /* TalkDetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */; };
@@ -53,6 +54,7 @@
 		C39003872421D38800CC4E3A /* StoreWaitingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39003862421D38800CC4E3A /* StoreWaitingModel.swift */; };
 		C390038A2421E9B700CC4E3A /* StoreWaittingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39003892421E9B700CC4E3A /* StoreWaittingTableViewController.swift */; };
 		C390038C24220DC100CC4E3A /* WattingLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */; };
+		C3952901242DBE3F0050C80D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3952900242DBE3F0050C80D /* UIImage+Extensions.swift */; };
 		C39A6ECA241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6EC9241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift */; };
 		C39A6ECC241F368000460705 /* HoldemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C39A6ECB241F368000460705 /* HoldemView.xib */; };
 		C39A6ECE241F386400460705 /* HoldemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A6ECD241F386400460705 /* HoldemView.swift */; };
@@ -144,6 +146,7 @@
 		C36A18FF242C95BF007B9D71 /* NoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeModel.swift; sourceTree = "<group>"; };
 		C36A1901242C9CEA007B9D71 /* PostNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNoticeViewController.swift; sourceTree = "<group>"; };
 		C36A1903242CA92B007B9D71 /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
+		C36A1905242DB492007B9D71 /* PopupMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMapViewController.swift; sourceTree = "<group>"; };
 		C370C9F02415F94300026E86 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		C370C9F4241747BF00026E86 /* TalkDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailTableViewController.swift; sourceTree = "<group>"; };
 		C370C9F62417506600026E86 /* TalkDetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 		C39003862421D38800CC4E3A /* StoreWaitingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWaitingModel.swift; sourceTree = "<group>"; };
 		C39003892421E9B700CC4E3A /* StoreWaittingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWaittingTableViewController.swift; sourceTree = "<group>"; };
 		C390038B24220DC100CC4E3A /* WattingLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WattingLogTableViewCell.swift; sourceTree = "<group>"; };
+		C3952900242DBE3F0050C80D /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		C39A6EC9241F2B1900460705 /* TalkDetailCardDackTavleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailCardDackTavleViewCell.swift; sourceTree = "<group>"; };
 		C39A6ECB241F368000460705 /* HoldemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HoldemView.xib; sourceTree = "<group>"; };
 		C39A6ECD241F386400460705 /* HoldemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldemView.swift; sourceTree = "<group>"; };
@@ -294,6 +298,7 @@
 				C36A1901242C9CEA007B9D71 /* PostNoticeViewController.swift */,
 				C36A1903242CA92B007B9D71 /* NoticeViewController.swift */,
 				C3252306242CD87A0039819D /* NoticeListViewController.swift */,
+				C36A1905242DB492007B9D71 /* PopupMapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 				C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */,
 				C370C9FA2417688A00026E86 /* Date+extensions.swift */,
 				C39E49862428A36F0094E16B /* UIView+Extensions.swift */,
+				C3952900242DBE3F0050C80D /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -599,6 +605,7 @@
 			files = (
 				C3DC5B842412172D00A028E0 /* UIApplication+Extensions.swift in Sources */,
 				C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */,
+				C36A1906242DB492007B9D71 /* PopupMapViewController.swift in Sources */,
 				C33839E32418ADD800CADC60 /* LocationManager.swift in Sources */,
 				C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */,
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
@@ -645,6 +652,7 @@
 				C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */,
 				C3C25C062421A998006DB36E /* CardDeckBoxView.swift in Sources */,
 				C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */,
+				C3952901242DBE3F0050C80D /* UIImage+Extensions.swift in Sources */,
 				C36149E7242B209C005C2C0B /* RankingTableViewController.swift in Sources */,
 				C3C43A1C241A6E95002788B1 /* TalkDetailMapTableViewCell.swift in Sources */,
 				C3630FD0241B339E003479C2 /* GameManager.swift in Sources */,
