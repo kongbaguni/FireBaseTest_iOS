@@ -412,8 +412,13 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let data = list[indexPath.row]
-        return data.isDeleted == false
+        switch indexPath.section {
+        case 1:
+            let data = list[indexPath.row]
+            return data.isDeleted == false
+        default:
+            return false
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
