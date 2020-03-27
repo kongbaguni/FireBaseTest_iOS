@@ -31,7 +31,7 @@ class TodaysTalksTableViewController: UITableViewController {
             }
         }
         if UserDefaults.standard.isHideGameTalk {
-            result = result.filter("bettingPoint = %@",0)
+            result = result.filter("gameResultBase64encodingSting = %@","")
         }
         
         if let txt = filterText {
@@ -146,6 +146,10 @@ class TodaysTalksTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(forName: .noticeUpdateNotification, object: nil, queue: nil) {[weak self] (notification) in
             self?.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
         }
+        NotificationCenter.default.addObserver(forName: .talkUpdateNotification, object: nil, queue: nil) {[weak self] (_) in
+            self?.tableView.reloadData()
+            self?.emptyView.isHidden = self?.list.count != 0 && self?.notices.count != 0
+        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -161,7 +165,7 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.onRefreshControl(UIRefreshControl())
+        self.refreshControl?.endRefreshing()
         tableView.reloadData()
     }
     
@@ -183,14 +187,19 @@ class TodaysTalksTableViewController: UITableViewController {
     
     @objc func onRefreshControl(_ sender:UIRefreshControl) {
         let oldCount = self.tableView.numberOfRows(inSection: 0)
-        TalkModel.syncDatas { [weak self] in
-            NoticeModel.syncNotices { (isSucess) in
-                if isSucess {
-                    self?.tableView.reloadData()
+        TalkModel.syncDatas { [weak self] (isSucess) in
+            if isSucess {
+                NoticeModel.syncNotices { (isSucess) in
+                    sender.endRefreshing()
+                    if isSucess {
+                        self?.tableView.reloadData()
+                    }
                 }
+            } else {
+                sender.endRefreshing()
             }
-            sender.endRefreshing()
-            self?.emptyView.isHidden = self?.list.count != 0
+            
+            self?.emptyView.isHidden = self?.list.count != 0 && self?.notices.count != 0
             self?.tableView.reloadData()
             if self?.isNeedScrollToBottomWhenRefresh == true {
                 if let number = self?.tableView.numberOfRows(inSection: 0) {
@@ -231,49 +240,6 @@ class TodaysTalksTableViewController: UITableViewController {
 //        ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
 //        present(ac, animated: true, completion: nil)
     }
-    
-    private func playSimplePorker() {
-        let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
-        let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
-        let lastBetting = try! Realm().objects(TalkModel.self).filter("creatorId = %@ && bettingPoint > 0",UserInfo.info!.id).last?.bettingPoint ?? UserInfo.info!.point / 10
-        vc.addTextField { (textFiled) in
-            textFiled.text = "\(lastBetting)"
-            textFiled.keyboardType = .numberPad
-            textFiled
-                .rx.text.orEmpty.subscribe(onNext: { (query) in
-                    let up = UserInfo.info?.point ?? 0
-                    let number = NSString(string: query).integerValue
-                    if number > Consts.BETTING_LIMIT {
-                        textFiled.text = "\(Consts.BETTING_LIMIT)"
-                    }
-                    else if number > up {
-                        textFiled.text = "\(up)"
-                    } else {
-                        textFiled.text = "\(number)"
-                    }
-                }).disposed(by: self.disposebag)
-        }
-        vc.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { [weak vc] (action) in
-            guard let text = vc?.textFields?.first?.text else {
-                return
-            }
-            let betting = NSString(string:text).integerValue
-            if betting == 0 {
-                return
-            }
-            GameManager.shared.playPokerGame(useJoker: false, bettingPoint: betting) { [weak self](isSucess) in
-                if let s = self {
-                    s.tableView.reloadData()
-                    let number = s.tableView.numberOfRows(inSection: 0)
-                    s.tableView.scrollToRow(at: IndexPath(row: number - 1, section: 0), at: .middle, animated: true)
-                }
-            }
-        }))
-        vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
-        vc.popoverPresentationController?.barButtonItem = self.toolBar.items?.last
-        present(vc, animated: true, completion: nil)
-    }
-    
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -368,12 +334,6 @@ class TodaysTalksTableViewController: UITableViewController {
                 
                 return cell
             }
-            if data.cardSet != nil {
-                let cellId = data.creatorId == UserInfo.info?.id ? "myCardCell" : "cardCell"
-                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TalkDetailCardTableViewCell
-                cell.talkId = data.id
-                return cell
-            }
             
             if data.imageURL != nil {
                 let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
@@ -400,6 +360,9 @@ class TodaysTalksTableViewController: UITableViewController {
             }
             return "notice".localized
         case 1:
+            if list.count == 0 {
+                return nil
+            }
             return "talks".localized
         default:
             return nil
@@ -440,16 +403,11 @@ class TodaysTalksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let model = list[indexPath.row]
-        let action = UIContextualAction(style: .normal, title: "like".localized, handler: { (action, view, complete) in
-            model.toggleLike()
-            let realm = try! Realm()
-            realm.beginWrite()
-            model.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
-            try! realm.commitWrite()
-            model.update { (sucess) in
-                complete(true)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
+        let action = UIContextualAction(style: .normal, title: "like".localized, handler: { (action, view, actionComplete) in
+            model.toggleLike {[weak self] (isLike) in
+                actionComplete(true)
+                if isLike != nil {
+                    self?.tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
             }
         })
@@ -470,7 +428,7 @@ class TodaysTalksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let data = list[indexPath.row]
         var actions:[UIContextualAction] = []
-        if data.creatorId == UserInfo.info?.id && data.bettingPoint == 0 {
+        if data.creatorId == UserInfo.info?.id && data.gameResultBase64encodingSting.isEmpty == true {
             let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
                 if let data = self?.list[indexPath.row] {
                     self?.needScrolIndex = indexPath

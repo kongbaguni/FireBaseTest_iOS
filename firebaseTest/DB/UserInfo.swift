@@ -487,13 +487,14 @@ class UserInfo : Object {
             .getDocuments { (snapshot, error) in
                 if let data = snapshot {
                     var newModels:[Object] = []
+                    let realm = try! Realm()
+                    realm.beginWrite()
                     for documant in data.documents {
                         let data = documant.data()
-                        let model = TalkModel()
-                        if model.loadData(data: data) {
-                            newModels.append(model)
-                        }
+                        realm.create(TalkModel.self, value: data, update: .all)
                     }
+                    try! realm.commitWrite()
+
                     debugPrint("대화 이력 검색 \(newModels.count)건")
                     if newModels.count > 0 {
                         if let realm = try? Realm() {

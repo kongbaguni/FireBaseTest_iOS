@@ -61,17 +61,9 @@ class TalkDetailTableViewController: UITableViewController {
         vc.popoverPresentationController?.barButtonItem = sender
         
         vc.addAction(UIAlertAction(title: isLike ? "like cancel".localized : "like".localized, style: .default, handler: { (action) in
-            guard let talk = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: talkId) else {
-                return
-            }
-            talk.toggleLike()
-            let realm = try! Realm()
-            realm.beginWrite()
-            talk.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
-            try! realm.commitWrite()
-            talk.update { [weak self](sucess) in
-                self?.tableView.reloadData()
-            }
+            self.talkModel?.toggleLike(complete: { (isLike) in
+                self.tableView.reloadData()
+            })
         }))
         
 
@@ -172,16 +164,13 @@ class TalkDetailTableViewController: UITableViewController {
             
             return cell
         case 1:
-            if talkModel?.bettingPoint ?? 0 > 0 {
+            if talkModel?.gameResultBase64encodingSting.isEmpty == false  {
                 if talkModel?.holdemResult != nil {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "holdem", for: indexPath) as! TalkDetailEditHistoryHoldemTableViewCell
                     cell.talkId = talkModel?.id
                     return cell                    
                 }
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cardDack", for: indexPath) as! TalkDetailEditHistoryCardDackTavleViewCell
-                cell.talkId = talkModel?.id
-                return cell
+                return UITableViewCell()
             }
             if let editList = talkModel?.editList {
                 if indexPath.row == 0 {
@@ -234,7 +223,7 @@ class TalkDetailTableViewController: UITableViewController {
         case 0:
             return "creator".localized
         case 1:
-            if talkModel?.bettingPoint ?? 0 > 0 {
+            if talkModel?.gameResultBase64encodingSting.isEmpty == false {
                 return "game result".localized
             }
             return "edit history".localized

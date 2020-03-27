@@ -68,7 +68,7 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
             
             profileImageView.kf.setImage(with: like.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
             nameLabel.text = like.creator?.name ?? like.creatorId
-            introduceLabel.text = like.regDt.relativeTimeStringValue
+            introduceLabel.text = Date(timeIntervalSince1970: like.regTimeIntervalSince1970).relativeTimeStringValue
         }
     }    
 }

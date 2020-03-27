@@ -440,14 +440,8 @@ class HoldemViewController : UIViewController {
             complete(false)
             return
         }
-        let model = TalkModel()
-        let documentId = "holdem\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)"
-        let regTimeIntervalSince1970 = Date().timeIntervalSince1970
         
-        model.loadData(id: documentId, text: "Holdem", creatorId: UserInfo.info!.id, regTimeIntervalSince1970: regTimeIntervalSince1970)
-        model.bettingPoint = self.bettingPoint
-        model.holdemResult = holdemView.holdemResult
-        model.update { (sucess) in
+        TalkModel.create(text: "Holdem", image: nil, gameResultBase64encodingString: holdemView.holdemResult?.jsonBase64EncodedString) { (sucess) in
             complete(sucess)
         }
     }

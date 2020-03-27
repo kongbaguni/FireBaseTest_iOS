@@ -11,64 +11,56 @@ import RealmSwift
 import FirebaseFirestore
 import CoreLocation
 
+extension Notification.Name {
+    /** 글 쓰기 관련 노티*/
+    static let talkUpdateNotification = Notification.Name(rawValue: "talkUpdateNotification_observer")
+}
+
 /** talk 수정이력 기록 위한 모델*/
 class TextEditModel : Object {
-    @objc dynamic var id:String = "" {
-        didSet {
-            if let str = imageUrl?.absoluteString {
-                imageURLstr = str
-            }
-            _regDt = regDt
-        }
-    }
-    @objc dynamic var imageURLstr:String = ""
-    @objc dynamic var _regDt:Date = Date(timeIntervalSince1970: 0)
+    @objc dynamic var id:String = ""
+    @objc dynamic var text:String = ""
+    @objc dynamic var imageUrlStr:String = ""
+    @objc dynamic var regTimeIntervalSince1970:Double = 0
+    @objc dynamic var lat:Double = 0
+    @objc dynamic var lng:Double = 0
+    
     override static func primaryKey() -> String? {
         return "id"
     }
     
-    func setData(text:String,imageURL:String?) {
-        let imgUrl:String = imageURL ?? "none"
-        id = "\(text)[__##__]\(imgUrl)[__##__]\(UUID().uuidString)[__##__]\(Date().timeIntervalSince1970)"
-    }
-    
+}
+extension TextEditModel {
     var regDt:Date {
         let str = id.components(separatedBy: "[__##__]").last
         let interval = TimeInterval(NSString(string: str!).doubleValue)
         return Date(timeIntervalSince1970: interval)
     }
-        
-    var text:String {
-        return id.components(separatedBy: "[__##__]").first!
+    
+    var isImageDeleted:Bool {
+        return imageUrlStr == ""
+    }
+    
+    var cordinate:CLLocationCoordinate2D? {
+        if lat != 0 && lng != 0 {
+            return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        }
+        return nil
     }
     
     var imageUrl:URL? {
-        if id.components(separatedBy: "[__##__]").count < 2 {
+        if imageUrlStr.isEmpty {
             return nil
         }
-        let str = id.components(separatedBy: "[__##__]")[1]
-        if str == "none" || str == "deleted" {
-            return nil
-        }
-        return URL(string: str)
+        return URL(string: imageUrlStr)
     }
-    
-    var isImageDeleted:Bool {
-        if id.components(separatedBy: "[__##__]").count < 2 {
-            return false
-        }
-        let str = id.components(separatedBy: "[__##__]")[1]
-        if str == "deleted" {
-            return true
-        }
-        return false
-    }
-    
     
 }
 
 class TalkModel: Object {
+    /** 프라이머리 키*/
     @objc dynamic var id:String = ""
+    /** 대화 내용*/
     @objc dynamic var text:String = "" {
         didSet {
             if textForSearch == "" {
@@ -76,11 +68,47 @@ class TalkModel: Object {
             }
         }
     }
+    /** 작성자*/
     @objc dynamic var creatorId:String = ""
+    /** 위도*/
     @objc dynamic var lng:Double = UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
+    /** 경도*/
     @objc dynamic var lat:Double = UserDefaults.standard.lastMyCoordinate?.latitude ?? 0
+    /** 첨부이미지 URL*/
     @objc dynamic var imageUrl:String = ""
+    /** 게임결과 json Data 를  base64인코딩 한 문자열*/
+    @objc dynamic var gameResultBase64encodingSting:String = ""
+    /** 검색을 위한 text. 수정내역에서 가장 마지막 내용이 저장됨*/
+    @objc dynamic var textForSearch:String = ""
     
+    /** 등록시각 */
+    @objc dynamic var regTimeIntervalSince1970:Double = 0 {
+        didSet {
+            if modifiedTimeIntervalSince1970 == 0 {
+                modifiedTimeIntervalSince1970 = regTimeIntervalSince1970
+            }
+        }
+    }
+    /** 수정시각*/
+    @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
+    /** 좋아요 목록*/
+    let likes = List<LikeModel>()
+    /** 수정이력*/
+    let editList = List<TextEditModel>()
+    
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override static func indexedProperties() -> [String] {
+        return ["creatorId", "cards"]
+    }
+    
+}
+
+
+extension TalkModel {
     /** 최종 이미지 URL 구하기.*/
     var imageURL:URL? {
         if editList.count == 0 {
@@ -90,202 +118,6 @@ class TalkModel: Object {
             return url
         }
         return nil
-    }
-    
-    @objc dynamic var holdemResultBase64encodingSting:String = ""
-    var holdemResult:HoldemResult? {
-        get {
-            HoldemResult.makeResult(base64EncodedString: holdemResultBase64encodingSting)
-        }
-        set {
-            if let value = newValue?.jsonBase64EncodedString {
-                holdemResultBase64encodingSting = value
-            }
-        }
-    }
-    
-    @objc dynamic var cards:String = ""
-    
-    var cardSet:CardSet?  {
-        set {
-            if let set = newValue {
-                cards = set.stringValue
-            } else {
-                cards = ""
-            }
-        }
-        get {
-            return CardSet.makeCardsWithString(string: cards) 
-        }
-    }
-    @objc dynamic var delarCards:String = ""
-    var delarCardSet:CardSet?  {
-        set {
-            if let set = newValue {
-                delarCards = set.stringValue
-            } else {
-                delarCards = ""
-            }
-        }
-        get {
-            return CardSet.makeCardsWithString(string: delarCards)
-        }
-    }
-    @objc dynamic var bettingPoint:Int = 0
-
-    
-    var cordinate:CLLocationCoordinate2D? {
-        if lat != 0 && lng != 0 {
-            return CLLocationCoordinate2D(latitude: lat, longitude: lng)
-        }
-        return nil
-    }
-    
-    var location:CLLocation? {
-        if lat != 0 && lng != 0 {
-            return CLLocation(latitude: lat, longitude: lng)
-        }
-        return nil
-    }
-
-    // 검색 위한 필드
-    @objc dynamic var textForSearch:String = ""
-
-    @objc dynamic var regTimeIntervalSince1970:Double = 0 {
-        didSet {
-            if modifiedTimeIntervalSince1970 == 0 {
-                modifiedTimeIntervalSince1970 = regTimeIntervalSince1970
-            }
-        }
-    }
-    @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
-    let likes = List<LikeModel>()
-    let editList = List<TextEditModel>()
-   
-    func insertEdit(data:TextEditModel) {
-        editList.append(data)
-        textForSearch = data.text
-    }
-    
-    func loadData(id:String, text:String, creatorId:String, regTimeIntervalSince1970:Double) {
-        self.id = id
-        self.text = text
-        self.creatorId = creatorId
-        self.regTimeIntervalSince1970 = regTimeIntervalSince1970
-    }
-    
-    var regDt:Date {
-        return Date(timeIntervalSince1970: regTimeIntervalSince1970)
-    }
-    
-    
-    var modifiedDt:Date? {
-        if modifiedTimeIntervalSince1970 == 0 {
-            return nil
-        }
-        return Date(timeIntervalSince1970: modifiedTimeIntervalSince1970)
-    }
-    
-    var modifiedDtStr:String? {
-        if let date = modifiedDt {
-            return  DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
-        }
-        return nil
-    }
-    
-    override static func primaryKey() -> String? {
-           return "id"
-    }
-    
-    override static func indexedProperties() -> [String] {
-        return ["creatorId", "cards"]
-    }
-    
-    /** fireBaseStore 에 생성된 데이터 갱신하기*/
-    func update(complete:@escaping(_ isSucess:Bool)->Void) {
-        if text.isEmpty {
-            return
-        }
-        var likeIds:[String] = []
-        for like in likes {
-            likeIds.append(like.id)
-        }
-        
-        var editTexts:[String] = []
-        for edit in editList {
-            editTexts.append(edit.id)
-        }
-                
-        let data:[String:Any] = [
-            "documentId":id,
-            "regTimeIntervalSince1970":regTimeIntervalSince1970,
-            "modifiedTimeIntervalSince1970":modifiedTimeIntervalSince1970,
-            "creator_id":creatorId,
-            "talk":text,
-            "likeIds":likeIds,
-            "editTextIds":editTexts,
-            "lat":lat,
-            "lng":lng,
-            "cards":cards,
-            "delarCards":delarCards,
-            "bettingPoint":bettingPoint,
-            "holdemResultBase64encodingSting" : holdemResultBase64encodingSting,
-            "imageUrl":imageUrl
-        ]
-        
-        let collection = Firestore.firestore().collection(FSCollectionName.TALKS)
-        let document = collection.document(id)
-        document.setData(data, merge: true) { (error) in
-            if error == nil {
-                let realm = try! Realm()
-                realm.beginWrite()
-                realm.add(self, update: .all)
-                try! realm.commitWrite()
-                UserInfo.info?.updateLastTalkTime(timeInterval: self.modifiedTimeIntervalSince1970, complete: { (isSucess) in                
-                    
-                })
-                complete(true)
-                return
-            }
-            complete(false)
-        }
-        
-    }
-    
-    static func syncDatas(complete:@escaping()->Void) {
-        let realm = try! Realm()
-        var syncDt = Date.midnightTodayTime.timeIntervalSince1970
-        if let lastTalk = realm.objects(TalkModel.self).sorted(byKeyPath: "modifiedTimeIntervalSince1970").last {
-            if syncDt < lastTalk.regTimeIntervalSince1970 {
-                syncDt = lastTalk.regTimeIntervalSince1970
-            }
-        }
-        
-        let collection = Firestore.firestore().collection(FSCollectionName.TALKS)
-        collection
-            .whereField("modifiedTimeIntervalSince1970", isGreaterThan: syncDt)
-            .getDocuments { (shot, error) in
-                guard let snap = shot else {
-                    return
-                }
-                let realm = try! Realm()
-                realm.beginWrite()
-                print(snap.documents.count)
-                for doc in snap.documents {
-                    let data = doc.data()
-                    let model = TalkModel()
-                    if model.loadData(data: data) {
-                        realm.add(model, update: .all)
-                    }
-                }
-                try! realm.commitWrite()
-                complete()
-        }
-        
-    }
-    
-    var creator:UserInfo? {
-        return try! Realm().object(ofType: UserInfo.self, forPrimaryKey:creatorId)
     }
     
     var isLike:Bool {
@@ -299,73 +131,96 @@ class TalkModel: Object {
         }
     }
     
-    func toggleLike(){
-        guard let userId = UserInfo.info?.id else {
-            return
-        }
-        let realm = try! Realm()
-        realm.beginWrite()
-        var isLike = false
-        
-        if let like = self.likes.filter("creatorId == %@",userId).first {
-            realm.delete(like)
-        } else {
-            isLike = true
-            let likeModel = LikeModel()
-            likeModel.set(creatorId: userId, targetTalkId: self.id)
-            self.likes.append(likeModel)
-            realm.add(likeModel,update: .all)
-            debugPrint("좋아요 : \(likes.count) 개")
-        }
-        try! realm.commitWrite()
-
-        if creatorId != UserInfo.info?.id {
-            UserInfo.info?.updateForRanking(type: .count_of_like, addValue: isLike ? 1 : -1) { (sucess) in
-                
+    func toggleLike(complete toggleComplete:@escaping(_ isSucess:Bool)->Void){
+        func like(complete:@escaping(_ isLike:Bool?)->Void) {
+            guard let userId = UserInfo.info?.id else {
+                return
             }
-        } 
+            let talkId = id
+            let now = Date().timeIntervalSince1970
+            let doc = Firestore.firestore().collection(FSCollectionName.TALKS).document(talkId)
+            doc.updateData(["modifiedTimeIntervalSince1970":now]) { (error) in
+                if error == nil {
+                    let realm = try! Realm()
+                    if let talkModel = realm.object(ofType: TalkModel.self, forPrimaryKey: talkId) {
+                        realm.beginWrite()
+                        talkModel.modifiedTimeIntervalSince1970 = now
+                        try! realm.commitWrite()
+                    }
+                    
+                    let collection = doc.collection("like")
+                    collection.whereField("creatorId", isEqualTo: userId).getDocuments { (snapShot, error) in
+                        if let data = snapShot {
+                            if data.documents.count == 0 {
+                                let likeId = "\(UUID().uuidString)\(userId)\(now)"
+                                let likeData:[String:Any] = [
+                                    "id":likeId,
+                                    "creatorId":userId,
+                                    "targetTalkId":talkId,
+                                    "regTimeIntervalSince1970":now
+                                ]
+                                collection.document(likeId).setData(likeData) { (error) in
+                                    if error == nil {
+                                        let realm = try! Realm()
+                                        if let talk = realm.object(ofType: TalkModel.self, forPrimaryKey: talkId) {
+                                            realm.beginWrite()
+                                            let like = realm.create(LikeModel.self, value: likeData, update: .all)
+                                            talk.likes.append(like)
+                                            try! realm.commitWrite()
+                                        }
+                                        complete(true)
+                                    }
+                                    else {
+                                        complete(nil)
+                                    }
+                                }
+                            } else {
+                                if let info = data.documents.first?.data() {
+                                    let likeId = info["id"] as! String
+                                    collection.document(likeId).delete { (error) in
+                                        if error == nil {
+                                            let realm = try! Realm()
+                                            if let likeModel = realm.object(ofType: LikeModel.self, forPrimaryKey: likeId) {
+                                                realm.beginWrite()
+                                                realm.delete(likeModel)
+                                                try! realm.commitWrite()
+                                            }
+                                            complete(false)
+                                        } else {
+                                            complete(nil)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    complete(nil)
+                }
+            }
+        }
+        
+        like { (isLike) in
+            if let value = isLike {
+                UserInfo.info?.updateForRanking(type: .count_of_like, addValue: value ? 1 : -1, complete: { (sucess) in
+                    toggleComplete(sucess)
+                })
+            } else {
+                toggleComplete(false)
+            }
+        }
     }
     
-    func loadData(data:[String:Any])->Bool {
-        if let regTimeIntervalSince1970 = data["regTimeIntervalSince1970"] as? Double,
-            let modifiedTimeIntervalSince1970 = data["modifiedTimeIntervalSince1970"] as? Double,
-            let creatorId = data["creator_id"] as? String,
-            let text = data["talk"] as? String,
-            let id = data["documentId"] as? String {
-
-            imageUrl = data["imageUrl"] as? String ?? ""
-            lng = data["lng"] as? Double ?? 0
-            lat = data["lat"] as? Double ?? 0
-            self.regTimeIntervalSince1970 = regTimeIntervalSince1970
-            self.modifiedTimeIntervalSince1970 = modifiedTimeIntervalSince1970
-            self.creatorId = creatorId
-            self.text = text
-            self.id = id
-            cards = data["cards"] as? String ?? ""
-            delarCards = data["delarCards"] as? String ?? ""
-            bettingPoint = data["bettingPoint"] as? Int ?? 0
-            holdemResultBase64encodingSting = data["holdemResultBase64encodingSting"] as? String ?? ""
-            if let likeIds = data["likeIds"] as? [String] {
-                var cnt = 0
-                for likeId in likeIds {
-                    let likeModel = LikeModel()
-                    likeModel.id = likeId
-                    cnt += 1
-                    likes.append(likeModel)
-                }
-            }
-            
-            editList.removeAll()
-            if let editTextIds = data["editTextIds"] as? [String] {
-                for id in editTextIds {
-                    let edit = TextEditModel()
-                    edit.id = id
-                    insertEdit(data: edit)
-                }
-            }
-            return true
+    var holdemResult:HoldemResult? {
+        get {
+            HoldemResult.makeResult(base64EncodedString: gameResultBase64encodingSting)
         }
-        return false
+        set {
+            if let value = newValue?.jsonBase64EncodedString {
+                gameResultBase64encodingSting = value
+            }
+        }
     }
     
     func delete(complete:@escaping(_ sucess:Bool)->Void) {
@@ -388,7 +243,220 @@ class TalkModel: Object {
             else {
                 complete(false)
             }
-
+            
         }
     }
+    
+    var cordinate:CLLocationCoordinate2D? {
+        if lat != 0 && lng != 0 {
+            return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        }
+        return nil
+    }
+    
+    var location:CLLocation? {
+        if lat != 0 && lng != 0 {
+            return CLLocation(latitude: lat, longitude: lng)
+        }
+        return nil
+    }
+    
+    var regDt:Date {
+        return Date(timeIntervalSince1970: regTimeIntervalSince1970)
+    }
+    
+    
+    var modifiedDt:Date? {
+        if modifiedTimeIntervalSince1970 == 0 {
+            return nil
+        }
+        return Date(timeIntervalSince1970: modifiedTimeIntervalSince1970)
+    }
+    
+    var modifiedDtStr:String? {
+        if let date = modifiedDt {
+            return  DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+        }
+        return nil
+    }
+    
+    func loadData(id:String, text:String, creatorId:String, regTimeIntervalSince1970:Double) {
+        self.id = id
+        self.text = text
+        self.creatorId = creatorId
+        self.regTimeIntervalSince1970 = regTimeIntervalSince1970
+    }
+    
+    /** 글쓰기*/
+    static func create(text:String, image:UIImage? = nil, gameResultBase64encodingString:String? = nil, complete:@escaping(_ isSucess:Bool)->Void) {
+        guard let userId = UserInfo.info?.id else {
+            complete(false)
+            return
+        }
+        let now = Date().timeIntervalSince1970
+        let id = "\(userId)_\(now)\(UUID().uuidString)"
+        let fileUploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(userId)"
+        
+        func upload(uploadUrl:URL?) {
+            var data:[String:Any] = [
+                "id":id,
+                "text":text,
+                "creatorId":userId,
+                "lng":UserDefaults.standard.lastMyCoordinate?.longitude ?? 0,
+                "lat":UserDefaults.standard.lastMyCoordinate?.latitude  ?? 0,
+                "textForSearch":text,
+                "regTimeIntervalSince1970":now,
+                "modifiedTimeIntervalSince1970":now
+            ]
+            if let game = gameResultBase64encodingString {
+                data["gameResultBase64encodingSting"] = game
+            }
+            if let url = uploadUrl {
+                data["imageUrl"] = url
+            }
+            Firestore.firestore().collection(FSCollectionName.TALKS).document(id).setData(data) { (error) in
+                if error == nil {
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    realm.create(TalkModel.self, value: data, update: .all)
+                    try! realm.commitWrite()
+                    complete(true)
+                    NotificationCenter.default.post(name: .talkUpdateNotification, object: nil, userInfo: nil)
+                }
+                else {
+                    complete(false)
+                }
+            }
+        }
+        
+        if let img = image {
+            if let data = img.af.imageAspectScaled(toFit: CGSize(width: 500, height: 500)).jpegData(compressionQuality: 0.7) {
+                FirebaseStorageHelper().uploadImage(withData: data, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
+                    upload(uploadUrl: url)
+                }
+            }
+        } else {
+            upload(uploadUrl: nil)
+        }
+    }
+    
+    /** 글 수정하기*/
+    func edit(text:String, image:UIImage?, complete:@escaping(_ isSucess:Bool)->Void) {
+        guard let userId = UserInfo.info?.id else {
+            complete(false)
+            return
+        }
+        let editTalkId = id
+        let now = Date().timeIntervalSince1970
+        let fileUploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(userId)"
+        let editId = "\(userId)_\(now)\(UUID().uuidString)"
+        
+        func edit(uploadUrl:URL?) {
+            let data:[String:Any] = [
+                "id":editTalkId,
+                "textForSearch":text,
+                "modifiedTimeIntervalSince1970":now
+            ]
+            var editData:[String:Any] = [
+                "id":editId,
+                "text":text,
+                "regTimeIntervalSince1970":now,
+                "lat":UserDefaults.standard.lastMyCoordinate?.latitude ?? 0,
+                "lng":UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
+            ]
+            
+            if let url = uploadUrl {
+                editData["imageUrlStr"] = url.absoluteString
+            }
+            let doc = Firestore.firestore().collection(FSCollectionName.TALKS).document(id)
+            doc.updateData(data) { (error1) in
+                doc.collection("edit").document(editId).setData(data) { (error2) in
+                    if error1 == nil && error2 == nil {
+                        let realm = try! Realm()
+                        realm.beginWrite()
+                        let talk = realm.create(TalkModel.self, value: data, update: .modified)
+                        let edit = realm.create(TextEditModel.self, value: editData, update: .all)
+                        talk.editList.append(edit)
+                        try! realm.commitWrite()
+                        complete(true)
+                    } else {
+                        complete(false)
+                    }
+                }
+            }
+        }
+        
+        if let img = image {
+            if let data = img.af.imageAspectScaled(toFit: CGSize(width: 500, height: 500)).jpegData(compressionQuality: 0.7) {
+                FirebaseStorageHelper().uploadImage(withData: data, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
+                    edit(uploadUrl: url)
+                }
+            }
+        } else {
+            edit(uploadUrl: nil)
+        }
+    }
+    
+    /** 게시글 동기화*/
+    static func syncDatas(complete:@escaping(_ isSucess:Bool)->Void) {
+        let realm = try! Realm()
+        var syncDt = Date.midnightTodayTime.timeIntervalSince1970
+        if let lastTalk = realm.objects(TalkModel.self).sorted(byKeyPath: "modifiedTimeIntervalSince1970").last {
+            if syncDt < lastTalk.regTimeIntervalSince1970 {
+                syncDt = lastTalk.regTimeIntervalSince1970
+            }
+        }
+        
+        let collection = Firestore.firestore().collection(FSCollectionName.TALKS)
+        collection
+            .whereField("modifiedTimeIntervalSince1970", isGreaterThan: syncDt)
+            .getDocuments { (shot, error) in
+                guard let snap = shot else {
+                    return
+                }
+                if snap.documents.count == 0 {
+                    complete(true)
+                    return
+                }
+                let realm = try! Realm()
+                realm.beginWrite()
+                for doc in snap.documents {
+                    let data = doc.data()
+                    realm.create(TalkModel.self, value: data, update: .all)
+                    /** 문서 아이디*/
+                    let id = doc["id"] as! String
+                    collection.document(id).collection("edit").getDocuments { (queryShot, error) in
+                        if let data = queryShot {
+                            let realm = try! Realm()
+                            realm.beginWrite()
+                            for edits in data.documents {
+                                let edit = realm.create(TextEditModel.self, value: edits.data(), update: .all)
+                                realm.object(ofType: TalkModel.self, forPrimaryKey: id)?.editList.append(edit)
+                            }
+                            try! realm.commitWrite()
+                            
+                            collection.document(id).collection("like").getDocuments { (likeQueryShot, error) in
+                                if let data = likeQueryShot {
+                                    let realm = try! Realm()
+                                    realm.beginWrite()
+                                    for info in data.documents {
+                                        let like = realm.create(LikeModel.self, value: info.data(), update: .all)
+                                        realm.object(ofType: TalkModel.self, forPrimaryKey: id)?.likes.append(like)
+                                    }
+                                    try! realm.commitWrite()
+                                    complete(true)
+                                }
+                            }
+                        }
+                    }
+                }
+                try! realm.commitWrite()
+        }
+        
+    }
+    
+    var creator:UserInfo? {
+        return try! Realm().object(ofType: UserInfo.self, forPrimaryKey:creatorId)
+    }
+    
 }

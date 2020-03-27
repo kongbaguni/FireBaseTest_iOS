@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+
+@available(*, deprecated, message: "삭제 예정")
 class TalkDetailEditHistoryCardDackTavleViewCell: UITableViewCell {
     var talkId:String? = nil
     var talkModel:TalkModel? {
@@ -18,13 +20,6 @@ class TalkDetailEditHistoryCardDackTavleViewCell: UITableViewCell {
     }
     
     @IBOutlet weak var cardDackView:CardDackView!
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        cardDackView.myCards = talkModel?.cardSet
-        cardDackView.delarCards = talkModel?.cardSet
-        cardDackView.gameResultLabel.text = talkModel?.text
-    }
 }
 
 class TalkDetailEditHistoryHoldemTableViewCell : UITableViewCell {

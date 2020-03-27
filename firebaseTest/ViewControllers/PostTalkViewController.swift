@@ -101,11 +101,9 @@ class PostTalkViewController: UITableViewController {
     }
         
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
-        /** 생성될 문서 아이디*/
-        let documentId:String = self.documentId == nil ? "\(UUID().uuidString)\(UserInfo.info!.id)\(Date().timeIntervalSince1970)" : self.documentId!
-        
         let text = textView.text.trimForPostValue
         textView.text = text
+                
         var isEdit:Bool {
             if selectedImage != nil {
                 return true
@@ -132,71 +130,25 @@ class PostTalkViewController: UITableViewController {
         }
         sender.isEnabled = false
 
-        func write(imageUrl:String?) {
-            view.endEditing(true)
-            let loading = Loading()
-            loading.show(viewController: self)
-            if let id = self.documentId {
-                let realm = try! Realm()
-                if let document = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
-                    realm.beginWrite()
-                    let editText = TextEditModel()
-                    var img = imageUrl
-                    if self.imageWillDelete == false && img == nil {
-                        img = document.imageURL?.absoluteString
-                    }
-                    editText.setData(text: text, imageURL: img)
-                    document.insertEdit(data: editText)
-                    document.modifiedTimeIntervalSince1970 = Date().timeIntervalSince1970
-                    try! realm.commitWrite()
-                    document.update { [weak self] (isSucess) in
-                        if self != nil {
-                            sender.isEnabled = true
-                            loading.hide()
-                            if isSucess {
-                                self?.navigationController?.popViewController(animated: true)
-                                NotificationCenter.default.post(name: .postTalkNotification, object: self?.needPoint)
-                            }
-                        }
-                    }
-                }
-                return
-            }
-            
-            
-            let regTimeIntervalSince1970 = Date().timeIntervalSince1970
-            let creatorId = UserInfo.info!.id
-            let talk = text
-            let talkModel = TalkModel()
-            talkModel.loadData(id: documentId, text: talk, creatorId: creatorId, regTimeIntervalSince1970: regTimeIntervalSince1970)
-            talkModel.imageUrl = imageUrl ?? ""
-            talkModel.update { [weak self](sucess) in
-                if self != nil {
-                    sender.isEnabled = true
-                    loading.hide()
+        func write() {
+            if self.documentId == nil {
+                TalkModel.create(text: text, image: self.selectedImage) { [weak self](sucess) in
                     if sucess {
                         self?.navigationController?.popViewController(animated: true)
                         NotificationCenter.default.post(name: .postTalkNotification, object: self?.needPoint)
                     }
                 }
-            }
-        }
-        
-        func uploadImage(complete:@escaping(_ url:String?)->Void) {
-            if let data = selectedImage?.af.imageAspectScaled(toFit: CGSize(width: 800, height: 800)).pngData() {
-                let uploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(documentId):\(UUID().uuidString):\(Date().timeIntervalSince1970).png"
-                print(uploadURL)
-                FirebaseStorageHelper().uploadImage(
-                    withData: data,
-                    contentType: "image/png",
-                    uploadURL: uploadURL) { (url) in
-                        complete(url?.absoluteString)
-                }
             } else {
-                complete(nil)
+                self.document?.edit(text: text, image: self.selectedImage, complete: { [weak self](sucess) in
+                    if sucess {
+                        self?.navigationController?.popViewController(animated: true)
+                        NotificationCenter.default.post(name: .postTalkNotification, object: self?.needPoint)
+                    }
+                })
             }
         }
         
+                
         UserInfo.info?.syncData(complete: { (_) in
             if UserInfo.info?.point ?? 0 < self.needPoint {
                 let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
@@ -226,10 +178,7 @@ class PostTalkViewController: UITableViewController {
             }
             GameManager.shared.usePoint(point: self.needPoint) { (isSucess) in
                 if isSucess {
-                    uploadImage { (url) in
-                        write(imageUrl: url)
-                    }
-                    
+                    write()
                 }
             }
         })
