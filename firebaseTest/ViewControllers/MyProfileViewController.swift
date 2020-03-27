@@ -278,7 +278,8 @@ class MyProfileViewController: UITableViewController {
         }))
         ac.addAction(UIAlertAction(title: "use google profile image".localized, style: .default, handler: { (_) in
             self.profileImageDeleteMode = .googlePhoto
-            self.profileImageView.setImageUrl(url: UserInfo.info?.profileImageURLgoogle, placeHolder: #imageLiteral(resourceName: "profile"))
+            self.profileImageView.setImageUrl(url: UserInfo.info?.profileImageURLgoogle, placeHolder: .placeHolder_profile)
+            
             complete()
         }))
         

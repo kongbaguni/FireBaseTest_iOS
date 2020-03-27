@@ -62,6 +62,8 @@ class UserInfo : Object {
     /** 게임에서 얻은 포인트 총합*/
     @objc dynamic var sum_points_of_gameWin     : Int      = 0
     
+    /** 다른 사람한테 좋아요 받은 횟수*/
+    @objc dynamic var count_of_recive_like      : Int      = 0
     enum MapType : String, CaseIterable {
         case standard = "standard"
         case satellite = "satellite"
@@ -315,6 +317,7 @@ class UserInfo : Object {
             "count_of_like":count_of_like,
             "count_of_ad":count_of_ad,
             "count_of_report_stock" : count_of_report_stock,
+            "count_of_recive_like": count_of_recive_like
         ]
         
         document.updateData(data) {(error) in
@@ -430,11 +433,12 @@ class UserInfo : Object {
         case count_of_report_stock = "count_of_report_stock"
         case count_of_gamePlay = "count_of_gamePlay"
         case count_of_like = "count_of_like"
+        case count_of_recive_like = "count_of_recive_like"
         case count_of_ad = "count_of_ad"
         case point = "point"
         case exp = "exp"
         static var withOutGameValues:[RankingType] {
-            return [.count_of_report_stock, .count_of_ad, .count_of_like, .point, .exp]
+            return [.count_of_report_stock, .count_of_ad, .count_of_like, count_of_recive_like, .point, .exp]
         }
     }
     /** 랭킹 계산 위한 프로퍼티 갱신.

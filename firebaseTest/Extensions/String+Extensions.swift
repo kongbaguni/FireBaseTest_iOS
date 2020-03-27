@@ -177,3 +177,13 @@ extension String {
     }
     
 }
+
+extension String {
+    func sendMail() {
+        if let url = URL(string: "mailto:\(self)") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+    }
+}

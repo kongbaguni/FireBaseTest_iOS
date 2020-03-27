@@ -136,6 +136,11 @@ extension TalkModel {
     }
     
     func toggleLike(complete toggleComplete:@escaping(_ isSucess:Bool)->Void){
+        let creatorId = self.creatorId
+        /** 글 쓴이의 유저정보*/
+        let user = Firestore.firestore().collection(FSCollectionName.USERS).document(creatorId)
+        let likeID = "\(UserInfo.info!.id) is like \(id)"
+        
         func like(complete:@escaping(_ isLike:Bool?)->Void) {
             guard let userId = UserInfo.info?.id else {
                 return
@@ -204,12 +209,60 @@ extension TalkModel {
                 }
             }
         }
+    
+        func addLikeAtUserInfo(isLike:Bool,complete:@escaping(_ isSucess:Bool)->Void) {
+            if creatorId == UserInfo.info?.id {
+                complete(true)
+                return
+            }
+            let like = user.collection("like").document(likeID)
+            if isLike {
+                like.setData(["value":likeID]) { (error) in
+                    complete(error == nil)
+                }
+            } else {
+                like.delete { (error) in
+                    complete(error == nil)
+                }
+            }
+        }
         
+        func updateUserInfo(complete:@escaping(_ isSucess:Bool)->Void) {
+            if creatorId == UserInfo.info?.id {
+                complete(true)
+                return
+            }
+            user.collection("like").getDocuments { (snapShot, error) in
+                if let data = snapShot {
+                    let count = data.documents.count
+                    let data:[String:Any] = [
+                        "id" : creatorId,
+                        "count_of_recive_like" : count
+                    ]
+                    user.updateData(data) { (error) in
+                        if error == nil {
+                            let realm = try! Realm()
+                            realm.beginWrite()
+                            realm.create(UserInfo.self, value: data, update: .modified)
+                            try! realm.commitWrite()
+                        }
+                        complete(error == nil)
+                    }
+                }
+            }
+        }
+        
+                
         like { (isLike) in
             if let value = isLike {
+                toggleComplete(true)
                 UserInfo.info?.updateForRanking(type: .count_of_like, addValue: value ? 1 : -1, complete: { (sucess) in
-                    toggleComplete(sucess)
+                    
                 })
+                addLikeAtUserInfo(isLike: value) { (sucess) in
+                    updateUserInfo { (sucess) in
+                    }
+                }
             } else {
                 toggleComplete(false)
             }

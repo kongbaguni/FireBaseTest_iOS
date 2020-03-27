@@ -22,6 +22,10 @@ extension AuthDataResult {
                 if let userInfo = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: email) {
                     userInfo.idToken = idToken
                     userInfo.accessToken = accessToken
+                    userInfo.profileImageURLgoogle = profileUrl
+                    userInfo.updateData { (_) in
+                        
+                    }
                 } else {
                     let userInfo = UserInfo()
                     userInfo.name = name
@@ -31,6 +35,9 @@ extension AuthDataResult {
                     userInfo.accessToken = accessToken
                     userInfo.point = AdminOptions.shared.defaultPoint
                     realm.add(userInfo, update: .modified)
+                    userInfo.updateData { (_) in
+                        
+                    }
                 }
                 try! realm.commitWrite()
             }

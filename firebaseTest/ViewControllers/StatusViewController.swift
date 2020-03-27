@@ -258,11 +258,7 @@ class StatusViewController: UIViewController {
             }
         case emailBtn:
             if let email = self.userInfo?.email {
-                if let url = URL(string:"mailto:\(email)") {
-                    if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url)
-                    }
-                }
+                email.sendMail()
             }
         default:
             break

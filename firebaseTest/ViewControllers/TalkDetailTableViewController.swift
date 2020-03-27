@@ -18,6 +18,8 @@ class TalkDetailTableViewController: UITableViewController {
         }
     }
     
+    let loading = Loading()
+    
     var documentId:String? = nil
     
     var talkModel:TalkModel? {
@@ -62,10 +64,11 @@ class TalkDetailTableViewController: UITableViewController {
         
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         vc.popoverPresentationController?.barButtonItem = sender
-        
         vc.addAction(UIAlertAction(title: isLike ? "like cancel".localized : "like".localized, style: .default, handler: { (action) in
-            self.talkModel?.toggleLike(complete: { (isLike) in
-                self.tableView.reloadData()
+            self.loading.show(viewController: self)
+            self.talkModel?.toggleLike(complete: { [weak self] (isLike) in
+                self?.loading.hide()
+                self?.tableView.reloadData()
             })
         }))
         

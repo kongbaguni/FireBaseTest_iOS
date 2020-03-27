@@ -78,6 +78,10 @@ class TalkHistoryTableViewController: UITableViewController {
                 UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
         }
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
+        
+        emailButton.rx.tap.bind { (_) in
+            self.userInfo?.email.sendMail()
+        }.disposed(by: disposebag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,6 +131,15 @@ class TalkHistoryTableViewController: UITableViewController {
             return UITableViewCell()
         }
         let data = talks[indexPath.row]
+        if data.isDeleted {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
+            cell.bubbleImageView.alpha = 0.5
+            cell.textView.text = "deleted talk".localized
+            cell.textView.isSelectable = false
+            cell.textView.alpha = 0.5
+            cell.dateLabel.text = data.regDt.simpleFormatStringValue
+            return cell
+        }
         if let url = data.imageURL {
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
             cell.textView.text = data.textForSearch
@@ -146,6 +159,10 @@ class TalkHistoryTableViewController: UITableViewController {
             return
         }
         let talk = talks[indexPath.row]
+        if talk.isDeleted {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
         let vc = TalkDetailTableViewController.viewController
         vc.documentId = talk.id
         navigationController?.pushViewController(vc, animated: true)

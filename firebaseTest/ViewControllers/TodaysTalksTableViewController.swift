@@ -425,9 +425,7 @@ class TodaysTalksTableViewController: UITableViewController {
         let action = UIContextualAction(style: .normal, title: "like".localized, handler: { (action, view, actionComplete) in
             model.toggleLike {[weak self] (isLike) in
                 actionComplete(true)
-                if isLike != nil {
-                    self?.tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
+                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         })
         action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.15, alpha: 1)

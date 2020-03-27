@@ -63,15 +63,15 @@ class TodayTalksTableViewCell: UITableViewCell {
         default:
             bubbleImageView.image = .bubble
         }
-        self.bubbleImageView.alpha = data.isDeleted ? 0.5 : 1
+        bubbleImageView.alpha = data.isDeleted ? 0.5 : 1
+        talkTextView.alpha = data.isDeleted ? 0.5 : 1
         talkTextView.textColor = .autoColor_text_color
         if data.isDeleted {
-            talkTextView.text = "deleted talk".localized
-            talkTextView.textColor = .autoColor_weak_text_color
+            talkTextView.attributedText = NSAttributedString(string: "deleted talk".localized, attributes: textStyle1)
+            
             return
         }
         let text = NSMutableAttributedString()
-        
         if let txt = data.editList.last?.text {
             text.append(NSAttributedString(string: txt, attributes: textStyle0))
         } else {

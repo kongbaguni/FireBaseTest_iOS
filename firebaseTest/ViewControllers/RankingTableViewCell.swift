@@ -47,6 +47,8 @@ class RankingTableViewCell: UITableViewCell {
         nameLabel.text = user?.name
         valueLabel.textColor = .autoColor_bold_text_color
         switch rankingType {
+        case .count_of_recive_like:
+            valueLabel.text = user?.count_of_recive_like.decimalForamtString
         case .count_of_report_stock:
             valueLabel.text = user?.count_of_report_stock.decimalForamtString
         case .count_of_ad:
