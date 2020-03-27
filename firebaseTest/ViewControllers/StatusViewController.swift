@@ -96,6 +96,7 @@ class StatusViewController: UIViewController {
         
         closeBtn.setImage(.closeBtnImage_normal, for: .normal)
         closeBtn.setImage(.closeBtnImage_highlighted, for: .highlighted)
+        closeBtn.tintColor = .autoColor_text_color
                 
         statusViewLayoutHeight.constant = statusChange == nil ? 200 : 150
         for view in [emailBtn, emailTitleLabel, talkLogsBtn] {

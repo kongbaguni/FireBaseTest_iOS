@@ -41,6 +41,9 @@ class TalkDetailTableViewController: UITableViewController {
             }
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNaviBarButton(_:)))
+        self.talkModel?.readDetail(complete: { (sucess) in
+            
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,9 +121,6 @@ class TalkDetailTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if talkModel?.cordinate != nil {
-            return 4
-        }
         return 3
     }
     
@@ -249,12 +249,19 @@ class TalkDetailTableViewController: UITableViewController {
         case 1:
             switch indexPath.row {
             case 0:
-                let vc = PopupMapViewController.viewController(coordinate: talkModel?.cordinate, title: "posting location".localized)
+                let vc = PopupMapViewController.viewController(
+                    coordinate: talkModel?.cordinate,
+                    title: talkModel?.regDt.simpleFormatStringValue,
+                    annTitle: "posting location".localized )
                 present(vc, animated: true, completion: nil)
             default:
                 if let editList = talkModel?.editList {
                     let data = editList[indexPath.row - 1]
-                    let vc = PopupMapViewController.viewController(coordinate: data.cordinate, title: "editing location".localized)
+                    let vc = PopupMapViewController.viewController(
+                        coordinate: data.cordinate,
+                        title: data.regDt.simpleFormatStringValue,
+                        annTitle: "editing location".localized
+                    )
                     present(vc, animated: true, completion: nil)
                 }
             }

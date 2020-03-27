@@ -42,7 +42,7 @@ class TalkHistoryTableViewController: UITableViewController {
     var talks:Results<TalkModel>? {
         if let id = userId {
             var result = try! Realm().objects(TalkModel.self)
-                .filter("creatorId = %@ && bettingPoint == %@",id, 0)
+                .filter("creatorId = %@ && gameResultBase64encodingSting = %@",id, "")
             
             if let txt = filterText {
                 result = result.filter("textForSearch CONTAINS[c] %@", txt)

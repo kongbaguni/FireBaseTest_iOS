@@ -91,6 +91,8 @@ class TalkModel: Object {
     }
     /** 수정시각*/
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
+    
+    @objc dynamic var readDetailCount:Int = 0
     /** 좋아요 목록*/
     let likes = List<LikeModel>()
     /** 수정이력*/
@@ -306,7 +308,8 @@ extension TalkModel {
                 "lat":UserDefaults.standard.lastMyCoordinate?.latitude  ?? 0,
                 "textForSearch":text,
                 "regTimeIntervalSince1970":now,
-                "modifiedTimeIntervalSince1970":now
+                "modifiedTimeIntervalSince1970":now,
+                "readDetailCount":0
             ]
             if let game = gameResultBase64encodingString {
                 data["gameResultBase64encodingSting"] = game
@@ -453,6 +456,41 @@ extension TalkModel {
                 try! realm.commitWrite()
         }
         
+    }
+    
+    func readDetail(complete:@escaping(_ sucess:Bool)->Void) {
+        guard let userId = UserInfo.info?.id else {
+            complete(false)
+            return
+        }
+        let data:[String:Any] = [
+            "readTimeIntervalSince1970" : Date().timeIntervalSince1970,
+            "creatorId":userId
+        ]
+        let talkId = self.id
+        let document = Firestore.firestore().collection(FSCollectionName.TALKS).document(id)
+        let reads = document.collection("read")
+        let read = reads.document(userId)
+        read.setData(data) { (error) in
+            if error == nil {
+                reads.getDocuments { (queryShot, error) in
+                    if let data = queryShot {
+                        let count = data.documents.count
+                        document.updateData(["readDetailCount" : count])
+                        let realm = try! Realm()
+                        realm.beginWrite()
+                        realm.object(ofType: TalkModel.self, forPrimaryKey: talkId)?.readDetailCount = count
+                        try! realm.commitWrite()
+                        complete(true)
+                    }
+                    else{
+                        complete(false)
+                    }
+                }
+            } else {
+                complete(false)
+            }
+        }
     }
     
     var creator:UserInfo? {

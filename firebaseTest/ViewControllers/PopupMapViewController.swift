@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 
 class PopupMapViewController: UIViewController {
-    static func viewController(coordinate:CLLocationCoordinate2D?, title:String?)->PopupMapViewController {
+    static func viewController(coordinate:CLLocationCoordinate2D?, title:String?, annTitle:String?)->PopupMapViewController {
         let vc:PopupMapViewController
         if #available(iOS 13.0, *) {
             vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "popupMapView") as! PopupMapViewController
@@ -21,6 +21,7 @@ class PopupMapViewController: UIViewController {
         }
         vc.coordinate = coordinate
         vc.title = title
+        vc.annTitle = annTitle
         return vc
     }
     
@@ -29,8 +30,8 @@ class PopupMapViewController: UIViewController {
     @IBOutlet weak var mapView:MKMapView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var coordinate:CLLocationCoordinate2D? = nil
-    
+    fileprivate var coordinate:CLLocationCoordinate2D? = nil
+    fileprivate var annTitle:String? = nil
     fileprivate let disposebag = DisposeBag()
     
     override func viewDidLoad() {
@@ -44,7 +45,7 @@ class PopupMapViewController: UIViewController {
         if let value = coordinate {
             let ann = MKPointAnnotation()
             ann.coordinate = value
-            ann.title = title
+            ann.title = annTitle
             mapView.addAnnotation(ann)
             mapView.centerCoordinate = value
         }
@@ -56,6 +57,6 @@ class PopupMapViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }.disposed(by: disposebag)
  
-        
+        closeBtn.tintColor = .autoColor_text_color
     }
 }

@@ -62,6 +62,7 @@ class HoldemViewController : UIViewController {
         
         closeButton.setImage(.closeBtnImage_normal, for: .normal)
         closeButton.setImage(.closeBtnImage_highlighted, for: .highlighted)
+        closeButton.tintColor = .autoColor_text_color
         JackPotManager.shared.getData { (sucess) in
             self.loadData()
         }

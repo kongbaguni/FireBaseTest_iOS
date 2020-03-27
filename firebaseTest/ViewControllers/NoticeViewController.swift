@@ -40,6 +40,7 @@ class NoticeViewController: UIViewController {
         super.viewDidLoad()
         closeBtn.setImage(.closeBtnImage_normal, for: .normal)
         closeBtn.setImage(.closeBtnImage_highlighted, for: .highlighted)
+        closeBtn.tintColor = .autoColor_text_color
         textView.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5)
         contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 20, masksToBounds: true)
         if Consts.isAdmin {
