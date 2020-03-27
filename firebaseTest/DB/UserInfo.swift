@@ -388,9 +388,9 @@ class UserInfo : Object {
         let realm = try! Realm()
         
         return realm.objects(TalkModel.self)
-            .filter("creatorId = %@ && bettingPoint > %@ && regTimeIntervalSince1970 > %@"
+            .filter("creatorId = %@ && gameResultBase64encodingSting != %@ && regTimeIntervalSince1970 > %@"
                     , self.id
-                    , 0
+                    , ""
                     , Date.midnightTodayTime.timeIntervalSince1970
                     )
             .count

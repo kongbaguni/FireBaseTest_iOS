@@ -54,14 +54,22 @@ class TodayTalksTableViewCell: UITableViewCell {
         guard let data = self.data else {
             return
         }
+        nameLabel.text = data.creator?.name ?? data.creatorId
+        self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
+
         switch reuseIdentifier {
         case "myCell","myImageCell":
             bubbleImageView.image = .myBubble
         default:
             bubbleImageView.image = .bubble
         }
-        
+        self.bubbleImageView.alpha = data.isDeleted ? 0.5 : 1
         talkTextView.textColor = .autoColor_text_color
+        if data.isDeleted {
+            talkTextView.text = "deleted talk".localized
+            talkTextView.textColor = .autoColor_weak_text_color
+            return
+        }
         let text = NSMutableAttributedString()
         
         if let txt = data.editList.last?.text {
@@ -86,8 +94,6 @@ class TodayTalksTableViewCell: UITableViewCell {
         }
         
         talkTextView.attributedText = text
-        nameLabel.text = data.creator?.name ?? data.creatorId //"unknown people".localized
-        self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
     }
 }
 

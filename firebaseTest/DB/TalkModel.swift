@@ -80,6 +80,8 @@ class TalkModel: Object {
     @objc dynamic var gameResultBase64encodingSting:String = ""
     /** 검색을 위한 text. 수정내역에서 가장 마지막 내용이 저장됨*/
     @objc dynamic var textForSearch:String = ""
+    /** 삭제된 토크임*/
+    @objc dynamic var isDeleted:Bool = false
     
     /** 등록시각 */
     @objc dynamic var regTimeIntervalSince1970:Double = 0 {
@@ -226,21 +228,32 @@ extension TalkModel {
     }
     
     func delete(complete:@escaping(_ sucess:Bool)->Void) {
+        let docId = self.id
         GameManager.shared.usePoint(point: AdminOptions.shared.pointUseDeleteTalk) { (sucess) in
             if sucess {
-                Firestore.firestore().collection(FSCollectionName.TALKS).document(self.id).delete { (error) in
-                    if error == nil {
+                let doc = Firestore.firestore().collection(FSCollectionName.TALKS).document(docId)
+                let data:[String:Any] = [
+                    "id" : docId,
+                    "text":"",
+                    "textForSearch":"",
+                    "gameResultBase64encodingSting":"",
+                    "modifiedTimeIntervalSince1970":Date().timeIntervalSince1970,
+                    "isDeleted":true
+                ]
+                doc.updateData(data, completion: { (error) in
+                    doc.collection("edit").getDocuments { (snapShot, error) in
+                        for edit in snapShot?.documents ?? [] {
+                            let id = edit.documentID
+                            doc.collection("edit").document(id).delete()
+                        }
                         let realm = try! Realm()
                         realm.beginWrite()
-                        realm.delete(self)
+                        let model = realm.create(TalkModel.self, value: data, update: .modified)
+                        model.editList.removeAll()
                         try! realm.commitWrite()
-                        Toast.makeToast(message: "delete talk sucess".localized)
                         complete(true)
                     }
-                    else {
-                        complete(false)
-                    }
-                }
+                })
             }
             else {
                 complete(false)
@@ -462,6 +475,7 @@ extension TalkModel {
         
     }
     
+    /** 상세 읽기 처리*/
     func readDetail(complete:@escaping(_ sucess:Bool)->Void) {
         guard let userId = UserInfo.info?.id else {
             complete(false)

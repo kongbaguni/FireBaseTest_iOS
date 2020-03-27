@@ -390,17 +390,23 @@ class TodaysTalksTableViewController: UITableViewController {
             vc.noticeId = notices[indexPath.row].id
             self.tabBarController?.present(vc, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)
-            break
+            
         case 1:
             let talk = list[indexPath.row]
-            performSegue(withIdentifier: "showDetail", sender: talk.id)
+            if talk.isDeleted == false {
+                performSegue(withIdentifier: "showDetail", sender: talk.id)
+            } else {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+            
         default:
             break
         }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        let data = list[indexPath.row]
+        return data.isDeleted == false
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -433,8 +439,12 @@ class TodaysTalksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let data = list[indexPath.row]
+        if data.isDeleted {
+            return nil
+        }
         var actions:[UIContextualAction] = []
         if data.creatorId == UserInfo.info?.id && data.gameResultBase64encodingSting.isEmpty == true {
+            
             let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
                 if let data = self?.list[indexPath.row] {
                     self?.needScrolIndex = indexPath

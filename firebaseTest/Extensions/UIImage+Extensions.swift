@@ -9,6 +9,10 @@
 import UIKit
 
 extension UIImage {
+    open class var placeHolder_profile:UIImage {        
+        return #imageLiteral(resourceName: "profile")
+    }
+    
     open class var closeBtnImage_normal:UIImage {
         if #available(iOS 13.0, *) {
             return #imageLiteral(resourceName: "closeBtn").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withRenderingMode(.alwaysTemplate)
