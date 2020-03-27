@@ -138,16 +138,21 @@ class TodaysTalksTableViewController: UITableViewController {
         
         NotificationCenter.default.addObserver(forName: .postTalkNotification, object: nil, queue: nil) { [weak self] (notification) in
 //            userInfo:["talkId":id,"point":point]
-            if let id = notification.userInfo?["talkId"] as? String,
-                let needPoint = notification.userInfo?["point"] as? Int {
+            if let needPoint = notification.userInfo?["point"] as? Int {
                 let vc = StatusViewController.viewController(withUserId: UserInfo.info!.id)
                 vc.statusChange = StatusChange(addedExp: needPoint, pointChange: -needPoint)
                 self?.present(vc, animated: true, completion: nil)
-                if let model = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
-                    if let idx = self?.list.lastIndex(of: model) {
-                        let indexPath = IndexPath(row: idx, section: 1)
-                        self?.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-                        return
+                
+                if let id = notification.userInfo?["talkId"] as? String {
+                    if let model = try! Realm().object(ofType: TalkModel.self, forPrimaryKey: id) {
+                        if let idx = self?.list.lastIndex(of: model) {
+                            let indexPath = IndexPath(row: idx, section: 1)
+                            self?.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                                self?.tableView.deselectRow(at: indexPath, animated: true)
+                            }
+                            return
+                        }
                     }
                 }
             }
@@ -155,6 +160,13 @@ class TodaysTalksTableViewController: UITableViewController {
         }
         NotificationCenter.default.addObserver(forName: .noticeUpdateNotification, object: nil, queue: nil) {[weak self] (notification) in
             self?.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+            if self?.notices.count ?? 0 == 0 {
+                if self?.list.count ?? 0 > 0 {
+                    self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+                }
+            } else {
+                self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
         }
         NotificationCenter.default.addObserver(forName: .talkUpdateNotification, object: nil, queue: nil) {[weak self] (_) in
             self?.tableView.reloadData()
@@ -322,7 +334,6 @@ class TodaysTalksTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "notice", for: indexPath)
             let notice = notices[indexPath.row]
             cell.textLabel?.text = notice.title
-            cell.backgroundColor = .autoColor_indicator_color
             return cell
         case 1:
             if indexPath.row >= list.count {
@@ -382,21 +393,19 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.section {
         case 0:
             let vc = NoticeViewController.viewController
             vc.noticeId = notices[indexPath.row].id
             self.tabBarController?.present(vc, animated: true, completion: nil)
-            tableView.deselectRow(at: indexPath, animated: true)
             
         case 1:
             let talk = list[indexPath.row]
             if talk.isDeleted == false {
                 performSegue(withIdentifier: "showDetail", sender: talk.id)
-            } else {
-                tableView.deselectRow(at: indexPath, animated: true)
             }
-            
+        
         default:
             break
         }

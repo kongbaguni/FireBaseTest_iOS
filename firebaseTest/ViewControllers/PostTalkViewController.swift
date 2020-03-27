@@ -132,15 +132,13 @@ class PostTalkViewController: UITableViewController {
 
         func write() {
             if self.documentId == nil {
-                TalkModel.create(text: text, image: self.selectedImage) { [weak self] (sucess) in
-                    if sucess {
-                        if let id = self?.documentId, let point = self?.needPoint {
+                TalkModel.create(text: text, image: self.selectedImage) { [weak self] (documentId) in
+                    if let point = self?.needPoint {
                             self?.navigationController?.popViewController(animated: true)
                             NotificationCenter.default.post(name: .postTalkNotification,
                                                              object: nil,
-                                                             userInfo:["talkId":id,"point":point]
+                                                             userInfo:["point":point]
                             )
-                        }
                     }
                 }
             } else {

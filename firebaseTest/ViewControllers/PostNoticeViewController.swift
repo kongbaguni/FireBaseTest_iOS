@@ -73,6 +73,7 @@ class PostNoticeViewController: UITableViewController {
                 if sucess {
                     self?.loading.hide()
                     self?.exit()
+                    NotificationCenter.default.post(name: .noticeUpdateNotification, object: nil, userInfo: nil)
                 }
             }
         } else {
@@ -80,6 +81,7 @@ class PostNoticeViewController: UITableViewController {
                 if sucess {
                     self?.loading.hide()
                     self?.exit()
+                    NotificationCenter.default.post(name: .noticeUpdateNotification, object: nil, userInfo: nil)
                 }
 
             }

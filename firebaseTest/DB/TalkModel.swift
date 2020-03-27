@@ -303,9 +303,9 @@ extension TalkModel {
     }
     
     /** 글쓰기*/
-    static func create(text:String, image:UIImage? = nil, gameResultBase64encodingString:String? = nil, complete:@escaping(_ isSucess:Bool)->Void) {
+    static func create(text:String, image:UIImage? = nil, gameResultBase64encodingString:String? = nil, complete:@escaping(_ documentId:String?)->Void) {
         guard let userId = UserInfo.info?.id else {
-            complete(false)
+            complete(nil)
             return
         }
         let now = Date().timeIntervalSince1970
@@ -336,11 +336,11 @@ extension TalkModel {
                     realm.beginWrite()
                     realm.create(TalkModel.self, value: data, update: .all)
                     try! realm.commitWrite()
-                    complete(true)
+                    complete(id)
                     NotificationCenter.default.post(name: .talkUpdateNotification, object: nil, userInfo: nil)
                 }
                 else {
-                    complete(false)
+                    complete(nil)
                 }
             }
         }

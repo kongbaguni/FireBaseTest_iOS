@@ -431,8 +431,8 @@ class HoldemViewController : UIViewController {
             return
         }
         
-        TalkModel.create(text: "Holdem", image: nil, gameResultBase64encodingString: holdemView.holdemResult?.jsonBase64EncodedString) { (sucess) in
-            complete(sucess)
+        TalkModel.create(text: "Holdem", image: nil, gameResultBase64encodingString: holdemView.holdemResult?.jsonBase64EncodedString) { (documentId) in
+            complete(documentId != nil)
         }
     }
 }
