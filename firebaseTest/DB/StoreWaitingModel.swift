@@ -26,12 +26,18 @@ class StoreWaitingModel : Object {
     var statusValue:WaittingStatus? {
         return WaittingStatus(rawValue: status)
     }
-    @objc dynamic var regDt:Date = Date()
+    @objc dynamic var regDtTimeIntervalSince1970:Double = 0
+    
+    var regDt:Date {
+        Date(timeIntervalSince1970: regDtTimeIntervalSince1970)
+    }
+    
     @objc dynamic var creatorId:String = "" {
         didSet {
             id = "\(UUID().uuidString)_\(creatorId)_\(Date().timeIntervalSince1970)"
         }
     }
+    
     @objc dynamic var storeCode:String = ""
     
     var creator:UserInfo? {
@@ -55,31 +61,27 @@ class StoreWaitingModel : Object {
         
     }
     
-    func uploadLog(complete:@escaping(_ sucess:Bool)->Void) {
-        if self.storeCode == "" {
-            complete(false)
-            return
-        }
+    static func uploadLog(storeCode:String, status:String, complete:@escaping(_ sucess:Bool)->Void) {
         let collection = Firestore.firestore().collection(FSCollectionName.STORE_STOCK)
-        
-        let docuId = id
-        
-        let time = self.regDt.formatedString(format: "yyyyMMdd_HHMMss") + status
         let shopDoc = collection.document(storeCode)
         let subColection = shopDoc.collection("waiting_logs")
-        let document = subColection.document("\(storeCode)_\(time)")
         
         guard let uploaderId = UserInfo.info?.id else {
             complete(false)
             return
         }
+        let now = Date().timeIntervalSince1970
         
+        let id = "\(uploaderId)_\(now)_\(UUID().uuidString)"
+        let time = Date().formatedString(format: "yyyyMMdd_HH:mm")
+        let document = subColection.document("\(storeCode)_\(time)")
+
         let data:[String:Any] = [
             "id":id,
             "storeCode":storeCode,
             "status":status,
-            "regDtTimeIntervalSince1970":regDt.timeIntervalSince1970,
-            "uploader":uploaderId
+            "regDtTimeIntervalSince1970":now,
+            "creatorId":uploaderId
         ]
         
         shopDoc.setData(["id":storeCode]) { (error) in
@@ -87,11 +89,9 @@ class StoreWaitingModel : Object {
                 document.setData(data, merge: true) { (error) in
                     if error == nil {
                         let realm = try! Realm()
-                        if let data = realm.object(ofType: StoreStockLogModel.self, forPrimaryKey: docuId) {
-                            realm.beginWrite()
-                            data.uploaded = true
-                            try! realm.commitWrite()
-                        }
+                        realm.beginWrite()
+                        realm.create(StoreWaitingModel.self, value: data, update: .all)
+                        try! realm.commitWrite()
                     }
                     complete(error == nil)
                 }
@@ -104,7 +104,7 @@ class StoreWaitingModel : Object {
     static func downloadLogs(storeCode code:String, complete:@escaping(_ count:Int?)->Void) {
         let realm = try! Realm()
         var syncDt = Date.getMidnightTime(beforDay: 7).timeIntervalSince1970
-        if let lastLog = realm.objects(StoreWaitingModel.self).filter("storeCode = %@",code).sorted(byKeyPath: "regDt").last {
+        if let lastLog = realm.objects(StoreWaitingModel.self).filter("storeCode = %@",code).sorted(byKeyPath: "regDtTimeIntervalSince1970").last {
             if syncDt < lastLog.regDt.timeIntervalSince1970 {
                 syncDt = lastLog.regDt.timeIntervalSince1970
             }
@@ -130,26 +130,12 @@ class StoreWaitingModel : Object {
                 print(code)
                 print(snap.documents.count)
                 print(snap.documentChanges.count)
+                realm.beginWrite()
                 for doc in snap.documents {
                     let data = doc.data()
-                    if let id = data["id"] as? String
-                        , let status = data["status"] as? String
-                        , let storeCode = data["storeCode"] as? String
-                    {
-                        let logModel = StoreWaitingModel()
-                        logModel.id = id
-                        logModel.storeCode =  storeCode
-                        logModel.status = status
-                        logModel.creatorId = data["uploader"] as? String ?? "guest"
-                        
-                        if let int = data["regDtTimeIntervalSince1970"] as? Double {
-                            logModel.regDt = Date(timeIntervalSince1970: int)
-                        }
-                        realm.beginWrite()
-                        realm.add(logModel, update: .all)
-                        try! realm.commitWrite()
-                    }
+                    realm.create(StoreWaitingModel.self, value: data, update: .all)
                 }
+                try! realm.commitWrite()
                 complete(snap.documents.count)
         }
         

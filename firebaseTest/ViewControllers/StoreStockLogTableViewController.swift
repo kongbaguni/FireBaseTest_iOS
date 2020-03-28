@@ -20,22 +20,22 @@ class StoreStockLogTableViewController: UITableViewController {
         if let c = code {
             return try! Realm().objects(StoreStockLogModel.self)
             .filter("code = %@",c)
-            .sorted(byKeyPath: "regDt", ascending: false)
+            .sorted(byKeyPath: "regDtTimeIntervalSince1970", ascending: false)
         }
         return nil
     }
     
     var todayLogs:Results<StoreStockLogModel>? {
-        return logs?.filter("regDt >= %@",Date.midnightTodayTime)
+        return logs?.filter("regDtTimeIntervalSince1970 >= %@",Date.midnightTodayTime.timeIntervalSince1970)
     }
     
     func getList(dayBefore:Int)->Results<StoreStockLogModel>? {
         if dayBefore == 0 {
             return todayLogs
         }
-        let d1 = Date.getMidnightTime(beforDay: dayBefore - 1)
-        let d2 = Date.getMidnightTime(beforDay: dayBefore)
-        return logs?.filter("regDt < %@ && regDt >= %@", d1, d2)
+        let d1 = Date.getMidnightTime(beforDay: dayBefore - 1).timeIntervalSince1970
+        let d2 = Date.getMidnightTime(beforDay: dayBefore).timeIntervalSince1970
+        return logs?.filter("regDtTimeIntervalSince1970 < %@ && regDtTimeIntervalSince1970 >= %@", d1, d2)
     }
     
     var store:StoreModel? {
@@ -79,40 +79,33 @@ class StoreStockLogTableViewController: UITableViewController {
             complete(false)
             return
         }
-        guard let userInfo = UserInfo.info, let id = UserInfo.info?.id else {
+        guard let userInfo = UserInfo.info else {
             complete(false)
             return
         }
 
         if todayLogs?.first?.remain_stat != store.remain_stat || todayLogs?.count == 0 {
-            let model = StoreStockLogModel()
-            model.code = store.code
-            model.remain_stat = store.remain_stat
-            model.regDt = store.updateDt
-            model.uploaderId = id
+            let data:[String:Any] = [
+                "email" : userInfo.email,
+                "exp": userInfo.exp + AdminOptions.shared.exp_for_report_store_stock,
+                "point" : userInfo.point + AdminOptions.shared.point_for_report_store_stock,
+                "lastTalkTimeIntervalSince1970" : Date().timeIntervalSince1970,
+                "count_of_report_stock" : userInfo.count_of_report_stock + 1
+            ]
             
-            let realm = try! Realm()
-            realm.beginWrite()
-            realm.add(model, update: .all)
-            UserInfo.info?.exp += AdminOptions.shared.exp_for_report_store_stock
-            UserInfo.info?.point += AdminOptions.shared.point_for_report_store_stock
-            try!realm.commitWrite()
-            model.uploadStoreStocks { (sucess) in
-                complete(sucess)
-            }
-            
-            UserInfo.info?.updateLastTalkTime(complete: { [weak self](sucess) in
+            StoreStockLogModel.uploadStoreStocks(code: store.code, remain_stat: store.remain_stat) { [weak self](sucess) in
                 if sucess {
-                    UserInfo.info?.updateForRanking(type: .count_of_report_stock, addValue: 1, complete: { (sucess) in
+                    userInfo.update(data: data) { (sucess) in
                         if sucess {
                             let vc = StatusViewController.viewController(withUserId: userInfo.id)
                             vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_stock, pointChange: AdminOptions.shared.point_for_report_store_stock)
                             self?.present(vc, animated: true, completion: nil)
                         }
-                    })
+                        complete(sucess)
+                    }
                 }
-            })
-            return
+            }
+            
         }
         complete(true)
     }

@@ -42,7 +42,7 @@ class StoreWaittingTableViewController: UITableViewController {
     
     var waitingLogs:Results<StoreWaitingModel>? {
         if let id = self.storeId {
-            return try? Realm().objects(StoreWaitingModel.self).filter("storeCode = %@",id).sorted(byKeyPath: "regDt", ascending: false)
+            return try? Realm().objects(StoreWaitingModel.self).filter("storeCode = %@",id).sorted(byKeyPath: "regDtTimeIntervalSince1970", ascending: false)
         }
         return nil
     }
@@ -50,12 +50,12 @@ class StoreWaittingTableViewController: UITableViewController {
     func getLogs(beforeDay:Int)->Results<StoreWaitingModel>? {
         if var logs = waitingLogs {
             if beforeDay == 0 {
-                logs = logs.filter("regDt >= %@", Date.midnightTodayTime)
+                logs = logs.filter("regDtTimeIntervalSince1970 >= %@", Date.midnightTodayTime.timeIntervalSince1970)
             }
             else {
-                let d1 = Date.getMidnightTime(beforDay: beforeDay - 1)
-                let d2 = Date.getMidnightTime(beforDay: beforeDay)
-                logs = logs.filter("regDt < %@ && regDt >= %@", d1, d2)
+                let d1 = Date.getMidnightTime(beforDay: beforeDay - 1).timeIntervalSince1970
+                let d2 = Date.getMidnightTime(beforDay: beforeDay).timeIntervalSince1970
+                logs = logs.filter("regDtTimeIntervalSince1970 < %@ && regDtTimeIntervalSince1970 >= %@", d1, d2)
             }
             return logs
             
@@ -127,14 +127,9 @@ class StoreWaittingTableViewController: UITableViewController {
             return
         }
         let loading = Loading()
-        let data = StoreWaitingModel()
         loading.show(viewController: self)
-        data.creatorId = UserInfo.info?.id ?? "guest"
-        data.status = status.rawValue
-        data.storeCode = storecode
-        data.uploadLog { [weak self](isSucess) in
-            if isSucess {
-                
+        StoreWaitingModel.uploadLog(storeCode: storecode, status: status.rawValue) { [weak self] (isSucess) in
+            if isSucess {                
                 let data:[String:Any] = [
                     "exp" : (UserInfo.info?.exp ?? 0) + AdminOptions.shared.exp_for_report_store_wait,
                     "point" : (UserInfo.info?.exp ?? 0) + AdminOptions.shared.point_for_report_store_wait

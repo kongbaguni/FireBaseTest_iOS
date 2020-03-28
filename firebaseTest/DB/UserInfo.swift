@@ -353,25 +353,11 @@ class UserInfo : Object {
         UIApplication.shared.rootViewController = LoginViewController.viewController
     }
     
-    func addPoint(point:Int, complete:@escaping(_ isSucess:Bool)->Void) {
-        func addPoint(point:Int) {
-            let realm = try! Realm()
-            realm.beginWrite()
-            self.point += point
-            self.updateTimeIntervalSince1970 = Date().timeIntervalSince1970
-            let oldLevel = level
-            exp += abs(point)
-            if oldLevel > level {
-                NotificationCenter.default.post(name: .game_levelupNotification, object: level)
-            }
-            try! realm.commitWrite()
-        }
-        addPoint(point: point)
-        self.update(data: ["point":point]) { isSucess in
+    func addPoint(point addPoint:Int, complete:@escaping(_ isSucess:Bool)->Void) {
+        self.update(data: ["point":self.point + addPoint]) { isSucess in
             if isSucess {
                 complete(true)
             } else {
-                addPoint(point: -point)
                 complete(false)
             }
         }
@@ -394,7 +380,7 @@ class UserInfo : Object {
         let userInfo = Firestore.firestore().collection(FSCollectionName.USERS).document(self.id)
         let userId = self.id
         let data:[String:Any] = [
-            "id":userId,
+            "email":userId,
             "lastTalkTimeIntervalSince1970": timeInterval
         ]
         userInfo.updateData(data) { (err) in
@@ -433,52 +419,33 @@ class UserInfo : Object {
     }
     /** 랭킹 계산 위한 프로퍼티 갱신.
      주의: 포인트와 경험치는 여기서 갱신하지 않습니다.*/
+    
     func updateForRanking(type:RankingType, addValue:Int, complete:@escaping(_ sucess:Bool)->Void) {
-        let id = self.id
         let userInfo = Firestore.firestore().collection(FSCollectionName.USERS).document(self.id)
+                
         userInfo.getDocument { (snapshot, error) in
             let now = Date()
             if let data = snapshot?.data() {
-                if let value = data[type.rawValue] as? Int {
-                    let newValue = value + addValue
-                    userInfo.updateData([
-                        type.rawValue : newValue
-                        , "updateTimeIntervalSince1970" : now.timeIntervalSince1970
-                    ]) { (error) in
-                        let realm = try! Realm()
-                        if let model = realm.object(ofType: UserInfo.self, forPrimaryKey: id) {
-                            realm.beginWrite()
-                            switch type {
-                            case .count_of_report_stock:
-                                model.count_of_report_stock = newValue
-                            case .sum_points_of_gameWin:
-                                model.sum_points_of_gameWin = newValue
-                            case .sum_points_of_gameLose:
-                                model.sum_points_of_gameLose = newValue
-                            case .count_of_gamePlay:
-                                model.count_of_gamePlay = newValue
-                            case .count_of_like:
-                                model.count_of_like = newValue
-                            case .count_of_ad:
-                                model.count_of_ad = newValue
-                            default:
-                                break
-                            }
-                            model.updateTimeIntervalSince1970 = now.timeIntervalSince1970
-                            try! realm.commitWrite()
-                        }
-                        complete(error == nil)
-                    }
+                let value = data[type.rawValue] as? Int
+                let newValue = (value ?? 0) + addValue
+                
+                let updateData:[String:Any] = [
+                    "email" : self.email,
+                    type.rawValue : newValue,
+                    "updateTimeIntervalSince1970" : now.timeIntervalSince1970
+                ]
+                
+                userInfo.updateData(updateData) { (error) in
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    realm.create(UserInfo.self, value: updateData, update: .modified)
+                    try! realm.commitWrite()
+                    complete(error == nil)
                 }
             } else {
                 complete(false)
             }
         }
-//        "sum_points_of_gameWin":sum_points_of_gameWin,
-//                 "sum_points_of_gameLose":sum_points_of_gameLose,
-//                 "count_of_gamePlay":count_of_gamePlay,
-//                 "count_of_like":count_of_like,
-//                 "count_of_ad":count_of_ad,
     }
     
     func getTalkList(complete:@escaping(_ isSucess:Bool)->Void) {
@@ -486,7 +453,6 @@ class UserInfo : Object {
             .whereField("creator_id", isEqualTo: self.id)
             .getDocuments { (snapshot, error) in
                 if let data = snapshot {
-                    var newModels:[Object] = []
                     let realm = try! Realm()
                     realm.beginWrite()
                     for documant in data.documents {
@@ -495,14 +461,6 @@ class UserInfo : Object {
                     }
                     try! realm.commitWrite()
 
-                    debugPrint("대화 이력 검색 \(newModels.count)건")
-                    if newModels.count > 0 {
-                        if let realm = try? Realm() {
-                            realm.beginWrite()
-                            realm.add(newModels, update: .all)
-                            try? realm.commitWrite()
-                        }
-                    }
                     complete(true)
                     return
                 }
