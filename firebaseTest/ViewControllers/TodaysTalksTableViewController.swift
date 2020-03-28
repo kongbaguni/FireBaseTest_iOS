@@ -159,12 +159,13 @@ class TodaysTalksTableViewController: UITableViewController {
             self?.scrollToBottom()
         }
         NotificationCenter.default.addObserver(forName: .noticeUpdateNotification, object: nil, queue: nil) {[weak self] (notification) in
-            self?.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
             if self?.notices.count ?? 0 == 0 {
                 if self?.list.count ?? 0 > 0 {
                     self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
                 }
+                self?.reload()
             } else {
+                self?.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
                 self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         }
@@ -195,6 +196,7 @@ class TodaysTalksTableViewController: UITableViewController {
     
     func reload() {
         emptyView.isHidden = list.count > 0 || notices.count != 0
+        emptyView.layer.zPosition = 10
         tableView.reloadData()
     }
     
