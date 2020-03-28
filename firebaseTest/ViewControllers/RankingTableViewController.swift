@@ -33,7 +33,7 @@ class RankingTableViewController: UITableViewController {
     }
     
     var users:Results<UserInfo> {
-        var result = try! Realm().objects(UserInfo.self).sorted(byKeyPath: rankingType.rawValue, ascending: false)
+        var result = try! Realm().objects(UserInfo.self).filter("email != %@","").sorted(byKeyPath: rankingType.rawValue, ascending: false)
         if let txt = filterText {
             result = result.filter("name CONTAINS[c] %@",txt)
         }
@@ -77,6 +77,7 @@ class RankingTableViewController: UITableViewController {
         let user = users[indexPath.row]
         let userId = user.id
         let index = (users.lastIndex(of: user) ?? 0) + 1
+        print(user)
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RankingTableViewCell
         cell.setData(userId: userId, rankingType: self.rankingType)
         cell.rankingLabel.text = index.decimalForamtString

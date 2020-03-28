@@ -5,7 +5,7 @@
   Created by Changyul Seo on 2020/03/04.
   Copyright © 2020 Changyul Seo. All rights reserved.
 */
-
+"profile" = "프로필";
 "login with google" = "Google 계정으로 로그인";
 "camera" = "카메라";
 "photoLibrary" = "사진 앨범";
@@ -225,3 +225,4 @@
 "write notice" = "공지 작성";
 
 "deleted talk" = "[ 본인이 삭제한 이야기입니다. ]";
+"talk logs is empty" = "작성한 글이 없습니다.";

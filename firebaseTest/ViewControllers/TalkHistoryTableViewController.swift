@@ -23,11 +23,6 @@ class TalkHistoryTableViewController: UITableViewController {
         }
     }
     @IBOutlet weak var searchBar: UISearchBar!
-
-    @IBOutlet weak var profileImageView:UIImageView!
-    @IBOutlet weak var nameLabel:UILabel!
-    @IBOutlet weak var introLabel:UILabel!
-    @IBOutlet weak var emailButton:UIButton!
     
     var userId:String? = nil
     var userInfo:UserInfo? {
@@ -71,17 +66,14 @@ class TalkHistoryTableViewController: UITableViewController {
                 }
                 self?.tableView.reloadData()
             }).disposed(by: self.disposebag)
-        setData()
         title = "talk logs".localized
         if navigationController?.viewControllers.first == self {
             navigationItem.leftBarButtonItem =
                 UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
         }
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
-        
-        emailButton.rx.tap.bind { (_) in
-            self.userInfo?.email.sendMail()
-        }.disposed(by: disposebag)
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,68 +96,96 @@ class TalkHistoryTableViewController: UITableViewController {
     @objc func onTouchupCloseBtn(_ sender:UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-    
-    func setData() {
-        emailButton.setTitle(self.userId ?? "", for: .normal)
-        guard let userInfo = self.userInfo else {
-            nameLabel.text = ""
-            introLabel.text = ""
-            return
-        }
-        nameLabel.text = userInfo.name
-        introLabel.text = userInfo.introduce
-        
-        profileImageView.kf.setImage(with: userInfo.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-    }
+      
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return talks?.count ?? 0
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            let count = talks?.count ?? 0
+            return count == 0 ? 1 : count
+        default:
+            return 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let talks = talks else {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "profile", for: indexPath) as! TalHistoryUserProfileTableViewCell
+            cell.userId = self.userId
+            cell.setData()
+            return cell
+        case 1:
+            guard let talks = talks else {
+                return UITableViewCell()
+            }
+            if talks.count == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "empty", for: indexPath)
+                cell.textLabel?.text = "talk logs is empty".localized
+                return cell
+            }
+            let data = talks[indexPath.row]
+            if data.isDeleted {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
+                cell.bubbleImageView.alpha = 0.5
+                cell.textView.text = "deleted talk".localized
+                cell.textView.isSelectable = false
+                cell.textView.alpha = 0.5
+                cell.dateLabel.text = data.regDt.simpleFormatStringValue
+                return cell
+            }
+            if let url = data.imageURL {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
+                cell.textView.text = data.textForSearch
+                cell.dateLabel.text = data.regDt.simpleFormatStringValue
+                cell.attachImageView.kf.setImage(with: url,placeholder: #imageLiteral(resourceName: "placeholder") )
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
+                cell.textView.text = data.textForSearch
+                cell.dateLabel.text = data.regDt.simpleFormatStringValue
+                return cell
+            }
+        default:
             return UITableViewCell()
         }
-        let data = talks[indexPath.row]
-        if data.isDeleted {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
-            cell.bubbleImageView.alpha = 0.5
-            cell.textView.text = "deleted talk".localized
-            cell.textView.isSelectable = false
-            cell.textView.alpha = 0.5
-            cell.dateLabel.text = data.regDt.simpleFormatStringValue
-            return cell
-        }
-        if let url = data.imageURL {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
-            cell.textView.text = data.textForSearch
-            cell.dateLabel.text = data.regDt.simpleFormatStringValue
-            cell.attachImageView.kf.setImage(with: url,placeholder: #imageLiteral(resourceName: "placeholder") )
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
-            cell.textView.text = data.textForSearch
-            cell.dateLabel.text = data.regDt.simpleFormatStringValue
-            return cell
-        }
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let talks = talks else {
-            return
+        switch indexPath.section {
+        case 1:
+            guard let talks = talks else {
+                return
+            }
+            let talk = talks[indexPath.row]
+            if talk.isDeleted {
+                tableView.deselectRow(at: indexPath, animated: true)
+                return
+            }
+            let vc = TalkDetailTableViewController.viewController
+            vc.documentId = talk.id
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
         }
-        let talk = talks[indexPath.row]
-        if talk.isDeleted {
-            tableView.deselectRow(at: indexPath, animated: true)
-            return
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "profile".localized
+        case 1:
+            return "talk logs".localized
+        default:
+            return nil
         }
-        let vc = TalkDetailTableViewController.viewController
-        vc.documentId = talk.id
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -188,4 +208,42 @@ class TalkHistoryTableViewCell : UITableViewCell {
 
 class TalkHistoryImageTableViewCell : TalkHistoryTableViewCell {
     @IBOutlet weak var attachImageView:UIImageView!
+}
+
+
+class TalHistoryUserProfileTableViewCell : UITableViewCell {
+    @IBOutlet weak var profileImageView:UIImageView!
+    @IBOutlet weak var nameLabel:UILabel!
+    @IBOutlet weak var introLabel:UILabel!
+    @IBOutlet weak var emailButton:UIButton!
+    
+    var userId:String? = nil
+    
+    var user:UserInfo? {
+        if let id = userId {
+            return try! Realm().object(ofType: UserInfo.self, forPrimaryKey: id)
+        }
+        return nil
+    }
+    let disposeBag = DisposeBag()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setData()
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        emailButton.rx.tap.bind {[weak self] (_) in
+            self?.user?.email.sendMail()
+        }.disposed(by: disposeBag)
+    }
+    
+    func setData() {
+        profileImageView.kf.setImage(with: user?.profileImageURL, placeholder: UIImage.placeHolder_profile)
+        nameLabel.text = user?.name
+        introLabel.text = user?.introduce
+        emailButton.setTitle(user?.email, for: .normal)
+    }
+
 }
