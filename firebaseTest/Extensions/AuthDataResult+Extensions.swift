@@ -11,35 +11,34 @@ import FirebaseAuth
 import RealmSwift
 
 extension AuthDataResult {
-    func saveUserInfo(idToken:String,accessToken:String) {
+    func saveUserInfo(idToken:String,accessToken:String, complete:@escaping(_ isNewUser:Bool?)->Void) {
+        
+        func saveToken(email:String) {
+            let realm = try! Realm()
+            if let userInfo = realm.object(ofType: UserInfo.self, forPrimaryKey: email) {
+                realm.beginWrite()
+                userInfo.idToken = idToken
+                userInfo.accessToken = accessToken
+                try! realm.commitWrite()
+            }
+        }
         if let userInfo = self.additionalUserInfo,
             let profile = userInfo.profile {
             if let name = profile["name"] as? String,
                 let email = profile["email"] as? String,
                 let profileUrl = profile["picture"] as? String {
-                let realm = try! Realm()
-                realm.beginWrite()
                 if let userInfo = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: email) {
-                    userInfo.idToken = idToken
-                    userInfo.accessToken = accessToken
-                    userInfo.profileImageURLgoogle = profileUrl
-                    userInfo.updateData { (_) in
-                        
+                    userInfo.update(data: ["profileImageURLgoogle":profileUrl]) { (isSucess) in
+                        saveToken(email: email)
+                        complete(false)
                     }
                 } else {
-                    let userInfo = UserInfo()
-                    userInfo.name = name
-                    userInfo.profileImageURLgoogle = profileUrl
-                    userInfo.email = email
-                    userInfo.idToken = idToken
-                    userInfo.accessToken = accessToken
-                    userInfo.point = AdminOptions.shared.defaultPoint
-                    realm.add(userInfo, update: .modified)
-                    userInfo.updateData { (_) in
-                        
+                    UserInfo.createUser(email: email, name: name, searchDistance: Consts.SEARCH_DISTANCE_LIST.first!, mapType: UserInfo.MapType.standard.rawValue,
+                                        profileImage: nil, googleProfileUrl: profileUrl) { (isNewUser) in
+                                            saveToken(email: email)
+                                            complete(isNewUser)
                     }
                 }
-                try! realm.commitWrite()
             }
         }
     }

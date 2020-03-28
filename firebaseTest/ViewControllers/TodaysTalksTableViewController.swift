@@ -93,7 +93,7 @@ class TodaysTalksTableViewController: UITableViewController {
                 } else {
                     self?.filterText = nil
                 }
-                self?.tableView.reloadData()
+                self?.reload()
             }).disposed(by: self.disposebag)
         
         toolBar.items = [
@@ -107,14 +107,14 @@ class TodaysTalksTableViewController: UITableViewController {
 
             hideGameOptionSwitch.rx.isOn.subscribe { (event) in
                 UserDefaults.standard.isHideGameTalk = self.hideGameOptionSwitch.isOn
-                self.tableView.reloadData()
+                self.reload()
                 self.toolBar.items?.last?.isEnabled = !self.hideGameOptionSwitch.isOn
             }.disposed(by: self.disposebag)
         }
         
         nearTalkOptionSwitch.rx.isOn.subscribe { (event) in
             UserDefaults.standard.isShowNearTalk = self.nearTalkOptionSwitch.isOn
-            self.tableView.reloadData()
+            self.reload()
         }.disposed(by: self.disposebag)
         
         NotificationCenter.default.addObserver(forName: .game_usePointAndGetExpNotification, object: nil, queue: nil) { [weak self](notification) in
@@ -169,7 +169,7 @@ class TodaysTalksTableViewController: UITableViewController {
             }
         }
         NotificationCenter.default.addObserver(forName: .talkUpdateNotification, object: nil, queue: nil) {[weak self] (_) in
-            self?.tableView.reloadData()
+            self?.reload()
             self?.emptyView.isHidden = self?.list.count != 0 || self?.notices.count != 0
         }
         onRefreshControl(UIRefreshControl())
@@ -191,10 +191,12 @@ class TodaysTalksTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.refreshControl?.endRefreshing()
-        emptyView.isHidden = list.count != 0 || notices.count != 0
-        tableView.reloadData()
     }
     
+    func reload() {
+        emptyView.isHidden = list.count > 0 || notices.count != 0
+        tableView.reloadData()
+    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -220,7 +222,7 @@ class TodaysTalksTableViewController: UITableViewController {
                 NoticeModel.syncNotices { (isSucess) in
                     sender.endRefreshing()
                     if isSucess {
-                        self?.tableView.reloadData()
+                        self?.reload()
                     }
                 }
             } else {
@@ -228,7 +230,7 @@ class TodaysTalksTableViewController: UITableViewController {
             }
             
             self?.emptyView.isHidden = self?.list.count != 0 || self?.notices.count != 0
-            self?.tableView.reloadData()
+            self?.reload()
             if self?.isNeedScrollToBottomWhenRefresh == true {
                 if let number = self?.tableView.numberOfRows(inSection: 0) {
                     if oldCount != number {
@@ -245,7 +247,7 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     func scrollToBottom() {
-        tableView.reloadData()
+        reload()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {[weak self] in
             self?.tableView.scrollTableViewToBottom(animated: true)

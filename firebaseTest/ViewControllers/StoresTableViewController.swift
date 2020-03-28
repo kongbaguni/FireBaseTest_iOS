@@ -41,10 +41,9 @@ class StoresTableViewController: UITableViewController {
         emptyView.setTitle()
         if try! Realm().objects(StoreModel.self).count == 0 {
             onRefreshCongrol(UIRefreshControl())
-        } else {
-            UserInfo.syncUserInfo {
-                
-            }
+        }
+        UserInfo.syncUserInfo {
+            
         }
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshCongrol(_:)), for: .valueChanged)
         setTableStyle()

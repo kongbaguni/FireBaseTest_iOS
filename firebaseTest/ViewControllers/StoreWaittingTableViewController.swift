@@ -134,12 +134,12 @@ class StoreWaittingTableViewController: UITableViewController {
         data.storeCode = storecode
         data.uploadLog { [weak self](isSucess) in
             if isSucess {
-                let realm = try! Realm()
-                realm.beginWrite()
-                UserInfo.info?.exp += AdminOptions.shared.exp_for_report_store_wait
-                UserInfo.info?.point += AdminOptions.shared.point_for_report_store_wait
-                try! realm.commitWrite()
-                UserInfo.info?.updateData(complete: { (sucess) in
+                
+                let data:[String:Any] = [
+                    "exp" : (UserInfo.info?.exp ?? 0) + AdminOptions.shared.exp_for_report_store_wait,
+                    "point" : (UserInfo.info?.exp ?? 0) + AdminOptions.shared.point_for_report_store_wait
+                ]
+                UserInfo.info?.update(data: data, complete: { (sucess) in
                     self?.store?.getStoreWaittingLogs(complete: {[weak self] (count) in
                         self?.tableView.reloadData()
                         loading.hide()

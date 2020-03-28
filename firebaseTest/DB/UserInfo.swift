@@ -169,7 +169,7 @@ class UserInfo : Object {
         mapType:String,
         profileImage:UIImage?,
         googleProfileUrl:String?,
-        complete:@escaping(_ isSucess:Bool)->Void) {
+        complete:@escaping(_ isNewUser:Bool?)->Void) {
         
         func create(fileUrl:URL?) {
             let user = Firestore.firestore().collection(FSCollectionName.USERS).document(email)
@@ -181,17 +181,37 @@ class UserInfo : Object {
                 "mapType":mapType,
             ]
             if let url = googleProfileUrl {
-                data["googleProfileUrl"] = url
+                data["profileImageURLgoogle"] = url
             }
             if let url = fileUrl {
                 data["profileImageURLfirebase"] = url
             }
-            user.setData(data) { (error) in
+            func createDB() {
                 let realm = try! Realm()
                 realm.beginWrite()
-                realm.create(UserInfo.self, value: data, update: .all)
+                realm.create(UserInfo.self, value: data, update: .modified)
                 try! realm.commitWrite()
-                complete(error == nil)
+            }
+            user.updateData(data) { (error) in
+                if error != nil {
+                    data["point"] = AdminOptions.shared.defaultPoint
+                    user.setData(data) { (error) in
+                        if error == nil {
+                            createDB()
+                            complete(true)
+                        } else {
+                            complete(nil)
+                        }
+                    }
+                } else {
+                    if error == nil {
+                        createDB()
+                        complete(false)
+                    }
+                    else {
+                        complete(nil)
+                    }
+                }
             }
 
         }
@@ -268,7 +288,7 @@ class UserInfo : Object {
                 realm.beginWrite()
                 for doc in snapShot?.documents ?? [] {
                     let info = doc.data()
-                    realm.create(UserInfo.self, value: info, update: .all)
+                    realm.create(UserInfo.self, value: info, update: .modified)
                 }
                 try! realm.commitWrite()
                 debugPrint("사용자 정보 갱신 : \(snapShot?.documents.count ?? 0)")
@@ -284,7 +304,7 @@ class UserInfo : Object {
             if let data = snapShot?.data() {
                 let realm = try? Realm()
                 realm?.beginWrite()
-                realm?.create(UserInfo.self, value: data, update: .all)
+                realm?.create(UserInfo.self, value: data, update: .modified)
                 try? realm?.commitWrite()
                 complete(true)
                 return
@@ -292,50 +312,21 @@ class UserInfo : Object {
             complete(false)
         }
     }
-    
-    /** 사용자 정보를 firebase 로 업로드하여 갱신합니다.*/
-    func updateData(complete:@escaping(_ isSucess:Bool)->Void) {
+
+    /** 필요한 필드만 갱신하기..*/
+    func update(data:[String:Any],complete:@escaping(_ isSucess:Bool)->Void) {
+        var data = data
+        if data["email"] == nil {
+            data["email"] = email
+        }
         let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
-        let document = dbCollection.document(UserInfo.info!.email)
-        let data:[String:Any] = [            
-            "name": self.name,
-            "email" : self.email,
-            "introduce": self.introduce,
-            "isDeleteProfileImage" : isDeleteProfileImage,
-            "profileImageURLfirebase" : profileImageURLfirebase,
-            "profileImageURLgoogle" : profileImageURLgoogle,
-            "updateTimeIntervalSince1970" : self.updateTimeIntervalSince1970,
-            "lastTalkTimeIntervalSince1970" : self.lastTalkTimeIntervalSince1970,
-            "distanceForSearch" : distanceForSearch,
-            "point" : point,
-            "exp" : exp,
-            "fcmID" : fcmID,
-            "mapType" : mapType,
-            "sum_points_of_gameWin":sum_points_of_gameWin,
-            "sum_points_of_gameLose":sum_points_of_gameLose,
-            "count_of_gamePlay":count_of_gamePlay,
-            "count_of_like":count_of_like,
-            "count_of_ad":count_of_ad,
-            "count_of_report_stock" : count_of_report_stock,
-            "count_of_recive_like": count_of_recive_like
-        ]
-        
-        document.updateData(data) {(error) in
-            if let e = error {
-                print(e.localizedDescription)
-                document.setData(data, merge: true) { (error) in
-                    if let e = error {
-                        print(e.localizedDescription)
-                        complete(false)
-                    }
-                    else {
-                        complete(true)
-                    }
-                }
-            }
-            else {
-                complete(true)
-            }
+        let document = dbCollection.document(self.email)
+        document.updateData(data) { (error) in
+            let realm = try! Realm()
+            realm.beginWrite()
+            realm.create(UserInfo.self, value: data, update: .modified)
+            try! realm.commitWrite()
+            complete(error == nil)
         }
     }
     
@@ -376,7 +367,7 @@ class UserInfo : Object {
             try! realm.commitWrite()
         }
         addPoint(point: point)
-        updateData { isSucess in
+        self.update(data: ["point":point]) { isSucess in
             if isSucess {
                 complete(true)
             } else {
@@ -384,7 +375,6 @@ class UserInfo : Object {
                 complete(false)
             }
         }
-        
     }
     
     var todaysMyGameCount:Int {

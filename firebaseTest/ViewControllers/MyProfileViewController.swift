@@ -213,42 +213,41 @@ class MyProfileViewController: UITableViewController {
         }
         
         /** 프로필 업데이트*/
-        func updateProfile(complete:@escaping()->Void) {
+        func updateProfile(complete:@escaping(_ isSucess:Bool)->Void) {
             guard let userinfo = UserInfo.info else {
                 return
             }
             if userinfo.distanceForSearch != selectSearchDistance {
                 StoreModel.deleteAll()
             }
-            
-            let realm = try! Realm()
-            realm.beginWrite()
-            userinfo.name = nameTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) ?? ""
-            userinfo.introduce = introduceTextView.text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
-            userinfo.isDeleteProfileImage = profileImageDeleteMode == .delete
-            userinfo.distanceForSearch = selectSearchDistance
-            userinfo.isAnonymousInventoryReport = anonymousInventoryReportTitleSwitch.isOn
-            userinfo.updateTimeIntervalSince1970 = Date().timeIntervalSince1970
-            userinfo.mapTypeValue = selectMapViewMapType
-            if profileImageDeleteMode != nil {
-                userinfo.profileImageURLfirebase = ""
-            }
-            try! realm.commitWrite()
-            
-            userinfo.updateData() { _ in
-                complete()
+            let data:[String:Any] = [
+                "id" : userinfo.id,
+                "name" : nameTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) ?? "",
+                "introduce" : introduceTextView.text.trimmingCharacters(in: CharacterSet(charactersIn: " ")),
+                "isDeleteProfileImage" : profileImageDeleteMode == .delete,
+                "distanceForSearch" : selectSearchDistance,
+                "isAnonymousInventoryReport" : anonymousInventoryReportTitleSwitch.isOn,
+                "updateTimeIntervalSince1970" : Date().timeIntervalSince1970,
+                "mapTypeValue" : selectMapViewMapType.rawValue
+                
+            ]
+                            
+            userinfo.update(data: data) { (sucess) in
+                complete(sucess)
             }
         }
         
         loading.show(viewController: self)
         uploadImage { isSucess in
             if (isSucess) {
-                updateProfile {
-                    self.loading.hide()
-                    if self.navigationController?.viewControllers.first == self {
-                        UIApplication.shared.rootViewController = MainTabBarController.viewController
-                    } else {
-                        self.navigationController?.popViewController(animated: true)
+                updateProfile { isSucess in
+                    if isSucess {
+                        self.loading.hide()
+                        if self.navigationController?.viewControllers.first == self {
+                            UIApplication.shared.rootViewController = MainTabBarController.viewController
+                        } else {
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     }
                 }
             }

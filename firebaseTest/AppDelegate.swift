@@ -17,7 +17,7 @@ fileprivate let gcmNotificationTarget = "gcm.notification.target"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window:UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -32,11 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         signin()
         
         getNotificationSettings()
-//        Messaging.messaging().delegate = self
-
+        //        Messaging.messaging().delegate = self
+        
         return true
     }
-
+    
     func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             print("Notification settings: \(settings)")
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance()?.handle(url) ?? false
     }
-
+    
     private func signin() {
         guard let userInfo = UserInfo.info else {
             return
@@ -91,17 +91,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func migrationRealm() {
-
+        
         Realm.Configuration.defaultConfiguration =  Realm.Configuration(
             schemaVersion: Consts.REALM_VERSION,
-
+            
             migrationBlock: { migration, oldSchemaVersion in
-//                if (oldSchemaVersion < 1) {
-//                }
-            })
-
+                //                if (oldSchemaVersion < 1) {
+                //                }
+        })
+        
     }
-
+    
 }
 
 extension AppDelegate : GIDSignInDelegate {
@@ -119,80 +119,82 @@ extension AppDelegate : GIDSignInDelegate {
             vc.autologinBgView.isHidden = false
             vc.loading.show(viewController: vc)
         }
-
+        
         Auth.auth().signIn(with: credential) {(authResult, error) in
             
             if error == nil {
                 if UserInfo.info == nil {
-                    authResult?.saveUserInfo(idToken: authentication.idToken, accessToken: authentication.accessToken)
-                    StoreModel.deleteAll()
-                    UserInfo.info?.syncData(complete: { (isNew) in
-                        AdminOptions.shared.getData {
-                            if isNew {
-                                let vc = MyProfileViewController.viewController
-                                vc.hideLeaveCell = true
-                                UIApplication.shared.rootViewController = UINavigationController(rootViewController: vc)
-                            }
-                            else {
-                                UIApplication.shared.rootViewController  = MainTabBarController.viewController
+                    authResult?.saveUserInfo(idToken: authentication.idToken, accessToken: authentication.accessToken) { isNewUser in
+                        if let isNew = isNewUser {
+                            StoreModel.deleteAll()
+                            AdminOptions.shared.getData {
+                                if isNew {
+                                    let vc = MyProfileViewController.viewController
+                                    vc.hideLeaveCell = true
+                                    UIApplication.shared.rootViewController = UINavigationController(rootViewController: vc)
+                                }
+                                else {
+                                    UIApplication.shared.rootViewController  = MainTabBarController.viewController
+                                }
                             }
                         }
-                    })
+                        else {
+                            Toast.makeToast(message: "error")
+                        }
+                    }
                 } else {
                     AdminOptions.shared.getData {
                         UIApplication.shared.rootViewController  = MainTabBarController.viewController
                     }
                 }
-                
             }
         }
     }
 }
-extension AppDelegate : UNUserNotificationCenterDelegate {
-        
-        func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-            let userInfo = response.notification.request.content.userInfo
-            if let messageID = userInfo[gcmMessageIDKey] {
-                print("Message ID: \(messageID)")
-            }
-            debugPrint(userInfo)
-            let target = userInfo[gcmNotificationTarget]
-            debugPrint(target)
-    //        switch target {
-    //        case "catPrint":
-    //            break
-    //        default:
-    //            break
-    //        }
-            
-//            let vc = MessageViewController.viewController
-//            vc.userInfo = userInfo
-//            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-            
-            
-            completionHandler()
-        }
-        
-        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-            debugPrint("UNUserNotificationCenterDelegate willPresent notification = \(notification)")
-            let userInfo = notification.request.content.userInfo
-            print(userInfo)
-            if let messageID = userInfo[gcmMessageIDKey] {
-                print("Message ID: \(messageID)")
-            }
-            completionHandler([.alert, .sound, .badge])
-        }
 
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        debugPrint(userInfo)
+        //            let target = userInfo[gcmNotificationTarget]
+        //        switch target {
+        //        case "catPrint":
+        //            break
+        //        default:
+        //            break
+        //        }
+        
+        //            let vc = MessageViewController.viewController
+        //            vc.userInfo = userInfo
+        //            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+        
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        debugPrint("UNUserNotificationCenterDelegate willPresent notification = \(notification)")
+        let userInfo = notification.request.content.userInfo
+        print(userInfo)
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        completionHandler([.alert, .sound, .badge])
+    }
+    
 }
 
 extension AppDelegate : MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-//        UserDefaults.standard.fcmToken = fcmToken
+        //        UserDefaults.standard.fcmToken = fcmToken
         let realm = try! Realm()
         realm.beginWrite()
         UserInfo.info?.fcmID = fcmToken
         try! realm.commitWrite()
-        UserInfo.info?.updateData(complete: { (sucess) in
+        UserInfo.info?.update(data: ["fcmId":fcmToken], complete: { isSucess in
             
         })
         debugPrint("\(#function) \(#line)")
