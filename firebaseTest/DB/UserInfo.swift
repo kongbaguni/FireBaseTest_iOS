@@ -354,7 +354,9 @@ class UserInfo : Object {
     }
     
     func addPoint(point addPoint:Int, complete:@escaping(_ isSucess:Bool)->Void) {
-        self.update(data: ["point":self.point + addPoint]) { isSucess in
+        self.update(data: [
+            "point":self.point + addPoint
+        ]) { isSucess in
             if isSucess {
                 complete(true)
             } else {
