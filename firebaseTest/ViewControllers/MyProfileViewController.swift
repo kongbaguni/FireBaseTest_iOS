@@ -184,43 +184,30 @@ class MyProfileViewController: UITableViewController {
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
         view.endEditing(true)
         /** 이미지 업로드*/
-        func uploadImage(complete:@escaping(_ isSucess:Bool)->Void) {
+        func uploadImage(complete:@escaping(_ imageUrl:String?)->Void) {
             if let str = profileImageBase64String {
                 if let data = Data(base64Encoded: str) {
                     FirebaseStorageHelper().uploadImage(
                         withData: data,
                         contentType: "image/png",
                         uploadURL: "\(FSCollectionName.STORAGE_PROFILE_IMAGE)/\(UserInfo.info!.id).png") { (downloadUrl) in
-                            if (downloadUrl != nil) {
-                                print(downloadUrl?.absoluteString ?? "없다")
-                                do {
-                                    let realm = try Realm()
-                                    realm.beginWrite()
-                                    UserInfo.info?.profileImageURLfirebase = downloadUrl?.absoluteString ?? ""
-                                    try realm.commitWrite()
-                                } catch {
-                                    print(error.localizedDescription)
-                                    complete(false)
-                                    return
-                                }
-                            }
-                            complete(true)
+                            complete(downloadUrl?.absoluteString)
                     }
                     return
                 }
             }
-            complete(true)
+            complete(nil)
         }
         
         /** 프로필 업데이트*/
-        func updateProfile(complete:@escaping(_ isSucess:Bool)->Void) {
+        func updateProfile(profileImageUrl:String?,complete:@escaping(_ isSucess:Bool)->Void) {
             guard let userinfo = UserInfo.info else {
                 return
             }
             if userinfo.distanceForSearch != selectSearchDistance {
                 StoreModel.deleteAll()
             }
-            let data:[String:Any] = [
+            var data:[String:Any] = [
                 "id" : userinfo.id,
                 "name" : nameTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) ?? "",
                 "introduce" : introduceTextView.text.trimmingCharacters(in: CharacterSet(charactersIn: " ")),
@@ -229,25 +216,28 @@ class MyProfileViewController: UITableViewController {
                 "isAnonymousInventoryReport" : anonymousInventoryReportTitleSwitch.isOn,
                 "updateTimeIntervalSince1970" : Date().timeIntervalSince1970,
                 "mapTypeValue" : selectMapViewMapType.rawValue
-                
             ]
-                            
+            if let url = profileImageUrl {
+                data["profileImageURLfirebase"] = url
+            }
+            if profileImageDeleteMode == .delete {
+                data["profileImageURLfirebase"] = ""
+            }
+
             userinfo.update(data: data) { (sucess) in
                 complete(sucess)
             }
         }
         
         loading.show(viewController: self)
-        uploadImage { isSucess in
-            if (isSucess) {
-                updateProfile { isSucess in
-                    if isSucess {
-                        self.loading.hide()
-                        if self.navigationController?.viewControllers.first == self {
-                            UIApplication.shared.rootViewController = MainTabBarController.viewController
-                        } else {
-                            self.navigationController?.popViewController(animated: true)
-                        }
+        uploadImage { downloadUrl in
+            updateProfile(profileImageUrl: downloadUrl) { (isSucess) in
+                if isSucess {
+                    self.loading.hide()
+                    if self.navigationController?.viewControllers.first == self {
+                        UIApplication.shared.rootViewController = MainTabBarController.viewController
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
             }
