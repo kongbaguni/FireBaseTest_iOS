@@ -23,6 +23,13 @@ class StoresTableViewController: UITableViewController {
     let disposebag = DisposeBag()
     var filterText:String? = nil
 
+    static var viewController : StoresTableViewController {
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "maskStock") as! StoresTableViewController
+        } else {
+              return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "maskStock") as! StoresTableViewController
+        }
+    }
     
     var stores:Results<StoreModel> {
         var result = try! Realm().objects(StoreModel.self).sorted(byKeyPath: "name")
@@ -155,7 +162,7 @@ class StoresTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "showProfile", sender: nil)
         }))
         if Consts.isAdmin {
-            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
+            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .destructive, handler: { (action) in
                 let vc = AdminViewController.viewController
                 self.navigationController?.pushViewController(vc, animated: true)
             }))

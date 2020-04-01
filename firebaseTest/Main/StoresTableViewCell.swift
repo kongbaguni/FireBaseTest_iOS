@@ -34,8 +34,7 @@ class StoresTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) { [weak self](notification) in
-            if let location = (notification.object as? [CLLocation])?.first {
-                UserDefaults.standard.lastMyCoordinate = location.coordinate
+            if let location = (notification.object as? [CLLocation])?.first {                
                 self?.updateLiveDistance(coordinate: location.coordinate)
             }
         }

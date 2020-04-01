@@ -187,3 +187,16 @@ extension String {
         }
     }
 }
+
+
+extension String {
+    /** int 값으로 변환*/
+    var intValue:Int {
+        return NSString(string: self).integerValue
+    }
+    /** 통화 포메팅된 문자열을 int 로 반환*/
+    var currencyIntValue:Int {
+        let str = self[1..<self.count].replacingOccurrences(of: ",", with: "")
+        return NSString(string: str).integerValue
+    }
+}

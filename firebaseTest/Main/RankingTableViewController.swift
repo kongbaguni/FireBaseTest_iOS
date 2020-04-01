@@ -16,6 +16,15 @@ import FirebaseAuth
 class RankingTableViewController: UITableViewController {
     @IBOutlet weak var rankingTypeTitleLabel: UILabel!
     @IBOutlet weak var rankingTypeTextField: UITextField!
+    
+    static var viewController : RankingTableViewController {
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ranking") as! RankingTableViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ranking") as! RankingTableViewController
+        }
+    }
+    
     var rankingType:UserInfo.RankingType = UserDefaults.standard.lastTypeOfRanking ?? .exp {
         didSet {
             DispatchQueue.main.async { [weak self] in

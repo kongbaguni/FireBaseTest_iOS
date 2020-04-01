@@ -140,7 +140,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="userInfoDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L7l-bB-hyF" customClass="UserInfoDetailViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sP9-MD-2mh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -319,7 +319,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="myProfile" title="todays talks" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ABD-kk-8hZ" customClass="MyProfileViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="loq-6k-dyw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="TfR-as-uzW"/>
@@ -582,12 +582,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ej-OS-qFn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="935" y="-103"/>
+            <point key="canvasLocation" x="533" y="-10"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="WON-gy-VvB">
             <objects>
-                <tableViewController id="kTG-nY-7k2" customClass="RankingTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ranking" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kTG-nY-7k2" customClass="RankingTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="EiT-5A-xQB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -710,24 +710,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tZw-PW-X09" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2717" y="-1242"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="7KY-yW-R4R">
-            <objects>
-                <navigationController id="4Vu-vP-YNY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="S4T-zf-sJC"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JMn-Zn-NgV">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="kTG-nY-7k2" kind="relationship" relationship="rootViewController" id="M7g-el-N2w"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="78e-gC-62U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1862" y="-1267"/>
+            <point key="canvasLocation" x="-2071" y="-1240"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="XsF-wc-cZ1">
@@ -771,7 +754,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="RrD-Ix-WCc"/>
                     <navigationItem key="navigationItem" id="gEs-HJ-Dl7"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ngR-mu-vYL">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -780,7 +763,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WCG-Ll-skI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-157" y="-846"/>
+            <point key="canvasLocation" x="-997" y="-846"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="E9H-7F-iAa">
@@ -791,15 +774,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
-                    <connections>
-                        <segue destination="8RS-YL-7rv" kind="relationship" relationship="viewControllers" id="Ujg-ye-w9Q"/>
-                        <segue destination="1wT-DU-Drd" kind="relationship" relationship="viewControllers" id="NCS-0O-30K"/>
-                        <segue destination="4Vu-vP-YNY" kind="relationship" relationship="viewControllers" id="qzP-F6-2xl"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TOR-HO-qgT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14" y="-1588"/>
+            <point key="canvasLocation" x="159" y="-1635"/>
         </scene>
         <!--Admin View Controller-->
         <scene sceneID="grZ-em-yXK">
@@ -848,7 +826,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dGG-vC-aP5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="935" y="-1565"/>
+            <point key="canvasLocation" x="1000" y="-1588"/>
         </scene>
         <!--users-->
         <scene sceneID="IyO-Hv-1Kj">
@@ -943,7 +921,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="storeWaitting" id="B37-qL-9rJ" customClass="StoreWaittingTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="O79-Wo-Lvq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Rxc-z7-abo">
@@ -1107,9 +1085,9 @@
         <!--Stores Table View Controller-->
         <scene sceneID="DAz-lA-KQC">
             <objects>
-                <tableViewController id="9fG-rJ-N9F" customClass="StoresTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="maskStock" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9fG-rJ-N9F" customClass="StoresTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kHN-cX-72t">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="RUK-rH-DcN">
@@ -1343,11 +1321,11 @@
             <objects>
                 <viewController id="cLq-Zf-QUF" customClass="MapViewController" customModule="mask_now" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WoP-QX-IhY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-ns-arp">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1375,7 +1353,7 @@
             <objects>
                 <tableViewController id="Bgj-rV-ji4" customClass="StoreStockLogTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dGq-5C-93K">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UyS-Sd-CPG">
@@ -1515,12 +1493,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o5Q-7X-Np5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-97" y="-177"/>
+            <point key="canvasLocation" x="-313" y="-110"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="JHO-8s-zpz">
             <objects>
-                <tableViewController id="fhw-9x-wS1" customClass="TodaysTalksTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="todaysTalks" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fhw-9x-wS1" customClass="TodaysTalksTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ao7-xW-OgG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2151,6 +2129,7 @@
                         <segue destination="rzk-Ow-uys" kind="show" identifier="showDetail" id="2P4-wP-fB8"/>
                         <segue destination="WTO-xV-Mvo" kind="show" identifier="showTalk" id="E3v-ye-h11"/>
                         <segue destination="Uh2-HZ-WYt" kind="show" identifier="showNoticeList" id="dtU-Uz-Qxx"/>
+                        <segue destination="ABD-kk-8hZ" kind="show" identifier="showMyProfile" id="hYy-LE-fJh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sf3-h0-e65" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2183,14 +2162,14 @@
                     <viewLayoutGuide key="safeArea" id="KVq-Yz-ThB"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="2492.753623188406" y="-91.071428571428569"/>
+            <point key="canvasLocation" x="1429" y="-91"/>
         </scene>
         <!--Post Talk View Controller-->
         <scene sceneID="CN9-xC-Irj">
             <objects>
                 <tableViewController storyboardIdentifier="postArticle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WTO-xV-Mvo" customClass="PostTalkViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="a3l-B4-gmI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -2710,7 +2689,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="noticeList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uh2-HZ-WYt" customClass="NoticeListViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Lqg-dA-DDf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="c4K-Tp-2R2">
@@ -2771,7 +2750,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="talkDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rzk-Ow-uys" customClass="TalkDetailTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hT5-OP-vTp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="JFl-tZ-x9h">
@@ -3024,24 +3003,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RyS-kN-Peh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2493" y="656"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="77m-Xj-3G0">
-            <objects>
-                <navigationController id="1wT-DU-Drd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="5Pe-mx-8mi"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vxm-od-h6q">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="fhw-9x-wS1" kind="relationship" relationship="rootViewController" id="Mhp-F2-xqP"/>
-                        <segue destination="ABD-kk-8hZ" kind="show" identifier="showMyProfile" id="vCP-nT-CUS"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OqL-u2-K6z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="935" y="-846"/>
         </scene>
         <!--Status View Controller-->
         <scene sceneID="ByI-G4-5Tk">
@@ -3542,8 +3503,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
-        <segue reference="Ujg-ye-w9Q"/>
-        <segue reference="IOd-bS-gNt"/>
+        <segue reference="hYy-LE-fJh"/>
         <segue reference="tNh-p3-JAq"/>
     </inferredMetricsTieBreakers>
     <resources>

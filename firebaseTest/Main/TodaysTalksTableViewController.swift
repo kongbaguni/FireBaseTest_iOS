@@ -15,6 +15,14 @@ import RxCocoa
 import FirebaseAuth
 
 class TodaysTalksTableViewController: UITableViewController {
+    static var viewController : TodaysTalksTableViewController {
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "todaysTalks") as! TodaysTalksTableViewController
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "todaysTalks") as! TodaysTalksTableViewController
+        }
+    }
+    
     var filterText:String? = nil
     var list:Results<TalkModel> {
         var result = try! Realm().objects(TalkModel.self)
@@ -264,12 +272,12 @@ class TodaysTalksTableViewController: UITableViewController {
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if Consts.isAdmin {
-            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
+            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .destructive, handler: { (action) in
                 let vc = AdminViewController.viewController
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
             
-            vc.addAction(UIAlertAction(title: "write notice".localized, style: .default, handler: { (action) in
+            vc.addAction(UIAlertAction(title: "write notice".localized, style: .destructive, handler: { (action) in
                 let vc = PostNoticeViewController.viewController                
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
@@ -280,7 +288,7 @@ class TodaysTalksTableViewController: UITableViewController {
         }))
         
         vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
-            self.navigationController?.performSegue(withIdentifier: "showMyProfile", sender: nil)
+            self.performSegue(withIdentifier: "showMyProfile", sender: nil)
         }))
         
         

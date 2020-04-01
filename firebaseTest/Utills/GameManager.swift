@@ -24,13 +24,13 @@ class GameManager {
     /** 포인트 사용하기*/
     func usePoint(point:Int,complete:@escaping(_ sucess:Bool)->Void) {
         info.addPoint(point: -point) { (sucess) in
-            self.info.update(data: ["exp": self.info.exp + point]) { (sucess) in
-                complete(sucess)
+            if sucess {
+                self.info.update(data: ["exp": self.info.exp + point]) { (sucess) in
+                    complete(sucess)
+                }
+            } else {
+                complete(false)
             }
-//            if sucess {
-//                let change = StatusChange(addedExp: point, pointChange: -point)
-//                NotificationCenter.default.post(name: .game_usePointAndGetExpNotification, object: change, userInfo: nil)
-//            }
         }
     }
     

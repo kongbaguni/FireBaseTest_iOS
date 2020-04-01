@@ -105,9 +105,12 @@ class AdminOptions {
     /** talk 삭제 위해 필요한 포인트*/
     var pointUseDeleteTalk = POINT_FOR_DELETE_TALK
     
+    /** 마스크 제고 관련 기능 사용여부*/
+    var maskNowEnable = false
     
     var allData:[String:Any] {
         return [
+            "maskNowEnable" : maskNowEnable,
             // report
             "waitting_report_distance"  : waitting_report_distance,
             "can_view_talk_log_level"   : can_view_talk_log_level,
@@ -170,7 +173,11 @@ class AdminOptions {
         ],
         [
             "can_view_talk_log_level"
+        ],
+        [
+            "maskNowEnable"
         ]
+        
     ]
     
     let sessionTitles = [
@@ -178,7 +185,8 @@ class AdminOptions {
         "exp",
         "point",
         "game",
-        "permission"
+        "permission",
+        "etc"
     ]
     
     func setData(key:String, value:String)->Bool {
@@ -267,6 +275,9 @@ class AdminOptions {
         }
         
         switch key {
+        case "maskNowEnable":
+            maskNowEnable = boolValue
+            return true
         case "isUsePoker":
             isUsePoker = boolValue
             return true
@@ -306,6 +317,7 @@ class AdminOptions {
     }
     
     private func loadData(data:[String:Any]) {
+        maskNowEnable = data["maskNowEnable"] as? Bool ?? false
         isUsePoker = data["isUsePoker"] as? Bool ?? false
         waitting_report_distance = data["waitting_report_distance"] as? Int ?? WAITING_REPORT_DISTANCE
         minBettingPoint = data["minBettingPoint"] as? Int ?? MIN_BETTING_POINT

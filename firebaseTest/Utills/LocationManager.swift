@@ -71,6 +71,7 @@ extension LocationManager: CLLocationManagerDelegate {
         self.getLocation?(testLocations)
         NotificationCenter.default.post(Notification(name: .locationUpdateNotification, object: testLocations, userInfo: nil))
         #else
+        UserDefaults.standard.lastMyCoordinate = locations.last?.coordinate
         self.getLocation?(locations)
         NotificationCenter.default.post(Notification(name: .locationUpdateNotification, object: locations, userInfo: nil))
         #endif

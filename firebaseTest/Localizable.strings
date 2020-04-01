@@ -226,3 +226,11 @@
 
 "deleted talk" = "[ 본인이 삭제한 이야기입니다. ]";
 "talk logs is empty" = "작성한 글이 없습니다.";
+"maskNowEnable" = "공적 마스크 검색 기능 활성화";
+"etc" = "기타";
+
+"image" = "이미지";
+"food name" = "이름";
+"price" = "가격";
+"starPoint" = "별점";
+"comment" = "평가";
