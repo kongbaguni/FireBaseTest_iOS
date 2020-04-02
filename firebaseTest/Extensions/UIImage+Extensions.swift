@@ -9,6 +9,9 @@
 import UIKit
 
 extension UIImage {
+    open class var placeHolder_image:UIImage {
+        return #imageLiteral(resourceName: "placeholder")
+    }
     open class var placeHolder_profile:UIImage {        
         return #imageLiteral(resourceName: "profile")
     }
@@ -37,5 +40,9 @@ extension UIImage {
     
     open class var bubble:UIImage {
         UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_dark") : #imageLiteral(resourceName: "bubble_light")
+    }
+    
+    open class var bubble_bottom:UIImage {
+        UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_darkbottom") : #imageLiteral(resourceName: "bubble_lightbottom")
     }
 }

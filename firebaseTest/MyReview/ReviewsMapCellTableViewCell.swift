@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import RxSwift
 import RxCocoa
+import RealmSwift
 
 class ReviewsMapCellTableViewCell: UITableViewCell {
     @IBOutlet weak var mapView:MKMapView!
@@ -20,7 +21,7 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
     
     func setDefaultPostion() {
         let camera = MKMapCamera()
-        camera.altitude = 1000
+        camera.altitude = 500
         camera.pitch = 45
         camera.heading = 45
         mapView.camera = camera
@@ -41,6 +42,26 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
             if self?.isSetPositionFirst == false {
                 self?.setDefaultPostion()
                 self?.isSetPositionFirst = true
+            }
+        }
+        NotificationCenter.default.addObserver(forName: .reviews_selectReviewInReviewList, object: nil, queue: nil) {[weak self](notification) in
+            if let ids = notification.userInfo?["ids"] as? [String], let isForce = notification.userInfo?["isForce"] as? Bool {
+                if let anns = self?.mapView.annotations {
+                    if anns.count > 0 && isForce == false {
+                        return
+                    }
+                    self?.mapView.removeAnnotations(anns)
+                }
+                for id in ids {
+                let review = try! Realm().object(ofType: ReviewModel.self, forPrimaryKey: id)
+                    if let location = review?.location {
+                        let ann = MKPointAnnotation()
+                        ann.coordinate = location
+                        ann.title = review?.name
+                        self?.mapView.addAnnotation(ann)
+                        self?.mapView.centerCoordinate = location
+                    }
+                }
             }
         }
     }

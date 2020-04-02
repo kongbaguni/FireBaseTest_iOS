@@ -61,6 +61,8 @@ struct Consts {
         return UserInfo.info?.id == "kongbaguni@gmail.com"
     }
         
+    
+    static let stars = ["⭐️","⭐️⭐️","⭐️⭐️⭐️","⭐️⭐️⭐️⭐️","⭐️⭐️⭐️⭐️⭐️"]
 }
 
 /** 파이어베이스 스토리지 아이디*/

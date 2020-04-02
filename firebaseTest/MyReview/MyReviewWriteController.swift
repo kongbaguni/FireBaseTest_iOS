@@ -16,7 +16,7 @@ import RealmSwift
 fileprivate extension Notification.Name {
     static let image_delete_noti = Notification.Name(rawValue: "image_delete_noto_observer")
 }
-fileprivate let stars = ["⭐️","⭐️⭐️","⭐️⭐️⭐️","⭐️⭐️⭐️⭐️","⭐️⭐️⭐️⭐️⭐️"]
+
 
 fileprivate extension Array {
     var imgDataArray:[Data] {
@@ -256,12 +256,12 @@ class MyReviewWriteController: UITableViewController {
         nameTextField.text = data.name
         priceTextField.text = data.price.currencyFormatString
         pointTextField.text = data.starPoint.decimalForamtString
-        if data.starPoint > stars.count {
-            pointTextField.text = stars.last
+        if data.starPoint > Consts.stars.count {
+            pointTextField.text =  Consts.stars.last
         } else if data.starPoint == 0 {
-            pointTextField.text = stars.first
+            pointTextField.text =  Consts.stars.first
         } else {
-            pointTextField.text = stars[stars.count - 1]
+            pointTextField.text =  Consts.stars[data.starPoint - 1]
         }
         starPointPicker.selectRow((pointTextField.text?.count ?? 1)-1, inComponent: 0, animated: false)
         commentTextView.text = data.comment
@@ -311,15 +311,15 @@ extension MyReviewWriteController : UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return stars.count
+        return  Consts.stars.count
     }
 }
 extension MyReviewWriteController : UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return stars[row]
+        return  Consts.stars[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        pointTextField.text = stars[row]
+        pointTextField.text =  Consts.stars[row]
     }
 }
 

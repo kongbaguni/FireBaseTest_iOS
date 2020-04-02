@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import RealmSwift
 
+extension Notification.Name {
+    static let reviews_selectReviewInReviewList = Notification.Name("reviews_selectReviewInReviewList_observer")
+}
+
 class ReviewsViewController : UITableViewController {
     static var viewController : ReviewsViewController {
         if #available(iOS 13.0, *) {
@@ -38,6 +42,9 @@ class ReviewsViewController : UITableViewController {
     
     override func viewDidLoad() {
         title = "Review".localized
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButtonItem(_:)))
         NotificationCenter.default.addObserver(forName: .reviewWriteNotification, object: nil, queue: nil) { [weak self] (notification) in
             self?.tableView.reloadData()
@@ -63,10 +70,22 @@ class ReviewsViewController : UITableViewController {
         if sender != self.refreshControl {
             loading.show(viewController: self)
         }
+        var ids:[String] = []
+        if let list = self.reviews {
+            for review in list {
+                ids.append(review.id)
+            }
+        }
+        
         ReviewModel.sync { [weak self](sucess) in
             sender.endRefreshing()
             self?.loading.hide()
             self?.tableView.reloadData()
+            
+            NotificationCenter.default.post(
+                name: .reviews_selectReviewInReviewList,
+                object: nil,
+                userInfo: ["ids":ids ,"isForce":false])
         }
     }
     
@@ -115,10 +134,13 @@ class ReviewsViewController : UITableViewController {
         case 1:
             if let list = reviews {
                 let id = list[indexPath.row].id
-                let vc = MyReviewWriteController.viewController
-                vc.reviewId = id
-                self.navigationController?.pushViewController(vc, animated: true)
+                NotificationCenter.default.post(
+                    name: .reviews_selectReviewInReviewList,
+                    object: nil,
+                    userInfo: ["ids":[id],"isForce":true]
+                )
             }
+
         default:
             break
         }
@@ -129,9 +151,9 @@ class ReviewsViewController : UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "map", for: indexPath) as! ReviewsMapCellTableViewCell
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
             if let data = reviews {
-                cell.textLabel?.text = data[indexPath.row].name
+                cell.reviewId = data[indexPath.row].id
             }
             return cell
         }
@@ -146,6 +168,32 @@ class ReviewsViewController : UITableViewController {
         super.viewWillDisappear(animated)
         LocationManager.shared.manager.stopUpdatingLocation()
     }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let list = self.reviews else {
+            return nil
+        }
+
+        var action:[UIContextualAction] = []
+        let id = list[indexPath.row].id
+
+        if UserInfo.info?.id == reviews?[indexPath.row].creatorId {
+            action.append(UIContextualAction(style: .normal, title: "edit", handler: { (action, view, complete) in
+                    let vc = MyReviewWriteController.viewController
+                    vc.reviewId = id
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            ))
+        }
+        
+        return UISwipeActionsConfiguration(actions: action)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    
 }
 
 

@@ -80,6 +80,7 @@
 		C3C43A1C241A6E95002788B1 /* TalkDetailMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */; };
 		C3D0F4282433123400039B2E /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F4272433123400039B2E /* ReviewsViewController.swift */; };
 		C3D0F42A2433172200039B2E /* ReviewsMapCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */; };
+		C3D0F42C24348A8900039B2E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */; };
 		C3DC5B842412172D00A028E0 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */; };
 		C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */; };
 		C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B8924121A3100A028E0 /* TodaysTalksTableViewController.swift */; };
@@ -202,6 +203,7 @@
 		C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailMapTableViewCell.swift; sourceTree = "<group>"; };
 		C3D0F4272433123400039B2E /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsMapCellTableViewCell.swift; sourceTree = "<group>"; };
+		C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		C3DC5B8924121A3100A028E0 /* TodaysTalksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysTalksTableViewController.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				C395290F243308910050C80D /* MyReviewWriteController.swift */,
 				C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */,
 				C3D0F4272433123400039B2E /* ReviewsViewController.swift */,
+				C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */,
 			);
 			path = MyReview;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				C39A6ED82420A04B00460705 /* TalkDetailHoldemTableViewCell.swift in Sources */,
 				C366501824233C5600E2BD24 /* JackPotLogModel.swift in Sources */,
 				C3252307242CD87B0039819D /* NoticeListViewController.swift in Sources */,
+				C3D0F42C24348A8900039B2E /* ReviewsTableViewCell.swift in Sources */,
 				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
 				C39A6ED624208ABA00460705 /* Dealar.swift in Sources */,
 				C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */,

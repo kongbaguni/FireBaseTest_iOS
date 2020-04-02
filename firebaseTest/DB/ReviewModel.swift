@@ -30,7 +30,7 @@ class ReviewModel: Object {
     @objc dynamic var regTimeIntervalSince1970:Double = 0
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     let editList = List<ReviewEditModel>()
-    
+    let likeList = List<LikeModel>()
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -56,6 +56,9 @@ class ReviewEditModel : Object {
 }
 
 extension ReviewModel {
+    var creator:UserInfo? {
+        return try! Realm().object(ofType: UserInfo.self, forPrimaryKey: self.creatorId)
+    }
     var location:CLLocationCoordinate2D? {
         if lat == 0 && lng == 0 {
             return nil
@@ -232,6 +235,65 @@ extension ReviewModel {
             }
             
             complete(false)
+        }
+    }
+    
+    func toggleLike(complete:@escaping(_ isLike:Bool?)->Void) {
+        guard let myid = UserInfo.info?.id else {
+            complete(false)
+            return
+        }
+        let id = self.id
+        let likeId = "\(UUID().uuidString)\(Date().timeIntervalSince1970)\(myid)"
+        let likeData:[String:Any] = [
+            "id":likeId,
+            "creatorId":myid,
+            "targetId":id,
+            "regTimeIntervalSince1970":Date().timeIntervalSince1970
+        ]
+        
+        let doc = Firestore.firestore().collection(FSCollectionName.REVIEW).document(id)
+        
+        func makeLikes(makeComplete:@escaping(_ sucess:Bool)->Void) {
+            doc.collection("like").getDocuments { (snapShot, error) in
+                if let data = snapShot {
+                    let realm = try! Realm()
+                    if let model = realm.object(ofType: ReviewModel.self, forPrimaryKey: id) {
+                        realm.beginWrite()
+                        model.likeList.removeAll()
+                        for like in data.documents {
+                            let like = realm.create(LikeModel.self, value: like.data(), update: .all)
+                            model.likeList.append(like)
+                        }
+                        try! realm.commitWrite()
+                    }
+                }
+                makeComplete(error == nil)
+            }
+        }
+        
+        doc.collection("like").whereField("creatorId", isEqualTo: myid).getDocuments { (snapShot, error) in
+            if let data = snapShot {
+                if data.documents.count == 0 {
+                    doc.collection("like").document(likeId).setData(likeData) { (error) in
+                        if error == nil {
+                            makeLikes { (sucess) in
+                                complete(true)
+                            }
+                        }
+                    }
+                } else if let data = data.documents.first {
+                    doc.collection("like").document(data.documentID).delete { (error) in
+                        if error == nil {
+                            makeLikes { (sucess) in
+                                complete(false)
+                            }
+                        }
+                    }
+                }
+                return
+            }
+            complete(nil)
         }
     }
 }

@@ -163,7 +163,7 @@ extension TalkModel {
                                 let likeData:[String:Any] = [
                                     "id":likeId,
                                     "creatorId":userId,
-                                    "targetTalkId":talkId,
+                                    "targetId":talkId,
                                     "regTimeIntervalSince1970":now
                                 ]
                                 collection.document(likeId).setData(likeData) { (error) in

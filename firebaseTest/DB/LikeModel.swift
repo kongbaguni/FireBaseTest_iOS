@@ -11,7 +11,7 @@ import RealmSwift
 class LikeModel: Object {
     @objc dynamic var id:String = ""
     @objc dynamic var creatorId:String = ""
-    @objc dynamic var targetTalkId:String = ""
+    @objc dynamic var targetId:String = ""
     @objc dynamic var regTimeIntervalSince1970:Double = 0
     
     override static func primaryKey() -> String? {
@@ -29,6 +29,10 @@ extension LikeModel {
     }
     
     var targetTalk:TalkModel? {
-        return try! Realm().object(ofType: TalkModel.self, forPrimaryKey: targetTalkId)
+        return try! Realm().object(ofType: TalkModel.self, forPrimaryKey: targetId)
+    }
+    
+    var targetReview:ReviewModel? {
+        return try! Realm().object(ofType: ReviewModel.self, forPrimaryKey: targetId)
     }
 }
