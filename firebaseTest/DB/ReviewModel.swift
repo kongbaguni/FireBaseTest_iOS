@@ -244,7 +244,7 @@ extension ReviewModel {
             return
         }
         let id = self.id
-        let likeId = "\(UUID().uuidString)\(Date().timeIntervalSince1970)\(myid)"
+        let likeId = "\(id)_\(myid)"
         let likeData:[String:Any] = [
             "id":likeId,
             "creatorId":myid,
@@ -253,6 +253,8 @@ extension ReviewModel {
         ]
         
         let doc = Firestore.firestore().collection(FSCollectionName.REVIEW).document(id)
+        let reviewer = Firestore.firestore().collection(FSCollectionName.USERS).document(creatorId)
+        let reviewersLike = reviewer.collection("like")
         
         func makeLikes(makeComplete:@escaping(_ sucess:Bool)->Void) {
             doc.collection("like").getDocuments { (snapShot, error) in
@@ -282,6 +284,8 @@ extension ReviewModel {
                             }
                         }
                     }
+                    reviewersLike.document(likeId).setData(likeData)
+                    
                 } else if let data = data.documents.first {
                     doc.collection("like").document(data.documentID).delete { (error) in
                         if error == nil {
@@ -290,10 +294,16 @@ extension ReviewModel {
                             }
                         }
                     }
+                    reviewersLike.document(likeId).delete { (error) in
+                        
+                    }
                 }
                 return
             }
             complete(nil)
         }
+        
+        
+        
     }
 }
