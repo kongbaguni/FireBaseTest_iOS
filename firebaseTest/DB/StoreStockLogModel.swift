@@ -56,7 +56,7 @@ class StoreStockLogModel: Object {
             complete(false)
             return
         }
-        let collection = Firestore.firestore().collection(FSCollectionName.STORE_STOCK)
+        let collection = FS.store.collection(FSCollectionName.STORE_STOCK)
         let shopDoc = collection.document(code)
         
         let now = Date().timeIntervalSince1970
@@ -91,7 +91,7 @@ class StoreStockLogModel: Object {
             }
         }
         
-        Firestore.firestore()
+        FS.store
             .collection(FSCollectionName.STORE_STOCK)
             .document(code)
             .collection("stock_logs")

@@ -27,8 +27,8 @@ class MainTabBarController: UITabBarController {
         
         var items:[Item] = [
             Item(viewController: ReviewsViewController.viewController,
-                 title: "Review",
-                 image: #imageLiteral(resourceName: "dentist-mask")),
+                 title: "review".localized,
+                 image: #imageLiteral(resourceName: "review")),
             Item(viewController: TodaysTalksTableViewController.viewController,
                  title: "todays talks".localized,
                  image: #imageLiteral(resourceName: "talkBubble")),

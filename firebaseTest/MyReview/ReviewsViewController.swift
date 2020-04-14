@@ -37,11 +37,11 @@ class ReviewsViewController : UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     override func viewDidLoad() {
-        title = "Review".localized
+        title = "review".localized
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
         
@@ -63,6 +63,18 @@ class ReviewsViewController : UITableViewController {
             self.tableView.reloadData()
         }
 
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showReviewDetail":
+            if let vc = segue.destination as? ReviewDetailViewController {
+                vc.reviewId = sender as? String
+            }
+            break
+        default:
+            break
+        }
     }
     
     let loading = Loading()
@@ -104,7 +116,7 @@ class ReviewsViewController : UITableViewController {
             }))
         }
         
-        vc.addAction(UIAlertAction(title: "write review", style: .default, handler: { (_) in
+        vc.addAction(UIAlertAction(title: "write review".localized, style: .default, handler: { (_) in
             let vc = MyReviewWriteController.viewController
             self.navigationController?.pushViewController(vc, animated: true)
             
@@ -119,44 +131,22 @@ class ReviewsViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return reviews?.count ?? 0
-        default:
-            return 0
-        }
+        return reviews?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 1:
-            if let list = reviews {
-                let id = list[indexPath.row].id
-                NotificationCenter.default.post(
-                    name: .reviews_selectReviewInReviewList,
-                    object: nil,
-                    userInfo: ["ids":[id],"isForce":true]
-                )
-            }
-
-        default:
-            break
+        if let list = reviews {
+            let id = list[indexPath.row].id
+            self.performSegue(withIdentifier: "showReviewDetail", sender: id)
         }
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "map", for: indexPath) as! ReviewsMapCellTableViewCell
-            return cell
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
-            if let data = reviews {
-                cell.reviewId = data[indexPath.row].id
-            }
-            return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
+        if let data = reviews {
+            cell.reviewId = data[indexPath.row].id
         }
+        return cell
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -178,7 +168,7 @@ class ReviewsViewController : UITableViewController {
         let id = list[indexPath.row].id
 
         if UserInfo.info?.id == reviews?[indexPath.row].creatorId {
-            action.append(UIContextualAction(style: .normal, title: "edit", handler: { (action, view, complete) in
+            action.append(UIContextualAction(style: .normal, title: "edit".localized, handler: { (action, view, complete) in
                     let vc = MyReviewWriteController.viewController
                     vc.reviewId = id
                     self.navigationController?.pushViewController(vc, animated: true)
@@ -191,8 +181,7 @@ class ReviewsViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }
-    
+    }        
     
 }
 

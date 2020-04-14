@@ -91,7 +91,7 @@ class AdminOptions {
     /** 다른 사용자의 작성글 이력을 조회할 수 있는 레벨*/
     var can_view_talk_log_level : Int = CAN_VIEW_TALK_LOG_LEVEL
     
-    let collection = Firestore.firestore().collection(FSCollectionName.ADMIN)
+    let collection = FS.store.collection(FSCollectionName.ADMIN)
     
     var levelup_req_exp_base = Consts.LEVELUP_REQ_EXP_BASE
     var levelup_req_exp_plus = Consts.LEVELUP_REQ_EXP_PLUS

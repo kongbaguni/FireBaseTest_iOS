@@ -79,6 +79,7 @@ class MapViewController: UIViewController {
         }
         mapView.camera = camera
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "showStoreStockLogs":
@@ -87,6 +88,12 @@ class MapViewController: UIViewController {
             }
         default:
             break
+        }
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        if parent == nil {
+            mapView.clearMemory()
         }
     }
         

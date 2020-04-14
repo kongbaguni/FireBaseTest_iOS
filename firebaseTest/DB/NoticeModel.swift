@@ -55,7 +55,7 @@ class NoticeModel: Object {
             "isShow" : isShow,
             "isRead" : false
         ]
-        let doc = Firestore.firestore().collection(FSCollectionName.NOTICE).document(id)
+        let doc = FS.store.collection(FSCollectionName.NOTICE).document(id)
         doc.setData(data) { (error) in
             if error == nil {
                 let realm = try! Realm()
@@ -68,7 +68,7 @@ class NoticeModel: Object {
     }
     
     func edit(title:String, text:String, isShow:Bool,complete:@escaping(_ isSucess:Bool)->Void) {
-        let doc = Firestore.firestore().collection(FSCollectionName.NOTICE).document(id)
+        let doc = FS.store.collection(FSCollectionName.NOTICE).document(id)
         let now = Date().timeIntervalSince1970
         let data:[String:Any] = [
             "title" : title,
@@ -96,7 +96,7 @@ class NoticeModel: Object {
 
     /** firebase 에서 공지 삭제*/
     func delete(complete:@escaping(_ isSucess:Bool)->Void) {
-        let doc = Firestore.firestore().collection(FSCollectionName.NOTICE).document(id)
+        let doc = FS.store.collection(FSCollectionName.NOTICE).document(id)
         doc.delete { (error) in
             if error == nil {
                 NotificationCenter.default.post(name: .noticeUpdateNotification, object: self.id)
@@ -106,7 +106,7 @@ class NoticeModel: Object {
     }
     
     static func syncNotices(complete:@escaping(_ isSucess:Bool)->Void) {
-        let collection = Firestore.firestore().collection(FSCollectionName.NOTICE)
+        let collection = FS.store.collection(FSCollectionName.NOTICE)
         var query = collection.whereField("updateDtTimeinterval1970", isGreaterThanOrEqualTo: 0)
         if let lastNotice = try! Realm().objects(NoticeModel.self).sorted(byKeyPath: "updateDtTimeinterval1970").last {
             query = collection.whereField("updateDtTimeinterval1970", isGreaterThan: lastNotice.updateDtTimeinterval1970)

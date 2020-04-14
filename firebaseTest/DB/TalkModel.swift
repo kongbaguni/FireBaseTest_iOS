@@ -136,7 +136,7 @@ extension TalkModel {
     func toggleLike(complete toggleComplete:@escaping(_ isSucess:Bool)->Void){
         let creatorId = self.creatorId
         /** 글 쓴이의 유저정보*/
-        let user = Firestore.firestore().collection(FSCollectionName.USERS).document(creatorId)
+        let user = FS.store.collection(FSCollectionName.USERS).document(creatorId)
         let likeID = "\(UserInfo.info!.id) is like \(id)"
         
         func like(complete:@escaping(_ isLike:Bool?)->Void) {
@@ -145,7 +145,7 @@ extension TalkModel {
             }
             let talkId = id
             let now = Date().timeIntervalSince1970
-            let doc = Firestore.firestore().collection(FSCollectionName.TALKS).document(talkId)
+            let doc = FS.store.collection(FSCollectionName.TALKS).document(talkId)
             doc.updateData(["modifiedTimeIntervalSince1970":now]) { (error) in
                 if error == nil {
                     let realm = try! Realm()
@@ -282,7 +282,7 @@ extension TalkModel {
         let docId = self.id
         GameManager.shared.usePoint(point: AdminOptions.shared.pointUseDeleteTalk) { (sucess) in
             if sucess {
-                let doc = Firestore.firestore().collection(FSCollectionName.TALKS).document(docId)
+                let doc = FS.store.collection(FSCollectionName.TALKS).document(docId)
                 let data:[String:Any] = [
                     "id" : docId,
                     "text":"",
@@ -381,7 +381,7 @@ extension TalkModel {
             if let url = uploadUrl {
                 data["imageUrl"] = url
             }
-            Firestore.firestore().collection(FSCollectionName.TALKS).document(id).setData(data) { (error) in
+            FS.store.collection(FSCollectionName.TALKS).document(id).setData(data) { (error) in
                 if error == nil {
                     let realm = try! Realm()
                     realm.beginWrite()
@@ -435,7 +435,7 @@ extension TalkModel {
             if let url = uploadUrl {
                 editData["imageUrlStr"] = url.absoluteString
             }
-            let doc = Firestore.firestore().collection(FSCollectionName.TALKS).document(id)
+            let doc = FS.store.collection(FSCollectionName.TALKS).document(id)
             doc.updateData(data) { (error1) in
                 doc.collection("edit").document(editId).setData(editData) { (error2) in
                     if error1 == nil && error2 == nil {
@@ -474,7 +474,7 @@ extension TalkModel {
             }
         }
         
-        let collection = Firestore.firestore().collection(FSCollectionName.TALKS)
+        let collection = FS.store.collection(FSCollectionName.TALKS)
         collection
             .whereField("modifiedTimeIntervalSince1970", isGreaterThan: syncDt)
             .getDocuments { (shot, error) in
@@ -537,7 +537,7 @@ extension TalkModel {
             "creatorId":userId
         ]
         let talkId = self.id
-        let document = Firestore.firestore().collection(FSCollectionName.TALKS).document(id)
+        let document = FS.store.collection(FSCollectionName.TALKS).document(id)
         let reads = document.collection("read")
         let read = reads.document(userId)
         read.setData(data) { (error) in

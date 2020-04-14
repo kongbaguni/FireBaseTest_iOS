@@ -35,6 +35,12 @@ class TalkDetailMapTableViewCell: UITableViewCell {
         self.mapView.camera = camera
     }
     
+    override func willMove(toWindow newWindow: UIWindow?) {
+        if newWindow == nil {
+            mapView.clearMemory()
+        }
+    }
+    
 //    override func layoutSubviews() {
 //        super.layoutSubviews()
 //

@@ -8,6 +8,11 @@
 
 import Foundation
 import FirebaseStorage
+import FirebaseFirestore
+
+struct FS {
+    static let store = Firestore.firestore()
+}
 
 class FirebaseStorageHelper {
     let storageRef = Storage.storage().reference()

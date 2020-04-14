@@ -38,6 +38,17 @@ class ReviewModel: Object {
     override static func indexedProperties() -> [String] {
         return ["creatorId"]
     }
+    
+    var regDt:Date {
+        return Date(timeIntervalSince1970: regTimeIntervalSince1970)
+    }
+    
+    var modifiedDt:Date? {
+        if modifiedTimeIntervalSince1970 == 0 {
+            return nil
+        }
+        return Date(timeIntervalSince1970: modifiedTimeIntervalSince1970)
+    }
 }
 
 class ReviewEditModel : Object {
@@ -136,7 +147,7 @@ extension ReviewModel {
             if uploadImages.count > 0 {
                 data["photoUrls"] = uploadImages.stringValue
             }
-            let doc = Firestore.firestore().collection(FSCollectionName.REVIEW).document(id)
+            let doc = FS.store.collection(FSCollectionName.REVIEW).document(id)
             doc.setData(data) { (error) in
                 if error == nil {
                     let realm = try! Realm()
@@ -185,7 +196,7 @@ extension ReviewModel {
             }
             data["photoUrls"] = images.stringValue
             
-            let document = Firestore.firestore().collection(FSCollectionName.REVIEW).document(id)
+            let document = FS.store.collection(FSCollectionName.REVIEW).document(id)
             document.collection("edit").document(editId).setData(data) { (error) in
                 if error == nil {
                     let realm = try! Realm()
@@ -219,7 +230,7 @@ extension ReviewModel {
         if let last = try! Realm().objects(ReviewModel.self).sorted(byKeyPath: "modifiedTimeIntervalSince1970").last {
             interval = last.modifiedTimeIntervalSince1970
         }
-        let collection = Firestore.firestore().collection(FSCollectionName.REVIEW).whereField("modifiedTimeIntervalSince1970", isGreaterThanOrEqualTo: interval)
+        let collection = FS.store.collection(FSCollectionName.REVIEW).whereField("modifiedTimeIntervalSince1970", isGreaterThanOrEqualTo: interval)
         collection.getDocuments { (snapShot, error) in
             if error == nil {
                 if let data = snapShot {
@@ -252,8 +263,8 @@ extension ReviewModel {
             "regTimeIntervalSince1970":Date().timeIntervalSince1970
         ]
         
-        let doc = Firestore.firestore().collection(FSCollectionName.REVIEW).document(id)
-        let reviewer = Firestore.firestore().collection(FSCollectionName.USERS).document(creatorId)
+        let doc = FS.store.collection(FSCollectionName.REVIEW).document(id)
+        let reviewer = FS.store.collection(FSCollectionName.USERS).document(creatorId)
         let reviewersLike = reviewer.collection("like")
         
         func makeLikes(makeComplete:@escaping(_ sucess:Bool)->Void) {

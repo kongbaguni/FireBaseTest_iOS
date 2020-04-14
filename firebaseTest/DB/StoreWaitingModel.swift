@@ -62,7 +62,7 @@ class StoreWaitingModel : Object {
     }
     
     static func uploadLog(storeCode:String, status:String, complete:@escaping(_ sucess:Bool)->Void) {
-        let collection = Firestore.firestore().collection(FSCollectionName.STORE_STOCK)
+        let collection = FS.store.collection(FSCollectionName.STORE_STOCK)
         let shopDoc = collection.document(storeCode)
         let subColection = shopDoc.collection("waiting_logs")
         
@@ -110,7 +110,7 @@ class StoreWaitingModel : Object {
             }
         }
         
-        Firestore.firestore()
+        FS.store
             .collection(FSCollectionName.STORE_STOCK)
             .document(code)
             .collection("waiting_logs")

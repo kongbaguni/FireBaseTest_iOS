@@ -172,7 +172,7 @@ class UserInfo : Object {
         complete:@escaping(_ isNewUser:Bool?)->Void) {
         
         func create(fileUrl:URL?) {
-            let user = Firestore.firestore().collection(FSCollectionName.USERS).document(email)
+            let user = FS.store.collection(FSCollectionName.USERS).document(email)
             var data:[String:Any] = [
                 "id":email,
                 "email":email,
@@ -239,7 +239,7 @@ class UserInfo : Object {
     
     /** firebase 에서 데이터를 받아와서 자신의 사용자 정보를 갱신합니다.*/
     func syncData(complete:@escaping(_ isNew:Bool)->Void) {
-        let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
+        let dbCollection = FS.store.collection(FSCollectionName.USERS)
         let document = dbCollection.document(self.email)
         
         document.getDocument { (snapshot, error) in
@@ -266,7 +266,7 @@ class UserInfo : Object {
             return
         }
         
-        let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
+        let dbCollection = FS.store.collection(FSCollectionName.USERS)
         var query =
             dbCollection
                 .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
@@ -298,7 +298,7 @@ class UserInfo : Object {
     
     /** 사용자 정보 가져오기*/
     static func getUserInfo(id:String,complete:@escaping(_ isSucess:Bool)->Void) {
-        let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
+        let dbCollection = FS.store.collection(FSCollectionName.USERS)
         let document = dbCollection.document(id)
         document.getDocument { (snapShot, error) in
             if let data = snapShot?.data() {
@@ -319,7 +319,7 @@ class UserInfo : Object {
         if data["email"] == nil {
             data["email"] = email
         }
-        let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
+        let dbCollection = FS.store.collection(FSCollectionName.USERS)
         let document = dbCollection.document(self.email)
         document.updateData(data) { (error) in
             let realm = try! Realm()
@@ -383,7 +383,7 @@ class UserInfo : Object {
     
     
     func updateLastTalkTime(timeInterval:Double = Date().timeIntervalSince1970, complete:@escaping(_ isSucess:Bool)->Void) {
-        let userInfo = Firestore.firestore().collection(FSCollectionName.USERS).document(self.id)
+        let userInfo = FS.store.collection(FSCollectionName.USERS).document(self.id)
         let userId = self.id
         let data:[String:Any] = [
             "email":userId,
@@ -427,7 +427,7 @@ class UserInfo : Object {
      주의: 포인트와 경험치는 여기서 갱신하지 않습니다.*/
     
     func updateForRanking(type:RankingType, addValue:Int, complete:@escaping(_ sucess:Bool)->Void) {
-        let userInfo = Firestore.firestore().collection(FSCollectionName.USERS).document(self.id)
+        let userInfo = FS.store.collection(FSCollectionName.USERS).document(self.id)
                 
         userInfo.getDocument { (snapshot, error) in
             let now = Date()
@@ -455,7 +455,7 @@ class UserInfo : Object {
     }
     
     func getTalkList(complete:@escaping(_ isSucess:Bool)->Void) {
-        Firestore.firestore().collection(FSCollectionName.TALKS)
+        FS.store.collection(FSCollectionName.TALKS)
             .whereField("creator_id", isEqualTo: self.id)
             .getDocuments { (snapshot, error) in
                 if let data = snapshot {

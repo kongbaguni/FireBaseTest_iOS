@@ -61,7 +61,7 @@ class MyProfileViewController: UITableViewController {
         }
     }
     
-    let dbCollection = Firestore.firestore().collection(FSCollectionName.USERS)
+    let dbCollection = FS.store.collection(FSCollectionName.USERS)
     
     let storageRef = Storage.storage().reference()
     let loading = Loading()
@@ -305,7 +305,7 @@ class MyProfileViewController: UITableViewController {
             let vc = UIAlertController(title: "leave alert msg title".localized,
                                        message: "leave alert msg desc".localized, preferredStyle: .alert)
             vc.addAction(UIAlertAction(title: "leave".localized, style: .default, handler: { (_) in
-                Firestore.firestore().collection(FSCollectionName.USERS).document(UserInfo.info?.id ?? "").delete { [weak self] (error) in
+                FS.store.collection(FSCollectionName.USERS).document(UserInfo.info?.id ?? "").delete { [weak self] (error) in
                     self?.tableView.deselectRow(at: indexPath, animated: true)
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                         if error == nil {
