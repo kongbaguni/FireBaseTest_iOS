@@ -239,4 +239,5 @@
 "starPoint" = "별점";
 "comment" = "평가";
 "processing..." = "요청 처리중...";
-"regDt" = "등록일";
+"regDt" = "등록시각";
+"editDt" = "수정시각";

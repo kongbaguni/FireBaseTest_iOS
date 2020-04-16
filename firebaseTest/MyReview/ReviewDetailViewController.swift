@@ -31,7 +31,7 @@ class ReviewDetailViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     override func viewDidLoad() {
@@ -55,6 +55,8 @@ class ReviewDetailViewController: UITableViewController {
             return review?.photoUrlList.count ?? 0
         case 2:
             return 5
+        case 3:
+            return 1
         default:
             return 0
         }
@@ -101,15 +103,21 @@ class ReviewDetailViewController: UITableViewController {
                 cell.detailTextLabel?.text = review?.regDt.simpleFormatStringValue
                 return cell
             case 4:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "map", for: indexPath) as! ReviewsMapCellTableViewCell
-                cell.setDefaultPostion()
-                if let id = self.reviewId {
-                    cell.setAnnotation(reviewIds: [id], isForce: false)
-                }
+                let cell = tableView.dequeueReusableCell(withIdentifier: "rightDetailCell", for: indexPath)
+                cell.textLabel?.text = "editDt".localized
+                cell.detailTextLabel?.text = review?.modifiedDt?.simpleFormatStringValue
                 return cell
             default:
                 return UITableViewCell()
             }
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "map", for: indexPath) as! ReviewsMapCellTableViewCell
+            cell.setDefaultPostion()
+            if let id = self.reviewId {
+                cell.setAnnotation(reviewIds: [id], isForce: false)
+            }
+            return cell
+
         default:
             return UITableViewCell()
         }
@@ -132,7 +140,14 @@ class ReviewDetailViewController: UITableViewController {
                 present(vc, animated: true, completion: nil)
             } else {
                 tableView.deselectRow(at: indexPath, animated: true)
-            }            
+            }
+        case 3:
+            let isEdited = review?.regTimeIntervalSince1970 != review?.modifiedTimeIntervalSince1970
+            let title = isEdited ? "editing location".localized :  "posting location".localized
+            
+            let vc = PopupMapViewController.viewController(coordinate: review?.location, title: title, annTitle: review?.name)
+            present(vc, animated: true, completion: nil)
+            tableView.deselectRow(at: indexPath, animated: true)
         default:
             tableView.deselectRow(at: indexPath, animated: true)
             break

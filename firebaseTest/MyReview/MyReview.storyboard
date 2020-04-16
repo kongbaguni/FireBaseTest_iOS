@@ -145,7 +145,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="220.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="u51-Sf-Ffv">
+                                        <mapView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u51-Sf-Ffv">
                                             <rect key="frame" x="10" y="10" width="394" height="200.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="Lav-Hj-T1J"/>
@@ -184,19 +184,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="TSW-7J-lC6">
+                            <rect key="frame" x="0.0" y="209.5" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="review" id="CvW-JK-eFg" customClass="ReviewsTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="153"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="153.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CvW-JK-eFg" id="SRi-W6-U1E">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="153"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="153.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KqR-eG-Vq4">
-                                            <rect key="frame" x="10" y="10" width="394" height="133"/>
+                                            <rect key="frame" x="10" y="10" width="394" height="133.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7gW-pU-Usd">
-                                                    <rect key="frame" x="0.0" y="0.0" width="284" height="133"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="284" height="133.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고구마 맛있다 고구마 맛있다 고구마 맛있다 고구마 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llz-w5-VLG">
                                                             <rect key="frame" x="0.0" y="0.0" width="284" height="30"/>
@@ -218,13 +223,13 @@
                                                             <state key="normal" title="좋아요 "/>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7L-Xl-F2E">
-                                                            <rect key="frame" x="0.0" y="80.5" width="284" height="52.5"/>
+                                                            <rect key="frame" x="0.0" y="80.5" width="284" height="53"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="voo-JP-6sn">
-                                                    <rect key="frame" x="294" y="0.0" width="100" height="133"/>
+                                                    <rect key="frame" x="294" y="0.0" width="100" height="133.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnC-94-4K0">
                                                             <rect key="frame" x="0.0" y="0.0" width="100" height="20"/>
@@ -246,7 +251,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5kZ-ej-KlD">
-                                                            <rect key="frame" x="0.0" y="40" width="100" height="93"/>
+                                                            <rect key="frame" x="0.0" y="40" width="100" height="93.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                     </subviews>
