@@ -6,6 +6,7 @@ target 'firebaseTest' do
   use_frameworks!
 
   # Pods for firebaseTest
+  pod 'Lightbox'
   pod 'Google-Mobile-Ads-SDK'
   pod 'Toast-Swift'
   pod 'PhoneNumberKit'

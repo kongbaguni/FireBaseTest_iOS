@@ -25,9 +25,9 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
         camera.altitude = 500
         camera.pitch = 45
         camera.heading = 45
-        mapView.camera = camera
+        mapView?.camera = camera
         if let value = UserDefaults.standard.lastMyCoordinate {
-            mapView.centerCoordinate = value
+            mapView?.centerCoordinate = value
         }
     }
 

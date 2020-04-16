@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import RealmSwift
 import MapKit
+import Lightbox
+
 extension Notification.Name {
     static let imageDownloadDidComplee = Notification.Name(rawValue: "imageDownloadDidComplete_observer")
 }
@@ -116,6 +118,26 @@ class ReviewDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            let vc = StatusViewController.viewController(withUserId: self.review?.creatorId)
+            present(vc, animated: true, completion: nil)
+        case 1:
+            if let list = review?.photoUrlList {
+                let imgs = LightboxImage.getImages(imageUrls: list)
+                let vc = LightboxController(images: imgs, startIndex: indexPath.row)
+                vc.modalPresentationStyle = .fullScreen
+                present(vc, animated: true, completion: nil)
+            } else {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }            
+        default:
+            tableView.deselectRow(at: indexPath, animated: true)
+            break
+        }
+    }
 }
 
 class ReviewDetailProfileTableViewCell : UITableViewCell {
@@ -167,5 +189,6 @@ class ReviewDetailPhotoTableViewCell : UITableViewCell {
         let newSize = size.resize(target: targetSize, isFit: true)
         imageViewLayoutHeight.constant = newSize.height
     }
+        
 }
 
