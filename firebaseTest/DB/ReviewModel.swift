@@ -205,12 +205,18 @@ extension ReviewModel {
                     if let doc = realm.object(ofType: ReviewModel.self, forPrimaryKey: docId) {
                         doc.editList.append(model)
                     }
+                    try! realm.commitWrite()
+
                     if name != nil || starPoint != nil || comment != nil || price != nil || addphotos.count > 0 || deletePhotos.count > 0 {
                         data["id"] = docId
-                        realm.create(ReviewModel.self, value: data, update: .modified)
+                        document.updateData(data) { (complete) in
+                            let realm = try! Realm()
+                            realm.beginWrite()
+                            realm.create(ReviewModel.self, value: data, update: .modified)
+                            try! realm.commitWrite()
+                            NotificationCenter.default.post(name: .reviewEditNotification, object: docId)
+                        }
                     }
-                    try! realm.commitWrite()
-                    NotificationCenter.default.post(name: .reviewEditNotification, object: docId)
                 }
                 complete(error == nil)
             }
@@ -231,13 +237,28 @@ extension ReviewModel {
             interval = last.modifiedTimeIntervalSince1970
         }
         let collection = FS.store.collection(FSCollectionName.REVIEW).whereField("modifiedTimeIntervalSince1970", isGreaterThanOrEqualTo: interval)
+        
         collection.getDocuments { (snapShot, error) in
             if error == nil {
                 if let data = snapShot {
                     let realm = try! Realm()
                     realm.beginWrite()
                     for doc in data.documents {
-                        realm.create(ReviewModel.self, value: doc.data(), update: .all)
+                        let review = realm.create(ReviewModel.self, value: doc.data(), update: .all)
+                        let reviewId = review.id
+                        
+                        FS.store.collection(FSCollectionName.REVIEW).document(doc.documentID).collection("edit").getDocuments { (snapShot, error) in
+                            let realm = try! Realm()
+                            let review = realm.object(ofType: ReviewModel.self, forPrimaryKey: reviewId)
+                            realm.beginWrite()
+                            if let editData = snapShot {
+                                for edoc in editData.documents {
+                                    let editModel = realm.create(ReviewEditModel.self, value: edoc.data(), update: .all)
+                                    review?.editList.append(editModel)
+                                }                                
+                            }
+                            try! realm.commitWrite()
+                        }
                     }
                     try! realm.commitWrite()
                     complete(true)

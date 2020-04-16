@@ -24,7 +24,11 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UserInfo.info?.syncData(complete: { (sucess) in
+            UserInfo.syncUserInfo {
+                
+            }
+        })
         var items:[Item] = [
             Item(viewController: ReviewsViewController.viewController,
                  title: "review".localized,

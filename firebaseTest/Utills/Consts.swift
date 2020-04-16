@@ -68,6 +68,7 @@ struct Consts {
 /** 파이어베이스 스토리지 아이디*/
 struct FSCollectionName {
     #if DEBUG
+    static let IMAGE_INFO = "imageInfo_TEST"
     static let STORE_STOCK = "storeStock_TEST"
     static let JACKPOT = "jackPot_TEST"
     static let ADMIN = "admin_TEST"
@@ -79,6 +80,7 @@ struct FSCollectionName {
     static let NOTICE = "notice_TEST"
     static let REVIEW = "review_TEST"
     #else
+    static let IMAGE_INFO = "imageInfo"
     static let STORE_STOCK = "storeStock"
     static let JACKPOT = "jackPot"
     static let ADMIN = "admin"

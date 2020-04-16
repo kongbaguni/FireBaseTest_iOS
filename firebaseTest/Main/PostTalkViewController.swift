@@ -131,8 +131,10 @@ class PostTalkViewController: UITableViewController {
         sender.isEnabled = false
 
         func write() {
+            sender.isEnabled = false
             if self.documentId == nil {
-                TalkModel.create(text: text, image: self.selectedImage) { [weak self] (documentId) in
+                TalkModel.create(text: text, image: self.selectedImage) { [weak self, weak sender] (documentId) in
+                    sender?.isEnabled = true
                     if let point = self?.needPoint {
                             self?.navigationController?.popViewController(animated: true)
                             NotificationCenter.default.post(name: .postTalkNotification,
@@ -142,7 +144,7 @@ class PostTalkViewController: UITableViewController {
                     }
                 }
             } else {
-                self.document?.edit(text: text, image: self.selectedImage, complete: { [weak self](sucess) in
+                self.document?.edit(text: text, image: self.selectedImage, complete: { [weak self, weak sender](sucess) in
                     if sucess {
                         if let id = self?.documentId, let point = self?.needPoint {
                             self?.navigationController?.popViewController(animated: true)
@@ -151,6 +153,8 @@ class PostTalkViewController: UITableViewController {
                                                              userInfo:["talkId":id,"point":point]
                             )
                         }
+                    } else {
+                        sender?.isEnabled = true
                     }
                 })
             }

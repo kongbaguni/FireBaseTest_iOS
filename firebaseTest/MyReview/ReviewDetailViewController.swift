@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import RealmSwift
 import MapKit
+extension Notification.Name {
+    static let imageDownloadDidComplee = Notification.Name(rawValue: "imageDownloadDidComplete_observer")
+}
+
 
 class ReviewDetailViewController: UITableViewController {
     var reviewId:String? = nil
@@ -34,7 +38,11 @@ class ReviewDetailViewController: UITableViewController {
         NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: nil) { [weak self](_) in
             self?.tableView.reloadData()
         }
+        NotificationCenter.default.addObserver(forName: .imageDownloadDidComplee, object: nil, queue: nil) { [weak self] (_) in
+            self?.tableView.reloadData()
+        }
         title = review?.name
+        
     }    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -131,15 +139,27 @@ class ReviewDetailPhotoTableViewCell : UITableViewCell {
     }
     
     func setImage() {
+        if let size = ImageInfoModel.getSize(url: imageUrl?.absoluteString) {
+            setImageViewLayout(imageSize: size)
+        } else {
+            ImageInfoModel.getSize(url: imageUrl?.absoluteString) { [weak self](size) in
+                self?.setImageViewLayout(imageSize: size)
+            }
+        }
+        
         photoImageView?.kf.setImage(with: imageUrl, placeholder: UIImage.placeHolder_image, options: nil, progressBlock: nil
             , completionHandler: { [weak self] (_) in
+                ImageInfoModel.create(url: self?.imageUrl?.absoluteString, size: self?.photoImageView.image?.size)
                 self?.setImageViewLayout()
         })
     }
     
-    func setImageViewLayout() {
-        guard
-            let size = photoImageView?.image?.size else {
+    func setImageViewLayout(imageSize:CGSize? = nil) {
+        var s = imageSize
+        if let ss = photoImageView?.image?.size {
+            s = ss
+        }
+        guard let size = s else {
             return
         }
         let targetWidth = photoImageView.frame.size.width

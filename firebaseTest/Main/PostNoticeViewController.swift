@@ -68,20 +68,26 @@ class PostNoticeViewController: UITableViewController {
             return
         }
         
+        sender.isEnabled = false
         if let notice = self.notice {
-            notice.edit(title: title, text: text, isShow: isShowOptionSwitch.isOn) { [weak self] (sucess) in
+            notice.edit(title: title, text: text, isShow: isShowOptionSwitch.isOn) { [weak self, weak sender] (sucess) in
                 if sucess {
                     self?.loading.hide()
                     self?.exit()
                     NotificationCenter.default.post(name: .noticeUpdateNotification, object: nil, userInfo: nil)
                 }
+                else {
+                    sender?.isEnabled = true
+                }
             }
         } else {
-            NoticeModel.create(title: title, text: text, isShow: isShowOptionSwitch.isOn) { [weak self](sucess) in
+            NoticeModel.create(title: title, text: text, isShow: isShowOptionSwitch.isOn) { [weak self, weak sender](sucess) in
                 if sucess {
                     self?.loading.hide()
                     self?.exit()
                     NotificationCenter.default.post(name: .noticeUpdateNotification, object: nil, userInfo: nil)
+                } else {
+                    sender?.isEnabled = true
                 }
 
             }

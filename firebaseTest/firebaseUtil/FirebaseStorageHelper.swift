@@ -18,6 +18,7 @@ class FirebaseStorageHelper {
     let storageRef = Storage.storage().reference()
     
     func uploadImage(withData data:Data, contentType:String, uploadURL:String, complete:@escaping(_ downloadURL:URL?)->Void) {
+        
         let ref:StorageReference = storageRef.child(uploadURL)
         let metadata = StorageMetadata()
         metadata.contentType = contentType

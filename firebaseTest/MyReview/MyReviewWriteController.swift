@@ -191,8 +191,10 @@ class MyReviewWriteController: UITableViewController {
     }
     
     @objc func onTouchSaveBtn(_ sender:UIBarButtonItem) {
-        GameManager.shared.usePoint(point: self.needPoint) { [weak self] (sucess) in
+        sender.isEnabled = false
+        GameManager.shared.usePoint(point: self.needPoint) { [weak self, weak sender] (sucess) in
             guard let s = self else {
+                sender?.isEnabled = true
                 return
             }
             if sucess {
@@ -210,6 +212,8 @@ class MyReviewWriteController: UITableViewController {
                             s?.loading.hide()
                             if sucess {
                                 s?.navigationController?.popViewController(animated: true)
+                            } else {
+                                sender?.isEnabled = true
                             }
                     }
                 } else {
@@ -225,13 +229,17 @@ class MyReviewWriteController: UITableViewController {
                             s?.loading.hide()
                             if sucess {
                                 s?.navigationController?.popViewController(animated: true)
+                            } else {
+                                sender?.isEnabled = true
                             }
                     })
                 }
             }
             else {
-                GameManager.shared.showAd(popoverView: sender) {[weak self] in
-                    self?.onTouchSaveBtn(sender)
+                if let s = sender {
+                    GameManager.shared.showAd(popoverView: s) {[weak self] in
+                        self?.onTouchSaveBtn(s)
+                    }
                 }
             }
         }
