@@ -14,11 +14,8 @@ import RealmSwift
 
 class ReviewsMapCellTableViewCell: UITableViewCell {
     @IBOutlet weak var mapView:MKMapView!
-    @IBOutlet weak var button: UIButton!
-    let disposeBag = DisposeBag()
     
     var isSetPositionFirst = false
-
     
     func setDefaultPostion() {
         let camera = MKMapCamera()
@@ -32,13 +29,8 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
     }
 
     deinit {
+        mapView?.clearMemory()
         debugPrint("deinit ReviewsMapCellTableViewCell")
-    }
-    
-    override func willMove(toWindow newWindow: UIWindow?) {
-        if newWindow == nil {
-            mapView?.clearMemory()
-        }
     }
     
     override func didMoveToSuperview() {
@@ -48,9 +40,6 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
             self.addSubview(mapView)
         }
                 
-        button.rx.tap.bind { (_) in
-            self.setDefaultPostion()
-        }.disposed(by: disposeBag)
     }
     
     fileprivate var isAddObserver = false

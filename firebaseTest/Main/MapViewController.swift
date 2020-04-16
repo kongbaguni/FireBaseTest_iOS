@@ -39,6 +39,11 @@ class MapViewController: UIViewController {
         return list
     }
     
+    deinit {
+        mapView.clearMemory()
+        debugPrint("deinit MapViewController")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -90,13 +95,7 @@ class MapViewController: UIViewController {
             break
         }
     }
-    
-    override func willMove(toParent parent: UIViewController?) {
-        if parent == nil {
-            mapView.clearMemory()
-        }
-    }
-        
+            
 }
 
 extension MapViewController : MKMapViewDelegate {

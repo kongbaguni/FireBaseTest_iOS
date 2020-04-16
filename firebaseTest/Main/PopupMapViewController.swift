@@ -34,6 +34,11 @@ class PopupMapViewController: UIViewController {
     fileprivate var annTitle:String? = nil
     fileprivate let disposebag = DisposeBag()
     
+    deinit {
+        mapView.clearMemory()
+        debugPrint("deinit PopupMapViewController")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = title

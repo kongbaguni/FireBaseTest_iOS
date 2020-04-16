@@ -151,15 +151,9 @@
                                                 <constraint firstAttribute="height" constant="200" id="Lav-Hj-T1J"/>
                                             </constraints>
                                         </mapView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4v-Yq-Yvg">
-                                            <rect key="frame" x="30" y="21" width="46" height="30"/>
-                                            <state key="normal" title="Button"/>
-                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="u51-Sf-Ffv" firstAttribute="leading" secondItem="dYX-Xe-b3z" secondAttribute="leading" constant="10" id="3kf-6B-TKG"/>
-                                        <constraint firstItem="u4v-Yq-Yvg" firstAttribute="top" secondItem="dYX-Xe-b3z" secondAttribute="topMargin" constant="10" id="EeO-do-SEO"/>
-                                        <constraint firstItem="u4v-Yq-Yvg" firstAttribute="leading" secondItem="dYX-Xe-b3z" secondAttribute="leadingMargin" constant="10" id="RUM-66-B3C"/>
                                         <constraint firstAttribute="trailing" secondItem="u51-Sf-Ffv" secondAttribute="trailing" constant="10" id="cuS-GI-sx8"/>
                                         <constraint firstAttribute="bottom" secondItem="u51-Sf-Ffv" secondAttribute="bottom" constant="10" id="onY-tZ-TQp"/>
                                         <constraint firstItem="u51-Sf-Ffv" firstAttribute="top" secondItem="dYX-Xe-b3z" secondAttribute="top" constant="10" id="sUd-50-gZK"/>
@@ -167,7 +161,6 @@
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
-                                    <outlet property="button" destination="u4v-Yq-Yvg" id="qab-zs-HkP"/>
                                     <outlet property="mapView" destination="u51-Sf-Ffv" id="tXA-Dc-3Gr"/>
                                 </connections>
                             </tableViewCell>
