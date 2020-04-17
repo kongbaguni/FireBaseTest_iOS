@@ -45,6 +45,11 @@ class ReviewsTableViewCell: UITableViewCell {
                 self?.loadData()
             })
         }.disposed(by: disposeBag)
+        
+        NotificationCenter.default.addObserver(forName: .likeUpdateNotification, object: nil, queue: nil) { [weak self](_) in
+            self?.loadData()
+        }
+
     }
     
     override func layoutSubviews() {

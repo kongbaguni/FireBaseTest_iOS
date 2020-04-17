@@ -34,9 +34,9 @@ class ReviewHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if edits?[section].photoUrlList.count == 0 {
-            return 4
+            return 5
         }
-        return 5
+        return 6
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -59,6 +59,13 @@ class ReviewHistoryTableViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
+            if let lat = data?.location?.latitude,
+                let lng = data?.location?.longitude {
+                cell.textLabel?.text = "latitude:\(lat)\nlongitude:\(lng)"
+            }
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
             cell.textLabel?.text = data?.name
             if before?.name != data?.name {
                 cell.textLabel?.alpha = 1
@@ -66,7 +73,7 @@ class ReviewHistoryTableViewController: UITableViewController {
                 cell.textLabel?.alpha = 0.3
             }
             return cell
-        case 1:
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
             cell.textLabel?.text = data?.price.currencyFormatString
             if before?.price != data?.price {
@@ -75,7 +82,7 @@ class ReviewHistoryTableViewController: UITableViewController {
                 cell.textLabel?.alpha = 0.3
             }
             return cell
-        case 2:
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
             cell.textLabel?.text = nil
             let point = data?.starPoint ?? -1
@@ -88,7 +95,7 @@ class ReviewHistoryTableViewController: UITableViewController {
                 cell.textLabel?.alpha = 0.3
             }
             return cell
-        case 3:
+        case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
             cell.textLabel?.text = data?.comment
             if before?.comment != data?.comment {
@@ -97,7 +104,7 @@ class ReviewHistoryTableViewController: UITableViewController {
                 cell.textLabel?.alpha = 0.3
             }
             return cell
-        case 4:
+        case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! ReviewHistoryImageTableViewCell
             cell.images = data?.photoUrlList ?? []
             print(cell.images.count)
@@ -106,12 +113,24 @@ class ReviewHistoryTableViewController: UITableViewController {
             } else {
                 cell.collectionView.alpha = 0.3
             }
-            
-
             return cell
         default:
             return UITableViewCell()
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            let title = indexPath.row == 0 ? "posting location".localized : "editing location".localized
+            let vc = PopupMapViewController.viewController(coordinate: review?.location, title:title, annTitle: nil)
+            present(vc, animated: true, completion: nil)
+        default:
+            break
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+
     }
 }
 

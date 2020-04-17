@@ -11,6 +11,9 @@ import UIKit
 import RealmSwift
 import MapKit
 import Lightbox
+import RxSwift
+import RxCocoa
+
 
 extension Notification.Name {
     static let imageDownloadDidComplee = Notification.Name(rawValue: "imageDownloadDidComplete_observer")
@@ -19,6 +22,10 @@ extension Notification.Name {
 
 class ReviewDetailViewController: UITableViewController {
     @IBOutlet weak var historyBtn: UIButton!
+    @IBOutlet weak var likeBtn: UIButton!
+    
+    let disposeBag = DisposeBag()
+    
     var reviewId:String? = nil
     var review:ReviewModel? {
         if let id = reviewId {
@@ -46,8 +53,31 @@ class ReviewDetailViewController: UITableViewController {
             self?.tableView.reloadData()
         }
         title = review?.name
+        setTitle()
+        likeBtn.rx.tap.bind { (_) in
+            self.likeBtn.isEnabled = false
+            self.review?.toggleLike(complete: {[weak self] (isLike) in
+                self?.likeBtn.isEnabled = true
+            })
+        }.disposed(by: disposeBag)
+        
+        NotificationCenter.default.addObserver(forName: .likeUpdateNotification, object: nil, queue: nil) { [weak self](_) in
+            self?.setTitle()
+            self?.tableView.reloadSections(IndexSet(arrayLiteral: 4), with: .automatic)
+        }
+    }
+    
+    func setTitle() {
         historyBtn.setTitle("edit history".localized, for: .normal)
-    }    
+        
+        let likeCount = review?.likeList.count ?? 0
+        var msg = String(format:"like : %@".localized, likeCount.decimalForamtString)
+        if review?.likeList.filter("creatorId = %@",UserInfo.info?.id ?? "").count != 0 {
+            msg = String(format:"liked : %@".localized, likeCount.decimalForamtString)
+        }
+        likeBtn.setTitle(msg, for: .normal)
+        likeBtn.setTitle("♡ " + "processing...".localized, for: .disabled)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -132,12 +162,17 @@ class ReviewDetailViewController: UITableViewController {
             }
             return cell
         case 4:
-            let like = review?.likeList[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: "profile", for: indexPath) as! ReviewDetailProfileTableViewCell
-            cell.profileImageView.kf.setImage(with: like?.creator?.profileImageURL, placeholder: UIImage.placeHolder_profile)
-            cell.nameLabel.text = like?.creator?.name
-            cell.dateLabel.text = like?.regDt?.simpleFormatStringValue
-            return cell
+            let count = review?.likeList.count ?? 0
+            if indexPath.row < count {
+                let like = review?.likeList[indexPath.row]
+                let cell = tableView.dequeueReusableCell(withIdentifier: "profile", for: indexPath) as! ReviewDetailProfileTableViewCell
+                cell.profileImageView.kf.setImage(with: like?.creator?.profileImageURL, placeholder: UIImage.placeHolder_profile)
+                cell.nameLabel.text = like?.creator?.name
+                cell.dateLabel.text = like?.regDt?.simpleFormatStringValue
+                return cell
+            } else {
+                return UITableViewCell()
+            }
         default:
             return UITableViewCell()
         }
@@ -162,9 +197,7 @@ class ReviewDetailViewController: UITableViewController {
                 tableView.deselectRow(at: indexPath, animated: true)
             }
         case 3:
-            let isEdited = review?.regTimeIntervalSince1970 != review?.modifiedTimeIntervalSince1970
-            let title = isEdited ? "editing location".localized :  "posting location".localized
-            
+            let title = "posting location".localized
             let vc = PopupMapViewController.viewController(coordinate: review?.location, title: title, annTitle: review?.name)
             present(vc, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)
@@ -186,11 +219,11 @@ class ReviewDetailViewController: UITableViewController {
         case 1:
             return "review".localized
         case 3:
-            if review?.regTimeIntervalSince1970 != review?.modifiedTimeIntervalSince1970 {
-                return "editing location".localized
-            }
             return "posting location".localized
         case 4:
+            if review?.likeList.count == 0 {
+                return nil
+            }
             return "like peoples".localized
         default:
             return nil

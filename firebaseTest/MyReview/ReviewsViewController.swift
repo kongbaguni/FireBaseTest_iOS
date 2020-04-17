@@ -33,7 +33,7 @@ class ReviewsViewController : UITableViewController {
         let minlng = lng - 0.005
         let maxlng = lng + 0.005
         return try! Realm().objects(ReviewModel.self)
-            .filter("lat > %@ && lat < %@ && lng > %@ && lng < %@",minlat, maxlat, minlng, maxlng)
+            .filter("reg_lat > %@ && reg_lat < %@ && reg_lng > %@ && reg_lng < %@",minlat, maxlat, minlng, maxlng)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

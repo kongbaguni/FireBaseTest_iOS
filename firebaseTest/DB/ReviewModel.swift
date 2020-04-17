@@ -14,13 +14,17 @@ import FirebaseFirestore
 extension Notification.Name {
     static let reviewWriteNotification = Notification.Name("reviewWriteNotification_observer")
     static let reviewEditNotification = Notification.Name("reviewEditNotification_observer")
+    static let likeUpdateNotification = Notification.Name("likeUpdateNotification_observer")
 }
 
 class ReviewModel: Object {
     @objc dynamic var id:String = ""
     @objc dynamic var creatorId:String = ""
-    @objc dynamic var lat:Double = 0
-    @objc dynamic var lng:Double = 0
+    @objc dynamic var reg_lat:Double = 0
+    @objc dynamic var reg_lng:Double = 0
+    @objc dynamic var modified_lat:Double = 0
+    @objc dynamic var modified_lng:Double = 0
+
     @objc dynamic var name:String = ""
     @objc dynamic var starPoint:Int = 0
     @objc dynamic var comment:String = ""
@@ -54,8 +58,8 @@ class ReviewModel: Object {
 
 class ReviewEditModel : Object {
     @objc dynamic var id:String = ""
-    @objc dynamic var lat:Double = 0
-    @objc dynamic var lng:Double = 0
+    @objc dynamic var modified_lat:Double = 0
+    @objc dynamic var modified_lng:Double = 0
     @objc dynamic var name:String = ""
     @objc dynamic var starPoint:Int = 0
     @objc dynamic var comment:String = ""
@@ -71,11 +75,12 @@ extension ReviewModel {
     var creator:UserInfo? {
         return try! Realm().object(ofType: UserInfo.self, forPrimaryKey: self.creatorId)
     }
+    
     var location:CLLocationCoordinate2D? {
-        if lat == 0 && lng == 0 {
+        if reg_lat == 0 && reg_lng == 0 {
             return nil
         }
-        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        return CLLocationCoordinate2D(latitude: reg_lat, longitude: reg_lng)
     }
     
     var photoUrlList:[URL] {
@@ -144,8 +149,8 @@ extension ReviewModel {
                 "price":price,
                 "regTimeIntervalSince1970": now,
                 "modifiedTimeIntervalSince1970": now,
-                "lat":UserDefaults.standard.lastMyCoordinate?.latitude ?? 0,
-                "lng":UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
+                "reg_lat":UserDefaults.standard.lastMyCoordinate?.latitude ?? 0,
+                "reg_lng":UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
             ]
             if uploadImages.count > 0 {
                 data["photoUrls"] = uploadImages.stringValue
@@ -181,8 +186,8 @@ extension ReviewModel {
         func update(addPhotoUrls:[String]) {
             var data:[String:Any] = [
                 "id" : editId,
-                "lat" : UserDefaults.standard.lastMyCoordinate?.latitude ?? 0,
-                "lng" : UserDefaults.standard.lastMyCoordinate?.longitude ?? 0,
+                "modified_lat" : UserDefaults.standard.lastMyCoordinate?.latitude ?? 0,
+                "modified_lng" : UserDefaults.standard.lastMyCoordinate?.longitude ?? 0,
                 "name" : name ?? self.name,
                 "starPoint" : starPoint ?? self.starPoint,
                 "comment" : comment ?? self.comment,
@@ -318,6 +323,7 @@ extension ReviewModel {
                     doc.collection("like").document(likeId).setData(likeData) { (error) in
                         if error == nil {
                             makeLikes { (sucess) in
+                                NotificationCenter.default.post(name: .likeUpdateNotification, object: nil, userInfo: nil)
                                 complete(true)
                             }
                         }
@@ -328,6 +334,7 @@ extension ReviewModel {
                     doc.collection("like").document(data.documentID).delete { (error) in
                         if error == nil {
                             makeLikes { (sucess) in
+                                NotificationCenter.default.post(name: .likeUpdateNotification, object: nil, userInfo: nil)
                                 complete(false)
                             }
                         }
@@ -367,4 +374,12 @@ extension ReviewEditModel {
         }
         return Date(timeIntervalSince1970: modifiedTimeIntervalSince1970)
     }
+    
+    var location:CLLocationCoordinate2D? {
+        if modified_lat == 0 && modified_lng == 0 {
+            return nil
+        }
+        return CLLocationCoordinate2D(latitude: modified_lat, longitude: modified_lng)
+    }
+
 }

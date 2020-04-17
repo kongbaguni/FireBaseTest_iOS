@@ -13,7 +13,7 @@
         <scene sceneID="vKU-hn-wh1">
             <objects>
                 <tableViewController id="4Dw-tv-41r" customClass="ReviewHistoryTableViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ifc-0d-aQ1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ifc-0d-aQ1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -121,23 +121,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="1Ok-N7-Lkx">
-                            <rect key="frame" x="0.0" y="713.5" width="414" height="40"/>
+                            <rect key="frame" x="0.0" y="713.5" width="414" height="70"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tx-mN-GV3">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tx-mN-GV3">
+                                    <rect key="frame" x="20" y="40" width="46" height="30"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
                                         <segue destination="4Dw-tv-41r" kind="show" identifier="showHistory" id="u6B-6G-Yp1"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLa-Js-4uL">
+                                    <rect key="frame" x="20" y="0.0" width="46" height="30"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstItem="8tx-mN-GV3" firstAttribute="top" secondItem="1Ok-N7-Lkx" secondAttribute="top" id="DLk-PF-GuI"/>
-                                <constraint firstItem="8tx-mN-GV3" firstAttribute="leading" secondItem="5vg-zb-Fjk" secondAttribute="leading" id="Mzx-m2-aHH"/>
-                                <constraint firstItem="5vg-zb-Fjk" firstAttribute="trailing" secondItem="8tx-mN-GV3" secondAttribute="trailing" id="Vt2-pf-0wz"/>
+                                <constraint firstItem="5vg-zb-Fjk" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mLa-Js-4uL" secondAttribute="trailing" constant="20" id="6CF-eR-cBP"/>
+                                <constraint firstItem="8tx-mN-GV3" firstAttribute="leading" secondItem="5vg-zb-Fjk" secondAttribute="leading" constant="20" id="Mzx-m2-aHH"/>
+                                <constraint firstItem="mLa-Js-4uL" firstAttribute="top" secondItem="5vg-zb-Fjk" secondAttribute="top" id="OgM-Om-eVD"/>
+                                <constraint firstItem="5vg-zb-Fjk" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8tx-mN-GV3" secondAttribute="trailing" constant="20" id="Vt2-pf-0wz"/>
+                                <constraint firstItem="8tx-mN-GV3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mLa-Js-4uL" secondAttribute="bottom" id="jhy-nK-o42"/>
                                 <constraint firstItem="5vg-zb-Fjk" firstAttribute="bottom" secondItem="8tx-mN-GV3" secondAttribute="bottom" id="leX-v4-LfU"/>
+                                <constraint firstItem="mLa-Js-4uL" firstAttribute="leading" secondItem="5vg-zb-Fjk" secondAttribute="leading" constant="20" id="ug4-bh-gMx"/>
                             </constraints>
                             <viewLayoutGuide key="safeArea" id="5vg-zb-Fjk"/>
                         </view>
@@ -291,6 +298,7 @@
                     <navigationItem key="navigationItem" id="Kbp-9f-njg"/>
                     <connections>
                         <outlet property="historyBtn" destination="8tx-mN-GV3" id="C7B-Vy-000"/>
+                        <outlet property="likeBtn" destination="mLa-Js-4uL" id="jNd-A4-M8f"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b7g-Ne-mj4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
