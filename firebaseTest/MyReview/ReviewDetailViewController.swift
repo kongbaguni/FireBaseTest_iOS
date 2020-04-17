@@ -18,6 +18,7 @@ extension Notification.Name {
 
 
 class ReviewDetailViewController: UITableViewController {
+    @IBOutlet weak var historyBtn: UIButton!
     var reviewId:String? = nil
     var review:ReviewModel? {
         if let id = reviewId {
@@ -31,12 +32,13 @@ class ReviewDetailViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
         NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: nil) { [weak self](_) in
             self?.tableView.reloadData()
         }
@@ -44,9 +46,19 @@ class ReviewDetailViewController: UITableViewController {
             self?.tableView.reloadData()
         }
         title = review?.name
-        
+        historyBtn.setTitle("edit history".localized, for: .normal)
     }    
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showHistory":
+            if let vc = segue.destination as? ReviewHistoryTableViewController {
+                vc.reviewId = self.reviewId
+            }
+        default:
+            break
+        }
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -57,6 +69,8 @@ class ReviewDetailViewController: UITableViewController {
             return 5
         case 3:
             return 1
+        case 4:
+            return review?.likeList.count ?? 0
         default:
             return 0
         }
@@ -117,7 +131,13 @@ class ReviewDetailViewController: UITableViewController {
                 cell.setAnnotation(reviewIds: [id], isForce: false)
             }
             return cell
-
+        case 4:
+            let like = review?.likeList[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "profile", for: indexPath) as! ReviewDetailProfileTableViewCell
+            cell.profileImageView.kf.setImage(with: like?.creator?.profileImageURL, placeholder: UIImage.placeHolder_profile)
+            cell.nameLabel.text = like?.creator?.name
+            cell.dateLabel.text = like?.regDt?.simpleFormatStringValue
+            return cell
         default:
             return UITableViewCell()
         }
@@ -148,11 +168,35 @@ class ReviewDetailViewController: UITableViewController {
             let vc = PopupMapViewController.viewController(coordinate: review?.location, title: title, annTitle: review?.name)
             present(vc, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)
+        case 4:
+            let user = self.review?.likeList[indexPath.row]
+            let vc = StatusViewController.viewController(withUserId: user?.creatorId)
+            present(vc, animated: true, completion: nil)
         default:
             tableView.deselectRow(at: indexPath, animated: true)
             break
         }
+        
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "creator".localized
+        case 1:
+            return "review".localized
+        case 3:
+            if review?.regTimeIntervalSince1970 != review?.modifiedTimeIntervalSince1970 {
+                return "editing location".localized
+            }
+            return "posting location".localized
+        case 4:
+            return "like peoples".localized
+        default:
+            return nil
+        }
+    }
+    
 }
 
 class ReviewDetailProfileTableViewCell : UITableViewCell {

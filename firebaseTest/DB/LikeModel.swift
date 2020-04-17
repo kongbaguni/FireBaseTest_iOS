@@ -14,6 +14,13 @@ class LikeModel: Object {
     @objc dynamic var targetId:String = ""
     @objc dynamic var regTimeIntervalSince1970:Double = 0
     
+    var regDt:Date? {
+        if regTimeIntervalSince1970 == 0 {
+            return nil
+        }
+        return Date(timeIntervalSince1970: regTimeIntervalSince1970)
+    }
+    
     override static func primaryKey() -> String? {
         return "id"
     }

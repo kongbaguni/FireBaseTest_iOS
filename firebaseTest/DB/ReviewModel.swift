@@ -49,6 +49,7 @@ class ReviewModel: Object {
         }
         return Date(timeIntervalSince1970: modifiedTimeIntervalSince1970)
     }
+    
 }
 
 class ReviewEditModel : Object {
@@ -60,7 +61,7 @@ class ReviewEditModel : Object {
     @objc dynamic var comment:String = ""
     @objc dynamic var price:Int = 0
     @objc dynamic var photoUrls:String = ""
-    @objc dynamic var regTimeIntervalSince1970:Double = 0
+    @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -84,7 +85,9 @@ extension ReviewModel {
                 result.append (url)
             }
         }
-        return result
+        return result.sorted { (a, b) -> Bool in
+            return a.absoluteString > b.absoluteString
+        }
     }
 }
 
@@ -202,6 +205,7 @@ extension ReviewModel {
                     let realm = try! Realm()
                     realm.beginWrite()
                     let model = realm.create(ReviewEditModel.self, value: data, update: .all)
+                    print("photos : \(model.photoUrlList.count)")
                     if let doc = realm.object(ofType: ReviewModel.self, forPrimaryKey: docId) {
                         doc.editList.append(model)
                     }
@@ -212,7 +216,8 @@ extension ReviewModel {
                         document.updateData(data) { (complete) in
                             let realm = try! Realm()
                             realm.beginWrite()
-                            realm.create(ReviewModel.self, value: data, update: .modified)
+                            let reviewModel = realm.create(ReviewModel.self, value: data, update: .modified)
+                            print("photos : \(reviewModel.photoUrlList.count)")
                             try! realm.commitWrite()
                             NotificationCenter.default.post(name: .reviewEditNotification, object: docId)
                         }
@@ -251,6 +256,7 @@ extension ReviewModel {
                             let realm = try! Realm()
                             let review = realm.object(ofType: ReviewModel.self, forPrimaryKey: reviewId)
                             realm.beginWrite()
+                            review?.editList.removeAll()
                             if let editData = snapShot {
                                 for edoc in editData.documents {
                                     let editModel = realm.create(ReviewEditModel.self, value: edoc.data(), update: .all)
@@ -337,5 +343,28 @@ extension ReviewModel {
         
         
         
+    }
+}
+
+
+extension ReviewEditModel {
+    var photoUrlList:[URL] {
+        var result:[URL] = []
+        for str in photoUrls.components(separatedBy: ",") {
+            if let url = URL(string: str) {
+                result.append (url)
+            }
+        }
+        
+        return result.sorted { (a, b) -> Bool in
+            return a.absoluteString > b.absoluteString
+        }
+    }
+    
+    var modifiedDt:Date? {
+        if modifiedTimeIntervalSince1970 == 0 {
+            return nil
+        }
+        return Date(timeIntervalSince1970: modifiedTimeIntervalSince1970)
     }
 }
