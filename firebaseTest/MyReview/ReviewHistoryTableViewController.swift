@@ -122,7 +122,7 @@ class ReviewHistoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let title = indexPath.row == 0 ? "posting location".localized : "editing location".localized
+            let title = indexPath.section == 0 ? "posting location".localized : "editing location".localized
             let vc = PopupMapViewController.viewController(coordinate: review?.location, title:title, annTitle: nil)
             present(vc, animated: true, completion: nil)
         default:
