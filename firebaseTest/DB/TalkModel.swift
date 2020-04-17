@@ -379,7 +379,7 @@ extension TalkModel {
                 data["gameResultBase64encodingSting"] = game
             }
             if let url = uploadUrl {
-                data["imageUrl"] = url
+                data["imageUrl"] = url.absoluteString
             }
             FS.store.collection(FSCollectionName.TALKS).document(id).setData(data) { (error) in
                 if error == nil {
