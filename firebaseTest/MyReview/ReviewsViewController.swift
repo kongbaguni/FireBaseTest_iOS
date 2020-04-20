@@ -83,7 +83,7 @@ class ReviewsViewController : UITableViewController {
             self?.searchText = string
             self?.tableView.reloadData()
         }.disposed(by: disposeBag)
-
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

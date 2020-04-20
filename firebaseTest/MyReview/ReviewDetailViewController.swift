@@ -81,11 +81,13 @@ class ReviewDetailViewController: UITableViewController {
             self.review?.toggleLike(complete: { (isLike) in
             })
         }))
-        vc.addAction(UIAlertAction(title: "edit".localized, style: .default, handler: { (action) in
-            let vc = MyReviewWriteController.viewController
-            vc.reviewId = self.reviewId
-            self.present(vc, animated: true, completion: nil)
-        }))
+        if review?.creatorId == UserInfo.info?.id {
+            vc.addAction(UIAlertAction(title: "edit".localized, style: .default, handler: { (action) in
+                let vc = MyReviewWriteController.viewController
+                vc.reviewId = self.reviewId
+                self.present(vc, animated: true, completion: nil)
+            }))
+        }
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)
     }

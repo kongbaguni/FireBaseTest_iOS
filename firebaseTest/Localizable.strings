@@ -242,3 +242,5 @@
 "processing..." = "요청 처리중...";
 "regDt" = "등록시각";
 "editDt" = "수정시각";
+"address" = "주소";
+

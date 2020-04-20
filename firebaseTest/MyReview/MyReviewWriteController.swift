@@ -42,6 +42,7 @@ class MyReviewWriteController: UITableViewController {
     }
     
     @IBOutlet weak var needPointLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var starPoiontLabel: UILabel!
@@ -55,10 +56,35 @@ class MyReviewWriteController: UITableViewController {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
+    @IBOutlet weak var addressTextField: UITextField!
     let disposBag = DisposeBag()
     
     let loading = Loading()
     let starPointPicker = UIPickerView()
+    let addressPicker = UIPickerView()
+    
+    var place_ids:[String]? = nil {
+        didSet {
+            if place_id == nil {
+                place_id = place_ids?.first
+            }
+        }
+    }
+    
+    var place_id:String? = nil {
+        didSet {
+            DispatchQueue.main.async {
+                self.addressTextField?.text = self.selectedAddr?.formatted_address
+            }            
+        }
+    }
+    
+    var selectedAddr: AddressModel? {
+        if let id = place_id {
+            return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: id)
+        }
+        return nil
+    }
     
     class SelectImages {
         let image:UIImage?
@@ -115,13 +141,22 @@ class MyReviewWriteController: UITableViewController {
     override func viewDidLoad() {
         title = "write review".localized
         super.viewDidLoad()
-        for view in [nameTextField, priceTextField, pointTextField, commentTextView] {
+        
+        ApiManager.shard.getAddresFromGeo(coordinate: UserDefaults.standard.lastMyCoordinate) { (ids) in
+            self.place_ids = ids
+        }
+        
+        for view in [addressTextField,nameTextField, priceTextField, pointTextField, commentTextView] {
             view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
         }
         setTitle()
         pointTextField.inputView = starPointPicker
         starPointPicker.dataSource = self
         starPointPicker.delegate = self
+        
+        addressTextField.inputView = addressPicker
+        addressPicker.dataSource = self
+        addressPicker.delegate = self
         
         imageAddBtn.rx.tap.bind { (_) in
             let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -208,7 +243,9 @@ class MyReviewWriteController: UITableViewController {
                         starPoint: point,
                         comment: s.commentTextView.text!,
                         price: price,
-                        photos: s.newImages.imgDataArray) { [weak s] (sucess) in
+                        photos: s.newImages.imgDataArray,
+                        place_id: self?.place_id ?? ""
+                        ) { [weak s] (sucess) in
                             s?.loading.hide()
                             if sucess {
                                 s?.navigationController?.popViewController(animated: true)
@@ -251,6 +288,7 @@ class MyReviewWriteController: UITableViewController {
         priceLabel.text = "price".localized
         starPoiontLabel.text = "starPoint".localized
         commentLabel.text = "comment".localized
+        addressLabel.text = "address".localized
     }
     
     func loadData() {
@@ -319,15 +357,42 @@ extension MyReviewWriteController : UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return  Consts.stars.count
+        switch pickerView {
+        case self.starPointPicker:
+            return  Consts.stars.count
+        case self.addressPicker:
+            return self.place_ids?.count ?? 0
+        default:
+            return 0
+        }
     }
 }
+
 extension MyReviewWriteController : UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return  Consts.stars[row]
+        switch pickerView {
+        case self.starPointPicker:
+            return Consts.stars[row]
+        case self.addressPicker:
+            if let id = self.place_ids?[row] {
+                let addr = try! Realm().object(ofType: AddressModel.self, forPrimaryKey: id)
+                return addr?.formatted_address
+            }
+            return nil
+        default:
+            return nil
+        }
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        pointTextField.text =  Consts.stars[row]
+        switch pickerView {
+        case self.starPointPicker:
+            pointTextField.text =  Consts.stars[row]
+        case self.addressPicker:
+            place_id = place_ids?[row]
+        default:
+            break
+        }
     }
 }
 
