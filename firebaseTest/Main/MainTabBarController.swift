@@ -44,7 +44,7 @@ class MainTabBarController: UITabBarController {
             let item = Item(viewController: StoresTableViewController.viewController,
                  title: "Mask now".localized,
                  image: #imageLiteral(resourceName: "dentist-mask"))
-            items.insert(item, at: 1)
+            items.insert(item, at: 0)
         }
         
         var viewControllers:[UIViewController] = []

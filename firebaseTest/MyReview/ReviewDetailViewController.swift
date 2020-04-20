@@ -34,6 +34,10 @@ class ReviewDetailViewController: UITableViewController {
         return nil
     }
     
+    var isLike:Bool {
+        return review?.likeList.filter("creatorId = %@",UserInfo.info?.id ?? "").count != 0
+    }
+    
     deinit {
         print("deinit ReviewDetailViewController")
     }
@@ -65,6 +69,25 @@ class ReviewDetailViewController: UITableViewController {
             self?.setTitle()
             self?.tableView.reloadSections(IndexSet(arrayLiteral: 4), with: .automatic)
         }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButton(_:)))
+    }
+    
+    @objc func onTouchupRightBarButton(_ sender:UIBarButtonItem) {
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        vc.popoverPresentationController?.barButtonItem = sender
+        
+        vc.addAction(UIAlertAction(title: self.isLike ? "like cancel".localized : "like".localized,
+                                   style: .default, handler: { (action) in
+            self.review?.toggleLike(complete: { (isLike) in
+            })
+        }))
+        vc.addAction(UIAlertAction(title: "edit".localized, style: .default, handler: { (action) in
+            let vc = MyReviewWriteController.viewController
+            vc.reviewId = self.reviewId
+            self.present(vc, animated: true, completion: nil)
+        }))
+        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+        present(vc, animated: true, completion: nil)
     }
     
     func setTitle() {

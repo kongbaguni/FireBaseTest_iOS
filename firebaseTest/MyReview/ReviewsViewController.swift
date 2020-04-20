@@ -9,12 +9,18 @@
 import Foundation
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 extension Notification.Name {
     static let reviews_selectReviewInReviewList = Notification.Name("reviews_selectReviewInReviewList_observer")
 }
 
 class ReviewsViewController : UITableViewController {
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    let disposeBag = DisposeBag()
+    
     static var viewController : ReviewsViewController {
         if #available(iOS 13.0, *) {
             return UIStoryboard(name: "MyReview", bundle: nil).instantiateViewController(identifier: "reviews") as! ReviewsViewController
@@ -22,6 +28,8 @@ class ReviewsViewController : UITableViewController {
             return UIStoryboard(name: "MyReview", bundle: nil).instantiateViewController(withIdentifier: "reviews") as! ReviewsViewController
         }
     }
+    
+    var searchText:String? = nil
     
     var reviews:Results<ReviewModel>? {
         guard let lng = UserDefaults.standard.lastMyCoordinate?.longitude,
@@ -32,8 +40,15 @@ class ReviewsViewController : UITableViewController {
         let maxlat = lat + 0.005
         let minlng = lng - 0.005
         let maxlng = lng + 0.005
-        return try! Realm().objects(ReviewModel.self)
+        var result = try! Realm().objects(ReviewModel.self)
             .filter("reg_lat > %@ && reg_lat < %@ && reg_lng > %@ && reg_lng < %@",minlat, maxlat, minlng, maxlng)
+        
+        if let txt = searchText?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) {
+            if txt.isEmpty == false {
+                result = result.filter("name CONTAINS[c] %@ || comment CONTAINS[C] %@", txt, txt)
+            }
+        }
+        return result
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -42,6 +57,8 @@ class ReviewsViewController : UITableViewController {
     
     override func viewDidLoad() {
         title = "review".localized
+        searchBar.placeholder = "search review".localized
+        
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
         
@@ -62,6 +79,10 @@ class ReviewsViewController : UITableViewController {
         }) { (location) in
             self.tableView.reloadData()
         }
+        searchBar.rx.text.orEmpty.bind { [weak self] (string) in
+            self?.searchText = string
+            self?.tableView.reloadData()
+        }.disposed(by: disposeBag)
 
     }
     

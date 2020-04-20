@@ -22,7 +22,7 @@
 "like : " = "좋아요 : ";
 "liked : %@" = "♥ %@";
 "like : %@" = "♡ %@";
-"like" = "♡";
+"like" = "좋아요";
 "like cancel" = "좋아요 취소";
 "review" = "리뷰";
 "write talk" = "글 쓰기";
@@ -44,6 +44,7 @@
 "name search" = "이름 검색";
 "text search" = "내용 검색";
 "Search Store" = "상점 검색";
+"search review" = "리뷰 검색";
 "last update profile" = "최근 프로필 갱신시각";
 "last talk date" = "마지막으로 글 쓴 시각";
 "none" = "없음";

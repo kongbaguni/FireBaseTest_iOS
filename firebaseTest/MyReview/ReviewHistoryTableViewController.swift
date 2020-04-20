@@ -9,11 +9,8 @@
 import Foundation
 import UIKit
 import RealmSwift
-import RxSwift
-import RxCocoa
 
 class ReviewHistoryTableViewController: UITableViewController {
-    @IBOutlet weak var searchBar: UISearchBar!
     var reviewId:String? = nil
     var review:ReviewModel? {
         if let id = reviewId {
@@ -21,20 +18,14 @@ class ReviewHistoryTableViewController: UITableViewController {
         }
         return nil
     }
-    var filter:String? = nil
     
     var edits:Results<ReviewEditModel>? {
         return review?.editList.sorted(byKeyPath: "modifiedTimeIntervalSince1970")
     }
     
-    let disposeBag = DisposeBag()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "edit history".localized
-        searchBar.rx.text.orEmpty.bind { (string) in
-            self.filter = string
-        }.disposed(by: disposeBag)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
