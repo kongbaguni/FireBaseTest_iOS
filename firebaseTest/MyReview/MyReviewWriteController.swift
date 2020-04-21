@@ -43,6 +43,8 @@ class MyReviewWriteController: UITableViewController {
     
     @IBOutlet weak var needPointLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var address2Label: UILabel!
+    @IBOutlet weak var postalCodeLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var starPoiontLabel: UILabel!
@@ -53,10 +55,12 @@ class MyReviewWriteController: UITableViewController {
     @IBOutlet weak var pointTextField: UITextField!
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var imageAddBtn: UIButton!
+    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var address2TextField: UITextField!
+    @IBOutlet weak var postalCodeTextField: UITextField!
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
-    @IBOutlet weak var addressTextField: UITextField!
     let disposBag = DisposeBag()
     
     let loading = Loading()
@@ -66,7 +70,11 @@ class MyReviewWriteController: UITableViewController {
     var place_ids:[String]? = nil {
         didSet {
             if place_id == nil {
-                place_id = place_ids?.first
+                if let place = self.review?.reg_place {
+                    place_id = place.place_id
+                } else {
+                    place_id = place_ids?.first
+                }
             }
         }
     }
@@ -75,6 +83,7 @@ class MyReviewWriteController: UITableViewController {
         didSet {
             DispatchQueue.main.async {
                 self.addressTextField?.text = self.selectedAddr?.formatted_address
+                self.postalCodeTextField?.text = self.selectedAddr?.postal_code
             }            
         }
     }
@@ -141,12 +150,11 @@ class MyReviewWriteController: UITableViewController {
     override func viewDidLoad() {
         title = "write review".localized
         super.viewDidLoad()
-        
         ApiManager.shard.getAddresFromGeo(coordinate: UserDefaults.standard.lastMyCoordinate) { (ids) in
             self.place_ids = ids
         }
         
-        for view in [addressTextField,nameTextField, priceTextField, pointTextField, commentTextView] {
+        for view in [addressTextField, address2TextField, postalCodeTextField, nameTextField, priceTextField, pointTextField, commentTextView] {
             view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
         }
         setTitle()
@@ -244,7 +252,8 @@ class MyReviewWriteController: UITableViewController {
                         comment: s.commentTextView.text!,
                         price: price,
                         photos: s.newImages.imgDataArray,
-                        place_id: self?.place_id ?? ""
+                        place_id: self?.place_id ?? "" ,
+                        place_detail: self?.address2TextField.text ?? ""
                         ) { [weak s] (sucess) in
                             s?.loading.hide()
                             if sucess {
@@ -262,6 +271,8 @@ class MyReviewWriteController: UITableViewController {
                         price: price,
                         addphotos: s.newImages.imgDataArray,
                         deletePhotos: s.deletedImages,
+                        place_id: self?.place_id ?? "",
+                        place_detail: self?.address2TextField.text ?? "" ,
                         complete: { [weak s](sucess) in
                             s?.loading.hide()
                             if sucess {
@@ -289,6 +300,8 @@ class MyReviewWriteController: UITableViewController {
         starPoiontLabel.text = "starPoint".localized
         commentLabel.text = "comment".localized
         addressLabel.text = "address".localized
+        address2Label.text = "detail address".localized
+        postalCodeLabel.text = "postal_code".localized
     }
     
     func loadData() {
@@ -299,6 +312,8 @@ class MyReviewWriteController: UITableViewController {
             commentTextView.text = ""
             return
         }
+        place_id = data.place_id
+        address2TextField.text = data.place_detail
         nameTextField.text = data.name
         priceTextField.text = data.price.currencyFormatString
         pointTextField.text = data.starPoint.decimalForamtString

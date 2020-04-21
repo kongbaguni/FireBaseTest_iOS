@@ -22,11 +22,12 @@ class ReviewModel: Object {
     @objc dynamic var creatorId:String = ""
     @objc dynamic var reg_lat:Double = 0
     @objc dynamic var reg_lng:Double = 0
-    @objc dynamic var reg_place_id:String = ""
+    
+    @objc dynamic var place_id:String = ""
+    @objc dynamic var place_detail:String = ""
     
     @objc dynamic var modified_lat:Double = 0
     @objc dynamic var modified_lng:Double = 0
-    @objc dynamic var modified_place_id:String = ""
 
     @objc dynamic var name:String = ""
     @objc dynamic var starPoint:Int = 0
@@ -64,7 +65,8 @@ class ReviewEditModel : Object {
     @objc dynamic var id:String = ""
     @objc dynamic var modified_lat:Double = 0
     @objc dynamic var modified_lng:Double = 0
-    @objc dynamic var modified_place_id:String = ""
+    @objc dynamic var place_id:String = ""
+    @objc dynamic var place_detail:String = ""
     @objc dynamic var name:String = ""
     @objc dynamic var starPoint:Int = 0
     @objc dynamic var comment:String = ""
@@ -83,11 +85,11 @@ extension ReviewModel {
     }
     
     var modified_place:AddressModel? {
-        return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: modified_place_id)
+        return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: place_id)
     }
     
     var reg_place:AddressModel? {
-        return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: reg_place_id)
+        return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: place_id)
     }
     
     var location:CLLocationCoordinate2D? {
@@ -144,7 +146,15 @@ extension ReviewModel {
         upload()
     }
     
-    static func createReview(name:String,starPoint:Int,comment:String,price:Int,photos:[Data],place_id:String,complete:@escaping(_ isSucess:Bool)->Void) {
+    static func createReview(
+        name:String,
+        starPoint:Int,
+        comment:String,
+        price:Int,
+        photos:[Data],
+        place_id:String,
+        place_detail:String,
+        complete:@escaping(_ isSucess:Bool)->Void) {
         guard let creatorId = UserInfo.info?.id else {
             complete(false)
             return
@@ -165,7 +175,8 @@ extension ReviewModel {
                 "modifiedTimeIntervalSince1970": now,
                 "reg_lat":UserDefaults.standard.lastMyCoordinate?.latitude ?? 0,
                 "reg_lng":UserDefaults.standard.lastMyCoordinate?.longitude ?? 0,
-                "place_id":place_id
+                "place_id":place_id,
+                "place_detail":place_detail
             ]
             if uploadImages.count > 0 {
                 data["photoUrls"] = uploadImages.stringValue
@@ -177,10 +188,8 @@ extension ReviewModel {
                     realm.beginWrite()
                     let model = realm.create(ReviewModel.self, value: data, update: .all)
                     try! realm.commitWrite()
-                    model.edit(name: nil, starPoint: nil, comment: nil, price: nil, addphotos: [], deletePhotos: []) { (sucess) in
-                        complete(sucess)
-                        NotificationCenter.default.post(name: .reviewWriteNotification, object: model.id)
-                    }
+                    complete(true)
+                    NotificationCenter.default.post(name: .reviewWriteNotification, object: model.id)
                 } else {
                     complete(false)
                 }
@@ -195,7 +204,17 @@ extension ReviewModel {
         
     }
     
-    func edit(name:String?,starPoint:Int?,comment:String?,price:Int?,addphotos:[Data],deletePhotos:[String],complete:@escaping(_ isSucess:Bool)->Void) {
+    func edit(
+        name:String?,
+        starPoint:Int?,
+        comment:String?,
+        price:Int?,
+        addphotos:[Data],
+        deletePhotos:[String],
+        place_id:String,
+        place_detail:String,
+        complete:@escaping(_ isSucess:Bool)->Void) {
+        
         let editId = "\(creatorId)_\(UUID().uuidString)_\(Date().timeIntervalSince1970)"
         let docId = id
         func update(addPhotoUrls:[String]) {
@@ -207,7 +226,9 @@ extension ReviewModel {
                 "starPoint" : starPoint ?? self.starPoint,
                 "comment" : comment ?? self.comment,
                 "price" : price ?? self.price,
-                "modifiedTimeIntervalSince1970" : Date().timeIntervalSince1970
+                "modifiedTimeIntervalSince1970" : Date().timeIntervalSince1970,
+                "place_id" : place_id,
+                "place_detail" : place_detail
             ]
             
             var images = Set<String>(photoUrls.components(separatedBy: ","))
@@ -398,6 +419,6 @@ extension ReviewEditModel {
     }
 
     var modified_place:AddressModel? {
-        return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: modified_place_id)
+        return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: place_id)
     }
 }

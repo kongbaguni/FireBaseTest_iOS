@@ -78,7 +78,8 @@ class ApiManager {
             getAddress(nil)
             return
         }
-        let lang = Locale.current.languageCode ?? "ko"
+        
+        let lang = Locale.preferredLanguages.first ?? "ko"
         
         let url = "https://maps.googleapis.com/maps/api/geocode/json"
         AF

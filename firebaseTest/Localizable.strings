@@ -243,4 +243,6 @@
 "regDt" = "등록시각";
 "editDt" = "수정시각";
 "address" = "주소";
+"detail address" = "상세주소";
+"postal_code" = "우편번호";
 
