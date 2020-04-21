@@ -16,21 +16,17 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
     @IBOutlet weak var mapView:MKMapView!
     
     var isSetPositionFirst = false
-    let camera = MKMapCamera()
     
     var altitude:CLLocationDistance = 500 {
         didSet {
-            DispatchQueue.main.async {
-                if self.altitude < 500 {
-                    self.camera.altitude = 500
-                } else {
-                    self.camera.altitude = self.altitude
-                }
+            DispatchQueue.main.async {[weak self] in
+                self?.setDefaultPostion(altitude: self?.altitude)
             }
         }
     }
     
     func setDefaultPostion(altitude :CLLocationDistance? = nil) {
+        let camera = MKMapCamera()
         camera.altitude = altitude ?? self.altitude
         camera.pitch = 45
         camera.heading = 45

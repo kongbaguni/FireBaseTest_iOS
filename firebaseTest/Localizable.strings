@@ -34,7 +34,7 @@
 "reg : " = "등록 : ";
 "creator" = "작성자";
 "like peoples" = "좋아요 한 사람들";
-
+"place" = "위치";
 "posting location" = "글이 작성된 위치";
 "editing location" = "글이 수정된 위치";
 "edit history" = "수정 이력";

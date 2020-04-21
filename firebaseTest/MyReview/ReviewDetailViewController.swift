@@ -58,9 +58,9 @@ class ReviewDetailViewController: UITableViewController {
         }
         title = review?.name
         setTitle()
-        likeBtn.rx.tap.bind { (_) in
-            self.likeBtn.isEnabled = false
-            self.review?.toggleLike(complete: {[weak self] (isLike) in
+        likeBtn.rx.tap.bind { [weak self] (_) in
+            self?.likeBtn.isEnabled = false
+            self?.review?.toggleLike(complete: {[weak self] (isLike) in
                 self?.likeBtn.isEnabled = true
             })
         }.disposed(by: disposeBag)
@@ -251,7 +251,7 @@ class ReviewDetailViewController: UITableViewController {
         case 1:
             return "review".localized
         case 3:
-            return "posting location".localized
+            return "place".localized
         case 4:
             if review?.likeList.count == 0 {
                 return nil
