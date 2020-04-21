@@ -84,14 +84,10 @@ extension ReviewModel {
         return try! Realm().object(ofType: UserInfo.self, forPrimaryKey: self.creatorId)
     }
     
-    var modified_place:AddressModel? {
+    var place:AddressModel? {
         return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: place_id)
     }
-    
-    var reg_place:AddressModel? {
-        return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: place_id)
-    }
-    
+        
     var location:CLLocationCoordinate2D? {
         if reg_lat == 0 && reg_lng == 0 {
             return nil
@@ -113,6 +109,14 @@ extension ReviewModel {
 }
 
 extension ReviewModel {
+    var addressStringValue:String {
+        var result = place?.formatted_address ?? ""
+        if place_detail.isEmpty == false {
+            result += " \(place_detail)"
+        }
+        return result
+    }
+    
     fileprivate static func uploadImages(documentId:String,photos:[Data], complete:@escaping(_ uploadUrls:[String]?)->Void) {
         guard let creatorId = UserInfo.info?.id else {
             complete(nil)
@@ -391,6 +395,14 @@ extension ReviewModel {
 
 
 extension ReviewEditModel {
+    var addressStringValue:String {
+        var result = place?.formatted_address ?? ""
+        if place_detail.isEmpty == false {
+            result += " \(place_detail)"
+        }
+        return result
+    }
+    
     var photoUrlList:[URL] {
         var result:[URL] = []
         for str in photoUrls.components(separatedBy: ",") {
@@ -418,7 +430,7 @@ extension ReviewEditModel {
         return CLLocationCoordinate2D(latitude: modified_lat, longitude: modified_lng)
     }
 
-    var modified_place:AddressModel? {
+    var place:AddressModel? {
         return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: place_id)
     }
 }

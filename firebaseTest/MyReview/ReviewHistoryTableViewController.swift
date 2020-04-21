@@ -34,9 +34,9 @@ class ReviewHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if edits?[section].photoUrlList.count == 0 {
-            return 5
+            return 6            
         }
-        return 6
+        return 7
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -66,6 +66,16 @@ class ReviewHistoryTableViewController: UITableViewController {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
+            cell.textLabel?.text = data?.addressStringValue
+            if before?.addressStringValue != data?.addressStringValue {
+                cell.textLabel?.alpha = 1
+            } else {
+                cell.textLabel?.alpha = 0.3
+            }
+            return cell
+
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
             cell.textLabel?.text = data?.name
             if before?.name != data?.name {
                 cell.textLabel?.alpha = 1
@@ -73,7 +83,7 @@ class ReviewHistoryTableViewController: UITableViewController {
                 cell.textLabel?.alpha = 0.3
             }
             return cell
-        case 2:
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
             cell.textLabel?.text = data?.price.currencyFormatString
             if before?.price != data?.price {
@@ -82,7 +92,7 @@ class ReviewHistoryTableViewController: UITableViewController {
                 cell.textLabel?.alpha = 0.3
             }
             return cell
-        case 3:
+        case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
             cell.textLabel?.text = nil
             let point = data?.starPoint ?? -1
@@ -95,7 +105,7 @@ class ReviewHistoryTableViewController: UITableViewController {
                 cell.textLabel?.alpha = 0.3
             }
             return cell
-        case 4:
+        case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
             cell.textLabel?.text = data?.comment
             if before?.comment != data?.comment {
@@ -104,7 +114,7 @@ class ReviewHistoryTableViewController: UITableViewController {
                 cell.textLabel?.alpha = 0.3
             }
             return cell
-        case 5:
+        case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! ReviewHistoryImageTableViewCell
             cell.images = data?.photoUrlList ?? []
             print(cell.images.count)

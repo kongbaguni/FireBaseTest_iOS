@@ -74,11 +74,24 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
         for id in reviewIds {
         let review = try! Realm().object(ofType: ReviewModel.self, forPrimaryKey: id)
             if let location = review?.location {
+                func addPoint(coordinate:CLLocationCoordinate2D, title:String?) {
+                    let ann = MKPointAnnotation()
+                    ann.title = title
+                    ann.coordinate = coordinate
+                    mapView.addAnnotation(ann)
+                }
+                
                 let ann = MKPointAnnotation()
-                ann.coordinate = location
-                ann.title = review?.name
+                if let place = review?.place {
+                    addPoint(coordinate: place.location, title: "\(place.formatted_address) \(review?.place_detail ?? "")" )
+                    mapView.centerCoordinate = place.location
+                } else {
+                    addPoint(coordinate: location, title: review?.name)
+                    mapView.centerCoordinate = location
+                }
+                
                 mapView.addAnnotation(ann)
-                mapView.centerCoordinate = location
+                
             }
         }
     }

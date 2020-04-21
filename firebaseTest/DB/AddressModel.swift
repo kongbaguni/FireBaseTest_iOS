@@ -25,7 +25,9 @@ class AddressModel: Object {
     override static func primaryKey() -> String? {
         return "place_id"
     }
-    
+}
+
+extension AddressModel {
     static func makeData(place_id:String, formatted_address:String, viewport_southwest:CLLocationCoordinate2D, viewport_northeast:CLLocationCoordinate2D, location:CLLocationCoordinate2D, postal_code:String)->[String:Any] {
         return [
             "place_id":place_id,
@@ -56,5 +58,18 @@ class AddressModel: Object {
                 complete(nil)
             }
         }
+    }
+    
+    var location:CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: location_lat, longitude: location_lng)
+    }
+        
+    var viewPorts:[CLLocationCoordinate2D] {
+        return [
+            CLLocationCoordinate2D(latitude: viewport_northeast_lat, longitude: viewport_northeast_lng),
+            CLLocationCoordinate2D(latitude: viewport_northeast_lat, longitude: viewport_southwest_lng),
+            CLLocationCoordinate2D(latitude: viewport_southwest_lat, longitude: viewport_southwest_lng),
+            CLLocationCoordinate2D(latitude: viewport_southwest_lat, longitude: viewport_northeast_lng)
+        ]
     }
 }

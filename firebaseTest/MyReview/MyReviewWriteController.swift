@@ -70,7 +70,7 @@ class MyReviewWriteController: UITableViewController {
     var place_ids:[String]? = nil {
         didSet {
             if place_id == nil {
-                if let place = self.review?.reg_place {
+                if let place = self.review?.place {
                     place_id = place.place_id
                 } else {
                     place_id = place_ids?.first
@@ -150,7 +150,7 @@ class MyReviewWriteController: UITableViewController {
     override func viewDidLoad() {
         title = "write review".localized
         super.viewDidLoad()
-        ApiManager.shard.getAddresFromGeo(coordinate: UserDefaults.standard.lastMyCoordinate) { (ids) in
+        ApiManager.shard.getAddresFromGeo(coordinate: review?.place?.location ?? UserDefaults.standard.lastMyCoordinate) { (ids) in
             self.place_ids = ids
         }
         
