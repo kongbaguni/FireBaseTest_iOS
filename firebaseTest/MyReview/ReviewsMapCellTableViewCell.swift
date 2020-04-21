@@ -18,17 +18,20 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
     var isSetPositionFirst = false
     let camera = MKMapCamera()
     
-    var altitude:CLLocationDistance {
-        set {
-            camera.altitude = newValue
-        }
-        get {
-            return camera.altitude
+    var altitude:CLLocationDistance = 500 {
+        didSet {
+            DispatchQueue.main.async {
+                if self.altitude < 500 {
+                    self.camera.altitude = 500
+                } else {
+                    self.camera.altitude = self.altitude
+                }
+            }
         }
     }
     
-    func setDefaultPostion() {
-        camera.altitude = 1500
+    func setDefaultPostion(altitude :CLLocationDistance? = nil) {
+        camera.altitude = altitude ?? self.altitude
         camera.pitch = 45
         camera.heading = 45
         mapView?.camera = camera
@@ -56,17 +59,17 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
         if isAddObserver {
             return
         }
-        NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) { [weak self](notification) in
-            if self?.isSetPositionFirst == false {
-                self?.setDefaultPostion()
-                self?.isSetPositionFirst = true
-            }
-        }
-        NotificationCenter.default.addObserver(forName: .reviews_selectReviewInReviewList, object: nil, queue: nil) {[weak self](notification) in
-            if let ids = notification.userInfo?["ids"] as? [String], let isForce = notification.userInfo?["isForce"] as? Bool {
-                self?.setAnnotation(reviewIds: ids, isForce: isForce)
-            }
-        }
+//        NotificationCenter.default.addObserver(forName: .locationUpdateNotification, object: nil, queue: nil) { [weak self](notification) in
+//            if self?.isSetPositionFirst == false {
+//                self?.setDefaultPostion()
+//                self?.isSetPositionFirst = true
+//            }
+//        }
+//        NotificationCenter.default.addObserver(forName: .reviews_selectReviewInReviewList, object: nil, queue: nil) {[weak self](notification) in
+//            if let ids = notification.userInfo?["ids"] as? [String], let isForce = notification.userInfo?["isForce"] as? Bool {
+//                self?.setAnnotation(reviewIds: ids, isForce: isForce)
+//            }
+//        }
         isAddObserver = true
     }
     
@@ -94,7 +97,7 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
                 if let place = review?.place {
                     addPoint(coordinate: place.location, title: "\(place.formatted_address) \(review?.place_detail ?? "")" )
                     mapView.centerCoordinate = place.location
-                    camera.altitude = place.viewPortDistance
+                    altitude = place.viewPortDistance
                 } else {
                     addPoint(coordinate: location, title: review?.name)
                     mapView.centerCoordinate = location

@@ -76,6 +76,11 @@ extension AddressModel {
     var viewPortDistance:CLLocationDistance {
         let a = CLLocation(latitude: viewport_northeast_lat, longitude: viewport_northeast_lng)
         let b = CLLocation(latitude: viewport_southwest_lat, longitude: viewport_southwest_lng)
-        return a.distance(from: b)
+        
+        let distance = a.distance(from: b)
+        if distance < 600 {
+            return 600
+        }
+        return distance
     }
 }

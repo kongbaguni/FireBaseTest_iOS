@@ -187,10 +187,10 @@ class ReviewDetailViewController: UITableViewController {
             }
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "map", for: indexPath) as! ReviewsMapCellTableViewCell
-            cell.setDefaultPostion()
+            let altitude = review?.place?.viewPortDistance ?? 1000
+            cell.setDefaultPostion(altitude: altitude)
             if let id = self.reviewId {
                 cell.setAnnotation(reviewIds: [id], isForce: true)
-                cell.altitude = (review?.place?.viewPortDistance ?? 1500) + 100
             }
             return cell
         case 4:

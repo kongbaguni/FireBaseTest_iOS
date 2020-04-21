@@ -61,6 +61,8 @@ class ReviewsViewController : UITableViewController {
         
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = CGFloat.leastNormalMagnitude
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButtonItem(_:)))
         NotificationCenter.default.addObserver(forName: .reviewWriteNotification, object: nil, queue: nil) { [weak self] (notification) in
@@ -83,6 +85,7 @@ class ReviewsViewController : UITableViewController {
             self?.searchText = string
             self?.tableView.reloadData()
         }.disposed(by: disposeBag)
+        
         
     }
     
