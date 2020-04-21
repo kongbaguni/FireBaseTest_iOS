@@ -150,8 +150,14 @@ class MyReviewWriteController: UITableViewController {
     override func viewDidLoad() {
         title = "write review".localized
         super.viewDidLoad()
-        ApiManager.shard.getAddresFromGeo(coordinate: review?.place?.location ?? UserDefaults.standard.lastMyCoordinate) { (ids) in
-            self.place_ids = ids
+        if review?.place?.postal_code.isEmpty == false {
+            ApiManager.shard.getAddresFromGeo(coordinate: review?.place?.location ?? UserDefaults.standard.lastMyCoordinate) { (ids) in
+                self.place_ids = ids
+            }
+        } else {
+            ApiManager.shard.getAddresFromGeo(coordinate: UserDefaults.standard.lastMyCoordinate) { (ids) in
+                self.place_ids = ids
+            }
         }
         
         for view in [addressTextField, address2TextField, postalCodeTextField, nameTextField, priceTextField, pointTextField, commentTextView] {

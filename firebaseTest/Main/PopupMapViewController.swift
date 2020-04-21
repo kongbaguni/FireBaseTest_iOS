@@ -34,6 +34,8 @@ class PopupMapViewController: UIViewController {
     fileprivate var annTitle:String? = nil
     fileprivate let disposebag = DisposeBag()
     
+    var altitude:CLLocationDistance = 1500
+    
     deinit {
         mapView.clearMemory()
         debugPrint("deinit PopupMapViewController")
@@ -43,7 +45,7 @@ class PopupMapViewController: UIViewController {
         super.viewDidLoad()
         titleLabel.text = title
         let camera = MKMapCamera()
-        camera.altitude = 1500
+        camera.altitude = altitude
         camera.pitch = 45
         camera.heading = 45
         mapView.camera = camera

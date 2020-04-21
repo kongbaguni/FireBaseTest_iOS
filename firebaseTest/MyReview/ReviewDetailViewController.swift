@@ -69,6 +69,12 @@ class ReviewDetailViewController: UITableViewController {
             self?.setTitle()
             self?.tableView.reloadSections(IndexSet(arrayLiteral: 4), with: .automatic)
         }
+        
+        NotificationCenter.default.addObserver(forName: .reviewEditNotification, object: nil, queue: nil) { [weak self](_) in
+            self?.setTitle()
+            self?.tableView.reloadData()
+        }
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButton(_:)))
     }
     
@@ -85,7 +91,7 @@ class ReviewDetailViewController: UITableViewController {
             vc.addAction(UIAlertAction(title: "edit".localized, style: .default, handler: { (action) in
                 let vc = MyReviewWriteController.viewController
                 vc.reviewId = self.reviewId
-                self.present(vc, animated: true, completion: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
             }))
         }
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
@@ -183,7 +189,8 @@ class ReviewDetailViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "map", for: indexPath) as! ReviewsMapCellTableViewCell
             cell.setDefaultPostion()
             if let id = self.reviewId {
-                cell.setAnnotation(reviewIds: [id], isForce: false)
+                cell.setAnnotation(reviewIds: [id], isForce: true)
+                cell.altitude = (review?.place?.viewPortDistance ?? 1500) + 100
             }
             return cell
         case 4:

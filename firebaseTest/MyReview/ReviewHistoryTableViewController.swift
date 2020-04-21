@@ -34,7 +34,7 @@ class ReviewHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if edits?[section].photoUrlList.count == 0 {
-            return 6            
+            return 6
         }
         return 7
     }
@@ -62,6 +62,7 @@ class ReviewHistoryTableViewController: UITableViewController {
             if let lat = data?.location?.latitude,
                 let lng = data?.location?.longitude {
                 cell.textLabel?.text = "latitude:\(lat)\nlongitude:\(lng)"
+                cell.textLabel?.alpha = 0.3
             }
             return cell
         case 1:
@@ -130,10 +131,16 @@ class ReviewHistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = edits?[indexPath.section]
         switch indexPath.row {
         case 0:
             let title = indexPath.section == 0 ? "posting location".localized : "editing location".localized
             let vc = PopupMapViewController.viewController(coordinate: review?.location, title:title, annTitle: nil)
+            present(vc, animated: true, completion: nil)
+        case 1:
+            let title = data?.addressStringValue
+            let vc = PopupMapViewController.viewController(coordinate: data?.place?.location, title:title, annTitle: nil)
+            vc.altitude = data?.place?.viewPortDistance ?? 1500
             present(vc, animated: true, completion: nil)
         default:
             break

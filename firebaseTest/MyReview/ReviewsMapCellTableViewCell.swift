@@ -16,10 +16,19 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
     @IBOutlet weak var mapView:MKMapView!
     
     var isSetPositionFirst = false
+    let camera = MKMapCamera()
+    
+    var altitude:CLLocationDistance {
+        set {
+            camera.altitude = newValue
+        }
+        get {
+            return camera.altitude
+        }
+    }
     
     func setDefaultPostion() {
-        let camera = MKMapCamera()
-        camera.altitude = 500
+        camera.altitude = 1500
         camera.pitch = 45
         camera.heading = 45
         mapView?.camera = camera
@@ -85,11 +94,11 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
                 if let place = review?.place {
                     addPoint(coordinate: place.location, title: "\(place.formatted_address) \(review?.place_detail ?? "")" )
                     mapView.centerCoordinate = place.location
+                    camera.altitude = place.viewPortDistance
                 } else {
                     addPoint(coordinate: location, title: review?.name)
                     mapView.centerCoordinate = location
                 }
-                
                 mapView.addAnnotation(ann)
                 
             }

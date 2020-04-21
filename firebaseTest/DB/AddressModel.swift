@@ -72,4 +72,10 @@ extension AddressModel {
             CLLocationCoordinate2D(latitude: viewport_southwest_lat, longitude: viewport_northeast_lng)
         ]
     }
+    
+    var viewPortDistance:CLLocationDistance {
+        let a = CLLocation(latitude: viewport_northeast_lat, longitude: viewport_northeast_lng)
+        let b = CLLocation(latitude: viewport_southwest_lat, longitude: viewport_southwest_lng)
+        return a.distance(from: b)
+    }
 }
