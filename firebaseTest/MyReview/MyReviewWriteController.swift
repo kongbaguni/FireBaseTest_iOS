@@ -172,39 +172,42 @@ class MyReviewWriteController: UITableViewController {
         addressPicker.dataSource = self
         addressPicker.delegate = self
         
-        imageAddBtn.rx.tap.bind { (_) in
+        imageAddBtn.rx.tap.bind { [weak self] (_) in
+            guard let s = self else {
+                return
+            }
             let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: self.imageAddBtn)
+            vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: s.imageAddBtn)
             vc.addAction(UIAlertAction(title: "camera".localized, style: .default, handler: { (action) in
                 let picker = UIImagePickerController()
                 picker.sourceType = .camera
-                picker.delegate = self
-                self.present(picker, animated: true, completion: nil)
+                picker.delegate = s
+                s.present(picker, animated: true, completion: nil)
             }))
             vc.addAction(UIAlertAction(title: "photoLibrary".localized, style: .default, handler: { (_) in
                 let picker = UIImagePickerController()
                 picker.delegate = self
                 picker.sourceType = .photoLibrary
-                self.present(picker, animated: true, completion: nil)
+                s.present(picker, animated: true, completion: nil)
             }))
             vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-            self.present(vc, animated: true, completion: nil)
+            s.present(vc, animated: true, completion: nil)
         }.disposed(by: disposBag)
         
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
         
-        priceTextField.rx.text.orEmpty.bind { (query) in
+        priceTextField.rx.text.orEmpty.bind { [weak self] (query) in
             if query.count > 1 {
-                self.priceTextField.text = query.currencyIntValue.currencyFormatString
+                self?.priceTextField.text = query.currencyIntValue.currencyFormatString
             } else {
-                self.priceTextField.text = 0.currencyFormatString
+                self?.priceTextField.text = 0.currencyFormatString
             }
         }.disposed(by: disposBag)
         loadData()
         
-        commentTextView.rx.text.orEmpty.bind { (query) in
-            self.updateNeedPointLabel()
+        commentTextView.rx.text.orEmpty.bind { [weak self] (query) in
+            self?.updateNeedPointLabel()
         }.disposed(by: disposBag)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save".localized, style: .plain, target: self, action: #selector(self.onTouchSaveBtn(_:)))

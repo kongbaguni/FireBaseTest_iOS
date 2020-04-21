@@ -52,8 +52,8 @@ class StoreStockLogTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         onRefreshControl(UIRefreshControl())
         footerBtn.setTitle("show waitting log".localized, for: .normal)
-        footerBtn.rx.tap.bind { (_) in
-            self.performSegue(withIdentifier: "showWaitting", sender: nil)
+        footerBtn.rx.tap.bind { [weak self](_) in
+            self?.performSegue(withIdentifier: "showWaitting", sender: nil)
         }.disposed(by: self.disposeBag)
     }
     

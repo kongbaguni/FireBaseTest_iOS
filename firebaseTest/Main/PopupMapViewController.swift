@@ -60,9 +60,9 @@ class PopupMapViewController: UIViewController {
 
         closeBtn.setImage(.closeBtnImage_normal, for: .normal)
         closeBtn.setImage(.closeBtnImage_highlighted, for: .highlighted)
-        closeBtn.rx.tap.bind { (_) in
-            self.mapView.clearMemory()
-            self.dismiss(animated: true, completion: nil)
+        closeBtn.rx.tap.bind { [weak self](_) in
+            self?.mapView.clearMemory()
+            self?.dismiss(animated: true, completion: nil)
         }.disposed(by: disposebag)
  
         closeBtn.tintColor = .autoColor_text_color

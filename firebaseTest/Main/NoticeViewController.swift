@@ -49,17 +49,17 @@ class NoticeViewController: UIViewController {
             confirmBtn.setTitle("confirm".localized, for: .normal)
         }
         
-        confirmBtn.rx.tap.bind { (action) in
+        confirmBtn.rx.tap.bind {[weak self](action) in
             if Consts.isAdmin {
                 let vc = PostNoticeViewController.viewController
                 vc.noticeId = self.noticeId
                 let nc = UINavigationController(rootViewController: vc)
-                self.present(nc, animated: true, completion: nil)
+                self?.present(nc, animated: true, completion: nil)
             } else {
-                if self.notice?.isRead == false {
-                    self.notice?.read()
+                if self?.notice?.isRead == false {
+                    self?.notice?.read()
                 }
-                self.dismiss(animated: true, completion: nil)
+                self?.dismiss(animated: true, completion: nil)
             }
         }.disposed(by: disoposebag)
         

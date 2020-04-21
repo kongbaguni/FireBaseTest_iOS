@@ -38,9 +38,9 @@ class ReviewsTableViewCell: UITableViewCell {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        likeBtn.rx.tap.bind { (_) in
-            self.likeBtn.isEnabled = false
-            self.review?.toggleLike(complete: {[weak self] (isLike) in
+        likeBtn.rx.tap.bind { [weak self](_) in
+            self?.likeBtn.isEnabled = false
+            self?.review?.toggleLike(complete: {[weak self] (isLike) in
                 self?.likeBtn.isEnabled = true
                 self?.loadData()
             })

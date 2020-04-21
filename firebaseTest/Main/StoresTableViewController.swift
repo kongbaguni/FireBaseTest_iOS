@@ -85,11 +85,11 @@ class StoresTableViewController: UITableViewController {
         }
         
         footerBtn.setTitle("storeList footer btn title".localized, for: .normal)
-        footerBtn.rx.tap.bind { (_) in
+        footerBtn.rx.tap.bind { [weak self] (_) in
             let vc = WebViewController.viewController
             vc.title = "Food and Drug Administration Official Blog".localized
             vc.url = URL(string:"https://m.blog.naver.com/kfdazzang/221839489769")
-            self.navigationController?.pushViewController(vc, animated: true)
+            self?.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: self.disposebag)
     }
     
