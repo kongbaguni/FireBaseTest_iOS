@@ -23,7 +23,8 @@ fileprivate extension Array {
         var result:[Data] = []
         for item in self {
             if let img = item as? UIImage {
-                if let data = img.af.imageAspectScaled(toFit: CGSize(width: 1000, height: 1000)).jpegData(compressionQuality: 0.7) {
+                let newSize = img.size.resize(target: Consts.REVIEW_IMAGE_MAX_SIZE, isFit: true)
+                if let data = img.af.imageScaled(to: newSize).jpegData(compressionQuality: 0.7) {
                     result.append(data)
                 }
             }
@@ -441,16 +442,13 @@ extension MyReviewWriteController : UIImagePickerControllerDelegate {
         if let image = info[.originalImage] as? UIImage {
             let cropvc = CropViewController(croppingStyle: .default, image: image)
             cropvc.delegate = self
-            cropvc.aspectRatioLockEnabled = true
-            cropvc.customAspectRatio = CGSize(width:300,height:300)
             present(cropvc, animated: true, completion: nil)
         }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
-        
-        
+                
     }
 }
 

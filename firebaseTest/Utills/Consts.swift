@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 struct Consts {
     /** 상점 검색 범의 (미터 단위)*/
     static let DISTANCE_STORE_SEARCH:Int = 500
@@ -60,9 +61,10 @@ struct Consts {
     static var isAdmin:Bool {
         return UserInfo.info?.id == "kongbaguni@gmail.com"
     }
-        
-    
+            
     static let stars = ["⭐️","⭐️⭐️","⭐️⭐️⭐️","⭐️⭐️⭐️⭐️","⭐️⭐️⭐️⭐️⭐️"]
+    
+    static let REVIEW_IMAGE_MAX_SIZE = CGSize(width: 1000, height: 1000)
 }
 
 /** 파이어베이스 스토리지 아이디*/
