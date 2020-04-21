@@ -97,11 +97,17 @@ class MyReviewWriteController: UITableViewController {
     }
     
     class SelectImages {
-        let image:UIImage?
+        let data:Data?
         let path:String?
         init(image:UIImage?, path:String?) {
-            self.image = image
+            self.data = image?.pngData()
             self.path = path
+        }
+        var image:UIImage? {
+            if let d = self.data {
+                return UIImage(data: d)
+            }
+            return nil
         }
     }
     
@@ -217,14 +223,16 @@ class MyReviewWriteController: UITableViewController {
             if let cell = notification.object as? MyReviewWriteImageCollectionViewCell,
                 let s = self   {
                 
-                let path = cell.imageUrl
-                let image = path != nil ? nil : cell.imageView.image
-                let item = SelectImages(image: image, path: path)
+                let imageUrl = notification.userInfo?["imageUrl"] as? String
+                let image = cell.imageView.image
+                let item = SelectImages(image: image, path: imageUrl)
                 if let index = s.selectedImages.lastIndex(where: { (image) -> Bool in
-                    if image.image == item.image {
+                    
+                    if image.path == item.path && imageUrl?.isEmpty == false {
                         return true
                     }
-                    if image.path == item.path {
+                    
+                    else if image.data == item.data {
                         return true
                     }
                     else {
@@ -486,7 +494,9 @@ class MyReviewWriteImageCollectionViewCell : UICollectionViewCell {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         deleteButton.rx.tap.bind { (_) in
-            NotificationCenter.default.post(name: .image_delete_noti, object: self, userInfo: nil)
+            NotificationCenter.default.post(name: .image_delete_noti, object: self, userInfo: [
+                "imageUrl" : self.imageUrl ?? ""
+            ])
             
         }.disposed(by: disposeBag)
         deleteButton.tintColor = .autoColor_text_color
