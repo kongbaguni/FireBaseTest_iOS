@@ -80,18 +80,21 @@ class StoreWaittingTableViewController: UITableViewController {
         
         postLogBtn.rx.tap
             .bind { [weak self](_) in
+                guard let s = self else {
+                    return
+                }
                 let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                                 
                 for status in StoreWaitingModel.WaittingStatus.allCases {
                     ac.addAction(UIAlertAction(
                         title: status.rawValue.localized,
                         style: .default, handler: { (_) in
-                            self.postWaitting(status: status)
+                            s.postWaitting(status: status)
                     }))
                 }
                 ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-                ac.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: self.postLogBtn)
-                self?.present(ac, animated: true, completion: nil)
+                ac.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: s.postLogBtn)
+                s.present(ac, animated: true, completion: nil)
         }.disposed(by: disposebag)
         
         self.refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)

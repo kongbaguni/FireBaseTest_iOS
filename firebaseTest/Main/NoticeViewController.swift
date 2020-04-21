@@ -50,16 +50,19 @@ class NoticeViewController: UIViewController {
         }
         
         confirmBtn.rx.tap.bind {[weak self](action) in
+            guard let s = self else {
+                return
+            }
             if Consts.isAdmin {
                 let vc = PostNoticeViewController.viewController
-                vc.noticeId = self.noticeId
+                vc.noticeId = s.noticeId
                 let nc = UINavigationController(rootViewController: vc)
-                self?.present(nc, animated: true, completion: nil)
+                s.present(nc, animated: true, completion: nil)
             } else {
-                if self?.notice?.isRead == false {
-                    self?.notice?.read()
+                if s.notice?.isRead == false {
+                    s.notice?.read()
                 }
-                self?.dismiss(animated: true, completion: nil)
+                s.dismiss(animated: true, completion: nil)
             }
         }.disposed(by: disoposebag)
         
