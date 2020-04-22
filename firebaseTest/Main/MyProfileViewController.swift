@@ -25,7 +25,13 @@ class MyProfileViewController: UITableViewController {
         }
     }
     
-    private var profileImageBase64String:String? = nil
+    var profileImageUrl:URL? = nil {
+        didSet {
+            DispatchQueue.main.async {[weak self] in
+                self?.profileImageView?.kf.setImage(with: self?.profileImageUrl, placeholder: UIImage.placeHolder_profile)
+            }
+        }
+    }
     
     var hideLeaveCell = false
     
@@ -37,29 +43,11 @@ class MyProfileViewController: UITableViewController {
     var profileImageDeleteMode:ProfileImageDeleteMode? = nil {
         didSet {
             if profileImageDeleteMode != nil {
-                profileImage = nil
+                profileImageUrl = nil
             }
         }
     }
     
-    var profileImage:UIImage? {
-        get {
-            if let str = profileImageBase64String {
-                if let data = Data(base64Encoded: str) {
-                    return UIImage(data: data)
-                }
-            }
-            return nil
-        }
-        set {
-            let image = newValue?.af.imageAspectScaled(toFit: CGSize(width: 100, height: 100))
-            profileImageBase64String = image?.pngData()?.base64EncodedString()
-            profileImageView.setImage(image: image, placeHolder: #imageLiteral(resourceName: "profile"))
-            if image != nil {
-                profileImageDeleteMode = nil
-            }
-        }
-    }
     
     let dbCollection = FS.store.collection(FSCollectionName.USERS)
     
@@ -185,8 +173,9 @@ class MyProfileViewController: UITableViewController {
         view.endEditing(true)
         /** 이미지 업로드*/
         func uploadImage(complete:@escaping(_ imageUrl:String?)->Void) {
-            if let str = profileImageBase64String {
-                if let data = Data(base64Encoded: str) {
+            
+            if let url = profileImageUrl {
+                if let data = try? Data(contentsOf: url) {
                     FirebaseStorageHelper().uploadImage(
                         withData: data,
                         contentType: "image/png",
@@ -375,13 +364,15 @@ extension MyProfileViewController : CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         debugPrint(#function)
         cropViewController.dismiss(animated: true, completion: nil)
-        profileImage = image
+        let url = image.af.imageAspectScaled(toFill: Consts.PROFILE_IMAGE_SIZE).save(name: "profileImageTemp.png")
+        profileImageUrl = url
     }
     
     func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         debugPrint(#function)
         cropViewController.dismiss(animated: true, completion: nil)
-        profileImage = image
+        let url = image.af.imageAspectScaled(toFill: Consts.PROFILE_IMAGE_SIZE).save(name: "profileImageTemp.png")
+        profileImageUrl = url
     }
     
 }

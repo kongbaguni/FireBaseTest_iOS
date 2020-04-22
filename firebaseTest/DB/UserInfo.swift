@@ -167,7 +167,7 @@ class UserInfo : Object {
         name:String,
         searchDistance:Int,
         mapType:String,
-        profileImage:UIImage?,
+        profileImageURL:URL?,
         googleProfileUrl:String?,
         complete:@escaping(_ isNewUser:Bool?)->Void) {
         
@@ -217,10 +217,12 @@ class UserInfo : Object {
         }
         
         let fileUploadURL = "\(FSCollectionName.STORAGE_PROFILE_IMAGE)"
-        if let image = profileImage {
-            if let data = image.af.imageAspectScaled(toFit: CGSize(width: 500, height: 500)).jpegData(compressionQuality: 0.7) {
-                FirebaseStorageHelper().uploadImage(withData: data, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
-                    create(fileUrl: url)
+        if let url = profileImageURL {
+            if let d = try? Data(contentsOf: url) {
+                if let data = UIImage(data: d)?.af.imageAspectScaled(toFit: CGSize(width: 500, height: 500)).jpegData(compressionQuality: 0.7) {
+                    FirebaseStorageHelper().uploadImage(withData: data, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
+                        create(fileUrl: url)
+                    }
                 }
             }
         } else {

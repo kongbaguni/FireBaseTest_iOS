@@ -34,7 +34,7 @@ extension AuthDataResult {
                     }
                 } else {
                     UserInfo.createUser(email: email, name: name, searchDistance: Consts.SEARCH_DISTANCE_LIST.first!, mapType: UserInfo.MapType.standard.rawValue,
-                                        profileImage: nil, googleProfileUrl: profileUrl) { (isNewUser) in
+                                        profileImageURL: nil, googleProfileUrl: profileUrl) { (isNewUser) in
                                             saveToken(email: email)
                                             complete(isNewUser)
                     }

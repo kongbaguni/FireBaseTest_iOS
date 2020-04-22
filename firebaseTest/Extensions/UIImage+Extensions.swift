@@ -55,9 +55,11 @@ extension UIImage {
         }
         do {
             let imageURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(name)
+            try? FileManager.default.removeItem(at: imageURL)
             try imageData.write(to: imageURL)
             return imageURL
         } catch {
+            print(error.localizedDescription)
             return nil
         }
     }
