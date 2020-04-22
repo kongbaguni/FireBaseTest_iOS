@@ -96,42 +96,11 @@ class MyReviewWriteController: UITableViewController {
         return nil
     }
     
-    class SelectImages {
-        let base64:String?
-        let path:String?
-        init(image:UIImage?, path:String?) {
-            self.base64 = image?.pngData()?.base64EncodedString()
-            self.path = path
+    var selectedImages:[URL] = []
+    var newImages:[URL] {
+        return selectedImages.filter { (url) -> Bool in
+            return url.isFileURL
         }
-        
-        deinit {
-            debugPrint("SelectImage Deinit!!")
-        }
-        
-        var data:Data? {
-            if let txt = base64 {
-                return Data(base64Encoded: txt)
-            }
-            return nil
-        }
-        
-        var image:UIImage? {
-            if let d = self.data {
-                return UIImage(data: d)
-            }
-            return nil
-        }
-    }
-    
-    var selectedImages:[SelectImages] = []
-    var newImages:[UIImage] {
-        var result:[UIImage] = []
-        for item in selectedImages {
-            if let image = item.image {
-                result.append(image)
-            }
-        }
-        return result
     }
     
     var deletedImages:[String] = []
@@ -146,8 +115,8 @@ class MyReviewWriteController: UITableViewController {
     
     var needPoint:Int {
         let a = commentTextView.text.count * AdminOptions.shared.pointUseRatePosting
-        let b = selectedImages.filter { (image) -> Bool in
-            return image.image != nil
+        let b = selectedImages.filter { (url) -> Bool in
+            return url.isFileURL
         }.count * AdminOptions.shared.pointUseUploadPicture
         return a + b
     }
@@ -237,34 +206,26 @@ class MyReviewWriteController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save".localized, style: .plain, target: self, action: #selector(self.onTouchSaveBtn(_:)))
         
         NotificationCenter.default.addObserver(forName: .image_delete_noti, object: nil, queue: nil) { [weak self] (notification) in
-            if let cell = notification.object as? MyReviewWriteImageCollectionViewCell,
-                let s = self   {
-                
-                let imageUrl = notification.userInfo?["imageUrl"] as? String
-                let image = cell.imageView.image
-                let item = SelectImages(image: image, path: imageUrl)
-                if let index = s.selectedImages.lastIndex(where: { (image) -> Bool in
-                    
-                    if image.path == item.path && imageUrl?.isEmpty == false {
-                        return true
-                    }
-                    
-                    else if image.data == item.data {
-                        return true
-                    }
-                    else {
-                        return false
-                    }
-                }) {
-                    s.selectedImages.remove(at: index)
-                    print(s.selectedImages.count)
-                    s.imageCollectionView.reloadData()
-                }
-                if let path = item.path {
-                    s.deletedImages.append(path)
-                }
-                s.updateNeedPointLabel()
+            guard let s = self, let imageUrl = notification.userInfo?["imageUrl"] as? URL else {
+                return
             }
+            
+            if let index = s.selectedImages.lastIndex(where: { (image) -> Bool in
+                if image == imageUrl {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }) {
+                s.selectedImages.remove(at: index)
+                print(s.selectedImages.count)
+                s.imageCollectionView.reloadData()
+            }
+            if imageUrl.isFileURL == false {
+                s.deletedImages.append(imageUrl.absoluteString)
+            }
+            s.updateNeedPointLabel()
         }
     }
     
@@ -277,7 +238,7 @@ class MyReviewWriteController: UITableViewController {
             }
             if sucess {
                 let point = s.pointTextField.text?.count ?? 1
-                let price = s.priceTextField.text!.currencyIntValue
+                let price = s.priceTextField.text?.currencyIntValue ?? 0
                 
                 if s.reviewId == nil {
                     s.loading.show(viewController: s)
@@ -286,7 +247,7 @@ class MyReviewWriteController: UITableViewController {
                         starPoint: point,
                         comment: s.commentTextView.text!,
                         price: price,
-                        photos: s.newImages.imgDataArray,
+                        photos: s.newImages,
                         place_id: self?.place_id ?? "" ,
                         place_detail: self?.address2TextField.text ?? ""
                         ) { [weak s] (sucess) in
@@ -304,7 +265,7 @@ class MyReviewWriteController: UITableViewController {
                         starPoint: point,
                         comment: s.commentTextView.text!,
                         price: price,
-                        addphotos: s.newImages.imgDataArray,
+                        addphotos: s.newImages,
                         deletePhotos: s.deletedImages,
                         place_id: self?.place_id ?? "",
                         place_detail: self?.address2TextField.text ?? "" ,
@@ -363,7 +324,9 @@ class MyReviewWriteController: UITableViewController {
         commentTextView.text = data.comment
         for str in data.photoUrls.components(separatedBy: ",") {
             if str.trimmingCharacters(in: CharacterSet(charactersIn: " ")).isEmpty == false {
-                self.selectedImages.append(SelectImages(image: nil, path: str))
+                if let url = URL(string: str) {
+                    self.selectedImages.append(url)
+                }
             }
         }
         
@@ -389,14 +352,9 @@ extension MyReviewWriteController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "image", for: indexPath) as! MyReviewWriteImageCollectionViewCell
         let data = selectedImages[indexPath.row]
-        if let image = data.image {
-            cell.imageUrl = nil
-            cell.imageView.image = image
-        }
-        if let url = data.path {
-            cell.imageUrl = url
-            cell.imageView.kf.setImage(with: URL(string: url),placeholder:#imageLiteral(resourceName: "placeholder"))
-        }
+        cell.imageUrl = data
+        cell.loadData()
+        
         return cell
     }
 }
@@ -489,16 +447,20 @@ extension MyReviewWriteController : CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         debugPrint(#function)
         cropViewController.dismiss(animated: true, completion: nil)
-        selectedImages.append(SelectImages(image: image, path: nil))
-        imageCollectionView.reloadData()
-        updateNeedPointLabel()
+        if let url = image.save(name: "\(UUID().uuidString)\(Date().timeIntervalSince1970).png") {
+            selectedImages.append(url)
+            imageCollectionView.reloadData()
+            updateNeedPointLabel()
+        }
     }
     
     func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         debugPrint(#function)
-        selectedImages.append(SelectImages(image: image, path: nil))
-        imageCollectionView.reloadData()
-        updateNeedPointLabel()
+        if let url = image.save(name: "\(UUID().uuidString)\(Date().timeIntervalSince1970).png") {
+            selectedImages.append(url)
+            imageCollectionView.reloadData()
+            updateNeedPointLabel()
+        }
     }
     
 }
@@ -507,7 +469,8 @@ class MyReviewWriteImageCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var imageView:UIImageView!
     @IBOutlet weak var deleteButton: UIButton!
     let disposeBag = DisposeBag()
-    var imageUrl:String? = nil
+    var imageUrl:URL? = nil
+    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         deleteButton.rx.tap.bind { (_) in
@@ -523,6 +486,11 @@ class MyReviewWriteImageCollectionViewCell : UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        loadData()
+    }
+    
+    func loadData() {
+        imageView.kf.setImage(with: self.imageUrl, placeholder: UIImage.placeHolder_image)
     }
 }
 

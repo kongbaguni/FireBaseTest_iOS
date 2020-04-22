@@ -196,6 +196,9 @@ extension String {
     }
     /** 통화 포메팅된 문자열을 int 로 반환*/
     var currencyIntValue:Int {
+        if self.count == 0 {
+            return 0
+        }
         let str = self[1..<self.count].replacingOccurrences(of: ",", with: "")
         return NSString(string: str).integerValue
     }

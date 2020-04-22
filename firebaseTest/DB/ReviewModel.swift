@@ -117,7 +117,7 @@ extension ReviewModel {
         return result
     }
     
-    fileprivate static func uploadImages(documentId:String,photos:[Data], complete:@escaping(_ uploadUrls:[String]?)->Void) {
+    fileprivate static func uploadImages(documentId:String, photos:[URL], complete:@escaping(_ uploadUrls:[String]?)->Void) {
         guard let creatorId = UserInfo.info?.id else {
             complete(nil)
             return
@@ -134,17 +134,26 @@ extension ReviewModel {
                 complete(uploadUrls)
                 return
             }
-            if let data = photolist.first {
-                st.uploadImage(withData: data, contentType: "image/jpeg", uploadURL: "\(FSCollectionName.STORAGE_REVIEW_IMAGE)/\(creatorId)/\(documentId)/\(UUID().uuidString).jpg") { (url) in
-                    if let url = url {
-                        photolist.removeFirst()
-                        uploadUrls.append(url.absoluteString)
-                        upload()
-                    } else {
-                        complete(nil)
+            if let url = photolist.first {
+                if url.isFileURL {
+                    if let data = try? Data(contentsOf: url) {
+                        if let jpgData = UIImage(data: data)?.jpegData(compressionQuality: 0.7) {
+                            st.uploadImage(withData: jpgData, contentType: "image/jpeg", uploadURL: "\(FSCollectionName.STORAGE_REVIEW_IMAGE)/\(creatorId)/\(documentId)/\(UUID().uuidString).jpg") { (url) in
+                                if let url = url {
+                                    photolist.removeFirst()
+                                    uploadUrls.append(url.absoluteString)
+                                    upload()
+                                } else {
+                                    complete(nil)
+                                }
+                            }
+                            return
+                        }
                     }
                 }
             }
+            photolist.removeFirst()
+            upload()
         }
         
         upload()
@@ -155,7 +164,7 @@ extension ReviewModel {
         starPoint:Int,
         comment:String,
         price:Int,
-        photos:[Data],
+        photos:[URL],
         place_id:String,
         place_detail:String,
         complete:@escaping(_ isSucess:Bool)->Void) {
@@ -213,7 +222,7 @@ extension ReviewModel {
         starPoint:Int?,
         comment:String?,
         price:Int?,
-        addphotos:[Data],
+        addphotos:[URL],
         deletePhotos:[String],
         place_id:String,
         place_detail:String,

@@ -46,3 +46,19 @@ extension UIImage {
         UIApplication.shared.isDarkMode ? #imageLiteral(resourceName: "bubble_darkbottom") : #imageLiteral(resourceName: "bubble_lightbottom")
     }
 }
+
+
+extension UIImage {
+    func save(name:String)->URL? {
+        guard let imageData = pngData() else {
+            return nil
+        }
+        do {
+            let imageURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(name)
+            try imageData.write(to: imageURL)
+            return imageURL
+        } catch {
+            return nil
+        }
+    }
+}
