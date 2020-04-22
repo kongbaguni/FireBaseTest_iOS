@@ -136,6 +136,11 @@ class MyReviewWriteController: UITableViewController {
       }
     
     deinit {
+        for img in selectedImages {
+            if img.isFileURL {
+                try? FileManager.default.removeItem(at: img)
+            }
+        }
         selectedImages.removeAll()
         debugPrint("myReviewWriteController deinit-----")
     }
