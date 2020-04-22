@@ -97,12 +97,24 @@ class MyReviewWriteController: UITableViewController {
     }
     
     class SelectImages {
-        let data:Data?
+        let base64:String?
         let path:String?
         init(image:UIImage?, path:String?) {
-            self.data = image?.pngData()
+            self.base64 = image?.pngData()?.base64EncodedString()
             self.path = path
         }
+        
+        deinit {
+            debugPrint("SelectImage Deinit!!")
+        }
+        
+        var data:Data? {
+            if let txt = base64 {
+                return Data(base64Encoded: txt)
+            }
+            return nil
+        }
+        
         var image:UIImage? {
             if let d = self.data {
                 return UIImage(data: d)
@@ -153,6 +165,11 @@ class MyReviewWriteController: UITableViewController {
           }
           needPointLabel.text = msg
       }
+    
+    deinit {
+        selectedImages.removeAll()
+        debugPrint("myReviewWriteController deinit-----")
+    }
     
     override func viewDidLoad() {
         title = "write review".localized

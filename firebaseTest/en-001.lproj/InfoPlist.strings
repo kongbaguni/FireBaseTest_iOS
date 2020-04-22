@@ -1,0 +1,8 @@
+/* 
+  infoPlist.strings
+  firebaseTest
+
+  Created by Changyul Seo on 2020/04/22.
+  Copyright © 2020 Changyul Seo. All rights reserved.
+*/
+"CFBundleDisplayName" = "Any Review";

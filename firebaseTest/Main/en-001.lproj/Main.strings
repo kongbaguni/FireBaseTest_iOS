@@ -1,0 +1,390 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "19e-jA-L3n"; */
+"19e-jA-L3n.text" = "Label";
+
+/* Class = "UILabel"; text = "레벨"; ObjectID = "1dx-WT-ds3"; */
+"1dx-WT-ds3.text" = "레벨";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "2Il-1C-7Ta"; */
+"2Il-1C-7Ta.text" = "Title";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2qC-6u-rsQ"; */
+"2qC-6u-rsQ.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "3FV-Be-ylF"; */
+"3FV-Be-ylF.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "지도 형식"; ObjectID = "42n-SU-YW2"; */
+"42n-SU-YW2.text" = "지도 형식";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "49L-lk-brM"; */
+"49L-lk-brM.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UITextField"; placeholder = "title"; ObjectID = "54a-kl-oIh"; */
+"54a-kl-oIh.placeholder" = "title";
+
+/* Class = "UIButton"; normalTitle = "글 쓰기"; ObjectID = "6Xz-Fi-cFi"; */
+"6Xz-Fi-cFi.normalTitle" = "글 쓰기";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "76G-fZ-gP8"; */
+"76G-fZ-gP8.text" = "Title";
+
+/* Class = "UILabel"; text = "Holdem"; ObjectID = "8CQ-3m-Qol"; */
+"8CQ-3m-Qol.text" = "Holdem";
+
+/* Class = "UILabel"; text = "홀길동"; ObjectID = "8wd-yv-M9y"; */
+"8wd-yv-M9y.text" = "홀길동";
+
+/* Class = "UITableViewController"; title = "todays talks"; ObjectID = "ABD-kk-8hZ"; */
+"ABD-kk-8hZ.title" = "todays talks";
+
+/* Class = "UITextView"; text = "우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지우리집 강아지는 복슬강아지"; ObjectID = "AYs-Ee-yW1"; */
+"AYs-Ee-yW1.text" = "우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지우리집 강아지는 복슬강아지";
+
+/* Class = "UILabel"; text = "+100"; ObjectID = "AuY-CZ-7h2"; */
+"AuY-CZ-7h2.text" = "+100";
+
+/* Class = "UILabel"; text = "오늘 무슨 일이 있었나요?"; ObjectID = "BMp-Kt-g7a"; */
+"BMp-Kt-g7a.text" = "오늘 무슨 일이 있었나요?";
+
+/* Class = "UILabel"; text = "아버지를 아버지라 부르지 못하고 호부호형을 하지 못하고 율도국을 세워서 우리는 의적이다"; ObjectID = "C8K-lr-zjS"; */
+"C8K-lr-zjS.text" = "아버지를 아버지라 부르지 못하고 호부호형을 하지 못하고 율도국을 세워서 우리는 의적이다";
+
+/* Class = "UILabel"; text = "탈퇴"; ObjectID = "CCY-pW-GRt"; */
+"CCY-pW-GRt.text" = "탈퇴";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "Dst-e9-1uH"; */
+"Dst-e9-1uH.text" = "홍길동";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "EEm-qq-fXA"; */
+"EEm-qq-fXA.text" = "홍길동";
+
+/* Class = "UILabel"; text = "Reporter"; ObjectID = "EMS-lf-AEi"; */
+"EMS-lf-AEi.text" = "Reporter";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "Efz-bu-GNv"; */
+"Efz-bu-GNv.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UITableViewSection"; headerTitle = "내용"; ObjectID = "FIU-HH-oAM"; */
+"FIU-HH-oAM.headerTitle" = "내용";
+
+/* Class = "UITableViewSection"; headerTitle = "title"; ObjectID = "FOy-Uq-7ev"; */
+"FOy-Uq-7ev.headerTitle" = "title";
+
+/* Class = "UILabel"; text = "10시 10분"; ObjectID = "GaE-xS-E6j"; */
+"GaE-xS-E6j.text" = "10시 10분";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "Gbp-ov-1SY"; */
+"Gbp-ov-1SY.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "level"; ObjectID = "Hzr-LC-4ul"; */
+"Hzr-LC-4ul.text" = "level";
+
+/* Class = "UILabel"; text = "99"; ObjectID = "I38-1K-Zy4"; */
+"I38-1K-Zy4.text" = "99";
+
+/* Class = "UILabel"; text = "자기소개"; ObjectID = "IQU-oz-lWk"; */
+"IQU-oz-lWk.text" = "자기소개";
+
+/* Class = "UILabel"; text = "exp"; ObjectID = "JGz-1y-Xgz"; */
+"JGz-1y-Xgz.text" = "exp";
+
+/* Class = "UILabel"; text = "랭킹 타입"; ObjectID = "JPl-4U-d4J"; */
+"JPl-4U-d4J.text" = "랭킹 타입";
+
+/* Class = "UITextView"; text = "어나미언미아너미언마ㅣㅓ 어나밍 ㅓㅏㅣㅓㅇ ㄴ머ㅣ 어ㅏ님 ㅓ어나ㅣㅁ어ㅣㅏ 어나미 ㅓ안머 ㅓ아너 ㅣㅁㄴ어ㅏㅣㄴㅁ 어나ㅣㅁ ㅓㅏㅣ 어나미"; ObjectID = "Ja5-wq-V84"; */
+"Ja5-wq-V84.text" = "어나미언미아너미언마ㅣㅓ 어나밍 ㅓㅏㅣㅓㅇ ㄴ머ㅣ 어ㅏ님 ㅓ어나ㅣㅁ어ㅣㅏ 어나미 ㅓ안머 ㅓ아너 ㅣㅁㄴ어ㅏㅣㄴㅁ 어나ㅣㅁ ㅓㅏㅣ 어나미";
+
+/* Class = "UILabel"; text = "자기호개 입니다."; ObjectID = "LJI-cd-Pd5"; */
+"LJI-cd-Pd5.text" = "자기호개 입니다.";
+
+/* Class = "UILabel"; text = "보여주기"; ObjectID = "LKv-P6-zlH"; */
+"LKv-P6-zlH.text" = "보여주기";
+
+/* Class = "UILabel"; text = "검색 거리"; ObjectID = "LOl-5Q-YRh"; */
+"LOl-5Q-YRh.text" = "검색 거리";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Lcs-TV-6FZ"; */
+"Lcs-TV-6FZ.text" = "Label";
+
+/* Class = "UILabel"; text = "hong@gil.dong"; ObjectID = "Lgf-Mx-wEB"; */
+"Lgf-Mx-wEB.text" = "hong@gil.dong";
+
+/* Class = "UILabel"; text = "자기소개 "; ObjectID = "Lkh-U1-p4R"; */
+"Lkh-U1-p4R.text" = "자기소개 ";
+
+/* Class = "UILabel"; text = "update : 10분전"; ObjectID = "MaA-hW-Bua"; */
+"MaA-hW-Bua.text" = "update : 10분전";
+
+/* Class = "UILabel"; text = "포인트"; ObjectID = "Mnf-Es-4GK"; */
+"Mnf-Es-4GK.text" = "포인트";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Msg-lg-m7X"; */
+"Msg-lg-m7X.text" = "Label";
+
+/* Class = "UITextView"; text = "이미지 첨부했다고 이미지 첨부했다고 이미지 첨부했다고 이미지 첨부했다고"; ObjectID = "N66-5v-gmT"; */
+"N66-5v-gmT.text" = "이미지 첨부했다고 이미지 첨부했다고 이미지 첨부했다고 이미지 첨부했다고";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "N9Y-6q-Dot"; */
+"N9Y-6q-Dot.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "Odu-qM-Iax"; */
+"Odu-qM-Iax.title" = "Root View Controller";
+
+/* Class = "UIBarButtonItem"; title = "write"; ObjectID = "PO1-lh-oU2"; */
+"PO1-lh-oU2.title" = "write";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "PZ7-PG-fea"; */
+"PZ7-PG-fea.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Betting"; ObjectID = "Pdd-7N-gew"; */
+"Pdd-7N-gew.normalTitle" = "Betting";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Pfx-Ip-jeq"; */
+"Pfx-Ip-jeq.text" = "Title";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "PuE-uI-opa"; */
+"PuE-uI-opa.text" = "홍길동";
+
+/* Class = "UILabel"; text = "100,000"; ObjectID = "QQi-eM-cyS"; */
+"QQi-eM-cyS.text" = "100,000";
+
+/* Class = "UILabel"; text = "없음"; ObjectID = "Qcf-pT-MEH"; */
+"Qcf-pT-MEH.text" = "없음";
+
+/* Class = "UITableViewSection"; headerTitle = "사진첨부"; ObjectID = "QeA-rq-rLW"; */
+"QeA-rq-rLW.headerTitle" = "사진첨부";
+
+/* Class = "UILabel"; text = "10시 10분"; ObjectID = "R1Z-nb-Ne8"; */
+"R1Z-nb-Ne8.text" = "10시 10분";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "R4U-xn-OwG"; */
+"R4U-xn-OwG.text" = "홍길동";
+
+/* Class = "UILabel"; text = "익명으로 보고하기"; ObjectID = "Rjr-5u-Nx9"; */
+"Rjr-5u-Nx9.text" = "익명으로 보고하기";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "RrD-Ix-WCc"; */
+"RrD-Ix-WCc.title" = "Item";
+
+/* Class = "UILabel"; text = "3월 10일 13시 33분 30초"; ObjectID = "TIZ-rd-CE7"; */
+"TIZ-rd-CE7.text" = "3월 10일 13시 33분 30초";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Thc-iw-wDu"; */
+"Thc-iw-wDu.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "maks now"; ObjectID = "Urd-op-hvF"; */
+"Urd-op-hvF.normalTitle" = "maks now";
+
+/* Class = "UILabel"; text = "email"; ObjectID = "UtA-tp-kIL"; */
+"UtA-tp-kIL.text" = "email";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "UyS-Sd-CPG"; */
+"UyS-Sd-CPG.normalTitle" = "Button";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "Vo7-ep-yQW"; */
+"Vo7-ep-yQW.title" = "Root View Controller";
+
+/* Class = "UILabel"; text = "33"; ObjectID = "Vsf-Mk-zJA"; */
+"Vsf-Mk-zJA.text" = "33";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "WIj-Ok-ksh"; */
+"WIj-Ok-ksh.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "honggildon@gmail.com"; ObjectID = "WTB-o0-lIR"; */
+"WTB-o0-lIR.normalTitle" = "honggildon@gmail.com";
+
+/* Class = "UILabel"; text = "1904"; ObjectID = "WbP-H3-KTs"; */
+"WbP-H3-KTs.text" = "1904";
+
+/* Class = "UILabel"; text = "이름"; ObjectID = "XBJ-gV-guz"; */
+"XBJ-gV-guz.text" = "이름";
+
+/* Class = "UIButton"; normalTitle = "설정하기"; ObjectID = "XDp-Dq-H8B"; */
+"XDp-Dq-H8B.normalTitle" = "설정하기";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "XGK-5H-6TP"; */
+"XGK-5H-6TP.title" = "Item";
+
+/* Class = "UITableViewSection"; headerTitle = "notice"; ObjectID = "XSF-PG-l7X"; */
+"XSF-PG-l7X.headerTitle" = "notice";
+
+/* Class = "UILabel"; text = "사람 많다"; ObjectID = "Xov-hZ-uR9"; */
+"Xov-hZ-uR9.text" = "사람 많다";
+
+/* Class = "UIButton"; normalTitle = "Login with Google"; ObjectID = "Yix-rA-O0y"; */
+"Yix-rA-O0y.normalTitle" = "Login with Google";
+
+/* Class = "UILabel"; text = "근처의 이야기만 보기"; ObjectID = "Z8G-MQ-Q8K"; */
+"Z8G-MQ-Q8K.text" = "근처의 이야기만 보기";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "Z8R-l7-5pG"; */
+"Z8R-l7-5pG.text" = "Detail";
+
+/* Class = "UILabel"; text = "게임 감추기"; ObjectID = "ZZU-wC-HfS"; */
+"ZZU-wC-HfS.text" = "게임 감추기";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "Zng-hh-RaY"; */
+"Zng-hh-RaY.text" = "홍길동";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "aRP-bb-Xak"; */
+"aRP-bb-Xak.text" = "홍길동";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "ajN-a0-mSV"; */
+"ajN-a0-mSV.text" = "1";
+
+/* Class = "UIButton"; normalTitle = "지도에서 보기"; ObjectID = "atg-xI-0Pa"; */
+"atg-xI-0Pa.normalTitle" = "지도에서 보기";
+
+/* Class = "UILabel"; text = "999,999"; ObjectID = "bUd-Wk-6KJ"; */
+"bUd-Wk-6KJ.text" = "999,999";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "bfc-S8-2yl"; */
+"bfc-S8-2yl.text" = "홍길동";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "c0W-Kz-5Pi"; */
+"c0W-Kz-5Pi.text" = "Label";
+
+/* Class = "UILabel"; text = "입고 : 2020/03/11 13:40:00"; ObjectID = "cHy-jP-GDC"; */
+"cHy-jP-GDC.text" = "입고 : 2020/03/11 13:40:00";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "cyX-PQ-sjb"; */
+"cyX-PQ-sjb.text" = "홍길동";
+
+/* Class = "UILabel"; text = "위치정보 접근이 필요합니다. 사용자의 위치에 접근 가능하도록 설정해주세요."; ObjectID = "doc-db-RE6"; */
+"doc-db-RE6.text" = "위치정보 접근이 필요합니다. 사용자의 위치에 접근 가능하도록 설정해주세요.";
+
+/* Class = "UILabel"; text = "version:1.0.1"; ObjectID = "eE8-TJ-b0P"; */
+"eE8-TJ-b0P.text" = "version:1.0.1";
+
+/* Class = "UIButton"; normalTitle = "talk logs"; ObjectID = "ek6-GE-U80"; */
+"ek6-GE-U80.normalTitle" = "talk logs";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "fhv-PC-KLa"; */
+"fhv-PC-KLa.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UITableViewController"; title = "users"; ObjectID = "g2J-Vb-ViD"; */
+"g2J-Vb-ViD.title" = "users";
+
+/* Class = "UIButton"; normalTitle = "지금 사람 많나요?"; ObjectID = "gNY-cj-drS"; */
+"gNY-cj-drS.normalTitle" = "지금 사람 많나요?";
+
+/* Class = "UILabel"; text = "3월 10일 13시 33분 30초"; ObjectID = "hCa-dH-7f6"; */
+"hCa-dH-7f6.text" = "3월 10일 13시 33분 30초";
+
+/* Class = "UILabel"; text = "경험치"; ObjectID = "hZ7-br-dGg"; */
+"hZ7-br-dGg.text" = "경험치";
+
+/* Class = "UILabel"; text = "99999"; ObjectID = "hdT-Lo-UEW"; */
+"hdT-Lo-UEW.text" = "99999";
+
+/* Class = "UILabel"; text = "이겼다!"; ObjectID = "hv5-QL-3EJ"; */
+"hv5-QL-3EJ.text" = "이겼다!";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "k4k-ZM-Cvg"; */
+"k4k-ZM-Cvg.text" = "Detail";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "kNK-M4-q5K"; */
+"kNK-M4-q5K.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "오성당약국"; ObjectID = "ky9-u2-GSn"; */
+"ky9-u2-GSn.text" = "오성당약국";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "lBF-01-EaP"; */
+"lBF-01-EaP.text" = "Label";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "lMv-li-xf9"; */
+"lMv-li-xf9.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "lWg-bv-va0"; */
+"lWg-bv-va0.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "mAM-wV-5HA"; */
+"mAM-wV-5HA.title" = "Item";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "miG-Wg-Pas"; */
+"miG-Wg-Pas.text" = "Label";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "nEI-vw-70j"; */
+"nEI-vw-70j.text" = "홍길동";
+
+/* Class = "UILabel"; text = "Mask Now"; ObjectID = "nJp-i9-wSo"; */
+"nJp-i9-wSo.text" = "Mask Now";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "nfh-MV-t1y"; */
+"nfh-MV-t1y.text" = "Label";
+
+/* Class = "UILabel"; text = "1000미터 근처에 마스크 살 수 있는 곳 : 10곳"; ObjectID = "nzc-dl-KTD"; */
+"nzc-dl-KTD.text" = "1000미터 근처에 마스크 살 수 있는 곳 : 10곳";
+
+/* Class = "UILabel"; text = "경기도 평택시 오성면 숙성시장길 34-1"; ObjectID = "oCu-z7-WmF"; */
+"oCu-z7-WmF.text" = "경기도 평택시 오성면 숙성시장길 34-1";
+
+/* Class = "UILabel"; text = "90,999"; ObjectID = "plR-gG-kWZ"; */
+"plR-gG-kWZ.text" = "90,999";
+
+/* Class = "UITextField"; text = "1000"; ObjectID = "q6F-8t-d6I"; */
+"q6F-8t-d6I.text" = "1000";
+
+/* Class = "UILabel"; text = "사람 많다"; ObjectID = "rg9-aA-Wvy"; */
+"rg9-aA-Wvy.text" = "사람 많다";
+
+/* Class = "UILabel"; text = "이겼다!"; ObjectID = "s6B-OF-9ow"; */
+"s6B-OF-9ow.text" = "이겼다!";
+
+/* Class = "UITextView"; text = "우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지"; ObjectID = "s9F-Wu-FRV"; */
+"s9F-Wu-FRV.text" = "우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지 우리집 강아지는 복슬강아지";
+
+/* Class = "UILabel"; text = "+100"; ObjectID = "sYs-fT-LC9"; */
+"sYs-fT-LC9.text" = "+100";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "tGe-xd-Rn4"; */
+"tGe-xd-Rn4.text" = "Detail";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "u6P-Ea-U0G"; */
+"u6P-Ea-U0G.text" = "홍길동";
+
+/* Class = "UILabel"; text = "333"; ObjectID = "uA9-7N-O4g"; */
+"uA9-7N-O4g.text" = "333";
+
+/* Class = "UILabel"; text = "33,333"; ObjectID = "uy3-r9-VHh"; */
+"uy3-r9-VHh.text" = "33,333";
+
+/* Class = "UILabel"; text = "홍길동"; ObjectID = "v70-c9-fpt"; */
+"v70-c9-fpt.text" = "홍길동";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "vVw-pH-nWQ"; */
+"vVw-pH-nWQ.text" = "Title";
+
+/* Class = "UILabel"; text = "point"; ObjectID = "vml-Kh-L9p"; */
+"vml-Kh-L9p.text" = "point";
+
+/* Class = "UILabel"; text = "333"; ObjectID = "wc6-5G-wCQ"; */
+"wc6-5G-wCQ.text" = "333";
+
+/* Class = "UILabel"; text = "거리 : 100미터"; ObjectID = "xfC-xj-2Q5"; */
+"xfC-xj-2Q5.text" = "거리 : 100미터";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "xir-co-dDQ"; */
+"xir-co-dDQ.text" = "Title";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "xsx-SP-4tg"; */
+"xsx-SP-4tg.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "2020.3.20 3:20"; ObjectID = "yls-hN-Mnh"; */
+"yls-hN-Mnh.text" = "2020.3.20 3:20";
+
+/* Class = "UILabel"; text = "MyPoints"; ObjectID = "zCi-UF-Uxv"; */
+"zCi-UF-Uxv.text" = "MyPoints";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "zDt-gp-fZj"; */
+"zDt-gp-fZj.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "zOk-T9-moy"; */
+"zOk-T9-moy.text" = "Title";
+
+/* Class = "UILabel"; text = "많음"; ObjectID = "zkY-9S-vh2"; */
+"zkY-9S-vh2.text" = "많음";
+
+/* Class = "UILabel"; text = "사진"; ObjectID = "zrx-R1-MKC"; */
+"zrx-R1-MKC.text" = "사진";
