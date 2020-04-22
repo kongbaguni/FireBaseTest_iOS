@@ -197,8 +197,19 @@ extension ReviewModel {
                     realm.beginWrite()
                     let model = realm.create(ReviewModel.self, value: data, update: .all)
                     try! realm.commitWrite()
-                    complete(true)
-                    NotificationCenter.default.post(name: .reviewWriteNotification, object: model.id)
+                    // 최초 작성시 수정내역 남기기 위한 리포트 
+                    model.edit(
+                        name: model.name,
+                        starPoint: model.starPoint,
+                        comment: model.comment,
+                        price: model.price,
+                        addphotos: model.photoUrlList,
+                        deletePhotos: [],
+                        place_id: model.place_id,
+                        place_detail: model.place_detail) { (sucess) in
+                            complete(true)
+                            NotificationCenter.default.post(name: .reviewWriteNotification, object: model.id)
+                    }
                 } else {
                     complete(false)
                 }
@@ -340,6 +351,15 @@ extension ReviewModel {
             "regTimeIntervalSince1970":Date().timeIntervalSince1970
         ]
         
+        func getTargetUsersLikeCount(getCount:@escaping(_ count:Int?)->Void) {
+            let targetUsersLike = FS.store.collection(FSCollectionName.USERS).document(self.creatorId).collection("like")
+            targetUsersLike.getDocuments { (shot, error) in
+                if error == nil {
+                    getCount(shot?.documents.count)
+                }
+            }
+        }
+    
         let doc = FS.store.collection(FSCollectionName.REVIEW).document(id)
         let reviewer = FS.store.collection(FSCollectionName.USERS).document(creatorId)
         let reviewersLike = reviewer.collection("like")
@@ -359,6 +379,13 @@ extension ReviewModel {
                     }
                 }
                 makeComplete(error == nil)
+                getTargetUsersLikeCount { (count) in
+                    if let c = count {                        
+                        self.creator?.update(data:["email":id,"count_of_recive_like":c] , complete: { (sucess) in
+                            
+                        })
+                    }
+                }
             }
         }
         
@@ -368,6 +395,7 @@ extension ReviewModel {
                     doc.collection("like").document(likeId).setData(likeData) { (error) in
                         if error == nil {
                             makeLikes { (sucess) in
+                             
                                 NotificationCenter.default.post(name: .likeUpdateNotification, object: nil, userInfo: nil)
                                 complete(true)
                             }

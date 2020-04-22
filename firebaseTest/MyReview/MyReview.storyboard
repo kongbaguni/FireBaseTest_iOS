@@ -318,7 +318,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <view key="tableFooterView" contentMode="scaleToFill" id="TSW-7J-lC6">
-                            <rect key="frame" x="0.0" y="974" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="964" width="414" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </view>

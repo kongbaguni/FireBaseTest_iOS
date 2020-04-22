@@ -48,7 +48,7 @@ class ReviewsViewController : UITableViewController {
                 result = result.filter("name CONTAINS[c] %@ || comment CONTAINS[C] %@", txt, txt)
             }
         }
-        return result
+        return result.sorted(byKeyPath: "regTimeIntervalSince1970", ascending: false)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
