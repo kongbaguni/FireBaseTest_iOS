@@ -40,7 +40,7 @@ class MapViewController: UIViewController {
     }
     
     deinit {
-        mapView.clearMemory()
+        mapView?.clearMemory()
         debugPrint("deinit MapViewController")
     }
     

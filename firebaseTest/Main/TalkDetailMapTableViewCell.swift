@@ -36,7 +36,7 @@ class TalkDetailMapTableViewCell: UITableViewCell {
     }
     
     deinit {
-        mapView.clearMemory()
+        mapView?.clearMemory()
         debugPrint("deinit TalkDetailMapTableViewCell")
 
     }

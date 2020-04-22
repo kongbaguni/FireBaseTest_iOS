@@ -272,7 +272,6 @@ class ReviewDetailProfileTableViewCell : UITableViewCell {
 
 class ReviewDetailPhotoTableViewCell : UITableViewCell {
     @IBOutlet weak var photoImageView:UIImageView!
-    @IBOutlet weak var imageViewLayoutHeight: NSLayoutConstraint!
     var imageUrl:URL? = nil {
         didSet {
             setImage()
@@ -281,38 +280,14 @@ class ReviewDetailPhotoTableViewCell : UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setImageViewLayout()
     }
     
     func setImage() {
-        if let size = ImageInfoModel.getSize(url: imageUrl?.absoluteString) {
-            setImageViewLayout(imageSize: size)
-        } else {
-            ImageInfoModel.getSize(url: imageUrl?.absoluteString) { [weak self](size) in
-                self?.setImageViewLayout(imageSize: size)
-            }
-        }
-        
         photoImageView?.kf.setImage(with: imageUrl, placeholder: UIImage.placeHolder_image, options: nil, progressBlock: nil
-            , completionHandler: { [weak self] (_) in
-                ImageInfoModel.create(url: self?.imageUrl?.absoluteString, size: self?.photoImageView.image?.size)
-                self?.setImageViewLayout()
+            , completionHandler: { (_) in
         })
     }
     
-    func setImageViewLayout(imageSize:CGSize? = nil) {
-        var s = imageSize
-        if let ss = photoImageView?.image?.size {
-            s = ss
-        }
-        guard let size = s else {
-            return
-        }
-        let targetWidth = photoImageView.frame.size.width
-        let targetSize = CGSize(width: targetWidth, height: targetWidth)
-        let newSize = size.resize(target: targetSize, isFit: true)
-        imageViewLayoutHeight.constant = newSize.height
-    }
         
 }
 

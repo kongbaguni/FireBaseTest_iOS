@@ -81,7 +81,6 @@
 		C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */; };
 		C3C25C062421A998006DB36E /* CardDeckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C25C052421A998006DB36E /* CardDeckBoxView.swift */; };
 		C3C43A1C241A6E95002788B1 /* TalkDetailMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */; };
-		C3C633C02447F63300B526C0 /* ImageInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C633BF2447F63300B526C0 /* ImageInfoModel.swift */; };
 		C3C633C62448396700B526C0 /* LightBodImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C633C52448396700B526C0 /* LightBodImage+Extensions.swift */; };
 		C3C633C824493D7700B526C0 /* ReviewHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C633C724493D7700B526C0 /* ReviewHistoryTableViewController.swift */; };
 		C3CE9852244D7FC400D8BADF /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CE9851244D7FC400D8BADF /* AddressModel.swift */; };
@@ -213,15 +212,14 @@
 		C3BDFC0C240CD7A1006AE2B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3C25C052421A998006DB36E /* CardDeckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckBoxView.swift; sourceTree = "<group>"; };
 		C3C43A1B241A6E95002788B1 /* TalkDetailMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailMapTableViewCell.swift; sourceTree = "<group>"; };
-		C3C633BF2447F63300B526C0 /* ImageInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfoModel.swift; sourceTree = "<group>"; };
 		C3C633C52448396700B526C0 /* LightBodImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LightBodImage+Extensions.swift"; sourceTree = "<group>"; };
 		C3C633C724493D7700B526C0 /* ReviewHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHistoryTableViewController.swift; sourceTree = "<group>"; };
 		C3CE9851244D7FC400D8BADF /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		C3CE9853244E79DC00D8BADF /* Locale+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Extensions.swift"; sourceTree = "<group>"; };
-		C3CE9858244FCA4600D8BADF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C3CE985A244FCACD00D8BADF /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "en-001.lproj/Main.strings"; sourceTree = "<group>"; };
 		C3CE985B244FCACD00D8BADF /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "en-001.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C3CE985C244FCACE00D8BADF /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "en-001.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		C3CE985D244FD59900D8BADF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C3D0F4272433123400039B2E /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsMapCellTableViewCell.swift; sourceTree = "<group>"; };
 		C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -355,7 +353,6 @@
 				C39003862421D38800CC4E3A /* StoreWaitingModel.swift */,
 				C36A18FF242C95BF007B9D71 /* NoticeModel.swift */,
 				C39529062432F0660050C80D /* ReviewModel.swift */,
-				C3C633BF2447F63300B526C0 /* ImageInfoModel.swift */,
 				C3CE9851244D7FC400D8BADF /* AddressModel.swift */,
 			);
 			path = DB;
@@ -751,7 +748,6 @@
 				C36A1902242C9CEA007B9D71 /* PostNoticeViewController.swift in Sources */,
 				C3FED0B9240F7CB7007A4F4F /* FirebaseStorageHelper.swift in Sources */,
 				C3FED0BD240F9F8E007A4F4F /* AuthDataResult+Extensions.swift in Sources */,
-				C3C633C02447F63300B526C0 /* ImageInfoModel.swift in Sources */,
 				C3757AF8241BC76500FB1819 /* GoogleAd.swift in Sources */,
 				C370C9FB2417688A00026E86 /* Date+extensions.swift in Sources */,
 				C370C9F12415F94300026E86 /* LikeModel.swift in Sources */,
@@ -795,8 +791,8 @@
 		C3CE9859244FCA4600D8BADF /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C3CE9858244FCA4600D8BADF /* en */,
 				C3CE985C244FCACE00D8BADF /* en-001 */,
+				C3CE985D244FD59900D8BADF /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

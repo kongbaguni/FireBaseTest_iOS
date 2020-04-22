@@ -81,10 +81,13 @@ class ReviewsViewController : UITableViewController {
         }) { (location) in
             self.tableView.reloadData()
         }
+        
         searchBar.rx.text.orEmpty.bind { [weak self] (string) in
             self?.searchText = string
             self?.tableView.reloadData()
         }.disposed(by: disposeBag)
+        
+        searchBar.delegate = self
         
         
     }
@@ -209,4 +212,11 @@ class ReviewsViewController : UITableViewController {
     
 }
 
+
+extension ReviewsViewController : UISearchBarDelegate {
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+        print("return")
+        searchBar.endEditing(true)
+    }
+}
 
