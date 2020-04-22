@@ -218,12 +218,8 @@ class UserInfo : Object {
         
         let fileUploadURL = "\(FSCollectionName.STORAGE_PROFILE_IMAGE)"
         if let url = profileImageURL {
-            if let d = try? Data(contentsOf: url) {
-                if let data = UIImage(data: d)?.af.imageAspectScaled(toFit: CGSize(width: 500, height: 500)).jpegData(compressionQuality: 0.7) {
-                    FirebaseStorageHelper().uploadImage(withData: data, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
-                        create(fileUrl: url)
-                    }
-                }
+            FirebaseStorageHelper().uploadImage(url: url, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
+                create(fileUrl: url)
             }
         } else {
             create(fileUrl: nil)

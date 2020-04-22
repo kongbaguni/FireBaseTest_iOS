@@ -28,13 +28,13 @@ class PostTalkViewController: UITableViewController {
     @IBOutlet weak var textView:UITextView!
     @IBOutlet weak var textCountLabel: UILabel!
     @IBOutlet weak var imageView:UIImageView!
-    var selectedImage:UIImage? = nil {
+    var selectedImageUrl:URL? = nil {
         didSet {
             updateNeedPointLabel()
-            if selectedImage == nil {
+            if selectedImageUrl == nil {
                 imageView.image = #imageLiteral(resourceName: "placeholder")
             } else {
-                imageView.image = selectedImage
+                imageView.kf.setImage(with: selectedImageUrl, placeholder: UIImage.placeHolder_image)
                 imageWillDelete = false
             }
         }
@@ -42,7 +42,7 @@ class PostTalkViewController: UITableViewController {
     var imageWillDelete:Bool = false  {
         didSet {
             if imageWillDelete == true {
-                selectedImage = nil
+                selectedImageUrl = nil
             }
         }
     }
@@ -57,7 +57,7 @@ class PostTalkViewController: UITableViewController {
     }
     var needPoint:Int {
         let txtPoint = textView.text.trimForPostValue.count * AdminOptions.shared.pointUseRatePosting
-        return txtPoint + (selectedImage == nil ? 0 : AdminOptions.shared.pointUseUploadPicture)
+        return txtPoint + (selectedImageUrl == nil ? 0 : AdminOptions.shared.pointUseUploadPicture)
     }
     
     func updateNeedPointLabel() {
@@ -105,7 +105,7 @@ class PostTalkViewController: UITableViewController {
         textView.text = text
                 
         var isEdit:Bool {
-            if selectedImage != nil {
+            if selectedImageUrl != nil {
                 return true
             }
             if imageWillDelete == true {
@@ -133,7 +133,8 @@ class PostTalkViewController: UITableViewController {
         func write() {
             sender.isEnabled = false
             if self.documentId == nil {
-                TalkModel.create(text: text, image: self.selectedImage) { [weak self, weak sender] (documentId) in
+                
+                TalkModel.create(text: text, imageUrl: self.selectedImageUrl) { [weak self, weak sender] (documentId) in
                     sender?.isEnabled = true
                     if let point = self?.needPoint {
                             self?.navigationController?.popViewController(animated: true)
@@ -144,7 +145,7 @@ class PostTalkViewController: UITableViewController {
                     }
                 }
             } else {
-                self.document?.edit(text: text, image: self.selectedImage, complete: { [weak self, weak sender](sucess) in
+                self.document?.edit(text: text, imageUrl: self.selectedImageUrl, complete: { [weak self, weak sender](sucess) in
                     if sucess {
                         if let id = self?.documentId, let point = self?.needPoint {
                             self?.navigationController?.popViewController(animated: true)
@@ -272,13 +273,14 @@ extension PostTalkViewController : CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         debugPrint(#function)
         cropViewController.dismiss(animated: true, completion: nil)
-        selectedImage = image
+        
+        selectedImageUrl = image.af.imageScaled(to: image.size.resize(target: Consts.TALK_IMAGE_MAX_SIZE, isFit: false)).save(name: "talkTempImage")
     }
     
     func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         debugPrint(#function)
         cropViewController.dismiss(animated: true, completion: nil)
-        selectedImage = image
+        selectedImageUrl = image.af.imageScaled(to: image.size.resize(target: Consts.TALK_IMAGE_MAX_SIZE, isFit: false)).save(name: "talkTempImage")
     }
     
 }

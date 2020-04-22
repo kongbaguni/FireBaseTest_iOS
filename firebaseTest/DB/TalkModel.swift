@@ -354,7 +354,7 @@ extension TalkModel {
     }
     
     /** 글쓰기*/
-    static func create(text:String, image:UIImage? = nil, gameResultBase64encodingString:String? = nil, complete:@escaping(_ documentId:String?)->Void) {
+    static func create(text:String, imageUrl:URL? = nil, gameResultBase64encodingString:String? = nil, complete:@escaping(_ documentId:String?)->Void) {
         guard let userId = UserInfo.info?.id else {
             complete(nil)
             return
@@ -396,11 +396,9 @@ extension TalkModel {
             }
         }
         
-        if let img = image {
-            if let data = img.af.imageAspectScaled(toFit: CGSize(width: 500, height: 500)).jpegData(compressionQuality: 0.7) {
-                FirebaseStorageHelper().uploadImage(withData: data, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
-                    upload(uploadUrl: url)
-                }
+        if let url = imageUrl {
+            FirebaseStorageHelper().uploadImage(url:url, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
+                upload(uploadUrl: url)
             }
         } else {
             upload(uploadUrl: nil)
@@ -408,7 +406,7 @@ extension TalkModel {
     }
     
     /** 글 수정하기*/
-    func edit(text:String, image:UIImage?, complete:@escaping(_ isSucess:Bool)->Void) {
+    func edit(text:String, imageUrl:URL?, complete:@escaping(_ isSucess:Bool)->Void) {
         guard let userId = UserInfo.info?.id else {
             complete(false)
             return
@@ -453,11 +451,9 @@ extension TalkModel {
             }
         }
         
-        if let img = image {
-            if let data = img.af.imageAspectScaled(toFit: CGSize(width: 500, height: 500)).jpegData(compressionQuality: 0.7) {
-                FirebaseStorageHelper().uploadImage(withData: data, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
-                    edit(uploadUrl: url)
-                }
+        if let url = imageUrl {
+            FirebaseStorageHelper().uploadImage(url: url, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
+                edit(uploadUrl: url)
             }
         } else {
             edit(uploadUrl: nil)

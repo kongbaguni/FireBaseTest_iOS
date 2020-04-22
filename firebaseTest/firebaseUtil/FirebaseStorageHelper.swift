@@ -17,7 +17,16 @@ struct FS {
 class FirebaseStorageHelper {
     let storageRef = Storage.storage().reference()
     
-    func uploadImage(withData data:Data, contentType:String, uploadURL:String, complete:@escaping(_ downloadURL:URL?)->Void) {
+    func uploadImage(url:URL, contentType:String, uploadURL:String, complete:@escaping(_ downloadURL:URL?)->Void) {
+        guard var data = try? Data(contentsOf: url) else {
+            complete(nil)
+            return
+        }
+        if contentType == "image/jpeg" {
+            if let jpgData = UIImage(data: data)?.jpegData(compressionQuality: 0.7) {
+                data = jpgData
+            }
+        }
         
         let ref:StorageReference = storageRef.child(uploadURL)
         let metadata = StorageMetadata()

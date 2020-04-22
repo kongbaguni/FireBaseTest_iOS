@@ -175,15 +175,13 @@ class MyProfileViewController: UITableViewController {
         func uploadImage(complete:@escaping(_ imageUrl:String?)->Void) {
             
             if let url = profileImageUrl {
-                if let data = try? Data(contentsOf: url) {
-                    FirebaseStorageHelper().uploadImage(
-                        withData: data,
-                        contentType: "image/png",
-                        uploadURL: "\(FSCollectionName.STORAGE_PROFILE_IMAGE)/\(UserInfo.info!.id).png") { (downloadUrl) in
-                            complete(downloadUrl?.absoluteString)
-                    }
-                    return
+                FirebaseStorageHelper().uploadImage(
+                    url: url,
+                    contentType: "image/png",
+                    uploadURL: "\(FSCollectionName.STORAGE_PROFILE_IMAGE)/\(UserInfo.info!.id).png") { (downloadUrl) in
+                        complete(downloadUrl?.absoluteString)
                 }
+                return
             }
             complete(nil)
         }

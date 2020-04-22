@@ -136,20 +136,16 @@ extension ReviewModel {
             }
             if let url = photolist.first {
                 if url.isFileURL {
-                    if let data = try? Data(contentsOf: url) {
-                        if let jpgData = UIImage(data: data)?.jpegData(compressionQuality: 0.7) {
-                            st.uploadImage(withData: jpgData, contentType: "image/jpeg", uploadURL: "\(FSCollectionName.STORAGE_REVIEW_IMAGE)/\(creatorId)/\(documentId)/\(UUID().uuidString).jpg") { (url) in
-                                if let url = url {
-                                    photolist.removeFirst()
-                                    uploadUrls.append(url.absoluteString)
-                                    upload()
-                                } else {
-                                    complete(nil)
-                                }
-                            }
-                            return
+                    st.uploadImage(url: url, contentType: "image/jpeg", uploadURL: "\(FSCollectionName.STORAGE_REVIEW_IMAGE)/\(creatorId)/\(documentId)/\(UUID().uuidString).jpg") { (url) in
+                        if let url = url {
+                            photolist.removeFirst()
+                            uploadUrls.append(url.absoluteString)
+                            upload()
+                        } else {
+                            complete(nil)
                         }
                     }
+                    return
                 }
             }
             photolist.removeFirst()

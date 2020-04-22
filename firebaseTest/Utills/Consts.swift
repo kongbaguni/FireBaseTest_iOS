@@ -64,6 +64,7 @@ struct Consts {
             
     static let stars = ["⭐️","⭐️⭐️","⭐️⭐️⭐️","⭐️⭐️⭐️⭐️","⭐️⭐️⭐️⭐️⭐️"]
     
+    static let TALK_IMAGE_MAX_SIZE = CGSize(width: 1000, height: 1000)
     static let REVIEW_IMAGE_MAX_SIZE = CGSize(width: 1000, height: 1000)
     
     static let PROFILE_IMAGE_SIZE = CGSize(width: 1000, height: 1000)
