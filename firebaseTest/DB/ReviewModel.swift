@@ -380,8 +380,8 @@ extension ReviewModel {
                 }
                 makeComplete(error == nil)
                 getTargetUsersLikeCount { (count) in
-                    if let c = count {                        
-                        self.creator?.update(data:["email":id,"count_of_recive_like":c] , complete: { (sucess) in
+                    if let c = count {
+                        self.creator?.update(data:["count_of_recive_like":c] , complete: { (sucess) in
                             
                         })
                     }
