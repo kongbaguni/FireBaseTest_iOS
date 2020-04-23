@@ -109,6 +109,11 @@ class ReviewsViewController : UITableViewController {
         }.disposed(by: disposeBag)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        refereshEmptyView()
+    }
+    
     func refereshEmptyView() {
         emptyViewLabel.text = "empty review".localized
         writeReviewBtn.setTitle("write review".localized, for: .normal)
@@ -157,7 +162,7 @@ class ReviewsViewController : UITableViewController {
             sender.endRefreshing()
             self?.loading.hide()
             self?.tableView.reloadData()
-            self?.refereshEmptyView()            
+            self?.refereshEmptyView()
             NotificationCenter.default.post(
                 name: .reviews_selectReviewInReviewList,
                 object: nil,
