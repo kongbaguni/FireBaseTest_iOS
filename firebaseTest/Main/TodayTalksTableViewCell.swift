@@ -8,6 +8,12 @@
 
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
+extension Notification.Name {
+    static let todayTlakImageBtnTouchup = Notification.Name("todayTalkImageBtnTouchup")
+}
+
 fileprivate var textStyle0:[NSAttributedString.Key:Any] {
     [
         .font               : UIFont.systemFont(ofSize: 18),
@@ -99,7 +105,8 @@ class TodayTalksTableViewCell: UITableViewCell {
 
 class TodayTalksTableImageViewCell :TodayTalksTableViewCell {
     @IBOutlet weak var attachmentImageView:UIImageView!
-    
+    @IBOutlet weak var imageOverBtn:UIButton!
+    let disposeBag = DisposeBag()
     override func setData() {
         guard let data = self.data else {
             return
@@ -117,6 +124,11 @@ class TodayTalksTableImageViewCell :TodayTalksTableViewCell {
                 }
             }
         }
+        
+        imageOverBtn.rx.tap.bind { [weak self](_) in
+            let url = self?.data?.imageURL
+            NotificationCenter.default.post(name: .todayTlakImageBtnTouchup, object: url)
+        }.disposed(by: disposeBag)
     }
     
 }

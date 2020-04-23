@@ -12,6 +12,7 @@ import GoogleSignIn
 import AlamofireImage
 import NVActivityIndicatorView
 
+
 class LoginViewController: UIViewController {
     @IBOutlet weak var autologinBgView:UIView!
     @IBOutlet weak var titleBubbleImageView: UIImageView!

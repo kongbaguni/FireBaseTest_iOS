@@ -13,6 +13,7 @@ import AlamofireImage
 import RxSwift
 import RxCocoa
 import FirebaseAuth
+import Lightbox
 
 class TodaysTalksTableViewController: UITableViewController {
     static var viewController : TodaysTalksTableViewController {
@@ -180,6 +181,31 @@ class TodaysTalksTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(forName: .talkUpdateNotification, object: nil, queue: nil) {[weak self] (_) in
             self?.reload()
             self?.emptyView.isHidden = self?.list.count != 0 || self?.notices.count != 0
+        }
+        
+        NotificationCenter.default.addObserver(forName: .todayTlakImageBtnTouchup, object: nil, queue: nil) {[weak self] (notification) in
+            if let imglist = self?.list.filter("imageUrl != %@",""),
+                let noti_url = notification.object as? URL {
+                var urls:[URL] = []
+                var images:[LightboxImage] = []
+                var sIndex:Int = 0
+                for (index,talk) in imglist.enumerated() {
+                    if let url = talk.imageURL {
+                        
+                        urls.append(url)
+                        let image = LightboxImage(imageURL: url, text: talk.text, videoURL: nil)
+                        images.append(image)
+                        if url == noti_url {
+                            sIndex = index
+                        }
+                    }
+                }
+                
+                let vc = LightboxController(images: images, startIndex: sIndex)
+                vc.modalPresentationStyle = .fullScreen
+                self?.present(vc, animated: true, completion: nil)
+            }
+                
         }
         onRefreshControl(UIRefreshControl())
     }
