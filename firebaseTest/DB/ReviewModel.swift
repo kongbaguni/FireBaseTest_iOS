@@ -312,8 +312,24 @@ extension ReviewModel {
                     for doc in data.documents {
                         let review = realm.create(ReviewModel.self, value: doc.data(), update: .all)
                         let reviewId = review.id
+                        let reviewDoc = FS.store.collection(FSCollectionName.REVIEW).document(doc.documentID)
+                        reviewDoc.collection("like").getDocuments { (snapShot, error) in
+                            if error == nil {
+                                let realm = try! Realm()
+                                let review = realm.object(ofType: ReviewModel.self, forPrimaryKey: reviewId)
+                                realm.beginWrite()
+                                review?.likeList.removeAll()
+                                for likeDoc in snapShot?.documents ?? [] {
+                                    let likedata = likeDoc.data()
+                                    let like = realm.create(LikeModel.self, value: likedata, update: .all)
+                                    review?.likeList.append(like)
+                                }
+                                try! realm.commitWrite()
+                            }
+                            
+                        }
                         
-                        FS.store.collection(FSCollectionName.REVIEW).document(doc.documentID).collection("edit").getDocuments { (snapShot, error) in
+                        reviewDoc.collection("edit").getDocuments { (snapShot, error) in
                             let realm = try! Realm()
                             let review = realm.object(ofType: ReviewModel.self, forPrimaryKey: reviewId)
                             realm.beginWrite()
@@ -350,6 +366,21 @@ extension ReviewModel {
             "targetId":id,
             "regTimeIntervalSince1970":Date().timeIntervalSince1970
         ]
+        
+        func updateReview() {
+            let data:[String:Any] = [
+                "id":self.id,
+                "modifiedTimeIntervalSince1970":Date().timeIntervalSince1970
+            ]
+            FS.store.collection(FSCollectionName.REVIEW).document(self.id).updateData(data) { (error) in
+                if error == nil {
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    realm.create(ReviewModel.self, value: data, update: .modified)
+                    try! realm.commitWrite()
+                }
+            }
+        }
         
         func getTargetUsersLikeCount(getCount:@escaping(_ count:Int?)->Void) {
             let targetUsersLike = FS.store.collection(FSCollectionName.USERS).document(self.creatorId).collection("like")
@@ -395,7 +426,10 @@ extension ReviewModel {
                     doc.collection("like").document(likeId).setData(likeData) { (error) in
                         if error == nil {
                             makeLikes { (sucess) in
-                             
+                                UserInfo.info?.updateForRanking(type: .count_of_like, addValue: 1 , complete: { (sucess) in
+                                    
+                                })
+                                updateReview()
                                 NotificationCenter.default.post(name: .likeUpdateNotification, object: nil, userInfo: nil)
                                 complete(true)
                             }
@@ -407,6 +441,10 @@ extension ReviewModel {
                     doc.collection("like").document(data.documentID).delete { (error) in
                         if error == nil {
                             makeLikes { (sucess) in
+                                UserInfo.info?.updateForRanking(type: .count_of_like, addValue: -1 , complete: { (sucess) in
+                                    
+                                })
+                                updateReview()
                                 NotificationCenter.default.post(name: .likeUpdateNotification, object: nil, userInfo: nil)
                                 complete(false)
                             }

@@ -18,6 +18,10 @@ extension Notification.Name {
 
 class ReviewsViewController : UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
+
+    @IBOutlet var emptyView: UIView!
+    @IBOutlet weak var writeReviewBtn: UIButton!
+    @IBOutlet weak var emptyViewLabel: UILabel!
     
     let disposeBag = DisposeBag()
     
@@ -31,6 +35,16 @@ class ReviewsViewController : UITableViewController {
     
     var searchText:String? = nil
     
+    var totalReviews:Results<ReviewModel>? {
+        var result = try! Realm().objects(ReviewModel.self)
+        if let txt = searchText?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) {
+            if txt.isEmpty == false {
+                result = result.filter("name CONTAINS[c] %@ || comment CONTAINS[C] %@", txt, txt)
+            }
+        }
+        return result.sorted(byKeyPath: "regTimeIntervalSince1970", ascending: false)
+    }
+    
     var reviews:Results<ReviewModel>? {
         guard let lng = UserDefaults.standard.lastMyCoordinate?.longitude,
             let lat = UserDefaults.standard.lastMyCoordinate?.latitude else {
@@ -40,19 +54,17 @@ class ReviewsViewController : UITableViewController {
         let maxlat = lat + 0.005
         let minlng = lng - 0.005
         let maxlng = lng + 0.005
-        var result = try! Realm().objects(ReviewModel.self)
+        return totalReviews?
             .filter("reg_lat > %@ && reg_lat < %@ && reg_lng > %@ && reg_lng < %@",minlat, maxlat, minlng, maxlng)
-        
-        if let txt = searchText?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) {
-            if txt.isEmpty == false {
-                result = result.filter("name CONTAINS[c] %@ || comment CONTAINS[C] %@", txt, txt)
-            }
-        }
-        return result.sorted(byKeyPath: "regTimeIntervalSince1970", ascending: false)
     }
     
+    var newReviews:Results<ReviewModel>? {
+        return totalReviews?.filter("regTimeIntervalSince1970 > %@", Date.getMidnightTime(beforDay: 1).timeIntervalSince1970)
+    }
+    
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func viewDidLoad() {
@@ -61,8 +73,9 @@ class ReviewsViewController : UITableViewController {
         
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedSectionFooterHeight = CGFloat.leastNormalMagnitude
+        tableView.estimatedSectionFooterHeight = UITableView.automaticDimension
         tableView.sectionHeaderHeight = UITableView.automaticDimension
+        
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButtonItem(_:)))
         NotificationCenter.default.addObserver(forName: .reviewWriteNotification, object: nil, queue: nil) { [weak self] (notification) in
@@ -88,8 +101,32 @@ class ReviewsViewController : UITableViewController {
         }.disposed(by: disposeBag)
         
         searchBar.delegate = self
+        refereshEmptyView()
         
-        
+        writeReviewBtn.rx.tap.bind { [weak self](_) in
+            let vc = MyReviewWriteController.viewController
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }.disposed(by: disposeBag)
+    }
+    
+    func refereshEmptyView() {
+        emptyViewLabel.text = "empty review".localized
+        writeReviewBtn.setTitle("write review".localized, for: .normal)
+
+        let a = newReviews?.count ?? 0
+        let b = reviews?.count ?? 0
+        emptyView.isHidden = a + b > 0
+        if emptyView.isHidden {
+            emptyView.removeFromSuperview()
+        } else {
+            tableView.addSubview(emptyView)
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        emptyView.frame = tableView.frame
+        emptyView.frame.size.height -= 100
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -120,7 +157,7 @@ class ReviewsViewController : UITableViewController {
             sender.endRefreshing()
             self?.loading.hide()
             self?.tableView.reloadData()
-            
+            self?.refereshEmptyView()            
             NotificationCenter.default.post(
                 name: .reviews_selectReviewInReviewList,
                 object: nil,
@@ -158,22 +195,52 @@ class ReviewsViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviews?.count ?? 0
+        switch section {
+        case 0:
+            return reviews?.count ?? 0
+        case 1:
+            return newReviews?.count ?? 0
+        default:
+            return 0
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let list = reviews {
-            let id = list[indexPath.row].id
-            self.performSegue(withIdentifier: "showReviewDetail", sender: id)
+        switch indexPath.section {
+        case 0:
+            if let list = reviews {
+                let id = list[indexPath.row].id
+                self.performSegue(withIdentifier: "showReviewDetail", sender: id)
+            }
+        case 1:
+            if let list = newReviews {
+                let id = list[indexPath.row].id
+                self.performSegue(withIdentifier: "showReviewDetail", sender: id)
+            }
+        default:
+            break
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
-        if let data = reviews {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
+            if let data = reviews {
             cell.reviewId = data[indexPath.row].id
+            }
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
+            if let data = newReviews {
+            cell.reviewId = data[indexPath.row].id
+            }
+            return cell
+
+        default:
+            return UITableViewCell()
         }
-        return cell
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -210,6 +277,22 @@ class ReviewsViewController : UITableViewController {
         return UITableView.automaticDimension
     }        
     
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            if reviews?.count ?? 0  > 0  {
+                return "nearReview".localized
+            }
+        case 1:
+            if newReviews?.count ?? 0 > 0 {
+                return "newReview".localized
+            }
+        default:
+            break
+        }
+        return nil
+    }
 }
 
 

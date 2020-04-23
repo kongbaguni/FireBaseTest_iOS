@@ -246,3 +246,7 @@
 "detail address" = "상세주소";
 "postal_code" = "우편번호";
 
+"nearReview" = "주변의 리뷰";
+"newReview" = "새로운 리뷰";
+"empty review" = "작성된 리뷰가 없습니다.";
+"write review" = "리뷰 쓰기";

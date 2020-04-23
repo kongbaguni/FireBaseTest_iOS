@@ -99,6 +99,7 @@ class ReviewDetailViewController: UITableViewController {
     }
     
     func setTitle() {
+        historyBtn.isEnabled = review?.editList.count ?? 0 > 1
         historyBtn.setTitle("edit history".localized, for: .normal)
         
         let likeCount = review?.likeList.count ?? 0
@@ -127,6 +128,9 @@ class ReviewDetailViewController: UITableViewController {
         case 1:
             return review?.photoUrlList.count ?? 0
         case 2:
+            if review?.editList.count == 1 {
+                return 4
+            }
             return 5
         case 3:
             return 1
@@ -180,7 +184,7 @@ class ReviewDetailViewController: UITableViewController {
             case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "rightDetailCell", for: indexPath)
                 cell.textLabel?.text = "editDt".localized
-                cell.detailTextLabel?.text = review?.modifiedDt?.simpleFormatStringValue
+                cell.detailTextLabel?.text = review?.editList.last?.modifiedDt?.simpleFormatStringValue
                 return cell
             default:
                 return UITableViewCell()
@@ -286,8 +290,7 @@ class ReviewDetailPhotoTableViewCell : UITableViewCell {
         photoImageView?.kf.setImage(with: imageUrl, placeholder: UIImage.placeHolder_image, options: nil, progressBlock: nil
             , completionHandler: { (_) in
         })
-    }
-    
+    }    
         
 }
 
