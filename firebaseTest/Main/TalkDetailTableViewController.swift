@@ -8,6 +8,9 @@
 
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
+
 class TalkDetailTableViewController: UITableViewController {
     static var viewController:TalkDetailTableViewController {
         let storeyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -17,6 +20,7 @@ class TalkDetailTableViewController: UITableViewController {
             return storeyBoard.instantiateViewController(withIdentifier: "talkDetail") as! TalkDetailTableViewController
         }
     }
+    let disposeBag = DisposeBag()
     
     let loading = Loading()
     
@@ -28,6 +32,7 @@ class TalkDetailTableViewController: UITableViewController {
         }
         return nil
     }
+    @IBOutlet weak var likeBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +56,31 @@ class TalkDetailTableViewController: UITableViewController {
             self?.tableView.reloadData()
         }
 
+        likeBtn.setTitle("processing...".localized, for: .disabled)
+        likeBtn.setTitleColor(.autoColor_weak_text_color, for: .disabled)
+        likeBtn.rx.tap.bind { [weak self](_) in
+            self?.likeBtn.isEnabled = false
+            self?.talkModel?.toggleLike(complete: { (isSucess) in
+                self?.likeBtn.isEnabled = true
+                self?.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
+                self?.setData()
+            })
+        }.disposed(by: disposeBag)
+        setData()
+        
+    }
+    
+    private func setData() {
+        guard let talk = talkModel else {
+            return
+        }
+        
+        let format = talk.isLike ? "liked : %@" : "like : %@"
+        let str = String(format:format.localized, talk.likes.count.decimalForamtString)
+        
+        likeBtn.setTitleColor(talk.isLike ? .autoColor_bold_text_color : .autoColor_text_color , for: .normal)
+        likeBtn.setTitle(str, for: .normal)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

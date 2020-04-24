@@ -2826,7 +2826,19 @@
                         <view key="tableFooterView" contentMode="scaleToFill" id="JFl-tZ-x9h">
                             <rect key="frame" x="0.0" y="1416" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkE-cf-laN">
+                                    <rect key="frame" x="20" y="0.0" width="54" height="44"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MkE-cf-laN" secondAttribute="trailing" constant="20" id="0RV-qM-aBt"/>
+                                <constraint firstItem="MkE-cf-laN" firstAttribute="leading" secondItem="JFl-tZ-x9h" secondAttribute="leading" constant="20" id="1ky-Y6-Mnu"/>
+                                <constraint firstItem="MkE-cf-laN" firstAttribute="top" secondItem="JFl-tZ-x9h" secondAttribute="top" id="pYz-PH-DqK"/>
+                                <constraint firstAttribute="bottom" secondItem="MkE-cf-laN" secondAttribute="bottom" id="sdx-xY-PV6"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userInfo" id="z0U-wt-PQb" customClass="TalkDetailUserInfoTableViewCell" customModule="mask_now" customModuleProvider="target">
@@ -3067,6 +3079,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="AuI-16-RS0"/>
                     <connections>
+                        <outlet property="likeBtn" destination="MkE-cf-laN" id="aPc-EE-tst"/>
                         <segue destination="L7l-bB-hyF" kind="show" identifier="showUserInfoDetail" id="tNh-p3-JAq"/>
                     </connections>
                 </tableViewController>

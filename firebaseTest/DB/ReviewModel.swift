@@ -80,6 +80,10 @@ class ReviewEditModel : Object {
 }
 
 extension ReviewModel {
+    var isLike:Bool {
+        return likeList.filter("creatorId = %@",UserInfo.info?.id ?? "").count != 0
+    }
+    
     var creator:UserInfo? {
         return try! Realm().object(ofType: UserInfo.self, forPrimaryKey: self.creatorId)
     }

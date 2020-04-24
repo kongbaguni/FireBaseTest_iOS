@@ -104,11 +104,13 @@ class ReviewDetailViewController: UITableViewController {
         
         let likeCount = review?.likeList.count ?? 0
         var msg = String(format:"like : %@".localized, likeCount.decimalForamtString)
-        if review?.likeList.filter("creatorId = %@",UserInfo.info?.id ?? "").count != 0 {
+        if review?.isLike == true {
             msg = String(format:"liked : %@".localized, likeCount.decimalForamtString)
         }
         likeBtn.setTitle(msg, for: .normal)
         likeBtn.setTitle("♡ " + "processing...".localized, for: .disabled)
+        likeBtn.setTitleColor(review?.isLike ?? false ? .autoColor_bold_text_color : .autoColor_text_color, for: .normal)
+        likeBtn.setTitleColor(.autoColor_weak_text_color, for: .disabled)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
