@@ -254,6 +254,7 @@ extension TalkModel {
         like { (isLike) in
             if let value = isLike {
                 toggleComplete(true)
+                NotificationCenter.default.post(name: .likeUpdateNotification, object: nil)
                 UserInfo.info?.updateForRanking(type: .count_of_like, addValue: value ? 1 : -1, complete: { (sucess) in
                     
                 })

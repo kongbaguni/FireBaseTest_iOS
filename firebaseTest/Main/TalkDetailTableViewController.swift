@@ -46,6 +46,11 @@ class TalkDetailTableViewController: UITableViewController {
         self.talkModel?.readDetail(complete: { (sucess) in
             
         })
+        
+        NotificationCenter.default.addObserver(forName: .likeUpdateNotification, object: nil, queue: nil) { [weak self] (_) in
+            self?.tableView.reloadData()
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
