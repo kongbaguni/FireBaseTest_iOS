@@ -191,7 +191,6 @@ class TodaysTalksTableViewController: UITableViewController {
                 var sIndex:Int = 0
                 for (index,talk) in imglist.enumerated() {
                     if let url = talk.imageURL {
-                        
                         urls.append(url)
                         let image = LightboxImage(imageURL: url, text: talk.text, videoURL: nil)
                         images.append(image)

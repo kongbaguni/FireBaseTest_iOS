@@ -40,7 +40,8 @@ class TodayTalksTableViewCell: UITableViewCell {
     @IBOutlet weak var porfileImageView:UIImageView!
     @IBOutlet weak var talkTextView:UITextView!
     @IBOutlet weak var nameLabel: UILabel!
-    
+    @IBOutlet weak var likeBtn:UIButton!
+    let disposeBag = DisposeBag()
     var talkId:String = "" {
         didSet {
             setData()
@@ -55,11 +56,32 @@ class TodayTalksTableViewCell: UITableViewCell {
         super.layoutSubviews()
         setData()
     }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+    
+        if likeBtn.tag != 112233 {
+            likeBtn.rx.tap.bind { [weak self](_) in
+                self?.likeBtn.isEnabled = false
+                self?.data?.toggleLike(complete: { (sucess) in
+                    self?.likeBtn.isEnabled = true
+                    self?.setData()
+                })
+            }.disposed(by: disposeBag)
+            likeBtn.tag = 112233
+        }
+    }
 
     fileprivate func setData() {
+        
         guard let data = self.data else {
             return
         }
+        let format = data.isLike ?  "liked : %@" : "like : %@"
+        likeBtn.setTitle("processing...".localized, for: .disabled)
+        likeBtn.setTitle(String(format: format.localized, data.likes.count.decimalForamtString), for: .normal)
+        likeBtn.setTitleColor(data.isLike ? .autoColor_bold_text_color : .autoColor_text_color, for: .normal)
+        likeBtn.setTitleColor(.autoColor_weak_text_color, for: .disabled)
         nameLabel.text = data.creator?.name ?? data.creatorId
         self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
 
@@ -85,11 +107,6 @@ class TodayTalksTableViewCell: UITableViewCell {
         }
 
         text.append(NSAttributedString(string: "\n\n"))
-        if data.likes.count > 0 {
-            text.append(NSAttributedString(string: "like : ".localized, attributes: textStyle2))
-            text.append(NSAttributedString(string: "\(data.likes.count)", attributes: textStyle1))
-            text.append(NSAttributedString(string: "\n"))
-        }
         text.append(NSAttributedString(string: "reg : ".localized, attributes: textStyle2))
         text.append(NSAttributedString(string: "\(data.regDt.relativeTimeStringValue)", attributes: textStyle1))
 
@@ -106,7 +123,7 @@ class TodayTalksTableViewCell: UITableViewCell {
 class TodayTalksTableImageViewCell :TodayTalksTableViewCell {
     @IBOutlet weak var attachmentImageView:UIImageView!
     @IBOutlet weak var imageOverBtn:UIButton!
-    let disposeBag = DisposeBag()
+    
     override func setData() {
         guard let data = self.data else {
             return
