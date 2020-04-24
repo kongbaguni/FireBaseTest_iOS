@@ -46,6 +46,18 @@ class TalkDetailHoldemTableViewCell: UITableViewCell {
             }.disposed(by: disposeBag)
             likeBtn.tag = 112233
         }
+        addObserver()
+    }
+    
+    var isObserverAdded = false
+    func addObserver() {
+        if isObserverAdded {
+            return
+        }
+        NotificationCenter.default.addObserver(forName: .likeUpdateNotification, object: nil, queue: nil) { [weak self](_) in
+            self?.setData()
+        }
+        isObserverAdded = true
     }
     
     fileprivate func setData() {
