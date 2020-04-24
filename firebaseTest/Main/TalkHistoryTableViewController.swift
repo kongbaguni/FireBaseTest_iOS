@@ -47,6 +47,18 @@ class TalkHistoryTableViewController: UITableViewController {
         }
         return nil
     }
+    
+    var reviews:Results<ReviewModel>? {
+        if let id = userId {
+            var result = try! Realm().objects(ReviewModel.self).filter("creatorId = %@", id)
+            if let txt = filterText {
+                result = result.filter("textForSearch CONTAINS[c] %@", txt)
+            }
+            return result.sorted(byKeyPath: "regTimeIntervalSince1970", ascending: false)
+        }
+        return nil
+    }
+    
     let disposebag = DisposeBag()
     
     override func viewDidLoad() {
@@ -99,7 +111,7 @@ class TalkHistoryTableViewController: UITableViewController {
       
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,8 +119,9 @@ class TalkHistoryTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            let count = talks?.count ?? 0
-            return count == 0 ? 1 : count
+            return talks?.count ?? 0
+        case 2:
+            return reviews?.count ?? 0
         default:
             return 0
         }
@@ -124,11 +137,6 @@ class TalkHistoryTableViewController: UITableViewController {
         case 1:
             guard let talks = talks else {
                 return UITableViewCell()
-            }
-            if talks.count == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "empty", for: indexPath)
-                cell.textLabel?.text = "talk logs is empty".localized
-                return cell
             }
             let data = talks[indexPath.row]
             if data.isDeleted {
@@ -152,6 +160,29 @@ class TalkHistoryTableViewController: UITableViewController {
                 cell.dateLabel.text = data.regDt.simpleFormatStringValue
                 return cell
             }
+        case 2:
+            guard let review = reviews?[indexPath.row] else {
+                return UITableViewCell()
+            }
+            var starPoint = ""
+            if review.starPoint > 0 && review.starPoint <= Consts.stars.count {
+                starPoint = Consts.stars[review.starPoint-1]
+            }
+            let text = """
+            \(review.name)
+            \(review.comment)
+            \(starPoint)
+            """
+            
+            if let url = review.photoUrlList.first {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
+                cell.textView.text = text
+                cell.imageView?.kf.setImage(with: url,placeholder: UIImage.placeHolder_image)
+                return cell
+            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
+            cell.textView.text = text
+            return cell
         default:
             return UITableViewCell()
         }
@@ -161,16 +192,23 @@ class TalkHistoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 1:
-            guard let talks = talks else {
+            guard let talk = talks?[indexPath.row] else {
                 return
             }
-            let talk = talks[indexPath.row]
+            
             if talk.isDeleted {
                 tableView.deselectRow(at: indexPath, animated: true)
                 return
             }
             let vc = TalkDetailTableViewController.viewController
             vc.documentId = talk.id
+            navigationController?.pushViewController(vc, animated: true)
+        case 2:
+            guard let review = reviews?[indexPath.row] else {
+                return
+            }
+            let vc = ReviewDetailViewController.viewController
+            vc.reviewId = review.id
             navigationController?.pushViewController(vc, animated: true)
         default:
             break
@@ -183,6 +221,8 @@ class TalkHistoryTableViewController: UITableViewController {
             return "profile".localized
         case 1:
             return "talk logs".localized
+        case 2:
+            return "review".localized
         default:
             return nil
         }

@@ -24,6 +24,14 @@ class ReviewDetailViewController: UITableViewController {
     @IBOutlet weak var historyBtn: UIButton!
     @IBOutlet weak var likeBtn: UIButton!
     
+    static var viewController : ReviewDetailViewController {
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "MyReview", bundle: nil).instantiateViewController(identifier: "reviewDetail") as! ReviewDetailViewController
+        } else {
+            return UIStoryboard(name: "MyReview", bundle: nil).instantiateViewController(withIdentifier: "reviewDetail") as! ReviewDetailViewController
+        }
+    }
+    
     let disposeBag = DisposeBag()
     
     var reviewId:String? = nil
