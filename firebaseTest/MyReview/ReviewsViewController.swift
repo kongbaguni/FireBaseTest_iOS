@@ -55,6 +55,7 @@ class ReviewsViewController : UITableViewController {
         let minlng = lng - 0.005
         let maxlng = lng + 0.005
         return totalReviews?
+            .filter("regTimeIntervalSince1970 > %@", Date.getMidnightTime(beforDay: 365).timeIntervalSince1970)
             .filter("reg_lat > %@ && reg_lat < %@ && reg_lng > %@ && reg_lng < %@",minlat, maxlat, minlng, maxlng)
     }
     
@@ -94,13 +95,21 @@ class ReviewsViewController : UITableViewController {
         }) { (location) in
             self.tableView.reloadData()
         }
+                    
         
-        searchBar.rx.text.orEmpty.bind { [weak self] (string) in
-            self?.searchText = string
-            self?.tableView.reloadData()
-        }.disposed(by: disposeBag)
-        
-        searchBar.delegate = self
+
+        searchBar
+            .rx.text.orEmpty.subscribe(onNext: { [weak self] (query) in
+                print("----------")
+                print(query)
+                self?.searchText = query
+                self?.tableView.reloadData()
+            }, onError: { (error) in
+                
+            }, onCompleted: {[weak self] in
+                self?.searchBar.endEditing(true)
+            }, onDisposed: nil).disposed(by: disposeBag)
+
         refereshEmptyView()
         
         writeReviewBtn.rx.tap.bind { [weak self](_) in
@@ -299,12 +308,3 @@ class ReviewsViewController : UITableViewController {
         return nil
     }
 }
-
-
-extension ReviewsViewController : UISearchBarDelegate {
-    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
-        print("return")
-        searchBar.endEditing(true)
-    }
-}
-

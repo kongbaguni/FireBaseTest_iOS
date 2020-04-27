@@ -36,6 +36,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(#file) \(#function)")
+        titleLabel.text = "app title".localized
         maskNowBtn.setTitle("mask now".localized, for: .normal)
         loginGoogleBtn.setTitle("login with google".localized, for: .normal)
         GIDSignIn.sharedInstance()?.presentingViewController = self

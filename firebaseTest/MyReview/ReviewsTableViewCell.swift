@@ -14,6 +14,7 @@ import RxSwift
 
 class ReviewsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var attachImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var starPointLabel: UILabel!
     @IBOutlet weak var priceLaebl: UILabel!
@@ -57,7 +58,10 @@ class ReviewsTableViewCell: UITableViewCell {
         loadData()
     }
     
-    func loadData() {        
+    func loadData() {
+        let photoCount = review?.photoUrlList.count ?? 0
+        attachImageView.isHidden = photoCount == 0
+        attachImageView.kf.setImage(with: review?.photoUrlList.first, placeholder: UIImage.placeHolder_image)
         titleLabel.text = review?.name
         let point = review?.starPoint ?? 0
         if point <= Consts.stars.count && point > 0 {

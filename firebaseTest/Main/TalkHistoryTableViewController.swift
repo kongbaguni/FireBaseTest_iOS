@@ -177,7 +177,7 @@ class TalkHistoryTableViewController: UITableViewController {
             if let url = review.photoUrlList.first {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
                 cell.textView.text = text
-                cell.imageView?.kf.setImage(with: url,placeholder: UIImage.placeHolder_image)
+                cell.attachImageView?.kf.setImage(with: url,placeholder: UIImage.placeHolder_image)
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
