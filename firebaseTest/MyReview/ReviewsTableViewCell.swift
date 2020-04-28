@@ -21,13 +21,14 @@ class ReviewsTableViewCell: UITableViewCell {
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var likeBtn: UIButton!
     
+    @IBOutlet weak var attach2ImageView: UIImageView!
+    @IBOutlet weak var attach3ImageView: UIImageView!
+    
     let disposeBag = DisposeBag()
     
     var reviewId:String? = nil {
         didSet {
-            DispatchQueue.main.async {
-                self.loadData()
-            }
+            self.loadData()
         }
     }
     var review:ReviewModel? {
@@ -53,10 +54,10 @@ class ReviewsTableViewCell: UITableViewCell {
 
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        loadData()
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        loadData()
+//    }
     
     func loadData() {
         let photoCount = review?.photoUrlList.count ?? 0
@@ -76,5 +77,19 @@ class ReviewsTableViewCell: UITableViewCell {
         }
         likeBtn.setTitle(msg, for: .normal)
         likeBtn.setTitle("♡ " + "processing...".localized, for: .disabled)
+        
+        if review?.photoUrlList.count ?? 0 > 1 {
+            attach2ImageView.kf.setImage(with: review?.photoUrlList[1], placeholder: UIImage.placeHolder_image)
+            attach2ImageView.isHidden = false
+        } else {
+            attach2ImageView.isHidden = true
+        }
+        
+        if review?.photoUrlList.count ?? 0 > 2 {
+            attach3ImageView.kf.setImage(with: review?.photoUrlList[2], placeholder: UIImage.placeHolder_image)
+            attach3ImageView.isHidden = false
+        } else {
+            attach3ImageView.isHidden = true
+        }
     }
 }

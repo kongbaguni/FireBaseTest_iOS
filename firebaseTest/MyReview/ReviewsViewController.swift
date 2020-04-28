@@ -74,8 +74,6 @@ class ReviewsViewController : UITableViewController {
         
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedSectionFooterHeight = UITableView.automaticDimension
-        tableView.sectionHeaderHeight = UITableView.automaticDimension
         
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButtonItem(_:)))
@@ -242,13 +240,13 @@ class ReviewsViewController : UITableViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
             if let data = reviews {
-            cell.reviewId = data[indexPath.row].id
+                cell.reviewId = data[indexPath.row].id               
             }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
             if let data = newReviews {
-            cell.reviewId = data[indexPath.row].id
+                cell.reviewId = data[indexPath.row].id
             }
             return cell
 
@@ -288,12 +286,21 @@ class ReviewsViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0,1:
-            return UITableView.automaticDimension
-        default:
-            return CGFloat.leastNormalMagnitude
-        }
+        return UITableView.automaticDimension
+//        func getheight(review:ReviewModel?)->CGFloat {
+//            if review?.photoUrlList.count == 0 {
+//                return 100
+//            }
+//            return 300
+//        }
+//        switch indexPath.section {
+//        case 0:
+//            return getheight(review: reviews?[indexPath.row])
+//        case 1:
+//            return getheight(review: newReviews?[indexPath.row])
+//        default:
+//            return CGFloat.leastNormalMagnitude
+//        }
     }
     
     
