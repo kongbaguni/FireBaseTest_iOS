@@ -274,8 +274,12 @@ class MyReviewWriteController: UITableViewController {
                         deletePhotos: s.deletedImages,
                         place_id: self?.place_id ?? "",
                         place_detail: self?.address2TextField.text ?? "" ,
-                        complete: { [weak s](sucess) in
+                        complete: { [weak s](sucess, isNotChange) in
                             s?.loading.hide()
+                            if isNotChange {
+                                Toast.makeToast(message: "There are no edits.".localized)
+                                return
+                            }
                             if sucess {
                                 s?.navigationController?.popViewController(animated: true)
                             } else {
