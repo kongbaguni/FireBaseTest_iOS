@@ -100,13 +100,10 @@ class ReviewsViewController : UITableViewController {
         self.onRefreshControll(UIRefreshControl())
         
         LocationManager.shared.requestAuth(complete: { (status) in
-            
-        }) { (location) in
-            self.tableView.reloadData()
+        }) { [weak self](location) in
+            self?.tableView.reloadData()
         }
-                    
-        
-
+                            
         searchBar
             .rx.text.orEmpty.subscribe(onNext: { [weak self] (query) in
                 print("----------")
@@ -144,13 +141,15 @@ class ReviewsViewController : UITableViewController {
         } else {
             tableView.addSubview(emptyView)
         }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         emptyView.frame = tableView.frame
         emptyView.frame.size.height -= 100
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        emptyView.frame = tableView.frame
+//        emptyView.frame.size.height -= 100
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {

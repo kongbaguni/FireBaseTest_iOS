@@ -23,22 +23,46 @@
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicCell" textLabel="otL-4n-U3b" style="IBUITableViewCellStyleDefault" id="zTz-ka-6oX">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicCell" id="zTz-ka-6oX" customClass="ReviewHistroyBasicTableViewCell" customModule="mask_now" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zTz-ka-6oX" id="p4b-c6-CFo">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="otL-4n-U3b">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7E-yB-cVW">
+                                            <rect key="frame" x="20" y="11" width="100" height="21.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="XuP-bv-22g"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9yP-ps-iJ3">
+                                            <rect key="frame" x="120" y="11" width="274" height="21.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Ned-Ap-Qlc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="T7E-yB-cVW" firstAttribute="top" secondItem="p4b-c6-CFo" secondAttribute="topMargin" id="Gkr-eh-WM6"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="T7E-yB-cVW" secondAttribute="bottom" id="II8-Ck-eer"/>
+                                        <constraint firstItem="9yP-ps-iJ3" firstAttribute="bottom" secondItem="p4b-c6-CFo" secondAttribute="bottomMargin" id="TC4-ea-0mF"/>
+                                        <constraint firstItem="9yP-ps-iJ3" firstAttribute="top" secondItem="p4b-c6-CFo" secondAttribute="topMargin" id="ZWX-eJ-Y9N"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="9yP-ps-iJ3" secondAttribute="trailing" id="l0Y-Xt-wAn"/>
+                                        <constraint firstItem="9yP-ps-iJ3" firstAttribute="leading" secondItem="T7E-yB-cVW" secondAttribute="trailing" id="qD5-hv-qV7"/>
+                                        <constraint firstItem="T7E-yB-cVW" firstAttribute="leading" secondItem="p4b-c6-CFo" secondAttribute="leadingMargin" id="z8s-NK-mN5"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailLabel" destination="9yP-ps-iJ3" id="yLJ-Kz-BE1"/>
+                                    <outlet property="titleLabel" destination="T7E-yB-cVW" id="nzf-Pn-Lbs"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageCell" id="vbI-Q8-ZFg" customClass="ReviewHistoryImageTableViewCell" customModule="mask_now" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="71.5" width="414" height="70.5"/>

@@ -48,82 +48,97 @@ class ReviewHistoryTableViewController: UITableViewController {
         return 30
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if isChange(indexPath: indexPath)  {
+            return UITableView.automaticDimension
+        }
+        return CGFloat.leastNormalMagnitude
+
+    }
+    
+    func isChange(indexPath:IndexPath)->Bool {
+        let data = edits?[indexPath.section]
+        if indexPath.section == 0 {
+            return true
+        }
+        let before = edits?[indexPath.section - 1]
+
+        switch indexPath.row {
+        case 0:
+            return true
+        case 1:
+            return before?.addressStringValue != data?.addressStringValue
+        case 2:
+            return before?.name != data?.name
+        case 3:
+            return before?.price != data?.price
+        case 4:
+            return before?.starPoint != data?.starPoint
+        case 5:
+            return before?.comment != data?.comment
+        case 6:
+            return before?.photoUrlList != data?.photoUrlList
+        default:
+            break
+        }
+        return false
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = edits?[indexPath.section]
-        
-        var before:ReviewEditModel? = nil
-        if indexPath.section > 0 {
-            before = edits?[indexPath.section - 1]
-        }
+        let isChange = self.isChange(indexPath: indexPath)
         
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             if let lat = data?.location?.latitude,
                 let lng = data?.location?.longitude {
-                cell.textLabel?.text = "latitude:\(lat)\nlongitude:\(lng)"
-                cell.textLabel?.alpha = 0.3
+                cell.titleLabel.text = "place".localized
+                cell.detailLabel.text = "latitude:\(lat)\nlongitude:\(lng)"
+                cell.alpha = isChange ? 1.0 : 0.3
             }
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
-            cell.textLabel?.text = data?.addressStringValue
-            if before?.addressStringValue != data?.addressStringValue {
-                cell.textLabel?.alpha = 1
-            } else {
-                cell.textLabel?.alpha = 0.3
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
+            cell.titleLabel.text = "address".localized
+            cell.detailLabel.text = data?.addressStringValue
+            cell.alpha = isChange ? 1.0 : 0.3
             return cell
 
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
-            cell.textLabel?.text = data?.name
-            if before?.name != data?.name {
-                cell.textLabel?.alpha = 1
-            } else {
-                cell.textLabel?.alpha = 0.3
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
+            cell.titleLabel.text = "name".localized
+            cell.detailLabel.text = data?.name
+            cell.alpha = isChange ? 1.0 : 0.3
             return cell
         case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
-            cell.textLabel?.text = data?.priceLocaleString
-            if before?.price != data?.price {
-                cell.textLabel?.alpha = 1
-            } else {
-                cell.textLabel?.alpha = 0.3
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
+            cell.titleLabel.text = "price".localized
+            cell.detailLabel.text = data?.priceLocaleString
+            cell.alpha = isChange ? 1.0 : 0.3
             return cell
         case 4:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
-            cell.textLabel?.text = nil
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
+            cell.titleLabel.text = "starPoint".localized
+            cell.detailLabel.text = nil
             let point = data?.starPoint ?? -1
             if point <= Consts.stars.count && point >= 0 {
-                cell.textLabel?.text = Consts.stars[point-1]
+                cell.detailLabel.text = Consts.stars[point-1]
             }
-            if before?.starPoint != data?.starPoint {
-                cell.textLabel?.alpha = 1
-            } else {
-                cell.textLabel?.alpha = 0.3
-            }
+            cell.alpha = isChange ? 1.0 : 0.3
             return cell
         case 5:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
-            cell.textLabel?.text = data?.comment
-            if before?.comment != data?.comment {
-                cell.textLabel?.alpha = 1
-            } else {
-                cell.textLabel?.alpha = 0.3
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
+            cell.titleLabel.text = "comment".localized
+            cell.detailLabel.text = data?.comment
+            cell.alpha = isChange ? 1.0 : 0.3
+            
             return cell
         case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! ReviewHistoryImageTableViewCell
             cell.images = data?.photoUrlList ?? []
             print(cell.images.count)
-            if before?.photoUrlList != data?.photoUrlList {
-                cell.collectionView.alpha = 1
-            } else {
-                cell.collectionView.alpha = 0.3
-            }
+            cell.alpha = isChange ? 1.0 : 0.3
             return cell
         default:
             return UITableViewCell()
@@ -183,4 +198,9 @@ extension ReviewHistoryImageTableViewCell : UICollectionViewDataSource {
 
 class ReviewHistoryImageCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var imageView:UIImageView!
+}
+
+class ReviewHistroyBasicTableViewCell : UITableViewCell {
+    @IBOutlet weak var titleLabel:UILabel!
+    @IBOutlet weak var detailLabel:UILabel!
 }
