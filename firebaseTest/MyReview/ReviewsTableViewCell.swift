@@ -67,7 +67,7 @@ class ReviewsTableViewCell: UITableViewCell {
         if point <= Consts.stars.count && point > 0 {
             starPointLabel.text = Consts.stars[point-1]
         }
-        priceLaebl.text = review?.price.currencyFormatString
+        priceLaebl.text = review?.priceLocaleString
         commentLabel.text = review?.comment
         let likeCount = review?.likeList.count ?? 0
         var msg = String(format:"like : %@".localized, likeCount.decimalForamtString)

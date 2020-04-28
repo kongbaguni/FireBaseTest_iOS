@@ -44,11 +44,11 @@
 		C370C9FB2417688A00026E86 /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9FA2417688A00026E86 /* Date+extensions.swift */; };
 		C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */; };
 		C371E9AF2440697F00FB36D2 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C371E9AE2440697F00FB36D2 /* ReviewDetailViewController.swift */; };
+		C37509F12456CE9B0092FD78 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C37509F32456CE9B0092FD78 /* Localizable.strings */; };
 		C3757AF8241BC76500FB1819 /* GoogleAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3757AF7241BC76500FB1819 /* GoogleAd.swift */; };
 		C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E59240DDEEC006070CF /* UserInfo.swift */; };
 		C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E5B240DE535006070CF /* String+Extensions.swift */; };
 		C3780E61240E2CD6006070CF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */; };
-		C3780E63240F361A006070CF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3780E62240F361A006070CF /* Localizable.strings */; };
 		C3780E67240F44AF006070CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3780E66240F44AF006070CF /* LoginViewController.swift */; };
 		C37BF64324443582002E4666 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37BF64224443582002E4666 /* CGSize+Extensions.swift */; };
 		C37E86912423410700F87D4D /* JackPotHistoryLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */; };
@@ -172,11 +172,15 @@
 		C370C9FA2417688A00026E86 /* Date+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
 		C370C9FC24176C6B00026E86 /* UserListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTableViewController.swift; sourceTree = "<group>"; };
 		C371E9AE2440697F00FB36D2 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
+		C37509F22456CE9B0092FD78 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C37509F42456CED70092FD78 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		C37509F52456CED70092FD78 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C37509F62456CED70092FD78 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C37509F72456CED70092FD78 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3757AF7241BC76500FB1819 /* GoogleAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAd.swift; sourceTree = "<group>"; };
 		C3780E59240DDEEC006070CF /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C3780E5B240DE535006070CF /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		C3780E60240E2CD6006070CF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
-		C3780E62240F361A006070CF /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		C3780E66240F44AF006070CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C37BF64224443582002E4666 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		C37E86902423410700F87D4D /* JackPotHistoryLogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JackPotHistoryLogTableViewController.swift; sourceTree = "<group>"; };
@@ -418,7 +422,7 @@
 				C3BDFC0C240CD7A1006AE2B3 /* Info.plist */,
 				C3CE9859244FCA4600D8BADF /* InfoPlist.strings */,
 				C33839DE2418A1CE00CADC60 /* GoogleService-Info.plist */,
-				C3780E62240F361A006070CF /* Localizable.strings */,
+				C37509F32456CE9B0092FD78 /* Localizable.strings */,
 			);
 			path = firebaseTest;
 			sourceTree = "<group>";
@@ -541,6 +545,7 @@
 				en,
 				Base,
 				"en-001",
+				ko,
 			);
 			mainGroup = C3BDFBF2240CD79D006AE2B3;
 			productRefGroup = C3BDFBFC240CD79D006AE2B3 /* Products */;
@@ -565,7 +570,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3780E63240F361A006070CF /* Localizable.strings in Resources */,
+				C37509F12456CE9B0092FD78 /* Localizable.strings in Resources */,
 				C3630FD7241B5C7C003479C2 /* CardDackView.xib in Resources */,
 				C395290D243307B40050C80D /* MyReview.storyboard in Resources */,
 				C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */,
@@ -770,11 +775,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C37509F32456CE9B0092FD78 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37509F22456CE9B0092FD78 /* en */,
+				C37509F72456CED70092FD78 /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		C3BDFC04240CD79D006AE2B3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C3BDFC05240CD79D006AE2B3 /* Base */,
 				C3CE985A244FCACD00D8BADF /* en-001 */,
+				C37509F42456CED70092FD78 /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -784,6 +799,7 @@
 			children = (
 				C3BDFC0A240CD7A1006AE2B3 /* Base */,
 				C3CE985B244FCACD00D8BADF /* en-001 */,
+				C37509F52456CED70092FD78 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -793,6 +809,7 @@
 			children = (
 				C3CE985C244FCACE00D8BADF /* en-001 */,
 				C3CE985D244FD59900D8BADF /* en */,
+				C37509F62456CED70092FD78 /* ko */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -964,7 +981,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "firebaseTest/mask now.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = QU9EPTU238;
 				INFOPLIST_FILE = firebaseTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -988,7 +1005,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "firebaseTest/mask now.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = QU9EPTU238;
 				INFOPLIST_FILE = firebaseTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

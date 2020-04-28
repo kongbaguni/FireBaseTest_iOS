@@ -316,7 +316,7 @@ class MyReviewWriteController: UITableViewController {
         place_id = data.place_id
         address2TextField.text = data.place_detail
         nameTextField.text = data.name
-        priceTextField.text = data.price.currencyFormatString
+        priceTextField.text = data.priceLocaleString
         pointTextField.text = data.starPoint.decimalForamtString
         if data.starPoint > Consts.stars.count {
             pointTextField.text =  Consts.stars.last

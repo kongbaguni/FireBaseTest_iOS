@@ -56,7 +56,7 @@ struct Consts {
     /** 구글 광고 아이디*/
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
     
-    static let REALM_VERSION:UInt64 = 22
+    static let REALM_VERSION:UInt64 = 24
     
     static var isAdmin:Bool {
         return UserInfo.info?.id == "kongbaguni@gmail.com"

@@ -72,12 +72,6 @@ class ReviewsViewController : UITableViewController {
         title = "review".localized
         searchBar.placeholder = "search review".localized
         
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedSectionFooterHeight = UITableView.automaticDimension
-        tableView.sectionHeaderHeight = UITableView.automaticDimension
-        
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButtonItem(_:)))
         NotificationCenter.default.addObserver(forName: .reviewWriteNotification, object: nil, queue: nil) { [weak self] (notification) in
             self?.tableView.reloadData()
@@ -288,8 +282,13 @@ class ReviewsViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }        
+        switch indexPath.section {
+        case 0,1:
+            return UITableView.automaticDimension
+        default:
+            return CGFloat.leastNormalMagnitude
+        }
+    }
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

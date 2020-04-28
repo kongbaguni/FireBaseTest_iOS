@@ -463,25 +463,26 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let model = list[indexPath.row]
-        let action = UIContextualAction(style: .normal, title: "like".localized, handler: { (action, view, actionComplete) in
-            model.toggleLike {[weak self] (isLike) in
-                actionComplete(true)
-                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
-            }
-        })
-        action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.15, alpha: 1)
-        let iconRed =  #imageLiteral(resourceName: "heart").af.imageAspectScaled(toFit: CGSize(width: 20, height: 20))
-                      
-        if #available(iOS 13.0, *) {
-            let iconWhite =  iconRed.withTintColor(.white)
-            action.image = model.isLike ? iconRed : iconWhite
-        } else {
-            action.image = model.isLike ? iconRed : nil
-        }
-        
-        
-        return UISwipeActionsConfiguration(actions: [action])
+        return nil
+//        let model = list[indexPath.row]
+//        let action = UIContextualAction(style: .normal, title: "like".localized, handler: { (action, view, actionComplete) in
+//            model.toggleLike {[weak self] (isLike) in
+//                actionComplete(true)
+//                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+//            }
+//        })
+//        action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.15, alpha: 1)
+//        let iconRed =  #imageLiteral(resourceName: "heart").af.imageAspectScaled(toFit: CGSize(width: 20, height: 20))
+//
+//        if #available(iOS 13.0, *) {
+//            let iconWhite =  iconRed.withTintColor(.white)
+//            action.image = model.isLike ? iconRed : iconWhite
+//        } else {
+//            action.image = model.isLike ? iconRed : nil
+//        }
+//
+//
+//        return UISwipeActionsConfiguration(actions: [action])
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -503,13 +504,13 @@ class TodaysTalksTableViewController: UITableViewController {
                 action
             )
         }
-        let detailAction = UIContextualAction(style: .normal, title: "detail View".localized, handler: { [weak self] (action, view, complete)  in
-            if let talk = self?.list[indexPath.row] {
-                self?.performSegue(withIdentifier: "showDetail", sender: talk.id)
-            }
-        })
-        detailAction.backgroundColor = UIColor(red: 0.9, green: 0.3, blue: 0.6, alpha: 1)
-        actions.append(detailAction)
+////        let detailAction = UIContextualAction(style: .normal, title: "detail View".localized, handler: { [weak self] (action, view, complete)  in
+////            if let talk = self?.list[indexPath.row] {
+////                self?.performSegue(withIdentifier: "showDetail", sender: talk.id)
+////            }
+////        })
+//        detailAction.backgroundColor = UIColor(red: 0.9, green: 0.3, blue: 0.6, alpha: 1)
+//        actions.append(detailAction)
         return UISwipeActionsConfiguration(actions: actions)
     }
  

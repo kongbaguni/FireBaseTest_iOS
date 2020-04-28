@@ -174,7 +174,7 @@ class ReviewDetailViewController: UITableViewController {
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "rightDetailCell", for: indexPath)
                 cell.textLabel?.text = "price".localized
-                cell.detailTextLabel?.text = review?.price.currencyFormatString
+                cell.detailTextLabel?.text = review?.priceLocaleString
                 return cell
             case 2: // 별점
                 let cell = tableView.dequeueReusableCell(withIdentifier: "rightDetailCell", for: indexPath)

@@ -62,6 +62,7 @@ class RankingTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "ranking".localized
+        rankingTypeTitleLabel.text = "ranking type".localized
         rankingTypeTextField.inputView = rankingTypePikcer
         rankingTypePikcer.delegate = self
         rankingTypePikcer.dataSource = self

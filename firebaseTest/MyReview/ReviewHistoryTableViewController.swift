@@ -86,7 +86,7 @@ class ReviewHistoryTableViewController: UITableViewController {
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
-            cell.textLabel?.text = data?.price.currencyFormatString
+            cell.textLabel?.text = data?.priceLocaleString
             if before?.price != data?.price {
                 cell.textLabel?.alpha = 1
             } else {

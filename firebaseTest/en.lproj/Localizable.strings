@@ -1,0 +1,255 @@
+/* 
+  Localizable.strings
+  firebaseTest
+
+  Created by Changyul Seo on 2020/03/04.
+  Copyright © 2020 Changyul Seo. All rights reserved.
+*/
+
+"app title" = "Any Review";
+//"profile" = "profile";
+"login with google" = "Sign in with google account";
+//"camera" = "camera";
+"photoLibrary" = "photo library";
+//"cancel" = "cancel";
+//"confirm" = "confirm";
+//"photo" = "photo";
+//"name" = "name";
+//"introduce" = "introduce";
+//"save" = "save";
+//"delete" = "delete";
+"myProfile" = "my profile";
+"logout" = "sign out";
+"use google profile image" = "use google profile image";
+//"like : " = "like : ";
+"liked : %@" = "♥ %@";
+"like : %@" = "♡ %@";
+//"like" = "like";
+//"like cancel" = "like cancel";
+//"review" = "review";
+//"write talk" = "write talk";
+//"write review" = "write review";
+//"edit talk" = "edit talk";
+//"unknown people" = "unknown people";
+//"edit" = "edit";
+//"edit : " = "edit : ";
+"reg : " = "Registration : ";
+//"creator" = "creator";
+"like peoples" = "People who like this";
+//"place" = "place";
+//"posting location" = "posting location";
+//"editing location" = "editing location";
+//"edit history" = "edit history";
+//"detail View" = "detail View";
+//"users list" = "users list";
+//"todays talks" = "todays talks";
+//"name search" = "name search";
+//"text search" = "text search";
+"Search Store" = "search store";
+//"search review" = "search review";
+"last update profile" = "last update profile time";
+//"last talk date" = "last talk date";
+//"none" = "none";
+
+//"just now" = "just now";
+//"%@ minutes ago" = "%@ minutes ago";
+//"%@ hour ago" = "%@ hour ago";
+//"Yesterday" = "yesterday";
+//"Day before yesterday" = "Day before yesterday";
+//"%@ days ago" = "%@ days ago";
+
+//"There is no content." = "There is no content.";
+//"There are no edits." = "There are no edits.";
+
+
+//"mask now" = "mask now";
+//"stock at : " = "stock at : ";
+
+
+"plenty" = "many (more than 100)";
+"some" = "slightly (more than 30 and less than 100)";
+"few" = "less (more than 2 less than 30)";
+"empty" = "None (1 or less)";
+"break" = "Stop selling";
+
+//"Location information access is required.\nPlease make your location accessible." = "Location information access is required.\nPlease make your location accessible.";
+//"Setting up" = "Setting up";
+
+//"There are no public mask vendors nearby." = "There are no public mask vendors nearby.";
+//"retry" = "retry";
+
+//"update : %@" = "update : %@";
+//"Where to buy masks near %@ meters: %@ places" = "%@m 근처에서 마스크 살 수 있는 곳 : %@곳";
+//"view on map" = "지도에서 보기";
+//"show stock log" = "재고 상황";
+//"Store location" = "상점 위치";
+//"Point" = "포인트";
+//"Not enough points.\nCurrent Point: %@" = "포인트가 부족합니다.\n현재 포인트 : %@";
+//"Waiting for server to respond." = "서버의 응답을 기다리는 중입니다.";
+
+//"send email" = "이메일 보내기";
+//"Send an email to %@" = "%@에게 이메일을 보냅니다.";
+//"search distance" = "검색 거리";
+//"It cannot exceed 1000 characters." = "1000자 넘을 수 없습니다.";
+//"level" = "레벨";
+//"exp" = "경험치";
+"Receive points" = "Get ad reporting points";
+"%@ point get!" = "%@ Points received!";
+
+//"need point: %@, my point: %@" = "필요한 포인트 : %@, 나의 포인트 : %@";
+//"%@ point used\n\npoint : %@\nexp get : %@\nexp : %@\nlevel : %@" = "%@ 포인트 사용\n\n남은 포인트 : %@\n경험치 획득 : %@\n경험치 : %@\n레벨 : %@";
+//"%@ point betting %@ %@\n%@ point %@ point" = "%@ 포인트 베팅하여 %@로 %@\n%@ 포인트 %@ 포인트";
+//"[result] %@ %@point" = "[결과] %@ %@포인트";
+//"betting point input.\nmy point : %@" = "베팅할 포인트를 입력하세요.\n나의 포인트 : %@";
+
+//"win" = "이겼다!";
+//"lose" = "졌다...";
+//"tie" = "비겼다...";
+
+"stockTable_desc" = "The user's search history shows the change of the mask stock situation. It may differ from the actual time of receipt.";
+//"Attach pictures" = "사진 첨부";
+//"Contents" = "내용";
+//"point" = "포인트";
+
+"game count limit over msg" = "You can't play more games today.";
+//"hide game talk" = "게임 감추기";
+ 
+//"%@ days before" = "%@일전";
+//"today" = "오늘";
+//"game result" = "게임 결과";
+
+//"guest" = "익명 사용자";
+//"reporter" = "리포터";
+"anonymousInventoryReportTitle" = "Mask Stock Anonymous Reporting";
+//"show near talk" = "근처의 이야기만 보기";
+
+//"Holdem" = "홀뎀";
+"MyPoints" = "my points";
+//"betting" = "베";
+//"playGame" = "게임하기";
+//"continue" = "계속";
+//"check" = "체크";
+//"betting" = "베팅";
+//"fold" = "게임 포기";
+//"game over" = "개임 종료";
+
+"highcard" = "highcard";
+"onePair" = "one pair";
+"twoPairs" = "two pairs";
+"threeOfaKind" = "tree of a kind";
+//"straight" = "stra";
+//"flush" = "플러쉬";
+//"fullHouse" = "풀하우스";
+"fourOfaKind" = "for of a kind";
+"straightFlush" = "straight flush";
+"fiveOfaKind" = "five of a kind";
+"game posting alert title" = "Would you like to post the game results?";
+"game posting alert desc %@ %@" = "You can post %@ times a day. \nYou can %@ times in the future.";
+//"posting" = "포스팅";
+//"distance" = "거리";
+
+"waitting btn title enable %@" = " It is possible when it is with in %@m.";
+"waitting btn title desable" = "Is there a lot of people right now?";
+"show waitting log" = "Waiting";
+
+//"none" = "없음";
+"p20" = "about 1 or more and 20 or less";
+"p100" = "about 20 or more and 100 or less";
+"manyPeople" = "about 100 or more";
+//"JackPot Logs" = "Jackpot Logs";
+//"close" = "close";
+
+
+//admin options
+//"discance" = "거리";
+//"exp" = "경험치";
+//"game" = "게임";
+//"waitting_report_distance"  = "대기열 리포팅 거리 제한 (미터)";
+//"isUsePoker"                = "포커 게임 사용 여부";
+//"minBettingPoint" = "최소 베팅 포인트";
+//"maxBettingPoint"           = "최대 베팅 포인트";
+//"maxJackPotPoint"           = "최대 잭팟 적립 포인트";
+//"minJackPotPoint"           = "최소 잭팟 포인트";
+//"dealarZeroPointBettingRate"= "딜러가 0원 베팅할 확률";
+//"dealarMaxBettingRate"      = "딜러가 최대한 베팅할 확률";
+//"canUsePokerLevel"          = "포커 게임할 수 있는 레벨 제한";
+//"adRewardPoint"             = "광고 보면 받는 포인트";
+//"pointUseRatePosting"       = "글 쓸 때 포인트 사용 비율 1글자당 몇포인트?";
+//"pointUseUploadPicture"     = "이미지 첨부시 소모되는 포인트";
+//"pointUseDeleteTalk"        = "글 삭제 위해 필요햔 포인트";
+//
+//"defaultPoint"              = "최초 가입시 기본 포인트";
+//"admin menu" = "관리자 메뉴";
+//"exp_for_report_store_wait" = "대기열 보고시 보상 경험치";
+//"exp_for_report_store_stock" = "스토어 재고 보고 성공시 보상 경험치";
+//"point_for_report_store_stock" = "재고 보고 보상 포인트";
+//"point_for_report_store_wait" = "대기열 보고 보상포인트";
+//"levelup_req_exp_base" = "레벨업 : 기본 경험치";
+//"levelup_req_exp_plus" = "레벨업 : 레벨에 비례하여 상승하는 계수";
+//"can_view_talk_log_level" = "글 쓴 이력 조회 가능 레벨";
+
+"storeList footer btn title" = "Guide to purchasing public masks from the Ministry of Food and Drug Safety";
+"Food and Drug Administration Official Blog" = "Food and Drug Administration Official Blog";
+
+"min betting err %@" = "The minimum betting point is %@";
+//"email" = "이메일";
+
+//"Earned" = "적립";
+//"Paid" = "지불";
+//"leave" = "탈퇴";
+
+"leave alert msg title" = "Withdraw from Any Review";
+"leave alert msg desc" = "The following items are deleted from the DB:\n-Name (nickname)\n-Profile image\n-Self-introduction\n-E-mail address\n-Point\n-Experience level and level\n\n Written articles and reports Does not disappear.\n\nDo you want to leave?";
+
+"todays talk desc" = "What happened today?";
+//"Level UP" = "레벨업";
+
+"count_of_report_stock" = "Number of successful mask inventory reports";
+"sum_points_of_gameWin" = "Points earned in the game";
+"sum_points_of_gameLose" = "Points lost in game";
+"count_of_gamePlay" = "Number of game plays";
+"count_of_like" = "I like you a lot";
+"count_of_recive_like" = "Number of likes received";
+"count_of_ad" = "Number of ads viewed";
+
+"ranking" = "ranking table";
+"talk logs" = "writing history";
+"permission" = "permission";
+"You do not have permission to look up" = "You do not have permission.";
+"err_talk_log_policy_msg %@" = "You can view the history of articles written by others at level%@ or higher.";
+
+"delete talk title" = "Delete post";
+"delete talk msg %@" = "You need %@ points to delete a post.\n\nAre you sure you want to delete?";
+"delete" = "delete";
+"delete talk fail msg" = "Failed to delete posts. Please try again later.";
+"delete talk sucess" = "Your post has been deleted.";
+"notice" = "Notice";
+"talks" = "talk";
+
+"admin" = "admin";
+
+"isShowNotice" = "Exhibit Notice";
+"view notices" = "Notices";
+"write notice" = "write notice";
+
+"deleted talk" = "[This is the story you deleted.]";
+"talk logs is empty" = "There are no posts written.";
+"maskNowEnable" = "Enable Public Mask Search";
+//"etc" = "Other";
+
+//"image" = "이미지";
+//"food name" = "이름";
+//"price" = "가격";
+"starPoint" = "Stars";
+//"comment" = "평가";
+//"processing..." = "요청 처리중...";
+"regDt" = "Registration time";
+"editDt" = "Modified time";
+//"address" = "주소";
+//"detail address" = "상세주소";
+//"postal_code" = "우편번호";
+
+"nearReview" = "Nearby Reviews";
+"newReview" = "New Review";
+"empty review" = "There are no reviews written.";
+"write review" = "write review";

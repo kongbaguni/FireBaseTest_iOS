@@ -71,6 +71,9 @@
 /* Class = "UITableViewSection"; headerTitle = "title"; ObjectID = "FOy-Uq-7ev"; */
 "FOy-Uq-7ev.headerTitle" = "title";
 
+/* Class = "UIButton"; normalTitle = "좋아요 버튼"; ObjectID = "Fgv-KU-eis"; */
+"Fgv-KU-eis.normalTitle" = "좋아요 버튼";
+
 /* Class = "UILabel"; text = "10시 10분"; ObjectID = "GaE-xS-E6j"; */
 "GaE-xS-E6j.text" = "10시 10분";
 
@@ -90,10 +93,13 @@
 "JGz-1y-Xgz.text" = "exp";
 
 /* Class = "UILabel"; text = "랭킹 타입"; ObjectID = "JPl-4U-d4J"; */
-"JPl-4U-d4J.text" = "Raking Type";
+"JPl-4U-d4J.text" = "랭킹 타입";
 
 /* Class = "UITextView"; text = "어나미언미아너미언마ㅣㅓ 어나밍 ㅓㅏㅣㅓㅇ ㄴ머ㅣ 어ㅏ님 ㅓ어나ㅣㅁ어ㅣㅏ 어나미 ㅓ안머 ㅓ아너 ㅣㅁㄴ어ㅏㅣㄴㅁ 어나ㅣㅁ ㅓㅏㅣ 어나미"; ObjectID = "Ja5-wq-V84"; */
 "Ja5-wq-V84.text" = "어나미언미아너미언마ㅣㅓ 어나밍 ㅓㅏㅣㅓㅇ ㄴ머ㅣ 어ㅏ님 ㅓ어나ㅣㅁ어ㅣㅏ 어나미 ㅓ안머 ㅓ아너 ㅣㅁㄴ어ㅏㅣㄴㅁ 어나ㅣㅁ ㅓㅏㅣ 어나미";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Ju5-i2-TYy"; */
+"Ju5-i2-TYy.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "자기호개 입니다."; ObjectID = "LJI-cd-Pd5"; */
 "LJI-cd-Pd5.text" = "자기호개 입니다.";
@@ -116,6 +122,9 @@
 /* Class = "UILabel"; text = "update : 10분전"; ObjectID = "MaA-hW-Bua"; */
 "MaA-hW-Bua.text" = "update : 10분전";
 
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "MkE-cf-laN"; */
+"MkE-cf-laN.normalTitle" = "Button";
+
 /* Class = "UILabel"; text = "포인트"; ObjectID = "Mnf-Es-4GK"; */
 "Mnf-Es-4GK.text" = "포인트";
 
@@ -127,6 +136,9 @@
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "N9Y-6q-Dot"; */
 "N9Y-6q-Dot.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "N9m-EN-YAL"; */
+"N9m-EN-YAL.normalTitle" = "Button";
 
 /* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "Odu-qM-Iax"; */
 "Odu-qM-Iax.title" = "Root View Controller";
@@ -161,6 +173,9 @@
 /* Class = "UILabel"; text = "홍길동"; ObjectID = "R4U-xn-OwG"; */
 "R4U-xn-OwG.text" = "홍길동";
 
+/* Class = "UIButton"; normalTitle = "좋아요"; ObjectID = "RNE-MS-GGF"; */
+"RNE-MS-GGF.normalTitle" = "좋아요";
+
 /* Class = "UILabel"; text = "익명으로 보고하기"; ObjectID = "Rjr-5u-Nx9"; */
 "Rjr-5u-Nx9.text" = "익명으로 보고하기";
 
@@ -184,6 +199,9 @@
 
 /* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "Vo7-ep-yQW"; */
 "Vo7-ep-yQW.title" = "Root View Controller";
+
+/* Class = "UIButton"; normalTitle = "좋아요 버튼"; ObjectID = "VrI-35-UFt"; */
+"VrI-35-UFt.normalTitle" = "좋아요 버튼";
 
 /* Class = "UILabel"; text = "33"; ObjectID = "Vsf-Mk-zJA"; */
 "Vsf-Mk-zJA.text" = "33";
@@ -280,6 +298,9 @@
 
 /* Class = "UILabel"; text = "이겼다!"; ObjectID = "hv5-QL-3EJ"; */
 "hv5-QL-3EJ.text" = "이겼다!";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ibI-eV-B07"; */
+"ibI-eV-B07.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "k4k-ZM-Cvg"; */
 "k4k-ZM-Cvg.text" = "Detail";

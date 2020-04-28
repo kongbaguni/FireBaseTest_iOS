@@ -38,9 +38,12 @@ class ReviewModel: Object {
     @objc dynamic var regTimeIntervalSince1970:Double = 0
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     
+    @objc dynamic var localeIdentifier:String = ""
+    
     let editList = List<ReviewEditModel>()
     let likeList = List<LikeModel>()
     override static func primaryKey() -> String? {
+        
         return "id"
     }
     
@@ -73,6 +76,7 @@ class ReviewEditModel : Object {
     @objc dynamic var price:Int = 0
     @objc dynamic var photoUrls:String = ""
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
+    @objc dynamic var localeIdentifier:String = ""
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -80,6 +84,10 @@ class ReviewEditModel : Object {
 }
 
 extension ReviewModel {
+    var locale:Locale {
+        return Locale(identifier: localeIdentifier)
+    }
+    
     var isLike:Bool {
         return likeList.filter("creatorId = %@",UserInfo.info?.id ?? "").count != 0
     }
@@ -109,6 +117,10 @@ extension ReviewModel {
         return result.sorted { (a, b) -> Bool in
             return a.absoluteString > b.absoluteString
         }
+    }
+    
+    var priceLocaleString:String? {
+        price.getFormatString(locale: self.locale, style: .currency)
     }
 }
 
@@ -189,7 +201,8 @@ extension ReviewModel {
                 "reg_lat":UserDefaults.standard.lastMyCoordinate?.latitude ?? 0,
                 "reg_lng":UserDefaults.standard.lastMyCoordinate?.longitude ?? 0,
                 "place_id":place_id,
-                "place_detail":place_detail
+                "place_detail":place_detail,
+                "localeIdentifier":Locale.current.identifier
             ]
             if uploadImages.count > 0 {
                 data["photoUrls"] = uploadImages.stringValue
@@ -252,7 +265,8 @@ extension ReviewModel {
                 "price" : price ?? self.price,
                 "modifiedTimeIntervalSince1970" : Date().timeIntervalSince1970,
                 "place_id" : place_id,
-                "place_detail" : place_detail
+                "place_detail" : place_detail,
+                "localeIdentifier" : Locale.current.identifier
             ]
             
             var images = Set<String>(photoUrls.components(separatedBy: ","))
@@ -507,5 +521,13 @@ extension ReviewEditModel {
 
     var place:AddressModel? {
         return try! Realm().object(ofType: AddressModel.self, forPrimaryKey: place_id)
+    }
+    
+    var locale:Locale {
+        return Locale(identifier: localeIdentifier)
+    }
+    
+    var priceLocaleString:String? {
+        price.getFormatString(locale: self.locale, style: .currency)
     }
 }
