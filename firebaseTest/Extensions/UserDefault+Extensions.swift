@@ -76,4 +76,13 @@ extension UserDefaults {
             return nil
         }
     }
+    
+    var showModifiedOnly:Bool {
+        set {
+            set(newValue, forKey: "showModifiedOnly")
+        }
+        get {
+            bool(forKey: "showModifiedOnly")
+        }
+    }
 }

@@ -9,8 +9,13 @@
 import Foundation
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
+
 
 class ReviewHistoryTableViewController: UITableViewController {
+    @IBOutlet weak var optionSwitch: UISwitch!
+    @IBOutlet weak var switchLabel: UILabel!
     var reviewId:String? = nil
     var review:ReviewModel? {
         if let id = reviewId {
@@ -23,9 +28,17 @@ class ReviewHistoryTableViewController: UITableViewController {
         return review?.editList.sorted(byKeyPath: "modifiedTimeIntervalSince1970")
     }
     
+    let disposeBag = DisposeBag()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "edit history".localized
+        optionSwitch.isOn = UserDefaults.standard.showModifiedOnly
+        optionSwitch.rx.isOn.bind { [weak self](isOn) in
+            UserDefaults.standard.showModifiedOnly = isOn
+            self?.tableView.reloadData()
+        }.disposed(by: disposeBag)
+        switchLabel.text = "show modified only".localized
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -49,11 +62,13 @@ class ReviewHistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if optionSwitch.isOn == false {
+            return UITableView.automaticDimension
+        }
         if isChange(indexPath: indexPath)  {
             return UITableView.automaticDimension
         }
         return CGFloat.leastNormalMagnitude
-
     }
     
     func isChange(indexPath:IndexPath)->Bool {
@@ -95,27 +110,27 @@ class ReviewHistoryTableViewController: UITableViewController {
                 let lng = data?.location?.longitude {
                 cell.titleLabel.text = "place".localized
                 cell.detailLabel.text = "latitude:\(lat)\nlongitude:\(lng)"
-                cell.alpha = isChange ? 1.0 : 0.3
+                cell.detailLabel.alpha = isChange ? 1.0 : 0.3
             }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             cell.titleLabel.text = "address".localized
             cell.detailLabel.text = data?.addressStringValue
-            cell.alpha = isChange ? 1.0 : 0.3
+            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
             return cell
 
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             cell.titleLabel.text = "name".localized
             cell.detailLabel.text = data?.name
-            cell.alpha = isChange ? 1.0 : 0.3
+            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             cell.titleLabel.text = "price".localized
             cell.detailLabel.text = data?.priceLocaleString
-            cell.alpha = isChange ? 1.0 : 0.3
+            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
             return cell
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
@@ -125,13 +140,13 @@ class ReviewHistoryTableViewController: UITableViewController {
             if point <= Consts.stars.count && point >= 0 {
                 cell.detailLabel.text = Consts.stars[point-1]
             }
-            cell.alpha = isChange ? 1.0 : 0.3
+            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
             return cell
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             cell.titleLabel.text = "comment".localized
             cell.detailLabel.text = data?.comment
-            cell.alpha = isChange ? 1.0 : 0.3
+            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
             
             return cell
         case 6:
