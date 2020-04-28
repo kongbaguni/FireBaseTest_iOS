@@ -30,6 +30,7 @@ class ReviewsMapCellTableViewCell: UITableViewCell {
         camera.altitude = altitude ?? self.altitude
         camera.pitch = 45
         camera.heading = 45
+        mapView.mapType = UserInfo.info?.mapTypeValue.mapTypeValue ?? MKMapType.standard
         mapView?.camera = camera
         if let value = UserDefaults.standard.lastMyCoordinate {
             mapView?.centerCoordinate = value

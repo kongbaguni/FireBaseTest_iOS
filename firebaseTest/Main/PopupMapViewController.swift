@@ -49,6 +49,7 @@ class PopupMapViewController: UIViewController {
         camera.pitch = 45
         camera.heading = 45
         mapView.camera = camera
+        mapView.mapType = UserInfo.info?.mapTypeValue.mapTypeValue ?? MKMapType.standard
         if let value = coordinate {
             let ann = MKPointAnnotation()
             ann.coordinate = value

@@ -33,6 +33,7 @@ class TalkDetailMapTableViewCell: UITableViewCell {
         camera.altitude = 400
         camera.heading = 45
         self.mapView.camera = camera
+        mapView.mapType = UserInfo.info?.mapTypeValue.mapTypeValue ?? MKMapType.standard
     }
     
     deinit {

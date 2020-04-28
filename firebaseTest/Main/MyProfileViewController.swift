@@ -202,7 +202,7 @@ class MyProfileViewController: UITableViewController {
                 "distanceForSearch" : selectSearchDistance,
                 "isAnonymousInventoryReport" : anonymousInventoryReportTitleSwitch.isOn,
                 "updateTimeIntervalSince1970" : Date().timeIntervalSince1970,
-                "mapTypeValue" : selectMapViewMapType.rawValue
+                "mapType" : selectMapViewMapType.rawValue
             ]
             if let url = profileImageUrl {
                 data["profileImageURLfirebase"] = url
