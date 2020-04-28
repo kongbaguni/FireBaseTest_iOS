@@ -110,27 +110,27 @@ class ReviewHistoryTableViewController: UITableViewController {
                 let lng = data?.location?.longitude {
                 cell.titleLabel.text = "place".localized
                 cell.detailLabel.text = "latitude:\(lat)\nlongitude:\(lng)"
-                cell.detailLabel.alpha = isChange ? 1.0 : 0.3
+                cell.contentView.alpha = isChange ? 1.0 : 0.3
             }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             cell.titleLabel.text = "address".localized
             cell.detailLabel.text = data?.addressStringValue
-            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
+            cell.contentView.alpha = isChange ? 1.0 : 0.3
             return cell
 
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             cell.titleLabel.text = "name".localized
             cell.detailLabel.text = data?.name
-            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
+            cell.contentView.alpha = isChange ? 1.0 : 0.3
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             cell.titleLabel.text = "price".localized
             cell.detailLabel.text = data?.priceLocaleString
-            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
+            cell.contentView.alpha = isChange ? 1.0 : 0.3
             return cell
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
@@ -140,13 +140,13 @@ class ReviewHistoryTableViewController: UITableViewController {
             if point <= Consts.stars.count && point >= 0 {
                 cell.detailLabel.text = Consts.stars[point-1]
             }
-            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
+            cell.contentView.alpha = isChange ? 1.0 : 0.3
             return cell
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! ReviewHistroyBasicTableViewCell
             cell.titleLabel.text = "comment".localized
             cell.detailLabel.text = data?.comment
-            cell.detailLabel.alpha = isChange ? 1.0 : 0.3
+            cell.contentView.alpha = isChange ? 1.0 : 0.3
             
             return cell
         case 6:
