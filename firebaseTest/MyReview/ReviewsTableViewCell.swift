@@ -26,11 +26,8 @@ class ReviewsTableViewCell: UITableViewCell {
     
     let disposeBag = DisposeBag()
     
-    var reviewId:String? = nil {
-        didSet {
-            self.loadData()
-        }
-    }
+    var reviewId:String? = nil 
+    
     var review:ReviewModel? {
         if let id = reviewId {
             return try! Realm().object(ofType: ReviewModel.self, forPrimaryKey: id)
@@ -38,26 +35,30 @@ class ReviewsTableViewCell: UITableViewCell {
         return nil
     }
     
+    fileprivate var isSet:Bool = false
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        likeBtn.rx.tap.bind { [weak self](_) in
-            self?.likeBtn.isEnabled = false
-            self?.review?.toggleLike(complete: {[weak self] (isLike) in
-                self?.likeBtn.isEnabled = true
+        if isSet == false {
+            likeBtn.rx.tap.bind { [weak self](_) in
+                self?.likeBtn.isEnabled = false
+                self?.review?.toggleLike(complete: {[weak self] (isLike) in
+                    self?.likeBtn.isEnabled = true
+                    self?.loadData()
+                })
+            }.disposed(by: disposeBag)
+            
+            NotificationCenter.default.addObserver(forName: .likeUpdateNotification, object: nil, queue: nil) { [weak self](_) in
                 self?.loadData()
-            })
-        }.disposed(by: disposeBag)
-        
-        NotificationCenter.default.addObserver(forName: .likeUpdateNotification, object: nil, queue: nil) { [weak self](_) in
-            self?.loadData()
+            }
+            isSet = true
         }
 
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        loadData()
-//    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        loadData()
+    }
     
     func loadData() {
         let photoCount = review?.photoUrlList.count ?? 0
@@ -81,8 +82,10 @@ class ReviewsTableViewCell: UITableViewCell {
         if review?.photoUrlList.count ?? 0 > 1 {
             attach2ImageView.kf.setImage(with: review?.photoUrlList[1], placeholder: UIImage.placeHolder_image)
             attach2ImageView.isHidden = false
+            attach2ImageView.superview?.isHidden = false
         } else {
             attach2ImageView.isHidden = true
+            attach2ImageView.superview?.isHidden = true
         }
         
         if review?.photoUrlList.count ?? 0 > 2 {

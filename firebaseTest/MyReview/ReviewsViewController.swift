@@ -63,9 +63,20 @@ class ReviewsViewController : UITableViewController {
         return totalReviews?.filter("regTimeIntervalSince1970 > %@", Date.getMidnightTime(beforDay: 1).timeIntervalSince1970)
     }
     
+    var list:[Results<ReviewModel>?] {
+        [
+            reviews,
+            newReviews,
+        ]
+    }
+    
+    let sessionTitle:[String] = [
+        "nearReview".localized,
+        "newReview".localized,
+    ]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return list.count
     }
     
     override func viewDidLoad() {
@@ -207,52 +218,24 @@ class ReviewsViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return reviews?.count ?? 0
-        case 1:
-            return newReviews?.count ?? 0
-        default:
-            return 0
-        }
-        
+        return list[section]?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
-            if let list = reviews {
-                let id = list[indexPath.row].id
-                self.performSegue(withIdentifier: "showReviewDetail", sender: id)
-            }
-        case 1:
-            if let list = newReviews {
-                let id = list[indexPath.row].id
-                self.performSegue(withIdentifier: "showReviewDetail", sender: id)
-            }
-        default:
-            break
+        if let list = list[indexPath.section] {
+            let id = list[indexPath.row].id
+            self.performSegue(withIdentifier: "showReviewDetail", sender: id)
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
-            if let data = reviews {
-                cell.reviewId = data[indexPath.row].id               
-            }
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
-            if let data = newReviews {
-                cell.reviewId = data[indexPath.row].id
-            }
-            return cell
-
-        default:
-            return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "review", for: indexPath) as! ReviewsTableViewCell
+        if let data = list[indexPath.section] {
+            cell.reviewId = data[indexPath.row].id
+            cell.loadData()
         }
+        cell.layoutSubviews()
+        return cell
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -287,36 +270,10 @@ class ReviewsViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-//        func getheight(review:ReviewModel?)->CGFloat {
-//            if review?.photoUrlList.count == 0 {
-//                return 100
-//            }
-//            return 300
-//        }
-//        switch indexPath.section {
-//        case 0:
-//            return getheight(review: reviews?[indexPath.row])
-//        case 1:
-//            return getheight(review: newReviews?[indexPath.row])
-//        default:
-//            return CGFloat.leastNormalMagnitude
-//        }
     }
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            if reviews?.count ?? 0  > 0  {
-                return "nearReview".localized
-            }
-        case 1:
-            if newReviews?.count ?? 0 > 0 {
-                return "newReview".localized
-            }
-        default:
-            break
-        }
-        return nil
+        return sessionTitle[section]
     }
 }
