@@ -153,7 +153,7 @@ class ReviewHistoryTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! ReviewHistoryImageTableViewCell
             cell.images = data?.photoUrlList ?? []
             print(cell.images.count)
-            cell.alpha = isChange ? 1.0 : 0.3
+            cell.contentView.alpha = isChange ? 1.0 : 0.3
             return cell
         default:
             return UITableViewCell()
