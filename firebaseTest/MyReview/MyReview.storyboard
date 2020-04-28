@@ -83,6 +83,7 @@
                                         <constraint firstItem="T7E-yB-cVW" firstAttribute="leading" secondItem="p4b-c6-CFo" secondAttribute="leadingMargin" id="z8s-NK-mN5"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <inset key="separatorInset" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="detailLabel" destination="9yP-ps-iJ3" id="yLJ-Kz-BE1"/>
                                     <outlet property="titleLabel" destination="T7E-yB-cVW" id="nzf-Pn-Lbs"/>
@@ -361,7 +362,7 @@
         <!--Reviews View Controller-->
         <scene sceneID="GJX-8b-eQ3">
             <objects>
-                <tableViewController storyboardIdentifier="reviews" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PqZ-rF-tqE" customClass="ReviewsViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="reviews" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PqZ-rF-tqE" customClass="ReviewsViewController" customModule="mask_now" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="qfT-nf-JBa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
