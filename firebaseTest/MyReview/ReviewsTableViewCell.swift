@@ -98,17 +98,17 @@ class ReviewsTableViewCell: UITableViewCell {
         case 0:
             imageViewHeight.constant = 0
         case 1:
-            imageViewHeight.constant = 200
+            imageViewHeight.constant = 210
         case 2:
-            imageViewHeight.constant = 220
-        case 3:
             imageViewHeight.constant = 240
+        case 3:
+            imageViewHeight.constant = 270
         case 4:
-            imageViewHeight.constant = 260
-        case 5:
-            imageViewHeight.constant = 280
-        default:
             imageViewHeight.constant = 300
+        case 5:
+            imageViewHeight.constant = 330
+        default:
+            imageViewHeight.constant = 360
         }
 
         attach2ImageView.superview?.isHidden =
