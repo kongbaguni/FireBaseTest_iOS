@@ -273,6 +273,9 @@ class ReviewsViewController : UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if list[section]?.count == 0 {
+            return nil
+        }
         return sessionTitle[section]
     }
     
