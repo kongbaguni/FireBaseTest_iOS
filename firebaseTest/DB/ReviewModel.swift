@@ -223,7 +223,7 @@ extension ReviewModel {
                         addphotos: model.photoUrlList,
                         deletePhotos: [],
                         place_id: model.place_id,
-                        place_detail: model.place_detail) { (sucess,_) in
+                        place_detail: model.place_detail, force: true) { (sucess,_) in
                             complete(true)
                             NotificationCenter.default.post(name: .reviewWriteNotification, object: model.id)
                     }
@@ -250,9 +250,10 @@ extension ReviewModel {
         deletePhotos:[String],
         place_id:String,
         place_detail:String,
+        force:Bool = false,
         complete:@escaping(_ isSucess:Bool, _ isNotChnage:Bool)->Void) {
         
-        if name == self.name && starPoint == self.starPoint && comment == self.comment && price == self.price && addphotos.count == 0 && deletePhotos.count == 0 && place_id == self.place_id && place_detail == self.place_detail {
+        if name == self.name && starPoint == self.starPoint && comment == self.comment && price == self.price && addphotos.count == 0 && deletePhotos.count == 0 && place_id == self.place_id && place_detail == self.place_detail && force == false {
             complete(false,true)
             return
         }

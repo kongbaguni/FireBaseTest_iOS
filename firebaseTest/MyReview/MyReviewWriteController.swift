@@ -235,6 +235,37 @@ class MyReviewWriteController: UITableViewController {
     }
     
     @objc func onTouchSaveBtn(_ sender:UIBarButtonItem) {
+        
+        guard let name = nameTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")),
+            let price = priceTextField.text,
+            let starPoint = pointTextField.text,
+            let comment = commentTextView.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) else {
+                return
+        }
+        
+        if name.isEmpty {
+            Toast.makeToast(message: "This is a required field.".localized)
+            nameTextField.becomeFirstResponder()
+            return
+        }
+        if price.isEmpty {
+            Toast.makeToast(message: "This is a required field.".localized)
+            priceTextField.becomeFirstResponder()
+            return
+        }
+        if starPoint.isEmpty {
+            Toast.makeToast(message: "This is a required field.".localized)
+            pointTextField.becomeFirstResponder()
+            return
+        }
+        if comment.isEmpty {
+            Toast.makeToast(message: "This is a required field.".localized)
+            commentTextView.becomeFirstResponder()
+            return
+        }
+        
+        
+        
         sender.isEnabled = false
         GameManager.shared.usePoint(point: self.needPoint) { [weak self, weak sender] (sucess) in
             guard let s = self else {

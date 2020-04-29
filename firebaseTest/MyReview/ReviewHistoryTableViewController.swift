@@ -54,7 +54,21 @@ class ReviewHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let data = edits?[section]
-        return data?.modifiedDt?.simpleFormatStringValue
+
+        var strA:String {
+            switch section {
+            case 0:
+                return "Creation time".localized
+            default:
+                return "modification time".localized
+            }
+        }
+        
+        if let value = data?.modifiedDt?.simpleFormatStringValue  {
+            return "\(strA) : \(value)"
+        }
+    
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

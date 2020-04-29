@@ -145,11 +145,11 @@ class ReviewsViewController : UITableViewController {
         emptyView.frame.size.height -= 100
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        emptyView.frame = tableView.frame
-//        emptyView.frame.size.height -= 100
-//    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        emptyView.frame = tableView.frame
+        emptyView.frame.size.height -= 100
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -275,4 +275,5 @@ class ReviewsViewController : UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sessionTitle[section]
     }
+    
 }

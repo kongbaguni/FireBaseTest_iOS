@@ -39,7 +39,8 @@
 //"place" = "place";
 //"posting location" = "posting location";
 //"editing location" = "editing location";
-//"edit history" = "edit history";
+"edit history" = "revision history";
+"edit history none" = "No revision history";
 //"detail View" = "detail View";
 //"users list" = "users list";
 //"todays talks" = "todays talks";

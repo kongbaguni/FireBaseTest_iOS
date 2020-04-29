@@ -109,6 +109,7 @@ class ReviewDetailViewController: UITableViewController {
     func setTitle() {
         historyBtn.isEnabled = review?.editList.count ?? 0 > 1
         historyBtn.setTitle("edit history".localized, for: .normal)
+        historyBtn.setTitle("edit history none".localized, for: .disabled)
         
         let likeCount = review?.likeList.count ?? 0
         var msg = String(format:"like : %@".localized, likeCount.decimalForamtString)
@@ -244,7 +245,7 @@ class ReviewDetailViewController: UITableViewController {
             }
         case 3:
             let title = "posting location".localized
-            let vc = PopupMapViewController.viewController(coordinate: review?.location, title: title, annTitle: review?.name)
+            let vc = PopupMapViewController.viewController(coordinate: review?.location, title: title, annTitle: review?.addressStringValue)
             present(vc, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)
         case 4:

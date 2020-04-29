@@ -39,6 +39,7 @@
 "posting location" = "글이 작성된 위치";
 "editing location" = "글이 수정된 위치";
 "edit history" = "수정 이력";
+"edit history none" = "수정 이력 없음";
 "detail View" = "자세히 보기";
 "users list" = "사용자 목록";
 "todays talks" = "오늘의 이야기";
@@ -253,3 +254,7 @@
 "write review" = "리뷰 쓰기";
 "ranking type" = "랭킹 타입";
 "show modified only" = "수정사항만 보기";
+"This is a required field." = "필수 입력 항목입니다.";
+
+"Creation time" = "작성 시각";
+"modification time" = "수정 시각";
