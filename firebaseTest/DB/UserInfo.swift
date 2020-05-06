@@ -267,7 +267,7 @@ class UserInfo : Object {
         let dbCollection = FS.store.collection(FSCollectionName.USERS)
         var query =
             dbCollection
-                .whereField("lastTalkTimeIntervalSince1970", isGreaterThan: Date.getMidnightTime(beforDay: 7).timeIntervalSince1970)
+                .whereField("updateTimeIntervalSince1970", isGreaterThan: 0)
         
         if var users = try? Realm().objects(UserInfo.self)
             .filter("isFromUserInfoSync = %@", true)
