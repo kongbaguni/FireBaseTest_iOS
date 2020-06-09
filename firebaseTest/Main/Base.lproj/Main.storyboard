@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yDO-NB-Ajw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yDO-NB-Ajw">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -33,8 +33,22 @@
                                     <constraint firstAttribute="height" constant="50" id="V6p-4i-YGK"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MvK-ka-Spn">
+                                <rect key="frame" x="30" y="722" width="354" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="97w-63-Ioq"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                                <state key="normal" title="Sign in with Apple">
+                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTouchupLoginGoogleBtn:" destination="yDO-NB-Ajw" eventType="touchUpInside" id="Svu-9w-6yI"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yix-rA-O0y">
-                                <rect key="frame" x="30" y="692" width="354" height="50"/>
+                                <rect key="frame" x="30" y="672" width="354" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="p3e-06-68A"/>
                                 </constraints>
@@ -48,7 +62,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Urd-op-hvF">
-                                <rect key="frame" x="30" y="662" width="354" height="30"/>
+                                <rect key="frame" x="30" y="642" width="354" height="30"/>
                                 <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                                 <state key="normal" title="maks now"/>
@@ -101,28 +115,32 @@
                             <constraint firstItem="Yix-rA-O0y" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="6Qp-LX-5Ws"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="7Qd-Ew-hZF" secondAttribute="trailing" constant="30" id="8lr-nh-F3U"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="7Qd-Ew-hZF" secondAttribute="bottom" constant="50" id="8oX-Qt-D8q"/>
+                            <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="MvK-ka-Spn" secondAttribute="trailing" constant="30" id="FsU-M1-KG4"/>
                             <constraint firstItem="eE8-TJ-b0P" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="20" id="IeA-qa-va5"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="Yix-rA-O0y" secondAttribute="trailing" constant="30" id="J0o-Hy-izn"/>
                             <constraint firstItem="8Uw-il-gAW" firstAttribute="top" secondItem="nJp-i9-wSo" secondAttribute="top" id="MoJ-nd-HRM"/>
                             <constraint firstItem="8Uw-il-gAW" firstAttribute="bottom" secondItem="nJp-i9-wSo" secondAttribute="bottom" id="NGU-Hv-H1f"/>
+                            <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="MvK-ka-Spn" secondAttribute="bottom" constant="90" id="OMH-1r-ebS"/>
                             <constraint firstItem="8Uw-il-gAW" firstAttribute="leading" secondItem="nJp-i9-wSo" secondAttribute="leading" constant="-30" id="TKE-wp-kTE"/>
                             <constraint firstItem="LCW-3k-9Jz" firstAttribute="centerX" secondItem="apL-ZA-0RF" secondAttribute="centerX" id="YEd-GL-Kgc"/>
                             <constraint firstItem="Yix-rA-O0y" firstAttribute="top" secondItem="Urd-op-hvF" secondAttribute="bottom" id="YpU-Uy-DLb"/>
                             <constraint firstItem="nJp-i9-wSo" firstAttribute="leading" secondItem="5TE-DS-aKV" secondAttribute="trailing" constant="-60" id="ack-9u-MhW"/>
-                            <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="Yix-rA-O0y" secondAttribute="bottom" constant="120" id="cvm-2o-RZv"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="Urd-op-hvF" secondAttribute="trailing" constant="30" id="dSr-Tb-3V2"/>
                             <constraint firstItem="Urd-op-hvF" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="dkb-Kq-nR5"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="eE8-TJ-b0P" secondAttribute="trailing" constant="30" id="fY1-h6-Gn6"/>
                             <constraint firstItem="nJp-i9-wSo" firstAttribute="top" secondItem="5TE-DS-aKV" secondAttribute="top" constant="120" id="hn8-ve-JVU"/>
+                            <constraint firstItem="MvK-ka-Spn" firstAttribute="top" secondItem="Yix-rA-O0y" secondAttribute="bottom" id="jdy-9G-ERD"/>
                             <constraint firstItem="8Uw-il-gAW" firstAttribute="trailing" secondItem="nJp-i9-wSo" secondAttribute="trailing" constant="15" id="mZ0-0Z-R16"/>
                             <constraint firstItem="5TE-DS-aKV" firstAttribute="top" secondItem="apL-ZA-0RF" secondAttribute="top" constant="30" id="nFg-8s-t4n"/>
                             <constraint firstItem="5TE-DS-aKV" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="oZS-Fd-i7M"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="bottom" secondItem="eE8-TJ-b0P" secondAttribute="bottom" constant="30" id="qsE-b3-800"/>
+                            <constraint firstItem="MvK-ka-Spn" firstAttribute="leading" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="xii-Na-zCZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="apL-ZA-0RF"/>
                     </view>
                     <connections>
                         <outlet property="autologinBgView" destination="M2p-lo-KHx" id="Lnq-Gf-uBb"/>
+                        <outlet property="loginAppleBtn" destination="MvK-ka-Spn" id="FG3-D6-mAf"/>
                         <outlet property="loginGoogleBtn" destination="Yix-rA-O0y" id="z5I-xX-8kT"/>
                         <outlet property="maskNowBtn" destination="Urd-op-hvF" id="Oad-Y3-BIH"/>
                         <outlet property="titleBubbleImageView" destination="8Uw-il-gAW" id="RoY-Ed-HAE"/>
@@ -3591,7 +3609,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
-        <segue reference="L7P-z6-uCB"/>
+        <segue reference="IOd-bS-gNt"/>
         <segue reference="tNh-p3-JAq"/>
     </inferredMetricsTieBreakers>
     <resources>

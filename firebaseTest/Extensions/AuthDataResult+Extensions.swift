@@ -24,11 +24,16 @@ extension AuthDataResult {
         }
         if let userInfo = self.additionalUserInfo,
             let profile = userInfo.profile {
-            if let name = profile["name"] as? String,
-                let email = profile["email"] as? String,
-                let profileUrl = profile["picture"] as? String {
+            let name = profile["name"] as? String ?? ""
+            let profileUrl = profile["picture"] as? String  ?? ""
+            if let email = profile["email"] as? String {
                 if let userInfo = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: email) {
-                    userInfo.update(data: ["profileImageURLgoogle":profileUrl]) { (isSucess) in
+                    if profileUrl.isEmpty == false {
+                        userInfo.update(data: ["profileImageURLgoogle":profileUrl]) { (isSucess) in
+                            saveToken(email: email)
+                            complete(false)
+                        }
+                    } else {
                         saveToken(email: email)
                         complete(false)
                     }

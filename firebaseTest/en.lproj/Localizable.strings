@@ -8,7 +8,8 @@
 
 "app title" = "Any Review";
 //"profile" = "profile";
-"login with google" = "Sign in with google account";
+"login with google" = "Sign in with google";
+"login with Apple" = "Sign in with Apple";
 //"camera" = "camera";
 "photoLibrary" = "photo library";
 //"cancel" = "cancel";

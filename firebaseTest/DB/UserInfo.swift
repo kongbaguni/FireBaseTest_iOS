@@ -138,7 +138,7 @@ class UserInfo : Object {
     }
     
     static var info:UserInfo? {
-        if let info = try? Realm().objects(UserInfo.self).filter("idToken != %@ && accessToken != %@", "", "").first {
+        if let info = try? Realm().objects(UserInfo.self).filter("idToken != %@ ", "").first {
             if info.isInvalidated {
                 return nil
             }
