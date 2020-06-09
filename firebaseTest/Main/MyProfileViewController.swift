@@ -252,12 +252,14 @@ class MyProfileViewController: UITableViewController {
             self.present(picker, animated: true, completion: nil)
             complete()
         }))
-        ac.addAction(UIAlertAction(title: "use google profile image".localized, style: .default, handler: { (_) in
-            self.profileImageDeleteMode = .googlePhoto
-            self.profileImageView.setImageUrl(url: UserInfo.info?.profileImageURLgoogle, placeHolder: .placeHolder_profile)
-            
-            complete()
-        }))
+        if UserInfo.info?.profileImageURLgoogle.isEmpty == false {
+            ac.addAction(UIAlertAction(title: "use google profile image".localized, style: .default, handler: { (_) in
+                self.profileImageDeleteMode = .googlePhoto
+                self.profileImageView.setImageUrl(url: UserInfo.info?.profileImageURLgoogle, placeHolder: .placeHolder_profile)
+                
+                complete()
+            }))
+        }
         
         ac.addAction(UIAlertAction(title: "delete".localized, style: .default, handler: { (_) in
             self.profileImageDeleteMode = .delete
