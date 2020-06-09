@@ -5,4 +5,7 @@
   Created by Changyul Seo on 2020/04/22.
   Copyright © 2020 Changyul Seo. All rights reserved.
 */
-"CFBundleDisplayName" = "Any Review";
+"CFBundleDisplayName" = "애니리뷰";
+"NSPhotoLibraryUsageDescription" = "촬영한 사진을 업로드 합니다.";
+"NSCameraUsageDescription" = "촬영한 사진을 업로드 합니다.";
+"NSLocationWhenInUseUsageDescription" = "프로그램 사용중 위치정보에 접근합니다.";
