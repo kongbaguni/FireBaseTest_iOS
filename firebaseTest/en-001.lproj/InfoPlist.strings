@@ -8,4 +8,4 @@
 "CFBundleDisplayName" = "Any Review";
 "NSPhotoLibraryUsageDescription" = "photo upload";
 "NSCameraUsageDescription" = "photo upload";
-"NSLocationWhenInUseUsageDescription" = "Check current location";
+"NSLocationWhenInUseUsageDescription" = "Any Review includes location information when writing or editing reviews and articles.";

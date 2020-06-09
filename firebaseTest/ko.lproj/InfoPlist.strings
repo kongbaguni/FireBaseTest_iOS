@@ -8,4 +8,4 @@
 "CFBundleDisplayName" = "애니리뷰";
 "NSPhotoLibraryUsageDescription" = "촬영한 사진을 업로드 합니다.";
 "NSCameraUsageDescription" = "촬영한 사진을 업로드 합니다.";
-"NSLocationWhenInUseUsageDescription" = "프로그램 사용중 위치정보에 접근합니다.";
+"NSLocationWhenInUseUsageDescription" = "애니리뷰는 리뷰 및 글을 작성하거나 수정할 때 위치정보를 포함합니다.";
