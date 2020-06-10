@@ -7,8 +7,8 @@
 */
 "app title" = "Any Review";
 "profile" = "프로필";
-"login with google" = "Google 으로 로그인";
-"login with Apple" = "Apple 로 로그인";
+"login with google" = "Google 계정으로 로그인하기";
+"login with Apple" = "Apple ID로 로그인하기";
 "camera" = "카메라";
 "photoLibrary" = "사진 앨범";
 "cancel" = "취소";

@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
         
         //애플 로그인 버튼 설정
         if #available(iOS 13.0, *) {
-            let appleicon = #imageLiteral(resourceName: "apple").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withTintColor(.autoColor_text_color)
+            let appleicon = #imageLiteral(resourceName: "apple").af.imageAspectScaled(toFit: CGSize(width: 45, height: 45)).withTintColor(.autoColor_text_color)
             loginAppleBtn.setImage(appleicon, for: .normal)
             loginAppleBtn.setImage(appleicon.withTintColor(.autoColor_bold_text_color), for: .highlighted)
             loginAppleBtn.isHidden = false
