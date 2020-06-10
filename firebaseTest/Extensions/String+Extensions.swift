@@ -9,6 +9,7 @@
 import Foundation
 import PhoneNumberKit
 import CommonCrypto
+import CryptoKit
 
 extension String {
     fileprivate var phoneNumber:PhoneNumber? {
@@ -58,8 +59,21 @@ extension String {
 }
 
 
-extension String {
+extension String {    
     var sha256:String {
+        if #available(iOS 13.0, *) {
+            let inputData = Data(self.utf8)
+            let hashedData = SHA256.hash(data: inputData)
+            let hashString = hashedData.compactMap {
+                return String(format: "%02x", $0)
+            }.joined()
+            return hashString
+        } else {
+            return _sha256
+        }
+    }
+    
+    fileprivate var _sha256:String {
         func digest(input : NSData) -> NSData {
             let digestLength = Int(CC_SHA256_DIGEST_LENGTH)
             var hash = [UInt8](repeating: 0, count: digestLength)
