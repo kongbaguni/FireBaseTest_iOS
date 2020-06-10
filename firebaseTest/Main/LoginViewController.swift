@@ -54,14 +54,21 @@ class LoginViewController: UIViewController {
         
         titleBubbleImageView.image = .bubble
         
+        //버튼 이미지 설정하기
+        func setBtnImage(btn:UIButton, image:UIImage) {
+            btn.setImage(image, for: .normal)
+            btn.setImage(image.withRenderingMode(.alwaysTemplate), for: .highlighted)
+            btn.tintColor = .autoColor_bold_text_color
+        }
+        
+        //구글 로그인 버튼 설정
         let googleicon = #imageLiteral(resourceName: "google").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
-        loginGoogleBtn.setImage(googleicon, for: .normal)
+        setBtnImage(btn: loginGoogleBtn, image: googleicon)
         
         //애플 로그인 버튼 설정
         if #available(iOS 13.0, *) {
-            let appleicon = #imageLiteral(resourceName: "apple").af.imageAspectScaled(toFit: CGSize(width: 45, height: 45)).withTintColor(.autoColor_text_color)
-            loginAppleBtn.setImage(appleicon, for: .normal)
-            loginAppleBtn.setImage(appleicon.withTintColor(.autoColor_bold_text_color), for: .highlighted)
+            let appleicon = #imageLiteral(resourceName: "apple").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withTintColor(.autoColor_text_color)
+            setBtnImage(btn: loginAppleBtn, image: appleicon)
             loginAppleBtn.isHidden = false
         } else {
             loginAppleBtn.isHidden = true
