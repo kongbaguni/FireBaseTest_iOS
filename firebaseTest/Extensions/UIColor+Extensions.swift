@@ -27,6 +27,7 @@ extension UIColor {
             ? .yellow
             : UIColor(red: 0.2, green: 0.3, blue: 0.9, alpha: 1)
     }
+    
     open class var autoColor_weak_text_color : UIColor {
         UIApplication.shared.isDarkMode
             ? UIColor(white: 0.4, alpha: 1)
@@ -36,6 +37,12 @@ extension UIColor {
     open class var autoColor_switch_color : UIColor {
         UIApplication.shared.isDarkMode
             ? UIColor(red: 0.9, green: 0.6, blue: 0.3, alpha: 1)
+            : UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
+    }
+    
+    open class var autoColor_launch_bg_color : UIColor {
+        UIApplication.shared.isDarkMode
+            ? UIColor(red: 0.1, green: 0.15, blue: 0.2, alpha: 1)
             : UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
     }
 

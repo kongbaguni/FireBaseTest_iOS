@@ -41,19 +41,31 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         signApple = SigninWithApple(controller: self)
         print("\(#file) \(#function)")
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        view.backgroundColor = .autoColor_launch_bg_color
+        
+        setUI()
+        versionLabel.alpha = 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
+            UIView.animate(withDuration: 0.5) {
+                self?.versionLabel.alpha = 1
+            }
+        }
+    }    
+    
+    func setUI() {
         titleLabel.text = "app title".localized
         maskNowBtn.setTitle("mask now".localized, for: .normal)
         loginGoogleBtn.setTitle("login with google".localized, for: .normal)
         loginAppleBtn.setTitle("login with Apple".localized, for: .normal)
-        GIDSignIn.sharedInstance()?.presentingViewController = self
         autologinBgView.isHidden = UserInfo.info == nil
-        
         if UserInfo.info != nil {
             loading.show(viewController: self)
         }
-        
+        titleLabel.textColor = .autoColor_text_color
         titleBubbleImageView.image = .bubble
-        
+        titleImageView.tintColor = .autoColor_text_color
+        titleImageView.image = #imageLiteral(resourceName: "review").withRenderingMode(.alwaysTemplate)
         //버튼 이미지 설정하기
         func setBtnImage(btn:UIButton, image:UIImage) {
             btn.setImage(image, for: .normal)
@@ -93,14 +105,7 @@ class LoginViewController: UIViewController {
             btn?.setTitleColor(.autoColor_bold_text_color, for: .highlighted)
         
         }
-        
         versionLabel.text = "ver : \(UIApplication.shared.version)"
-        versionLabel.alpha = 0
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
-            UIView.animate(withDuration: 0.5) {
-                self?.versionLabel.alpha = 1
-            }
-        }
     }
     
     @IBAction func onTouchupLoginGoogleBtn(_ sender:UIButton) {
