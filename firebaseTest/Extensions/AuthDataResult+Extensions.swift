@@ -26,6 +26,7 @@ extension AuthDataResult {
             let profile = userInfo.profile {
             let name = profile["name"] as? String ?? ""
             let profileUrl = profile["picture"] as? String  ?? ""
+            UserDefaults.standard.set(profileUrl, forKey: "profileTemp")
             if let email = profile["email"] as? String {
                 if let userInfo = try! Realm().object(ofType: UserInfo.self, forPrimaryKey: email) {
                     if profileUrl.isEmpty == false {

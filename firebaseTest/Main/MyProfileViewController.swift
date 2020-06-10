@@ -254,8 +254,12 @@ class MyProfileViewController: UITableViewController {
         }))
         if UserInfo.info?.profileImageURLgoogle.isEmpty == false {
             ac.addAction(UIAlertAction(title: "use google profile image".localized, style: .default, handler: { (_) in
+                guard let googleProfileUrl = UserInfo.info?.profileImageURLgoogle ?? UserDefaults.standard.string(forKey: "profileTemp") else {
+                    return
+                }
                 self.profileImageDeleteMode = .googlePhoto
-                self.profileImageView.setImageUrl(url: UserInfo.info?.profileImageURLgoogle, placeHolder: .placeHolder_profile)
+                self.profileImageView.setImage(url: URL(string: googleProfileUrl)!, placeholder: .placeHolder_profile)
+//                self.profileImageView.setImageUrl(url: googleProfileUrl, placeHolder: .placeHolder_profile)
                 
                 complete()
             }))
