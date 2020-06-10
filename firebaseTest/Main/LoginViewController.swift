@@ -57,20 +57,36 @@ class LoginViewController: UIViewController {
         let googleicon = #imageLiteral(resourceName: "google").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
         loginGoogleBtn.setImage(googleicon, for: .normal)
         
-        let appleicon = #imageLiteral(resourceName: "apple").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30))
-        loginAppleBtn.setImage(appleicon, for: .normal)
-        
+        //애플 로그인 버튼 설정
         if #available(iOS 13.0, *) {
+            let appleicon = #imageLiteral(resourceName: "apple").af.imageAspectScaled(toFit: CGSize(width: 30, height: 30)).withTintColor(.autoColor_text_color)
+            loginAppleBtn.setImage(appleicon, for: .normal)
+            loginAppleBtn.setImage(appleicon.withTintColor(.autoColor_bold_text_color), for: .highlighted)
             loginAppleBtn.isHidden = false
+        } else {
+            loginAppleBtn.isHidden = true
+        }
+        
+        //마스크나우 버튼 설정.
+        if #available(iOS 13.0, *) {
             let maskIcon = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width:30,height:30))
                 .withRenderingMode(.alwaysTemplate).withTintColor(.autoColor_text_color)
             maskNowBtn.setImage(maskIcon, for: .normal)
         } else {
-            loginAppleBtn.isHidden = true
             let maskIcon = #imageLiteral(resourceName: "dentist-mask").af.imageAspectScaled(toFit: CGSize(width:30,height:30))
                 .withRenderingMode(.alwaysTemplate)
             maskNowBtn.setImage(maskIcon, for: .normal)
         }
+        
+        for btn in [loginAppleBtn, loginGoogleBtn] {
+            btn?.setBackgroundImage(UIImage(color: .autoColor_bg_color, size: CGSize(width: 100, height: 100)), for: .normal)
+            btn?.setBackgroundImage(UIImage(color: .gray, size: CGSize(width: 100, height: 100)), for: .highlighted)
+            btn?.setBorder(borderColor: .clear, borderWidth: 0.0, radius: 10, masksToBounds: true)
+            btn?.setTitleColor(.autoColor_text_color, for: .normal)
+            btn?.setTitleColor(.autoColor_bold_text_color, for: .highlighted)
+        
+        }
+        
         versionLabel.text = "ver : \(UIApplication.shared.version)"
         versionLabel.alpha = 0
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
