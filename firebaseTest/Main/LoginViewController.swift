@@ -99,12 +99,12 @@ class LoginViewController: UIViewController {
         }
         
         for btn in [loginAppleBtn, loginGoogleBtn] {
-            btn?.setBackgroundImage(UIImage(color: .autoColor_bg_color, size: CGSize(width: 100, height: 100)), for: .normal)
+            btn?.backgroundColor = .autoColor_bg_color
+            btn?.setBackgroundImage(UIImage(color: .clear, size: CGSize(width: 100, height: 100)), for: .normal)
             btn?.setBackgroundImage(UIImage(color: .gray, size: CGSize(width: 100, height: 100)), for: .highlighted)
             btn?.setBorder(borderColor: .clear, borderWidth: 0.0, radius: 10, masksToBounds: true)
             btn?.setTitleColor(.autoColor_text_color, for: .normal)
             btn?.setTitleColor(.autoColor_bold_text_color, for: .highlighted)
-        
         }
         versionLabel.text = "ver : \(UIApplication.shared.version)"
     }
