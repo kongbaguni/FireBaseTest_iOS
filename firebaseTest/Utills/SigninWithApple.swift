@@ -93,6 +93,12 @@ extension SigninWithApple : ASAuthorizationControllerDelegate {
                 return
             }
             
+            //signin loding
+            if let vc = UIApplication.shared.rootViewController as? LoginViewController {
+                vc.autologinBgView.isHidden = false
+                vc.loading.show(viewController: vc)
+            }
+            
             // Initialize a Firebase credential.
             let credential = OAuthProvider.credential(withProviderID: "apple.com",
                                                       idToken: idTokenString,
@@ -102,6 +108,10 @@ extension SigninWithApple : ASAuthorizationControllerDelegate {
             Auth.auth().signIn(with: credential) { [weak self](authResult, error) in
                 
                 if let err = error {
+                    if let vc = UIApplication.shared.rootViewController as? LoginViewController {
+                        vc.autologinBgView.isHidden = true
+                        vc.loading.hide()
+                    }
                     // Error. If error.code == .MissingOrInvalidNonce, make sure
                     // you're sending the SHA256-hashed nonce as a hex string with
                     // your request to Apple.

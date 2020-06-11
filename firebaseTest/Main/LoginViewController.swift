@@ -19,7 +19,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleImageView: UIImageView!
     @IBOutlet weak var versionLabel: UILabel!
-    
+    @IBOutlet weak var centerImageView: UIImageView!
+    @IBOutlet weak var loginAppleBtn: UIButton!
+    @IBOutlet weak var loginGoogleBtn:UIButton!
+    @IBOutlet weak var maskNowBtn: UIButton!
+
     class var viewController : LoginViewController {
         if #available(iOS 13.0, *) {
             return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "first") as! LoginViewController
@@ -28,9 +32,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var loginAppleBtn: UIButton!
-    @IBOutlet weak var loginGoogleBtn:UIButton!
-    @IBOutlet weak var maskNowBtn: UIButton!
     
 
     let loading = Loading()
@@ -43,7 +44,7 @@ class LoginViewController: UIViewController {
         print("\(#file) \(#function)")
         GIDSignIn.sharedInstance()?.presentingViewController = self
         view.backgroundColor = .autoColor_launch_bg_color
-        
+        autologinBgView.backgroundColor = .autoColor_launch_bg_color
         setUI()
         versionLabel.alpha = 0
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
@@ -51,7 +52,7 @@ class LoginViewController: UIViewController {
                 self?.versionLabel.alpha = 1
             }
         }
-    }    
+    }
     
     func setUI() {
         titleLabel.text = "app title".localized
@@ -64,8 +65,10 @@ class LoginViewController: UIViewController {
         }
         titleLabel.textColor = .autoColor_text_color
         titleBubbleImageView.image = .bubble
-        titleImageView.tintColor = .autoColor_text_color
-        titleImageView.image = #imageLiteral(resourceName: "review").withRenderingMode(.alwaysTemplate)
+        for view in [titleImageView,centerImageView] {
+            view?.tintColor = .autoColor_text_color
+            view?.image = #imageLiteral(resourceName: "review").withRenderingMode(.alwaysTemplate)
+        }
         //버튼 이미지 설정하기
         func setBtnImage(btn:UIButton, image:UIImage) {
             btn.setImage(image, for: .normal)

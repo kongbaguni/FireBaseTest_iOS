@@ -147,6 +147,7 @@
                     </view>
                     <connections>
                         <outlet property="autologinBgView" destination="M2p-lo-KHx" id="Lnq-Gf-uBb"/>
+                        <outlet property="centerImageView" destination="LCW-3k-9Jz" id="KeF-QW-kiZ"/>
                         <outlet property="loginAppleBtn" destination="MvK-ka-Spn" id="FG3-D6-mAf"/>
                         <outlet property="loginGoogleBtn" destination="Yix-rA-O0y" id="z5I-xX-8kT"/>
                         <outlet property="maskNowBtn" destination="Urd-op-hvF" id="Oad-Y3-BIH"/>

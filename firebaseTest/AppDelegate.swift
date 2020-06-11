@@ -148,6 +148,12 @@ extension AppDelegate : GIDSignInDelegate {
                     }
                 }
             }
+            else {
+                if let vc = UIApplication.shared.rootViewController as? LoginViewController {
+                    vc.autologinBgView.isHidden = true
+                    vc.loading.hide()
+                }
+            }
         }
     }
 }
