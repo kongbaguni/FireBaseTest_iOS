@@ -294,79 +294,98 @@ struct CardSet {
             
             var check:[Int] = []
             var checks:[Int:Int] = [:]
-            for i in 0...13 {
-                checks[i] = 0
-            }
-            
             var types = Set<String>()
             var indexes = Set<Int>()
             
-            for c in a {
-                check.append(c.index)
-                checks[c.index]! += 1
-                types.insert(c.type.rawValue)
-                indexes.insert(c.index)
-            }
-            
-            /** 4장이 같다 */
-            var is4one = 0
-            /** 3장이 같다 */
-            var is3one = 0
-            /** 2장이 같다**/
-            var is2one = 0
-            for item in checks {
-                if item.value == 4 {
-                    is4one += 1
+            func makeChecks(isAceTen:Bool) {
+                check.removeAll()
+                for i in 0...13 {
+                    checks[i] = 0
                 }
-                if item.value == 3 {
-                    is3one += 1
+                types.removeAll()
+                indexes.removeAll()
+                for c in a {
+                    var idx = c.index
+                    if isAceTen && idx == 1 {
+                        idx = 10
+                    }
+                    check.append(idx)
+                    checks[idx]! += 1
+                    types.insert(c.type.rawValue)
+                    indexes.insert(c.index)
                 }
-                if item.value == 2 {
-                    is2one += 1
+                check.sort()
+            }
+            
+            var cardValue:CardValue {
+                /** 4장이 같다 */
+                var is4one = 0
+                /** 3장이 같다 */
+                var is3one = 0
+                /** 2장이 같다**/
+                var is2one = 0
+                for item in checks {
+                    if item.value == 4 {
+                        is4one += 1
+                    }
+                    if item.value == 3 {
+                        is3one += 1
+                    }
+                    if item.value == 2 {
+                        is2one += 1
+                    }
                 }
+                
+                if is4one == 1 && checks[0] == 1 {
+                    return .fiveOfaKind
+                }
+                
+                var isStraight = false
+                if (check[0] - check[1] == -1)
+                    && (check[1] - check[2] == -1)
+                    && (check[2] - check[3] == -1)
+                    && (check[3] - check[4] == -1) {
+                    isStraight = true
+                }
+                
+                let isFlush = types.count == 1
+                
+                if isStraight && isFlush {
+                    return .straightFlush
+                }
+                
+                if is4one == 1 {
+                    return .fourOfaKind
+                }
+                if is3one == 1 && is2one == 1 {
+                    return .fullHouse
+                }
+                if isFlush {
+                    return .flush
+                }
+                if isStraight {
+                    return .straight
+                }
+                if is3one == 1{
+                    return .threeOfaKind
+                }
+                if is2one == 2 {
+                    return .twoPairs
+                }
+                if is2one == 1 {
+                    return .onePair
+                }
+                return .highcard
             }
-            
-            if is4one == 1 && checks[0] == 1 {
-                return .fiveOfaKind
+          
+            makeChecks(isAceTen: false)
+            let result1 = cardValue
+            makeChecks(isAceTen: true)
+            let result2 = cardValue
+            if result1.rawValue > result2.rawValue {
+                return result1
             }
-            
-            var isStraight = false
-            if (check[0] - check[1] == 1)
-                && (check[1] - check[2] == 1)
-                && (check[2] - check[3] == 1)
-                && (check[3] - check[4] == 1) {
-                isStraight = true
-            }
-            
-            let isFlush = types.count == 1
-            
-            if isStraight && isFlush {
-                return .straightFlush
-            }
-            
-            
-            if is4one == 1 {
-                return .fourOfaKind
-            }
-            if is3one == 1 && is2one == 1 {
-                return .fullHouse
-            }
-            if isFlush {
-                return .flush
-            }
-            if isStraight {
-                return .straight
-            }
-            if is3one == 1{
-                return .threeOfaKind
-            }
-            if is2one == 2 {
-                return .twoPairs
-            }
-            if is2one == 1 {
-                return .onePair
-            }
-            
+            return result2
         }
         return .highcard
     }
