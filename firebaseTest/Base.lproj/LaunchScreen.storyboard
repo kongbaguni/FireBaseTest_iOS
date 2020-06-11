@@ -24,10 +24,18 @@
                                     <constraint firstAttribute="width" constant="100" id="qmH-q2-uyz"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="review" translatesAutoresizingMaskIntoConstraints="NO" id="37a-Z3-9Sf">
+                                <rect key="frame" x="100" y="256" width="214" height="394"/>
+                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="launchBG"/>
                         <color key="tintColor" name="textColor"/>
                         <constraints>
+                            <constraint firstItem="37a-Z3-9Sf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="Rn3-3s-O1V"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="37a-Z3-9Sf" secondAttribute="trailing" constant="100" id="VeS-e1-BH2"/>
+                            <constraint firstItem="37a-Z3-9Sf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Vzd-ao-9AF"/>
+                            <constraint firstItem="37a-Z3-9Sf" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="ZLD-Ay-66x"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Khk-u8-2V9" secondAttribute="bottom" constant="30" id="d8d-7d-cEg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Khk-u8-2V9" secondAttribute="trailing" constant="30" id="vJV-Ov-z8o"/>
                         </constraints>
@@ -41,6 +49,7 @@
     </scenes>
     <resources>
         <image name="narui" width="1096" height="485.5"/>
+        <image name="review" width="332" height="394"/>
         <namedColor name="launchBG">
             <color red="0.29999999999999999" green="0.59999999999999998" blue="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
