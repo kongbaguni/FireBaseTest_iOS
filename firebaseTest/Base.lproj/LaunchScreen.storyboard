@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,12 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="review" translatesAutoresizingMaskIntoConstraints="NO" id="hFt-sb-0rG">
-                                <rect key="frame" x="57" y="354.5" width="300" height="197"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="oLZ-vl-6ZU"/>
-                                </constraints>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="narui" translatesAutoresizingMaskIntoConstraints="NO" id="Khk-u8-2V9">
                                 <rect key="frame" x="284" y="782" width="100" height="50"/>
                                 <constraints>
@@ -30,10 +25,9 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="launchBG"/>
+                        <color key="tintColor" name="textColor"/>
                         <constraints>
-                            <constraint firstItem="hFt-sb-0rG" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="QaJ-WX-hR9"/>
-                            <constraint firstItem="hFt-sb-0rG" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="RsD-le-wzd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Khk-u8-2V9" secondAttribute="bottom" constant="30" id="d8d-7d-cEg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Khk-u8-2V9" secondAttribute="trailing" constant="30" id="vJV-Ov-z8o"/>
                         </constraints>
@@ -47,6 +41,11 @@
     </scenes>
     <resources>
         <image name="narui" width="1096" height="485.5"/>
-        <image name="review" width="166" height="197"/>
+        <namedColor name="launchBG">
+            <color red="0.29999999999999999" green="0.59999999999999998" blue="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

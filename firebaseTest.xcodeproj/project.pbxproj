@@ -17,6 +17,7 @@
 		C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E42418AE1C00CADC60 /* PermissionData.swift */; };
 		C33839E72418AECD00CADC60 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E62418AECD00CADC60 /* MapViewController.swift */; };
 		C338BC7C24458CE300E07D0E /* MKMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C338BC7B24458CE300E07D0E /* MKMapView+Extensions.swift */; };
+		C346B0532491F1AC0049DE7E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C346B0522491F1AC0049DE7E /* Colors.xcassets */; };
 		C34C6B552418C1BF001D8CF4 /* StoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B542418C1BF001D8CF4 /* StoresTableViewController.swift */; };
 		C34C6B572418C2B1001D8CF4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B562418C2B1001D8CF4 /* ApiManager.swift */; };
 		C34C6B592418C7A5001D8CF4 /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */; };
@@ -148,6 +149,7 @@
 		C33839E42418AE1C00CADC60 /* PermissionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionData.swift; sourceTree = "<group>"; };
 		C33839E62418AECD00CADC60 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C338BC7B24458CE300E07D0E /* MKMapView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extensions.swift"; sourceTree = "<group>"; };
+		C346B0522491F1AC0049DE7E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C34C6B542418C1BF001D8CF4 /* StoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresTableViewController.swift; sourceTree = "<group>"; };
 		C34C6B562418C2B1001D8CF4 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		C34C6B582418C7A5001D8CF4 /* StoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				C395290E243307D50050C80D /* MyReview */,
 				C3780E5F240E15D0006070CF /* Main */,
 				C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */,
+				C346B0522491F1AC0049DE7E /* Colors.xcassets */,
 				C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */,
 				C3BDFC0C240CD7A1006AE2B3 /* Info.plist */,
 				C3CE9859244FCA4600D8BADF /* InfoPlist.strings */,
@@ -585,6 +588,7 @@
 				C395290D243307B40050C80D /* MyReview.storyboard in Resources */,
 				C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */,
 				C33839DF2418A1CE00CADC60 /* GoogleService-Info.plist in Resources */,
+				C346B0532491F1AC0049DE7E /* Colors.xcassets in Resources */,
 				C3CE9857244FCA4600D8BADF /* InfoPlist.strings in Resources */,
 				C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */,
 				C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */,

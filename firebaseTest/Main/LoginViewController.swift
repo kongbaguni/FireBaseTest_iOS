@@ -43,8 +43,6 @@ class LoginViewController: UIViewController {
         signApple = SigninWithApple(controller: self)
         print("\(#file) \(#function)")
         GIDSignIn.sharedInstance()?.presentingViewController = self
-        view.backgroundColor = .autoColor_launch_bg_color
-        autologinBgView.backgroundColor = .autoColor_launch_bg_color
         setUI()
         versionLabel.alpha = 0
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
