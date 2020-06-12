@@ -113,6 +113,7 @@ class TodaysTalksTableViewController: UITableViewController {
         headerStackView.frame.size.height = AdminOptions.shared.canPlayPoker ? 130 : 90
         if AdminOptions.shared.canPlayPoker {
             toolBar.items?.append(UIBarButtonItem(title: "Poker".localized, style: .plain, target: self, action: #selector(self.onTouchupCardGame(_:))))
+            
 
             hideGameOptionSwitch.rx.isOn.subscribe { (event) in
                 UserDefaults.standard.isHideGameTalk = self.hideGameOptionSwitch.isOn
@@ -290,8 +291,11 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     @objc func onTouchupCardGame(_ sender:UIBarButtonItem) {
-        let vc = HoldemViewController.viewController
+//        let vc = HoldemViewController.viewController
+        let vc = NewHoldemViewController.viewController
         self.present(vc, animated: true, completion: nil)
+        
+        
     }
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {

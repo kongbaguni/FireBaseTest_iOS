@@ -34,3 +34,15 @@ extension CGSize {
         return sizeb
     }
 }
+
+func *(left:CGSize,right:CGFloat)->CGSize {
+    let w = left.width * sqrt(right)
+    let h = left.height * sqrt(right)
+    return CGSize(width: w , height: h)
+}
+
+func /(left:CGSize,right:CGFloat)->CGSize {
+    let w = left.width / sqrt(right)
+    let h = left.height / sqrt(right)
+    return CGSize(width: w , height: h)
+}

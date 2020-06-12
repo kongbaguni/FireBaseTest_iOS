@@ -11,6 +11,9 @@ import RxSwift
 import RxCocoa
 import RealmSwift
 
+import SpriteKit
+import GameplayKit
+
 
 class HoldemViewController : UIViewController {
     @IBOutlet weak var jackPotBoxImageView: UIImageView!
@@ -54,6 +57,10 @@ class HoldemViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let scene = SKScene(fileNamed: "holdem") {
+            scene.scaleMode = .aspectFit
+            
+        }
         holdemView.insertCard()
         
         closeButton.setImage(.closeBtnImage_normal, for: .normal)
@@ -140,7 +147,7 @@ class HoldemViewController : UIViewController {
     @IBAction func onTouchupButton(_ sender: UIButton) {
         func bettingPointAlert(didBetting:@escaping(_ bettingPoint:Int)->Void) {
             let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
-            let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
+            let vc = UIAlertController(title: "Poker", message: msg, preferredStyle: .alert)
             var lastBetting = self.bettingPoint > 0 ? self.bettingPoint : AdminOptions.shared.maxBettingPoint / 10
             if UserDefaults.standard.lastBettingPoint > 0 {
                 lastBetting = UserDefaults.standard.lastBettingPoint
