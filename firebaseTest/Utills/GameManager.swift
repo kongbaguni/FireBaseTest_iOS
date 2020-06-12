@@ -41,10 +41,19 @@ class GameManager {
     let googleAd = GoogleAd()
     
     var deckBoxCardsCount:Int {
-        return cardDack.count
+        return cardDeck.count
     }
     
-    fileprivate var cardDack:[Card] = [] {
+    var cardDeck:[Card] {
+        get {
+            if _cardDeck.count == 0 {
+                insertCardAndShuffle(useJoker: false)
+            }
+            return _cardDeck
+        }
+    }
+    
+    fileprivate var _cardDeck:[Card] = [] {
         didSet {
             NotificationCenter.default.post(name: .game_popCardFromCardDeckBox, object: deckBoxCardsCount)
         }
@@ -56,7 +65,7 @@ class GameManager {
     fileprivate func insertCardAndShuffle(useJoker:Bool) {
         var list:[Card] = []
         if self.isUseJoker != useJoker {
-            cardDack.removeAll()
+            _cardDeck.removeAll()
         }
         isUseJoker = useJoker
         if useJoker {
@@ -69,7 +78,7 @@ class GameManager {
         }
         list.shuffle()
         for card in list {
-            cardDack.append(card)
+            _cardDeck.append(card)
         }
     }
     
@@ -79,12 +88,12 @@ class GameManager {
             return []
         }
         while list.count < number {
-            if cardDack.count < shuffleLimit {
+            if cardDeck.count < shuffleLimit {
                 insertCardAndShuffle(useJoker: self.isUseJoker)
             }
-            if let card = cardDack.first {
+            if let card = cardDeck.first {
                 list.append(card)
-                cardDack.removeFirst()
+                _cardDeck.removeFirst()
             }
         }
         return list

@@ -9,18 +9,12 @@
 import Foundation
 import SpriteKit
 class HoldemMainScene: SKScene {
-    
-    
+    let cardDeck = CardDeckNode(texture: nil, color: .white, size: CGSize(width: 300, height: 120))
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        
+                
         playSound(audioNode: .bgm1, isAutoPlayLoop: true)
-        let cards = GameManager.shared.popCards(number: 3)
-        let card = CardNode(card: cards.first!)
-        addChild(card)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            card.flip()
-        }
+        addChild(cardDeck)
         
     }
 }

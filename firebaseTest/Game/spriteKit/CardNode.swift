@@ -12,12 +12,9 @@ class CardNode: SKSpriteNode {
     var card:Card? = nil
     init(card:Card) {
         self.card = card
-        super.init(texture: SKTexture(image: #imageLiteral(resourceName: "green_back")),color:.white, size:#imageLiteral(resourceName: "green_back").size * 0.1)
+        super.init(texture: SKTexture(image: #imageLiteral(resourceName: "green_back")),color:.white, size:#imageLiteral(resourceName: "green_back").size * 0.05)
           
     }
-//    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-//        super.init(texture: SKTexture(image: #imageLiteral(resourceName: "green_back")),color:.white, size:#imageLiteral(resourceName: "green_back").size * 0.1)
-//    }
     
     func flip() {
         guard let image = card?.image else {
