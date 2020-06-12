@@ -25,7 +25,7 @@
                                     <constraint firstAttribute="width" constant="200" id="cYE-X6-DG5"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_light" translatesAutoresizingMaskIntoConstraints="NO" id="8Uw-il-gAW">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble" translatesAutoresizingMaskIntoConstraints="NO" id="8Uw-il-gAW">
                                 <rect key="frame" x="140" y="194" width="147" height="52.5"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="narui" translatesAutoresizingMaskIntoConstraints="NO" id="7Qd-Ew-hZF">
@@ -117,7 +117,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" name="launchBG"/>
+                                <color key="backgroundColor" name="launchBGColor"/>
                                 <constraints>
                                     <constraint firstItem="LCW-3k-9Jz" firstAttribute="centerY" secondItem="ndY-p7-fel" secondAttribute="centerY" id="1Rj-pI-EtG"/>
                                     <constraint firstItem="ndY-p7-fel" firstAttribute="trailing" secondItem="FgV-98-JZg" secondAttribute="trailing" constant="30" id="Pka-mF-4iu"/>
@@ -126,7 +126,7 @@
                                 <viewLayoutGuide key="safeArea" id="ndY-p7-fel"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" name="launchBG"/>
+                        <color key="backgroundColor" name="launchBGColor"/>
                         <constraints>
                             <constraint firstItem="Fcs-Ue-hRU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="apL-ZA-0RF" secondAttribute="leading" constant="30" id="8NF-DU-K4L"/>
                             <constraint firstItem="apL-ZA-0RF" firstAttribute="trailing" secondItem="7Qd-Ew-hZF" secondAttribute="trailing" constant="30" id="8lr-nh-F3U"/>
@@ -3626,14 +3626,15 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="boxLight" width="9.5" height="9.5"/>
+        <image name="bubble" width="37.5" height="52.5"/>
         <image name="bubble_light" width="37.5" height="52.5"/>
-        <image name="location" width="293.5" height="427"/>
+        <image name="location" width="195.66667175292969" height="284.66665649414062"/>
         <image name="myBubble_light" width="37.5" height="52.5"/>
         <image name="narui" width="1096" height="485.5"/>
         <image name="placeholder" width="512" height="512"/>
         <image name="profile" width="300" height="300"/>
-        <image name="review" width="332" height="394"/>
-        <namedColor name="launchBG">
+        <image name="review" width="110.66666412353516" height="131.33332824707031"/>
+        <namedColor name="launchBGColor">
             <color red="0.29999999999999999" green="0.59999999999999998" blue="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textColor">

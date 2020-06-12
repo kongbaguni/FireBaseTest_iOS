@@ -9,31 +9,31 @@
 import UIKit
 extension UIColor {
     open class var autoColor_indicator_color: UIColor {
-        UIColor(named: "indicatorColor")!
+        UIColor(named: "indicatorColor") ?? .clear
     }
     
     open class var autoColor_bg_color:UIColor {
-        UIColor(named: "normalBG")!
+        UIColor(named: "normalBGColor") ?? .clear
     }
     
     open class var autoColor_text_color : UIColor {
-        UIColor(named: "textColor")!
+        UIColor(named: "textColor") ?? .clear
     }
     
     open class var autoColor_bold_text_color : UIColor {
-        UIColor(named: "boldTextColor")!
+        UIColor(named: "boldTextColor") ?? .clear
     }
     
     open class var autoColor_weak_text_color : UIColor {
-        UIColor(named: "weakTextColor")!
+        UIColor(named: "weakTextColor") ?? .clear
     }
     
     open class var autoColor_switch_color : UIColor {
-       UIColor(named:"switchColor")!
+       UIColor(named:"switchColor") ?? .clear
     }
     
     open class var autoColor_launch_bg_color : UIColor {
-        UIColor(named: "launchBG")!
+        UIColor(named: "launchBGColor") ?? .clear
     }
 
 }

@@ -5,11 +5,11 @@
       "scale" : "1x"
     },
     {
-      "filename" : "NH_icon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "NH_icon@2x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
