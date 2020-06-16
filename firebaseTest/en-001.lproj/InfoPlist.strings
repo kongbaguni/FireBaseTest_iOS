@@ -6,6 +6,6 @@
   Copyright © 2020 Changyul Seo. All rights reserved.
 */
 "CFBundleDisplayName" = "Any Review";
-"NSPhotoLibraryUsageDescription" = "photo upload";
-"NSCameraUsageDescription" = "photo upload";
+"NSPhotoLibraryUsageDescription" = "To change the profile image, or attach a photo to a post you write";
+"NSCameraUsageDescription" = "To change the profile image, or attach a photo to a post you write";
 "NSLocationWhenInUseUsageDescription" = "Any Review includes location information when writing or editing reviews and articles.";
