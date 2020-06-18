@@ -306,6 +306,12 @@ class TodaysTalksTableViewController: UITableViewController {
                 let vc = PostNoticeViewController.viewController                
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
+            
+            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
+                let vc = ReportListViewController.viewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
+
         }
         
         vc.addAction(UIAlertAction(title: "view notices".localized, style: .default, handler: { (action) in
@@ -439,7 +445,7 @@ class TodaysTalksTableViewController: UITableViewController {
             
         case 1:
             let talk = list[indexPath.row]
-            if talk.isDeleted == false {
+            if talk.isDeleted == false && talk.isDeletedByAdmin == false {
                 performSegue(withIdentifier: "showDetail", sender: talk.id)
             }
         
@@ -487,12 +493,12 @@ class TodaysTalksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let data = list[indexPath.row]
-        if data.isDeleted {
-            return nil
+        if data.isDeleted || data.isDeletedByAdmin {
+            return UISwipeActionsConfiguration(actions: [])
         }
+        
         var actions:[UIContextualAction] = []
         if data.creatorId == UserInfo.info?.id && data.gameResultBase64encodingSting.isEmpty == true {
-            
             let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
                 if let data = self?.list[indexPath.row] {
                     self?.needScrolIndex = indexPath
@@ -500,9 +506,14 @@ class TodaysTalksTableViewController: UITableViewController {
                 }
             })
             action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
-            actions.append(
-                action
-            )
+            actions.append(action)
+        } else {
+            let action = UIContextualAction(style: .destructive, title: "report".localized) { [weak self](action, view, complete) in
+                let vc = ReportViewController.viewController
+                vc.setData(targetId: data.id, targetType: .talk)
+                self?.present(vc, animated: true, completion: nil)
+            }
+            actions.append(action)
         }
 ////        let detailAction = UIContextualAction(style: .normal, title: "detail View".localized, handler: { [weak self] (action, view, complete)  in
 ////            if let talk = self?.list[indexPath.row] {

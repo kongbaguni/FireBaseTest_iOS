@@ -36,7 +36,7 @@ class ReviewsViewController : UITableViewController {
     var searchText:String? = nil
     
     var totalReviews:Results<ReviewModel>? {
-        var result = try! Realm().objects(ReviewModel.self)
+        var result = try! Realm().objects(ReviewModel.self).filter("isDeletedByAdmin = %@",false)
         if let txt = searchText?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) {
             if txt.isEmpty == false {
                 result = result.filter("name CONTAINS[c] %@ || comment CONTAINS[C] %@", txt, txt)
@@ -200,6 +200,10 @@ class ReviewsViewController : UITableViewController {
                 let vc = AdminViewController.viewController
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
+            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
+                let vc = ReportListViewController.viewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
         }
         
         vc.addAction(UIAlertAction(title: "write review".localized, style: .default, handler: { (_) in
@@ -222,6 +226,9 @@ class ReviewsViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let list = list[indexPath.section] {
+            if list[indexPath.row].isDeletedByAdmin == true {
+                return
+            }
             let id = list[indexPath.row].id
             self.performSegue(withIdentifier: "showReviewDetail", sender: id)
         }
@@ -262,6 +269,13 @@ class ReviewsViewController : UITableViewController {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             ))
+        }
+        else {
+            action.append(UIContextualAction(style: .destructive, title: "report".localized, handler: { (action, view, complete) in
+                let vc = ReportViewController.viewController
+                vc.setData(targetId: list[indexPath.row].id, targetType: .review)
+                self.present(vc, animated: true, completion: nil)
+            }))
         }
         
         return UISwipeActionsConfiguration(actions: action)

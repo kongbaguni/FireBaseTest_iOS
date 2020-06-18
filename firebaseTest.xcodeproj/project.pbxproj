@@ -11,7 +11,6 @@
 		C31DDCB2241DBC8C00F0BAA8 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */; };
 		C3252307242CD87B0039819D /* NoticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3252306242CD87A0039819D /* NoticeListViewController.swift */; };
 		C33839DB241873D600CADC60 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839DA241873D600CADC60 /* Toast.swift */; };
-		C33839DF2418A1CE00CADC60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C33839DE2418A1CE00CADC60 /* GoogleService-Info.plist */; };
 		C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E02418AC0F00CADC60 /* StoreModel.swift */; };
 		C33839E32418ADD800CADC60 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E22418ADD800CADC60 /* LocationManager.swift */; };
 		C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E42418AE1C00CADC60 /* PermissionData.swift */; };
@@ -90,6 +89,11 @@
 		C3CE9852244D7FC400D8BADF /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CE9851244D7FC400D8BADF /* AddressModel.swift */; };
 		C3CE9854244E79DC00D8BADF /* Locale+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CE9853244E79DC00D8BADF /* Locale+Extensions.swift */; };
 		C3CE9857244FCA4600D8BADF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3CE9859244FCA4600D8BADF /* InfoPlist.strings */; };
+		C3D055EF249AF3A500974971 /* ReportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055EE249AF3A500974971 /* ReportModel.swift */; };
+		C3D055F1249B01BA00974971 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F0249B01BA00974971 /* ReportViewController.swift */; };
+		C3D055F3249B1DA900974971 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3D055F2249B1DA900974971 /* GoogleService-Info.plist */; };
+		C3D055F5249B23A700974971 /* ReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F4249B23A700974971 /* ReportListViewController.swift */; };
+		C3D055F7249B2C9900974971 /* ReportDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F6249B2C9900974971 /* ReportDetailViewController.swift */; };
 		C3D0F4282433123400039B2E /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F4272433123400039B2E /* ReviewsViewController.swift */; };
 		C3D0F42A2433172200039B2E /* ReviewsMapCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */; };
 		C3D0F42C24348A8900039B2E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */; };
@@ -143,7 +147,6 @@
 		C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		C3252306242CD87A0039819D /* NoticeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListViewController.swift; sourceTree = "<group>"; };
 		C33839DA241873D600CADC60 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
-		C33839DE2418A1CE00CADC60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C33839E02418AC0F00CADC60 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		C33839E22418ADD800CADC60 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C33839E42418AE1C00CADC60 /* PermissionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionData.swift; sourceTree = "<group>"; };
@@ -232,6 +235,11 @@
 		C3CE985B244FCACD00D8BADF /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "en-001.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C3CE985C244FCACE00D8BADF /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "en-001.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C3CE985D244FD59900D8BADF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C3D055EE249AF3A500974971 /* ReportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModel.swift; sourceTree = "<group>"; };
+		C3D055F0249B01BA00974971 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		C3D055F2249B1DA900974971 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C3D055F4249B23A700974971 /* ReportListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportListViewController.swift; sourceTree = "<group>"; };
+		C3D055F6249B2C9900974971 /* ReportDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailViewController.swift; sourceTree = "<group>"; };
 		C3D0F4272433123400039B2E /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsMapCellTableViewCell.swift; sourceTree = "<group>"; };
 		C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -368,6 +376,7 @@
 				C36A18FF242C95BF007B9D71 /* NoticeModel.swift */,
 				C39529062432F0660050C80D /* ReviewModel.swift */,
 				C3CE9851244D7FC400D8BADF /* AddressModel.swift */,
+				C3D055EE249AF3A500974971 /* ReportModel.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -376,12 +385,15 @@
 			isa = PBXGroup;
 			children = (
 				C395290C243307B40050C80D /* MyReview.storyboard */,
+				C3D055F0249B01BA00974971 /* ReportViewController.swift */,
 				C395290F243308910050C80D /* MyReviewWriteController.swift */,
 				C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */,
 				C3D0F4272433123400039B2E /* ReviewsViewController.swift */,
 				C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */,
 				C371E9AE2440697F00FB36D2 /* ReviewDetailViewController.swift */,
 				C3C633C724493D7700B526C0 /* ReviewHistoryTableViewController.swift */,
+				C3D055F4249B23A700974971 /* ReportListViewController.swift */,
+				C3D055F6249B2C9900974971 /* ReportDetailViewController.swift */,
 			);
 			path = MyReview;
 			sourceTree = "<group>";
@@ -431,8 +443,8 @@
 				C346B0522491F1AC0049DE7E /* Colors.xcassets */,
 				C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */,
 				C3BDFC0C240CD7A1006AE2B3 /* Info.plist */,
+				C3D055F2249B1DA900974971 /* GoogleService-Info.plist */,
 				C3CE9859244FCA4600D8BADF /* InfoPlist.strings */,
-				C33839DE2418A1CE00CADC60 /* GoogleService-Info.plist */,
 				C37509F32456CE9B0092FD78 /* Localizable.strings */,
 			);
 			path = firebaseTest;
@@ -587,10 +599,10 @@
 				C3630FD7241B5C7C003479C2 /* CardDackView.xib in Resources */,
 				C395290D243307B40050C80D /* MyReview.storyboard in Resources */,
 				C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */,
-				C33839DF2418A1CE00CADC60 /* GoogleService-Info.plist in Resources */,
 				C346B0532491F1AC0049DE7E /* Colors.xcassets in Resources */,
 				C3CE9857244FCA4600D8BADF /* InfoPlist.strings in Resources */,
 				C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */,
+				C3D055F3249B1DA900974971 /* GoogleService-Info.plist in Resources */,
 				C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */,
 				C39A6ECC241F368000460705 /* HoldemView.xib in Resources */,
 			);
@@ -699,10 +711,12 @@
 				C39A6ED82420A04B00460705 /* TalkDetailHoldemTableViewCell.swift in Sources */,
 				C366501824233C5600E2BD24 /* JackPotLogModel.swift in Sources */,
 				C3252307242CD87B0039819D /* NoticeListViewController.swift in Sources */,
+				C3D055F1249B01BA00974971 /* ReportViewController.swift in Sources */,
 				C3D0F42C24348A8900039B2E /* ReviewsTableViewCell.swift in Sources */,
 				C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */,
 				C39A6ED624208ABA00460705 /* Dealar.swift in Sources */,
 				C371E9AF2440697F00FB36D2 /* ReviewDetailViewController.swift in Sources */,
+				C3D055F5249B23A700974971 /* ReportListViewController.swift in Sources */,
 				C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */,
 				C36A1900242C95C0007B9D71 /* NoticeModel.swift in Sources */,
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
@@ -743,6 +757,7 @@
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
 				C33839E72418AECD00CADC60 /* MapViewController.swift in Sources */,
 				C39A6ED4241F6CE100460705 /* HoldemViewController.swift in Sources */,
+				C3D055F7249B2C9900974971 /* ReportDetailViewController.swift in Sources */,
 				C33839DB241873D600CADC60 /* Toast.swift in Sources */,
 				C3630FD9241B5F31003479C2 /* TalkDetailCardTableViewCell.swift in Sources */,
 				C390038A2421E9B700CC4E3A /* StoreWaittingTableViewController.swift in Sources */,
@@ -770,6 +785,7 @@
 				C3FED0B9240F7CB7007A4F4F /* FirebaseStorageHelper.swift in Sources */,
 				C3FED0BD240F9F8E007A4F4F /* AuthDataResult+Extensions.swift in Sources */,
 				C3757AF8241BC76500FB1819 /* GoogleAd.swift in Sources */,
+				C3D055EF249AF3A500974971 /* ReportModel.swift in Sources */,
 				C370C9FB2417688A00026E86 /* Date+extensions.swift in Sources */,
 				C370C9F12415F94300026E86 /* LikeModel.swift in Sources */,
 				C3EF51CA240CF4E100A4C29E /* MyProfileViewController.swift in Sources */,

@@ -235,6 +235,7 @@
 "write notice" = "write notice";
 
 "deleted talk" = "[This is the story you deleted.]";
+"deleted by Admin" = "[deleted by Admin]";
 "talk logs is empty" = "There are no posts written.";
 "maskNowEnable" = "Enable Public Mask Search";
 //"etc" = "Other";
@@ -250,8 +251,20 @@
 //"address" = "주소";
 //"detail address" = "상세주소";
 //"postal_code" = "우편번호";
-
 "nearReview" = "Nearby Reviews";
 "newReview" = "New Review";
 "empty review" = "There are no reviews written.";
 "write review" = "write review";
+
+"report list" = "report list";
+"report" = "report";
+"report sucess" = "report sucess";
+"Please enter a reason for reporting" = "Please enter a reason for reporting";
+"spamAdvertising" = "Spam advertising";
+"sexuallyInappropriate" = "Sexually inappropriate";
+"aversion" = "Aversion";
+"discrimination" = "Discrimination";
+"fakeNews" = "Fake news";
+"violence" = "violence";
+"other" = "other";
+"input reson" = "input reson";

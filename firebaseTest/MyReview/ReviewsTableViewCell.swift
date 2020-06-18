@@ -66,6 +66,14 @@ class ReviewsTableViewCell: UITableViewCell {
     }
     
     func loadData() {
+        if review?.isDeletedByAdmin == true {
+            titleLabel.isHidden = true
+            starPointLabel.text = ""
+            priceLaebl.text = ""
+            imageViewHeight.constant = 0
+            commentLabel.text = "deleted by Admin".localized
+            return
+        }
         titleLabel.text = review?.name
         let point = review?.starPoint ?? 0
         if point <= Consts.stars.count && point > 0 {

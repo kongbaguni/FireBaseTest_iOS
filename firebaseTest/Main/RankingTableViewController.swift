@@ -125,6 +125,10 @@ class RankingTableViewController: UITableViewController {
                 let vc = AdminViewController.viewController
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
+            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
+                let vc = ReportListViewController.viewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
         }
         
         vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in

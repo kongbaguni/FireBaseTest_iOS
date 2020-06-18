@@ -232,7 +232,8 @@
 "view notices" = "공지사항";
 "write notice" = "공지 작성";
 
-"deleted talk" = "[ 본인이 삭제한 이야기입니다. ]";
+"deleted talk" = "[본인이 삭제함]";
+"deleted by Admin" = "[관리자가 삭제함]";
 "talk logs is empty" = "작성한 글이 없습니다.";
 "maskNowEnable" = "공적 마스크 검색 기능 활성화";
 "etc" = "기타";
@@ -259,3 +260,16 @@
 
 "Creation time" = "작성 시각";
 "modification time" = "수정 시각";
+
+"report" = "신고하기";
+"report list" = "신고 목록";
+"report sucess" = "신고가 완료되었습니다.";
+"Please enter a reason for reporting" = "신고 이유를 입력하세요";
+"spamAdvertising" = "스팸 광고";
+"sexuallyInappropriate" = "성적으로 부적절함";
+"aversion" = "혐오";
+"discrimination" = "차별";
+"fakeNews" = "가짜뉴스";
+"violence" = "폭력물";
+"other" = "기타";
+"input reson" = "신고 이유 입력";
