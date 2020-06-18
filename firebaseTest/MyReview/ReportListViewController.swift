@@ -90,6 +90,7 @@ class ReportListViewController: UITableViewController {
         case 3:
             let info = blockedUsers[indexPath.row]
             cell.textLabel?.text = info.email
+            cell.detailTextLabel?.text = info.name
         default:
             if let info = getInfo(indexPath: indexPath) {
                 cell.textLabel?.text = info.reporter?.name
