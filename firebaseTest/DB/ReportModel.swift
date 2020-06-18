@@ -137,26 +137,38 @@ extension ReportModel {
     
     /** 신고  하기*/
     static func create(targetId:String, targetType:TargetType, resonType:ResonType, reson:String, complete:@escaping(_ isSucess:Bool)->Void) {
-        let now = Date().timeIntervalSince1970
-        let id = "\(UUID().uuidString)_\(now)_\(UserInfo.info!.id)"
-        let data:[String:Any] = [
-            "id" : id,
-            "resonCode" : resonType.rawValue,
-            "reson" : reson,
-            "targetId" : targetId,
-            "targetTypeCode" : targetType.rawValue,
-            "reporterId" : UserInfo.info?.id ?? "guest",
-            "regDtTimeIntervalSince1970" : now
-        ]
-        let doc = FS.store.collection(FSCollectionName.REPORT).document(id)
-        doc.setData(data) { (error) in
-            if error == nil {
-                let realm = try! Realm()
-                realm.beginWrite()
-                realm.create(ReportModel.self, value: data, update: .all)
-                try! realm.commitWrite()
+        GameManager.shared.usePoint(point: AdminOptions.shared.pointUseReportBadPosting) { a in
+            if a == false {
+                GameManager.shared.showAd(popoverView: UIBarButtonItem()) {
+                    ReportModel.create(targetId: targetId, targetType: targetType, resonType: resonType, reson: reson, complete: complete)
+                }
+                return
             }
-            complete(error == nil)
+            UserInfo.info?.update(data: ["exp":UserInfo.info!.exp + AdminOptions.shared.exp_for_report_bad_posting], complete: { b in
+                if a && b {
+                    let now = Date().timeIntervalSince1970
+                    let id = "\(UUID().uuidString)_\(now)_\(UserInfo.info!.id)"
+                    let data:[String:Any] = [
+                        "id" : id,
+                        "resonCode" : resonType.rawValue,
+                        "reson" : reson,
+                        "targetId" : targetId,
+                        "targetTypeCode" : targetType.rawValue,
+                        "reporterId" : UserInfo.info?.id ?? "guest",
+                        "regDtTimeIntervalSince1970" : now
+                    ]
+                    let doc = FS.store.collection(FSCollectionName.REPORT).document(id)
+                    doc.setData(data) { (error) in
+                        if error == nil {
+                            let realm = try! Realm()
+                            realm.beginWrite()
+                            realm.create(ReportModel.self, value: data, update: .all)
+                            try! realm.commitWrite()
+                        }
+                        complete(error == nil)
+                    }
+                }
+            })
         }
     }
         

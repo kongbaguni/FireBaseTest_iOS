@@ -35,12 +35,16 @@ fileprivate let POINT_DEFAULT = 1000
 
 fileprivate let EXP_FOR_REPORT_STOCK = 10
 fileprivate let EXP_FOR_REPORT_WAIT = 10
+fileprivate let EXP_FOR_REPORT_BAD = 10
 
 fileprivate let POINT_FOR_REPORT_STOCK = 10
 fileprivate let POINT_FOR_REPORT_WAIT = -10
 
 /** 작성글 삭제를 위해 필요한 포인트*/
 fileprivate let POINT_FOR_DELETE_TALK = 1000
+
+/** 불량 게시물 신고를 위해 필요한 포인트*/
+fileprivate let POINT_FOR_REPORT_BAD_POSTING = 100
 
 /**  관리자가 원격으로 제어하는 옵션값 관리하는 클래스*/
 class AdminOptions {
@@ -98,12 +102,15 @@ class AdminOptions {
     
     var exp_for_report_store_stock = EXP_FOR_REPORT_STOCK
     var exp_for_report_store_wait = EXP_FOR_REPORT_WAIT
+    var exp_for_report_bad_posting = EXP_FOR_REPORT_BAD
     
     var point_for_report_store_stock = POINT_FOR_REPORT_STOCK
     var point_for_report_store_wait = POINT_FOR_REPORT_WAIT
 
     /** talk 삭제 위해 필요한 포인트*/
     var pointUseDeleteTalk = POINT_FOR_DELETE_TALK
+    
+    var pointUseReportBadPosting = POINT_FOR_REPORT_BAD_POSTING
     
     /** 마스크 제고 관련 기능 사용여부*/
     var maskNowEnable = false
@@ -135,10 +142,13 @@ class AdminOptions {
             "levelup_req_exp_plus"      : levelup_req_exp_plus,
             "point_for_report_store_stock" : point_for_report_store_stock,
             "point_for_report_store_wait" : point_for_report_store_wait,
-            
+            "pointUseReportBadPosting": pointUseReportBadPosting,
+
             // exp
             "exp_for_report_store_stock": exp_for_report_store_stock,
-            "exp_for_report_store_wait" :exp_for_report_store_wait
+            "exp_for_report_store_wait" : exp_for_report_store_wait,
+            "exp_for_report_bad_posting" : exp_for_report_bad_posting
+            
         ]
     }
     
@@ -149,6 +159,7 @@ class AdminOptions {
         [
             "exp_for_report_store_stock",
             "exp_for_report_store_wait",
+            "exp_for_report_bad_posting",
             "levelup_req_exp_base",
             "levelup_req_exp_plus"
         ],
@@ -160,6 +171,7 @@ class AdminOptions {
             "defaultPoint",
             "point_for_report_store_stock",
             "point_for_report_store_wait",
+            "pointUseReportBadPosting",
         ],
         [
             "isUsePoker",
@@ -193,6 +205,9 @@ class AdminOptions {
         let intValue = NSString(string:value).integerValue
         if intValue >= 0 {
             switch key {
+            case "pointUseReportBadPosting":
+                pointUseReportBadPosting = intValue
+                return true
             case "pointUseDeleteTalk":
                 pointUseDeleteTalk = intValue
                 return true
@@ -210,6 +225,9 @@ class AdminOptions {
                 return true
             case "exp_for_report_store_wait":
                 exp_for_report_store_wait = intValue
+                return true
+            case "exp_for_report_bad_posting":
+                exp_for_report_bad_posting = intValue
                 return true
             case "levelup_req_exp_base":
                 levelup_req_exp_base = intValue
@@ -317,6 +335,7 @@ class AdminOptions {
     }
     
     private func loadData(data:[String:Any]) {
+        pointUseReportBadPosting = data["pointUseReportBadPosting"] as? Int ?? POINT_FOR_REPORT_BAD_POSTING
         maskNowEnable = data["maskNowEnable"] as? Bool ?? false
         isUsePoker = data["isUsePoker"] as? Bool ?? false
         waitting_report_distance = data["waitting_report_distance"] as? Int ?? WAITING_REPORT_DISTANCE
@@ -336,6 +355,7 @@ class AdminOptions {
         levelup_req_exp_base = data["levelup_req_exp_base"] as? Int ?? Consts.LEVELUP_REQ_EXP_BASE
         exp_for_report_store_wait = data["exp_for_report_store_wait"] as? Int ?? EXP_FOR_REPORT_WAIT
         exp_for_report_store_stock = data["exp_for_report_store_stock"] as? Int ?? EXP_FOR_REPORT_STOCK
+        exp_for_report_bad_posting = data["exp_for_report_bad_posting"] as? Int ?? EXP_FOR_REPORT_BAD
         point_for_report_store_stock = data["point_for_report_store_stock"] as? Int ?? POINT_FOR_REPORT_STOCK
         point_for_report_store_wait = data["point_for_report_store_wait"] as? Int ?? POINT_FOR_REPORT_WAIT
         can_view_talk_log_level = data["can_view_talk_log_level"] as? Int ?? CAN_VIEW_TALK_LOG_LEVEL

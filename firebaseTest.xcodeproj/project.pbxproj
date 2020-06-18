@@ -853,6 +853,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = QU9EPTU238;
 				INFOPLIST_FILE = noficationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -873,6 +874,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = QU9EPTU238;
 				INFOPLIST_FILE = noficationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;

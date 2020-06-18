@@ -68,10 +68,16 @@ class ReportViewController: UIViewController {
             resonType: self.selectedResonType!,
             reson: self.reson ?? "") { [weak self](sucess) in
                 if sucess {
+                    
                     self?.alert(title: nil, message: "report sucess".localized, confirmText: "confirm".localized, didConfirm: { (_) in
-                        self?.dismiss(animated: true, completion: nil)
+                        self?.dismiss(animated: true, completion: {
+                            let vc = StatusViewController.viewController(withUserId: UserInfo.info?.id)
+                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_bad_posting,
+                                                           pointChange: -AdminOptions.shared.pointUseReportBadPosting)
+                            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+                        })
                     })
-                }
+                } 
         }
     }
 }
