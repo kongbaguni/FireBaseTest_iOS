@@ -82,6 +82,9 @@
 		C39E49932429D6690094E16B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E49922429D6690094E16B /* NotificationService.swift */; };
 		C39E49972429D6690094E16B /* noficationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C39E49902429D6690094E16B /* noficationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C39E499E2429E20A0094E16B /* Exp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E499D2429E20A0094E16B /* Exp.swift */; };
+		C3AAE0CF249602C5003B75A9 /* card.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C3AAE0CE249602C5003B75A9 /* card.mp3 */; };
+		C3AAE0D124961934003B75A9 /* PlayerDeckNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AAE0D024961934003B75A9 /* PlayerDeckNode.swift */; };
+		C3AAE0D324961A50003B75A9 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AAE0D224961A50003B75A9 /* CGPoint+Extensions.swift */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
 		C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */; };
@@ -232,6 +235,9 @@
 		C39E49922429D6690094E16B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		C39E49942429D6690094E16B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C39E499D2429E20A0094E16B /* Exp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exp.swift; sourceTree = "<group>"; };
+		C3AAE0CE249602C5003B75A9 /* card.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = card.mp3; sourceTree = "<group>"; };
+		C3AAE0D024961934003B75A9 /* PlayerDeckNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDeckNode.swift; sourceTree = "<group>"; };
+		C3AAE0D224961A50003B75A9 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* mask now.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mask now.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC05240CD79D006AE2B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -416,6 +422,7 @@
 		C39710632493173400EB30F3 /* spriteKit */ = {
 			isa = PBXGroup;
 			children = (
+				C3AAE0CE249602C5003B75A9 /* card.mp3 */,
 				C3ECEE9A24935DA900F3C50A /* effect1.mp3 */,
 				C3CC2F202493517B006C9DF8 /* BGM1.mp3 */,
 				C397105F2493159000EB30F3 /* HoldemIntro.sks */,
@@ -426,6 +433,7 @@
 				C3ECEEA624936CBD00F3C50A /* HoldemMainScene.swift */,
 				C3ECEEA824936E2A00F3C50A /* CardNode.swift */,
 				C3ECEEAA24937A7500F3C50A /* CardDeckNode.swift */,
+				C3AAE0D024961934003B75A9 /* PlayerDeckNode.swift */,
 			);
 			path = spriteKit;
 			sourceTree = "<group>";
@@ -524,6 +532,7 @@
 				C3CC2F22249354F9006C9DF8 /* SKView+Extensions.swift */,
 				C3ECEE9C24935EAC00F3C50A /* SKAudioNode+Extensions.swift */,
 				C3ECEEA22493663000F3C50A /* SKScene+Extensions.swift */,
+				C3AAE0D224961A50003B75A9 /* CGPoint+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -630,6 +639,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3AAE0CF249602C5003B75A9 /* card.mp3 in Resources */,
 				C37509F12456CE9B0092FD78 /* Localizable.strings in Resources */,
 				C3630FD7241B5C7C003479C2 /* CardDackView.xib in Resources */,
 				C3ECEE9F249365D000F3C50A /* HoldemMain.sks in Resources */,
@@ -745,6 +755,7 @@
 				C36A1906242DB492007B9D71 /* PopupMapViewController.swift in Sources */,
 				C33839E32418ADD800CADC60 /* LocationManager.swift in Sources */,
 				C3ECEEA524936B8300F3C50A /* HoldemIntroScene.swift in Sources */,
+				C3AAE0D324961A50003B75A9 /* CGPoint+Extensions.swift in Sources */,
 				C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */,
 				C39529072432F0660050C80D /* ReviewModel.swift in Sources */,
 				C3780E5C240DE535006070CF /* String+Extensions.swift in Sources */,
@@ -836,6 +847,7 @@
 				C3780E5A240DDEEC006070CF /* UserInfo.swift in Sources */,
 				C3630FD6241B5C7C003479C2 /* CardDackView.swift in Sources */,
 				C3EF51C3240CE56A00A4C29E /* UserInfoDetailViewController.swift in Sources */,
+				C3AAE0D124961934003B75A9 /* PlayerDeckNode.swift in Sources */,
 				C39A6ECE241F386400460705 /* HoldemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,8 @@ import Foundation
 import SpriteKit
 class CardNode: SKSpriteNode {
     var card:Card? = nil
+    var isPop:Bool = false
+    let sound = SKAudioNode.cardSounds
     init(card:Card) {
         self.card = card
         super.init(texture: SKTexture(image: #imageLiteral(resourceName: "green_back")),color:.white, size:#imageLiteral(resourceName: "green_back").size * 0.05)
@@ -20,8 +22,12 @@ class CardNode: SKSpriteNode {
         guard let image = card?.image else {
             return
         }
-        run(.sequence([
-            .rotate(byAngle: CGFloat(Double.pi), duration: 0.2),
+        if let s = sound.shuffled().last {
+            addChild(s)
+            debugPrint("play Sound \(s.name ?? "없음")")
+        }
+        run(.sequence([        
+            .rotate(byAngle: CGFloat(Double.pi), duration: 0.5),
             .setTexture(SKTexture(image:image))
         ]))
     }

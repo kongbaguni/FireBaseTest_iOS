@@ -44,16 +44,8 @@ class GameManager {
         return cardDeck.count
     }
     
-    var cardDeck:[Card] {
-        get {
-            if _cardDeck.count == 0 {
-                insertCardAndShuffle(useJoker: false)
-            }
-            return _cardDeck
-        }
-    }
     
-    fileprivate var _cardDeck:[Card] = [] {
+    fileprivate var cardDeck:[Card] = [] {
         didSet {
             NotificationCenter.default.post(name: .game_popCardFromCardDeckBox, object: deckBoxCardsCount)
         }
@@ -65,7 +57,7 @@ class GameManager {
     fileprivate func insertCardAndShuffle(useJoker:Bool) {
         var list:[Card] = []
         if self.isUseJoker != useJoker {
-            _cardDeck.removeAll()
+            cardDeck.removeAll()
         }
         isUseJoker = useJoker
         if useJoker {
@@ -78,7 +70,7 @@ class GameManager {
         }
         list.shuffle()
         for card in list {
-            _cardDeck.append(card)
+            cardDeck.append(card)
         }
     }
     
@@ -93,7 +85,7 @@ class GameManager {
             }
             if let card = cardDeck.first {
                 list.append(card)
-                _cardDeck.removeFirst()
+                cardDeck.removeFirst()
             }
         }
         return list

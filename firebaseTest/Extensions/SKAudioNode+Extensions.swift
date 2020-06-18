@@ -10,6 +10,16 @@ import Foundation
 import SpriteKit
 
 extension SKAudioNode {
+    open class var cardSounds:[SKAudioNode] {
+        var result:[SKAudioNode] = []
+        for name in ["card":"mp3"] {
+            let node = SKAudioNode(url: Bundle.main.url(forResource: name.key, withExtension: name.value)!)
+            node.autoplayLooped = false
+            result.append(node)
+        }
+        return result
+    }
+    
     open class var effect1:SKAudioNode {
         let node = SKAudioNode(url: Bundle.main.url(forResource: "effect1", withExtension: "mp3")!)
         node.autoplayLooped = false        
