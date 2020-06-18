@@ -39,6 +39,10 @@ class ReportListViewController: UITableViewController {
     var reviews:Results<ReportModel> {
         return totalReports.filter("targetTypeCode = %@",ReportModel.TargetType.review.rawValue)
     }
+    
+    var blockedUsers:Results<UserInfo> {
+        return try! Realm().objects(UserInfo.self).filter("isBlockByAdmin = %@",true).sorted(byKeyPath: "email")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +53,7 @@ class ReportListViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,6 +64,8 @@ class ReportListViewController: UITableViewController {
             return talks.count
         case 2:
             return reviews.count
+        case 3:
+            return blockedUsers.count
         default:
             return 0
         }
@@ -80,16 +86,54 @@ class ReportListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if let info = getInfo(indexPath: indexPath) {
-            cell.textLabel?.text = info.reporter?.name
-            cell.detailTextLabel?.text = info.desc
+        switch indexPath.section {
+        case 3:
+            let info = blockedUsers[indexPath.row]
+            cell.textLabel?.text = info.email
+        default:
+            if let info = getInfo(indexPath: indexPath) {
+                cell.textLabel?.text = info.reporter?.name
+                cell.detailTextLabel?.text = info.desc
+            }
         }
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return users.count > 0 ? "부적적한 유저 신고" : nil
+        case 1:
+            return talks.count > 0 ? "부적적한 이야기 신고" : nil
+        case 2:
+            return reviews.count > 0 ? "부적적한 리뷰 신고" : nil
+        case 3:
+            return blockedUsers.count > 0 ? "글쓰기 차단된 유저 목록" : nil
+        default:
+            return nil
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let info = getInfo(indexPath: indexPath)
-        performSegue(withIdentifier: "showDetail", sender: info?.id)
+        switch indexPath.section {
+        case 3:
+            let info = blockedUsers[indexPath.row]
+            let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            ac.addAction(UIAlertAction(title: "정보 보기", style: .default, handler: { (_) in
+                let vc = StatusViewController.viewController(withUserId: info.id)
+                self.present(vc, animated: true, completion: nil)
+            }))
+            ac.addAction(UIAlertAction(title: "차단 해제", style: .default, handler: { (_) in
+                info.blockPostingUser(isBlock: false) { (isSucess) in
+                    self.tableView.reloadData()
+                }
+            }))
+            ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            present(ac, animated: true, completion: nil)
+        default:
+            let info = getInfo(indexPath: indexPath)
+            performSegue(withIdentifier: "showDetail", sender: info?.id)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
