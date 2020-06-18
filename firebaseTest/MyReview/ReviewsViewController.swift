@@ -141,14 +141,12 @@ class ReviewsViewController : UITableViewController {
         } else {
             tableView.addSubview(emptyView)
         }
-        emptyView.frame = tableView.frame
-        emptyView.frame.size.height -= 100
+        emptyView.setEmptyViewFrame()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        emptyView.frame = tableView.frame
-        emptyView.frame.size.height -= 100
+        emptyView.setEmptyViewFrame()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -541,7 +541,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1e-cd-Slu">
-                            <rect key="frame" x="40" y="55.5" width="376" height="128"/>
+                            <rect key="frame" x="40" y="69.5" width="376" height="100"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="작성된 리뷰가 없습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcC-NM-hOs">
                                     <rect key="frame" x="0.0" y="0.0" width="376" height="21"/>
@@ -550,7 +550,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r21-Uz-7BQ">
-                                    <rect key="frame" x="160" y="98" width="56" height="30"/>
+                                    <rect key="frame" x="160" y="70" width="56" height="30"/>
                                     <state key="normal" title="리뷰 쓰기"/>
                                 </button>
                             </subviews>
@@ -559,7 +559,7 @@
                                 <constraint firstAttribute="trailing" secondItem="GcC-NM-hOs" secondAttribute="trailing" id="0pA-iB-uq8"/>
                                 <constraint firstAttribute="bottom" secondItem="r21-Uz-7BQ" secondAttribute="bottom" id="AIf-Ra-UXL"/>
                                 <constraint firstItem="GcC-NM-hOs" firstAttribute="top" secondItem="v1e-cd-Slu" secondAttribute="top" id="N0m-lA-IGM"/>
-                                <constraint firstAttribute="height" constant="128" id="Qfq-fz-gU8"/>
+                                <constraint firstAttribute="height" constant="100" id="Qfq-fz-gU8"/>
                                 <constraint firstItem="GcC-NM-hOs" firstAttribute="leading" secondItem="v1e-cd-Slu" secondAttribute="leading" id="o1h-dc-4wA"/>
                                 <constraint firstItem="r21-Uz-7BQ" firstAttribute="centerX" secondItem="v1e-cd-Slu" secondAttribute="centerX" id="ovD-Vg-aeh"/>
                             </constraints>

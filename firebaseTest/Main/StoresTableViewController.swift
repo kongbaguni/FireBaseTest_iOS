@@ -106,8 +106,7 @@ class StoresTableViewController: UITableViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        emptyView.frame = view.frame
-        emptyView.frame.size.height = view.frame.height - 100
+        emptyView.setEmptyViewFrame()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -139,6 +138,7 @@ class StoresTableViewController: UITableViewController {
         ApiManager.shard.getStores { [weak self](count) in
             sender.endRefreshing()
             self?.emptyView.isHidden = count != 0
+            self?.emptyView.setEmptyViewFrame()
             switch LocationManager.shared.authStatus {
             case .denied, .none:
                 self?.emptyView.type = .locationNotAllow

@@ -22,10 +22,11 @@ class GameManager {
     static let shared = GameManager()
     let info = UserInfo.info!
     /** 포인트 사용하기*/
-    func usePoint(point:Int,complete:@escaping(_ sucess:Bool)->Void) {
+    func usePoint(point:Int, exp:Int? = nil, complete:@escaping(_ sucess:Bool)->Void) {
+        let newExp = self.info.exp + (exp ?? point)
         info.addPoint(point: -point) { (sucess) in
             if sucess {
-                self.info.update(data: ["exp": self.info.exp + point]) { (sucess) in
+                self.info.update(data: ["exp": newExp]) { (sucess) in
                     complete(sucess)
                 }
             } else {

@@ -2237,27 +2237,40 @@
                     <rect key="frame" x="0.0" y="0.0" width="271" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘 무슨 일이 있었나요?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMp-Kt-g7a">
-                            <rect key="frame" x="20" y="112" width="231" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xz-Fi-cFi">
-                            <rect key="frame" x="114" y="142.5" width="43" height="30"/>
-                            <state key="normal" title="글 쓰기"/>
-                            <connections>
-                                <action selector="onTouchupWriteBtn:" destination="fhw-9x-wS1" eventType="touchUpInside" id="SXf-br-JJH"/>
-                            </connections>
-                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rrf-ko-emC">
+                            <rect key="frame" x="15" y="72" width="241" height="100"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘 무슨 일이 있었나요?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMp-Kt-g7a">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xz-Fi-cFi">
+                                    <rect key="frame" x="0.0" y="70" width="241" height="30"/>
+                                    <state key="normal" title="글 쓰기"/>
+                                    <connections>
+                                        <action selector="onTouchupWriteBtn:" destination="fhw-9x-wS1" eventType="touchUpInside" id="SXf-br-JJH"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="6Xz-Fi-cFi" secondAttribute="trailing" id="0LR-jz-d9B"/>
+                                <constraint firstItem="BMp-Kt-g7a" firstAttribute="leading" secondItem="rrf-ko-emC" secondAttribute="leading" id="6od-yI-2fG"/>
+                                <constraint firstItem="BMp-Kt-g7a" firstAttribute="top" secondItem="rrf-ko-emC" secondAttribute="top" id="CQw-2y-DKR"/>
+                                <constraint firstAttribute="bottom" secondItem="6Xz-Fi-cFi" secondAttribute="bottom" id="JUJ-dR-tfH"/>
+                                <constraint firstAttribute="height" constant="100" id="f6e-4t-W0B"/>
+                                <constraint firstAttribute="trailing" secondItem="BMp-Kt-g7a" secondAttribute="trailing" id="hPd-OK-LBd"/>
+                                <constraint firstItem="6Xz-Fi-cFi" firstAttribute="leading" secondItem="rrf-ko-emC" secondAttribute="leading" id="hqy-XA-FGD"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstItem="BMp-Kt-g7a" firstAttribute="centerY" secondItem="KVq-Yz-ThB" secondAttribute="centerY" id="1cG-PO-dHY"/>
-                        <constraint firstItem="KVq-Yz-ThB" firstAttribute="trailing" secondItem="BMp-Kt-g7a" secondAttribute="trailing" constant="20" id="Kqz-R1-l7E"/>
-                        <constraint firstItem="6Xz-Fi-cFi" firstAttribute="top" secondItem="BMp-Kt-g7a" secondAttribute="bottom" constant="10" id="SE8-Kp-F34"/>
-                        <constraint firstItem="BMp-Kt-g7a" firstAttribute="leading" secondItem="KVq-Yz-ThB" secondAttribute="leading" constant="20" id="s5l-1N-yRj"/>
-                        <constraint firstItem="6Xz-Fi-cFi" firstAttribute="centerX" secondItem="BMp-Kt-g7a" secondAttribute="centerX" id="uiq-fD-2jd"/>
+                        <constraint firstItem="rrf-ko-emC" firstAttribute="centerY" secondItem="KVq-Yz-ThB" secondAttribute="centerY" id="Qit-cr-ITw"/>
+                        <constraint firstItem="KVq-Yz-ThB" firstAttribute="trailing" secondItem="rrf-ko-emC" secondAttribute="trailing" constant="15" id="Rwl-IF-ozl"/>
+                        <constraint firstItem="rrf-ko-emC" firstAttribute="leading" secondItem="KVq-Yz-ThB" secondAttribute="leading" constant="15" id="zLb-PL-BTi"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="KVq-Yz-ThB"/>
                 </view>
@@ -2798,26 +2811,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="c4K-Tp-2R2">
-                            <rect key="frame" x="0.0" y="99" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="RFq-or-2Fu" customClass="NoticeListTableViewCell" customModule="mask_now" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RFq-or-2Fu" id="ugz-gD-Cbs">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msg-lg-m7X">
-                                            <rect key="frame" x="20" y="11" width="42" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="42" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0W-Kz-5Pi">
-                                            <rect key="frame" x="363" y="11" width="31" height="21"/>
+                                            <rect key="frame" x="363" y="11" width="31" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -3620,8 +3633,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="FyS-ee-ii9"/>
-        <segue reference="gSs-EK-z3Q"/>
-        <segue reference="IOd-bS-gNt"/>
+        <segue reference="0Wu-VM-ebX"/>
+        <segue reference="hYy-LE-fJh"/>
         <segue reference="tNh-p3-JAq"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -3635,7 +3648,7 @@
         <image name="profile" width="300" height="300"/>
         <image name="review" width="110.66666412353516" height="131.33332824707031"/>
         <namedColor name="launchBGColor">
-            <color red="0.29999999999999999" green="0.59999999999999998" blue="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.30000001192092896" green="0.60000002384185791" blue="0.89999997615814209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

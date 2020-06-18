@@ -220,11 +220,7 @@ class TodaysTalksTableViewController: UITableViewController {
         for view in [nearTalkOptionSwitch, hideGameOptionSwitch] {
             view?.onTintColor = .autoColor_switch_color
         }
-        emptyView.frame = tableView.frame
-        emptyView.frame.size.height -= (UIApplication.shared.statusBarFrame.height
-            + (navigationController?.navigationBar.frame.height ?? 0)
-            + 40
-        )
+        emptyView.setEmptyViewFrame()
         
     }
     

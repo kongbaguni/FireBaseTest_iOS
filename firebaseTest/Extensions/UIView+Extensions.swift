@@ -15,4 +15,9 @@ extension UIView {
         layer.cornerRadius = radius
         layer.masksToBounds = masksToBounds
     }
+    
+    func setEmptyViewFrame() {
+        frame = UIScreen.main.bounds
+        frame.size.height -= (UIApplication.shared.statusBarFrame.height + 40)
+    }
 }
