@@ -205,12 +205,13 @@ class ReviewsViewController : UITableViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
         }
-        
-        vc.addAction(UIAlertAction(title: "write review".localized, style: .default, handler: { (_) in
-            let vc = MyReviewWriteController.viewController
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        }))
+        if UserInfo.info?.isBlockByAdmin == false {
+            vc.addAction(UIAlertAction(title: "write review".localized, style: .default, handler: { (_) in
+                let vc = MyReviewWriteController.viewController
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            }))
+        }
         vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (_) in
             UserInfo.info?.logout()
         }))

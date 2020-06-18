@@ -64,6 +64,9 @@ class UserInfo : Object {
     
     /** 다른 사람한테 좋아요 받은 횟수*/
     @objc dynamic var count_of_recive_like      : Int      = 0
+    
+    /** 관리자가 글쓰기 차단함*/
+    @objc dynamic var isBlockByAdmin: Bool = false
     enum MapType : String, CaseIterable {
         case standard = "standard"
         case satellite = "satellite"
@@ -469,6 +472,24 @@ class UserInfo : Object {
                     return
                 }
                 complete(false)
+        }
+    }
+    
+    func blockPostingUser(isBlock:Bool, complete:@escaping(_ isSucess:Bool)->Void) {
+        let doc = FS.store.collection(FSCollectionName.USERS)
+        let data:[String:Any] = [
+            "email":email,
+            "isBlockByAdmin":isBlock
+        ]
+        
+        doc.document(id).updateData(data) { (error) in
+            if error == nil {
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(UserInfo.self, value: data, update: .modified)
+                try! realm.commitWrite()
+            }
+            complete(error == nil)
         }
     }
 }

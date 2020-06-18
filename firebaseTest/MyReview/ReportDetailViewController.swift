@@ -67,8 +67,30 @@ class ReportDetailViewController: UITableViewController {
             self?.present(ac, animated: true, completion: nil)
         }.disposed(by: disposeBag)
         
-        addBlackListBtn.rx.tap.bind { (_) in
-            
+        addBlackListBtn.rx.tap.bind {[weak self](_) in
+            let ac = UIAlertController(title: nil, message: "글쓰기 차단합니다.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { [weak self](_) in
+                var u:UserInfo? = nil
+                if let user = self?.report?.target as? UserInfo {
+                    u = user
+                }
+                if let user = (self?.report?.target as? TalkModel)?.creator {
+                    u = user
+                }
+                if let user = (self?.report?.target as? ReviewModel)?.creator {
+                    u = user
+                }
+                u?.blockPostingUser(isBlock: true, complete: { (isSucess) in
+                    if isSucess {
+                        self?.report?.check(complete: { (isSucess) in
+                            self?.navigationController?.popViewController(animated: true)
+                        })
+                    }
+                })
+            }))
+            ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            self?.present(ac, animated: true, completion: nil)
+                        
         }.disposed(by: disposeBag)
 
         

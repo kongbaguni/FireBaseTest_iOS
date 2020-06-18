@@ -105,9 +105,15 @@ class TodaysTalksTableViewController: UITableViewController {
                 self?.reload()
             }).disposed(by: self.disposebag)
         
-        toolBar.items = [
-            UIBarButtonItem(title: "write talk".localized, style: .plain, target: self, action: #selector(self.onTouchupAddBtn(_:))),
-        ]
+        toolBar.items = []
+        if UserInfo.info?.isBlockByAdmin == false {
+            toolBar.items?.append(UIBarButtonItem(
+                title: "write talk".localized,
+                style: .plain,
+                target: self,
+                action: #selector(self.onTouchupAddBtn(_:))))
+        }
+        
         hideGameOptionView.isHidden = AdminOptions.shared.canPlayPoker == false
         
         headerStackView.frame.size.height = AdminOptions.shared.canPlayPoker ? 130 : 90
@@ -322,11 +328,12 @@ class TodaysTalksTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "showMyProfile", sender: nil)
         }))
         
-        
-        vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
-            self.isNeedScrollToBottomWhenRefresh = true
-            self.performSegue(withIdentifier: "showTalk", sender: nil)
-        }))
+        if UserInfo.info?.isBlockByAdmin == false {
+            vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
+                self.isNeedScrollToBottomWhenRefresh = true
+                self.performSegue(withIdentifier: "showTalk", sender: nil)
+            }))
+        }
         
         vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
             let firebaseAuth = Auth.auth()
