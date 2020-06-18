@@ -39,6 +39,7 @@ class ReviewModel: Object {
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     
     @objc dynamic var localeIdentifier:String = ""
+    @objc dynamic var isDeletedByAdmin:Bool = false
     
     let editList = List<ReviewEditModel>()
     let likeList = List<LikeModel>()
@@ -483,8 +484,25 @@ extension ReviewModel {
             complete(nil)
         }
         
-        
-        
+    }
+    
+    /** 관리자가 삭제*/
+    func deleteByAdmin(complete:@escaping(_ isSucess:Bool)->Void) {
+        let data:[String:Any] = [
+            "id":id,
+            "isDeletedByAdmin":true,
+            "modifiedTimeIntervalSince1970":Date().timeIntervalSince1970
+        ]
+        let doc = FS.store.collection(FSCollectionName.REVIEW)
+        doc.document(id).updateData(data) { (error) in
+            if error == nil {
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(ReviewModel.self, value: data, update: .modified)
+                try! realm.commitWrite()
+            }
+            complete(error == nil)
+        }
     }
 }
 
@@ -536,4 +554,5 @@ extension ReviewEditModel {
     var priceLocaleString:String? {
         price.getFormatString(locale: self.locale, style: .currency)
     }
+    
 }

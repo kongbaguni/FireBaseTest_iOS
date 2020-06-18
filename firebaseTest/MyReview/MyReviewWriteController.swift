@@ -77,6 +77,9 @@ class MyReviewWriteController: UITableViewController {
                     place_id = place_ids?.first
                 }
             }
+            if (place_ids?.count ?? 0) > 0 {
+                addressTextField.inputView = addressPicker
+            }
         }
     }
     
@@ -166,7 +169,6 @@ class MyReviewWriteController: UITableViewController {
         starPointPicker.dataSource = self
         starPointPicker.delegate = self
         
-        addressTextField.inputView = addressPicker
         addressPicker.dataSource = self
         addressPicker.delegate = self
         

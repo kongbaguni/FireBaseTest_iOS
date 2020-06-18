@@ -106,7 +106,7 @@ class TalkDetailTableViewController: UITableViewController {
                 self?.tableView.reloadData()
             })
         }))
-        
+                
 
         if self.talkModel?.creatorId == UserInfo.info?.id {
             vc.addAction(UIAlertAction(title: "edit".localized, style: .default, handler: { (action) in
@@ -153,6 +153,15 @@ class TalkDetailTableViewController: UITableViewController {
                 self.present(ac, animated: true, completion: nil)
                 
             }))
+        }
+        else {
+            if let docuId = self.documentId {
+                vc.addAction(UIAlertAction(title: "report".localized, style: .default, handler: { (_) in
+                    let vc = ReportViewController.viewController
+                    vc.setData(targetId: docuId, targetType: .talk)
+                    self.present(vc, animated: true, completion: nil)
+                }))
+            }
         }
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)

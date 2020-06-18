@@ -6,6 +6,6 @@
   Copyright © 2020 Changyul Seo. All rights reserved.
 */
 "CFBundleDisplayName" = "애니리뷰";
-"NSPhotoLibraryUsageDescription" = "촬영한 사진을 업로드 합니다.";
-"NSCameraUsageDescription" = "촬영한 사진을 업로드 합니다.";
+"NSPhotoLibraryUsageDescription" = "프로필 이미지를 변경하거나, 작성하는 글에 사진을 첨부하기 위해 포토 라이브러리의 접근이 필요합니다.";
+"NSCameraUsageDescription" = "프로필 이미지를 변경하거나, 작성하는 글에 사진을 첨부하기 위해 카메라의 사용이 필요합니다.";
 "NSLocationWhenInUseUsageDescription" = "애니리뷰는 리뷰 및 글을 작성하거나 수정할 때 위치정보를 포함합니다.";

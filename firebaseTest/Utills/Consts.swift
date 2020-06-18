@@ -56,7 +56,7 @@ struct Consts {
     /** 구글 광고 아이디*/
     static let GADID = "ca-app-pub-7714069006629518/9754456852"
     
-    static let REALM_VERSION:UInt64 = 24
+    static let REALM_VERSION:UInt64 = 26
     
     static var isAdmin:Bool {
         return UserInfo.info?.id == "kongbaguni@gmail.com"
@@ -85,6 +85,8 @@ struct FSCollectionName {
     static let NOTICE = "notice_TEST"
     static let REVIEW = "review_TEST"
     static let ADDRESS = "address_TEST"
+    /** 신고하기*/
+    static let REPORT = "report_TEST"
     #else
     static let IMAGE_INFO = "imageInfo"
     static let STORE_STOCK = "storeStock"
@@ -98,5 +100,6 @@ struct FSCollectionName {
     static let NOTICE = "notice"
     static let REVIEW = "review"
     static let ADDRESS = "address"
+    static let REPORT = "report"
     #endif
 }

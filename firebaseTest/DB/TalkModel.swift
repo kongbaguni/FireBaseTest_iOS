@@ -80,6 +80,8 @@ class TalkModel: Object {
     @objc dynamic var textForSearch:String = ""
     /** 삭제된 토크임*/
     @objc dynamic var isDeleted:Bool = false
+    /** 관리자가 삭제함*/
+    @objc dynamic var isDeletedByAdmin:Bool = false
     
     /** 등록시각 */
     @objc dynamic var regTimeIntervalSince1970:Double = 0 {
@@ -310,8 +312,36 @@ extension TalkModel {
             else {
                 complete(false)
             }
-            
         }
+    }
+    /** 관리자가 글 삭제함*/
+    func deleteByAdmin(complete:@escaping(_ sucess:Bool)->Void) {
+        let doc = FS.store.collection(FSCollectionName.TALKS).document(id)
+        let data:[String:Any] = [
+            "id":id,
+            "text":"deleted by admin".localized,
+            "isDeletedByAdmin":true
+        ]
+        doc.updateData(data) { (error) in
+            if error == nil {
+                doc.collection("edit").getDocuments { (snapShot, error) in
+                    for edit in snapShot?.documents ?? [] {
+                        let id = edit.documentID
+                        doc.collection("edit").document(id).delete()
+                    }
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    let model = realm.create(TalkModel.self, value: data, update: .modified)
+                    model.editList.removeAll()
+                    try! realm.commitWrite()
+                    complete(true)
+                }
+            }
+            else {
+                complete(false)
+            }
+        }
+        
     }
     
     var cordinate:CLLocationCoordinate2D? {
