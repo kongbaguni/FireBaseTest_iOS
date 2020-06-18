@@ -182,6 +182,7 @@
 "admin menu" = "관리자 메뉴";
 "exp_for_report_store_wait" = "대기열 보고시 보상 경험치";
 "exp_for_report_store_stock" = "스토어 재고 보고 성공시 보상 경험치";
+"exp_for_report_bad_posting" = "불량 게시물 신고 보상 경헙치";
 "point_for_report_store_stock" = "재고 보고 보상 포인트";
 "point_for_report_store_wait" = "대기열 보고 보상포인트";
 "levelup_req_exp_base" = "레벨업 : 기본 경험치";
