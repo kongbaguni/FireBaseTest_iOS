@@ -34,6 +34,7 @@ class InAppPurchesTableViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel:UILabel!
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var closeBtn:UIButton!
@@ -41,8 +42,8 @@ class InAppPurchesTableViewController: UIViewController {
     
     let disposebag = DisposeBag()
     override func viewDidLoad() {
-        super.viewDidLoad()       
-
+        super.viewDidLoad()
+        contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
         titleLabel.text = "in app Purchase title".localized
         closeBtn.rx.tap.bind { [weak self] (_) in
             self?.dismiss(animated: true, completion: nil)
