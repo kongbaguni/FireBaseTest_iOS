@@ -43,6 +43,7 @@ class InAppPurchesTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()       
 
+        titleLabel.text = "in app Purchase title".localized
         closeBtn.rx.tap.bind { [weak self] (_) in
             self?.dismiss(animated: true, completion: nil)
         }.disposed(by: disposebag)
