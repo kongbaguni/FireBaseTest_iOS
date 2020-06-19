@@ -164,7 +164,7 @@ class MyReviewWriteController: UITableViewController {
         gpsRequestView.isHidden = count > 0
         
     }
-    
+        
     override func viewDidLoad() {
         title = "write review".localized
         super.viewDidLoad()
@@ -218,12 +218,16 @@ class MyReviewWriteController: UITableViewController {
         
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
-        
+        if Locale.current.isKoreanLocale {
+            priceTextField.keyboardType = .numberPad
+        }
         priceTextField.rx.text.orEmpty.bind { [weak self] (query) in
-            if query.count > 1 {
-                self?.priceTextField.text = query.currencyIntValue.currencyFormatString
-            } else {
-                self?.priceTextField.text = 0.currencyFormatString
+            if Locale.current.isKoreanLocale {
+                if query.count > 1 {
+                    self?.priceTextField.text = query.currencyFloatValue.currencyFormatString
+                } else {
+                    self?.priceTextField.text = 0.currencyFormatString
+                }
             }
         }.disposed(by: disposBag)
         loadData()
@@ -323,7 +327,7 @@ class MyReviewWriteController: UITableViewController {
             }
             if sucess {
                 let point = s.pointTextField.text?.count ?? 1
-                let price = s.priceTextField.text?.currencyIntValue ?? 0
+                let price = s.priceTextField.text?.currencyFloatValue ?? 0
                 
                 if s.reviewId == nil {
                     s.loading.show(viewController: s)

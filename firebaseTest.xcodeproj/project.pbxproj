@@ -94,6 +94,7 @@
 		C3D055F3249B1DA900974971 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3D055F2249B1DA900974971 /* GoogleService-Info.plist */; };
 		C3D055F5249B23A700974971 /* ReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F4249B23A700974971 /* ReportListViewController.swift */; };
 		C3D055F7249B2C9900974971 /* ReportDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F6249B2C9900974971 /* ReportDetailViewController.swift */; };
+		C3D055F9249C590B00974971 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F8249C590B00974971 /* Float+Extensions.swift */; };
 		C3D0F4282433123400039B2E /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F4272433123400039B2E /* ReviewsViewController.swift */; };
 		C3D0F42A2433172200039B2E /* ReviewsMapCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */; };
 		C3D0F42C24348A8900039B2E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */; };
@@ -240,6 +241,7 @@
 		C3D055F2249B1DA900974971 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3D055F4249B23A700974971 /* ReportListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportListViewController.swift; sourceTree = "<group>"; };
 		C3D055F6249B2C9900974971 /* ReportDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailViewController.swift; sourceTree = "<group>"; };
+		C3D055F8249C590B00974971 /* Float+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		C3D0F4272433123400039B2E /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsMapCellTableViewCell.swift; sourceTree = "<group>"; };
 		C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				C3C633C52448396700B526C0 /* LightBodImage+Extensions.swift */,
 				C3CE9853244E79DC00D8BADF /* Locale+Extensions.swift */,
 				C37EE3DC248F7ADB0093A801 /* UIViewController+Extensions.swift */,
+				C3D055F8249C590B00974971 /* Float+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				C3D055F5249B23A700974971 /* ReportListViewController.swift in Sources */,
 				C36650122422F73F00E2BD24 /* AdminOptions.swift in Sources */,
 				C36A1900242C95C0007B9D71 /* NoticeModel.swift in Sources */,
+				C3D055F9249C590B00974971 /* Float+Extensions.swift in Sources */,
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
 				C3EB27A624263BF200CA59F7 /* ChipView.swift in Sources */,
 				C37E86912423410700F87D4D /* JackPotHistoryLogTableViewController.swift in Sources */,

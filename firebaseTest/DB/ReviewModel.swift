@@ -32,7 +32,7 @@ class ReviewModel: Object {
     @objc dynamic var name:String = ""
     @objc dynamic var starPoint:Int = 0
     @objc dynamic var comment:String = ""
-    @objc dynamic var price:Int = 0
+    @objc dynamic var price:Float = 0
     @objc dynamic var photoUrls:String = ""
     @objc dynamic var likeCount:Int = 0
     @objc dynamic var regTimeIntervalSince1970:Double = 0
@@ -121,6 +121,7 @@ extension ReviewModel {
     }
     
     var priceLocaleString:String? {
+        
         price.getFormatString(locale: self.locale, style: .currency)
     }
 }
@@ -176,7 +177,7 @@ extension ReviewModel {
         name:String,
         starPoint:Int,
         comment:String,
-        price:Int,
+        price:Float,
         photos:[URL],
         place_id:String,
         place_detail:String,
@@ -246,7 +247,7 @@ extension ReviewModel {
         name:String?,
         starPoint:Int?,
         comment:String?,
-        price:Int?,
+        price:Float?,
         addphotos:[URL],
         deletePhotos:[String],
         place_id:String,

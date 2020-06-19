@@ -208,12 +208,16 @@ extension String {
     var intValue:Int {
         return NSString(string: self).integerValue
     }
-    /** 통화 포메팅된 문자열을 int 로 반환*/
-    var currencyIntValue:Int {
+    /** 통화 포메팅된 문자열을 float 로 반환*/
+    var currencyFloatValue:Float {
         if self.count == 0 {
             return 0
         }
-        let str = self[1..<self.count].replacingOccurrences(of: ",", with: "")
-        return NSString(string: str).integerValue
+        var s = self
+        if let symbol = Locale.current.currencySymbol {
+            s = s.replacingOccurrences(of: symbol, with: "")
+        }
+        let str = s.replacingOccurrences(of: ",", with: "")
+        return NSString(string: str).floatValue
     }
 }

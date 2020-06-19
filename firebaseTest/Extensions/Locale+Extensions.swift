@@ -25,4 +25,8 @@ extension Locale {
         }
         return locales
     }
+    
+    var isKoreanLocale:Bool {
+        return identifier == "ko-Kore_KR" || identifier == "ko" || identifier == "ko_KR"
+    }
 }
