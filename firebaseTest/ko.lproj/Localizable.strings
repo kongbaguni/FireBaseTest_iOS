@@ -274,3 +274,9 @@
 "violence" = "폭력물";
 "other" = "기타";
 "input reson" = "신고 이유 입력";
+
+"talks empty msg" = "작성한 대화가 없습니다.";
+"reviews empty msg" = "작성한 리뷰가 없습니다.";
+
+"requestGPSmsg" = "주소 입력을 위해서 위치 접근 허용이 필요합니다.";
+"requestGPSbtn" = "설정하기";

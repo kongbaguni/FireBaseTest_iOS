@@ -268,3 +268,10 @@
 "violence" = "violence";
 "other" = "other";
 "input reson" = "input reson";
+
+
+"talks empty msg" = "There is no Talk created.";
+"reviews empty msg" = "There is no Review created.";
+
+"requestGPSmsg" = "You need to allow access to the location to enter the address.";
+"requestGPSbtn" = "Setting";

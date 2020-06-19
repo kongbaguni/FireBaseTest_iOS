@@ -228,6 +228,48 @@ class TalkHistoryTableViewController: UITableViewController {
         }
     }
     
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        switch section {
+        case 1:
+            if (talks?.count ?? 0) == 0 {
+                let label = UILabel()
+                label.text = "talks empty msg".localized
+                label.textAlignment = .center
+                return label
+            }
+            return nil
+        case 2:
+            if (reviews?.count ?? 0) == 0 {
+                let label = UILabel()
+                label.text = "reviews empty msg".localized
+                label.textAlignment = .center
+                return label
+            }
+            return nil
+        default:
+            return UIView()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+        case 1:
+            if (talks?.count ?? 0) == 0 {
+                return 50
+            }
+            return CGFloat.leastNormalMagnitude
+        case 2:
+            if (reviews?.count ?? 0) == 0 {
+                return 50
+            }
+            return CGFloat.leastNormalMagnitude
+        default:
+            return CGFloat.leastNormalMagnitude
+        }
+        
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

@@ -62,6 +62,12 @@ class MyReviewWriteController: UITableViewController {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
+    @IBOutlet weak var addressCell: UITableViewCell!
+    @IBOutlet var addressViews:[UIView] = []
+    
+    @IBOutlet weak var gpsRequestView: UIView!
+    @IBOutlet weak var gpsServiceRequestBtn: UIButton!
+    @IBOutlet weak var gpeServiceRequestLabel: UILabel!
     let disposBag = DisposeBag()
     
     let loading = Loading()
@@ -80,6 +86,7 @@ class MyReviewWriteController: UITableViewController {
             if (place_ids?.count ?? 0) > 0 {
                 addressTextField.inputView = addressPicker
             }
+            checkAddressViewInput()
         }
     }
     
@@ -148,18 +155,33 @@ class MyReviewWriteController: UITableViewController {
         debugPrint("myReviewWriteController deinit-----")
     }
     
+    func checkAddressViewInput() {
+        let count = self.place_ids?.count ?? 0
+                
+        addressTextField.isEnabled = count > 0
+        address2TextField.isEnabled = count > 0
+        postalCodeTextField.isEnabled = count > 0
+        gpsRequestView.isHidden = count > 0
+        
+    }
+    
     override func viewDidLoad() {
         title = "write review".localized
         super.viewDidLoad()
-        if review?.place?.postal_code.isEmpty == false {
-            ApiManager.shard.getAddresFromGeo(coordinate: review?.place?.location ?? UserDefaults.standard.lastMyCoordinate) { (ids) in
-                self.place_ids = ids
+        
+        
+        gpeServiceRequestLabel.text = "requestGPSmsg".localized
+        gpsServiceRequestBtn.setTitle("requestGPSbtn".localized, for: .normal)
+        gpsServiceRequestBtn.rx.tap.bind { (_) in
+            
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:]) { (_) in
+                
             }
-        } else {
-            ApiManager.shard.getAddresFromGeo(coordinate: UserDefaults.standard.lastMyCoordinate) { (ids) in
-                self.place_ids = ids
-            }
-        }
+            
+        }.disposed(by: disposBag)
+        
+        gpsRequestView.isHidden = true
+        getLocationInfo()
         
         for view in [addressTextField, address2TextField, postalCodeTextField, nameTextField, priceTextField, pointTextField, commentTextView] {
             view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
@@ -233,6 +255,31 @@ class MyReviewWriteController: UITableViewController {
                 s.deletedImages.append(imageUrl.absoluteString)
             }
             s.updateNeedPointLabel()
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self](notification) in
+            self?.getLocationInfo()
+        }
+    }
+    
+    func getLocationInfo() {
+        LocationManager.shared.requestAuth(complete: { [weak self](status) in
+            switch status {
+            case .denied, .none:
+                self?.place_ids = []
+                break
+            default:
+                DispatchQueue.main.async {
+                    LocationManager.shared.manager.startUpdatingLocation()
+                }
+                break
+            }
+        }) { [weak self](location) in
+            if let coodinate = location.first?.coordinate {
+                ApiManager.shard.getAddresFromGeo(coordinate: coodinate) { (ids) in
+                    self?.place_ids = ids
+                }
+            }
         }
     }
     
