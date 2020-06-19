@@ -7,6 +7,7 @@ target 'firebaseTest' do
 
   # Pods for firebaseTest
   pod 'SwiftyJSON'
+  pod 'SwiftyStoreKit'
   pod 'Lightbox'
   pod 'Google-Mobile-Ads-SDK'
   pod 'Toast-Swift'

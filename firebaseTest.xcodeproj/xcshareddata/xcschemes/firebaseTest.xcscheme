@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C3BDFBFA240CD79D006AE2B3"
-               BuildableName = "mask now.app"
+               BuildableName = "Any Review.app"
                BlueprintName = "firebaseTest"
                ReferencedContainer = "container:firebaseTest.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C3BDFBFA240CD79D006AE2B3"
-            BuildableName = "mask now.app"
+            BuildableName = "Any Review.app"
             BlueprintName = "firebaseTest"
             ReferencedContainer = "container:firebaseTest.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C3BDFBFA240CD79D006AE2B3"
-            BuildableName = "mask now.app"
+            BuildableName = "Any Review.app"
             BlueprintName = "firebaseTest"
             ReferencedContainer = "container:firebaseTest.xcodeproj">
          </BuildableReference>

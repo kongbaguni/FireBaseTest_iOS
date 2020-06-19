@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 import RealmSwift
 import GoogleMobileAds
+import SwiftyStoreKit
 
 fileprivate let gcmMessageIDKey = "gcm.message_id"
 fileprivate let gcmNotificationTarget = "gcm.notification.target"
@@ -33,7 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         getNotificationSettings()
         //        Messaging.messaging().delegate = self
-        
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                print(purchase)
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    InAppPurchaseModel.set(productId: purchase.productId, isEnable: true)
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                default:
+                    break
+                }
+            }
+        }
         return true
     }
     

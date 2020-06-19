@@ -15,6 +15,7 @@ import AlamofireImage
 import RealmSwift
 import RxCocoa
 import RxSwift
+import StoreKit
 
 class MyProfileViewController: UITableViewController {
     class var viewController : MyProfileViewController {
@@ -73,6 +74,7 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var mapTypeTitleLabel: UILabel!
     @IBOutlet weak var mapTypeTextFiled: UITextField!
     
+    @IBOutlet weak var inAppPurchaseLabel: UILabel!
     var selectSearchDistance:Int = 0 {
         didSet {
             searchDistanceTextField.text = "\(selectSearchDistance)m"
@@ -167,6 +169,7 @@ class MyProfileViewController: UITableViewController {
         for view in [introduceTextView, searchDistanceTextField, nameTextField, mapTypeTextFiled] {
             view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 5)
         }
+        inAppPurchaseLabel.text = "In App Purchase".localized
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
@@ -312,6 +315,13 @@ class MyProfileViewController: UITableViewController {
             })
             vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: cell.contentView)
             present(vc, animated: true, completion: nil)
+        case "inAppPurchase":
+            loading.show(viewController: self)
+            InAppPurchase.getProductInfo {[weak self] in
+                self?.loading.hide()
+                let vc = InAppPurchesTableViewController.viewController
+                self?.present(vc, animated: true, completion: nil)
+            }
         default:
             tableView.deselectRow(at: indexPath, animated: true)
             

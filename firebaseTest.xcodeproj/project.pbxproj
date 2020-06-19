@@ -95,6 +95,11 @@
 		C3D055F5249B23A700974971 /* ReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F4249B23A700974971 /* ReportListViewController.swift */; };
 		C3D055F7249B2C9900974971 /* ReportDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F6249B2C9900974971 /* ReportDetailViewController.swift */; };
 		C3D055F9249C590B00974971 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055F8249C590B00974971 /* Float+Extensions.swift */; };
+		C3D055FB249C702800974971 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D055FA249C702800974971 /* StoreKit.framework */; };
+		C3D055FE249C733C00974971 /* InAppPurchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3D055FD249C733C00974971 /* InAppPurchase.storyboard */; };
+		C3D05600249C736800974971 /* InAppPurchesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D055FF249C736800974971 /* InAppPurchesTableViewController.swift */; };
+		C3D05602249C914300974971 /* InAppPurchaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05601249C914300974971 /* InAppPurchaseModel.swift */; };
+		C3D05604249CA48B00974971 /* InAppPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05603249CA48B00974971 /* InAppPurchase.swift */; };
 		C3D0F4282433123400039B2E /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F4272433123400039B2E /* ReviewsViewController.swift */; };
 		C3D0F42A2433172200039B2E /* ReviewsMapCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */; };
 		C3D0F42C24348A8900039B2E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */; };
@@ -242,6 +247,11 @@
 		C3D055F4249B23A700974971 /* ReportListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportListViewController.swift; sourceTree = "<group>"; };
 		C3D055F6249B2C9900974971 /* ReportDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailViewController.swift; sourceTree = "<group>"; };
 		C3D055F8249C590B00974971 /* Float+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
+		C3D055FA249C702800974971 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C3D055FD249C733C00974971 /* InAppPurchase.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InAppPurchase.storyboard; sourceTree = "<group>"; };
+		C3D055FF249C736800974971 /* InAppPurchesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchesTableViewController.swift; sourceTree = "<group>"; };
+		C3D05601249C914300974971 /* InAppPurchaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseModel.swift; sourceTree = "<group>"; };
+		C3D05603249CA48B00974971 /* InAppPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchase.swift; sourceTree = "<group>"; };
 		C3D0F4272433123400039B2E /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		C3D0F4292433172200039B2E /* ReviewsMapCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsMapCellTableViewCell.swift; sourceTree = "<group>"; };
 		C3D0F42B24348A8900039B2E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -279,6 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3D055FB249C702800974971 /* StoreKit.framework in Frameworks */,
 				C37EE3D9248F6E220093A801 /* AuthenticationServices.framework in Frameworks */,
 				313AEA29D63D2AF8108134B0 /* Pods_firebaseTest.framework in Frameworks */,
 			);
@@ -299,6 +310,7 @@
 		50F9E479A00CD2C03663B0C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C3D055FA249C702800974971 /* StoreKit.framework */,
 				C37EE3D8248F6E220093A801 /* AuthenticationServices.framework */,
 				8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */,
 			);
@@ -369,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				C366501724233C5600E2BD24 /* JackPotLogModel.swift */,
+				C3D05601249C914300974971 /* InAppPurchaseModel.swift */,
 				C3780E59240DDEEC006070CF /* UserInfo.swift */,
 				C370C9F02415F94300026E86 /* LikeModel.swift */,
 				C3DC5B90241224E100A028E0 /* TalkModel.swift */,
@@ -442,6 +455,7 @@
 				C395290E243307D50050C80D /* MyReview */,
 				C3780E5F240E15D0006070CF /* Main */,
 				C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */,
+				C3D055FC249C730400974971 /* in app purchase */,
 				C346B0522491F1AC0049DE7E /* Colors.xcassets */,
 				C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */,
 				C3BDFC0C240CD7A1006AE2B3 /* Info.plist */,
@@ -450,6 +464,16 @@
 				C37509F32456CE9B0092FD78 /* Localizable.strings */,
 			);
 			path = firebaseTest;
+			sourceTree = "<group>";
+		};
+		C3D055FC249C730400974971 /* in app purchase */ = {
+			isa = PBXGroup;
+			children = (
+				C3D055FD249C733C00974971 /* InAppPurchase.storyboard */,
+				C3D055FF249C736800974971 /* InAppPurchesTableViewController.swift */,
+				C3D05603249CA48B00974971 /* InAppPurchase.swift */,
+			);
+			path = "in app purchase";
 			sourceTree = "<group>";
 		};
 		C3DC5B8D241221EE00A028E0 /* Utills */ = {
@@ -605,6 +629,7 @@
 				C346B0532491F1AC0049DE7E /* Colors.xcassets in Resources */,
 				C3CE9857244FCA4600D8BADF /* InfoPlist.strings in Resources */,
 				C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */,
+				C3D055FE249C733C00974971 /* InAppPurchase.storyboard in Resources */,
 				C3D055F3249B1DA900974971 /* GoogleService-Info.plist in Resources */,
 				C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */,
 				C39A6ECC241F368000460705 /* HoldemView.xib in Resources */,
@@ -706,6 +731,7 @@
 				C3DC5B842412172D00A028E0 /* UIApplication+Extensions.swift in Sources */,
 				C370C9F5241747BF00026E86 /* TalkDetailTableViewController.swift in Sources */,
 				C36A1906242DB492007B9D71 /* PopupMapViewController.swift in Sources */,
+				C3D05602249C914300974971 /* InAppPurchaseModel.swift in Sources */,
 				C33839E32418ADD800CADC60 /* LocationManager.swift in Sources */,
 				C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */,
 				C39529072432F0660050C80D /* ReviewModel.swift in Sources */,
@@ -759,12 +785,14 @@
 				C34C6B572418C2B1001D8CF4 /* ApiManager.swift in Sources */,
 				C31DDCB2241DBC8C00F0BAA8 /* StatusViewController.swift in Sources */,
 				C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */,
+				C3D05600249C736800974971 /* InAppPurchesTableViewController.swift in Sources */,
 				C33839E72418AECD00CADC60 /* MapViewController.swift in Sources */,
 				C39A6ED4241F6CE100460705 /* HoldemViewController.swift in Sources */,
 				C3D055F7249B2C9900974971 /* ReportDetailViewController.swift in Sources */,
 				C33839DB241873D600CADC60 /* Toast.swift in Sources */,
 				C3630FD9241B5F31003479C2 /* TalkDetailCardTableViewCell.swift in Sources */,
 				C390038A2421E9B700CC4E3A /* StoreWaittingTableViewController.swift in Sources */,
+				C3D05604249CA48B00974971 /* InAppPurchase.swift in Sources */,
 				C33839E52418AE1C00CADC60 /* PermissionData.swift in Sources */,
 				C3C25C062421A998006DB36E /* CardDeckBoxView.swift in Sources */,
 				C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */,
