@@ -377,3 +377,26 @@ class AdminOptions {
         store_api_url = data["store_api_url"] as? String ?? ""
     }
 }
+
+extension AdminOptions {
+    var adRewardPointFinal:Int {
+        var bonus = 1
+        for id in InAppPurchase.productIdSet {
+            if let model = InAppPurchaseModel.model(productId: id) {
+                if model.isEnable {
+                    switch id {
+                    case "adPoint2x" :
+                        bonus *= 2
+                    case "adPoint4x" :
+                        bonus *= 4
+                    case "adPoint10x" :
+                        bonus *= 10
+                    default:
+                        break
+                    }
+                }
+            }
+        }        
+        return adRewardPoint * bonus
+    }
+}
