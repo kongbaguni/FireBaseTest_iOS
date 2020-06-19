@@ -501,22 +501,24 @@ class TodaysTalksTableViewController: UITableViewController {
         }
         
         var actions:[UIContextualAction] = []
-        if data.creatorId == UserInfo.info?.id && data.gameResultBase64encodingSting.isEmpty == true {
-            let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
-                if let data = self?.list[indexPath.row] {
-                    self?.needScrolIndex = indexPath
-                    self?.performSegue(withIdentifier: "showTalk", sender: data.id)
+        if data.gameResultBase64encodingSting.isEmpty == true  {
+            if data.creatorId == UserInfo.info?.id {
+                let action = UIContextualAction(style: .normal, title: "edit".localized, handler: { [weak self](action, view, complete) in
+                    if let data = self?.list[indexPath.row] {
+                        self?.needScrolIndex = indexPath
+                        self?.performSegue(withIdentifier: "showTalk", sender: data.id)
+                    }
+                })
+                action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
+                actions.append(action)
+            } else {
+                let action = UIContextualAction(style: .destructive, title: "report".localized) { [weak self](action, view, complete) in
+                    let vc = ReportViewController.viewController
+                    vc.setData(targetId: data.id, targetType: .talk)
+                    self?.present(vc, animated: true, completion: nil)
                 }
-            })
-            action.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
-            actions.append(action)
-        } else {
-            let action = UIContextualAction(style: .destructive, title: "report".localized) { [weak self](action, view, complete) in
-                let vc = ReportViewController.viewController
-                vc.setData(targetId: data.id, targetType: .talk)
-                self?.present(vc, animated: true, completion: nil)
+                actions.append(action)
             }
-            actions.append(action)
         }
 ////        let detailAction = UIContextualAction(style: .normal, title: "detail View".localized, handler: { [weak self] (action, view, complete)  in
 ////            if let talk = self?.list[indexPath.row] {
