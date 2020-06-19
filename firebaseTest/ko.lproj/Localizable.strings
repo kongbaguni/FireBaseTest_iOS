@@ -199,7 +199,7 @@
 "Paid" = "지불";
 "leave" = "탈퇴";
 
-"leave alert msg title" = "Mask Now 에서 탈퇴 합니다.";
+"leave alert msg title" = "Any Review 에서 탈퇴 합니다.";
 "leave alert msg desc" = "DB에서 삭제되는 항목은 다음과 같습니다.\n-이름(닉네임)\n-프로필이미지\n-자기소개\n-이메일주소\n-포인트\n-경험치와 레벨\n\n 작성한 글과 리포트는 사라지지 않습니다. \n\n탈퇴 하시겠습니까?";
 
 "todays talk desc" = "오늘 무슨 일이 있었나요?";

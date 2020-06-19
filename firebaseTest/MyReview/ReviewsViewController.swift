@@ -258,6 +258,9 @@ class ReviewsViewController : UITableViewController {
             return nil
         }
 
+        if list.count == 0 {
+            return nil
+        }
         var action:[UIContextualAction] = []
         let id = list[indexPath.row].id
 
@@ -286,7 +289,7 @@ class ReviewsViewController : UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if list[section]?.count == 0 {
+        if (list[section]?.count ?? 0) == 0 {
             return nil
         }
         return sessionTitle[section]

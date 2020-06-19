@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 #if DEBUG
 /** 대기열 보고 위한 거리제한*/
+
 fileprivate let WAITING_REPORT_DISTANCE:Int = 500
 #else
 /** 대기열 보고 위한 거리제한*/
@@ -112,6 +113,9 @@ class AdminOptions {
     
     var pointUseReportBadPosting = POINT_FOR_REPORT_BAD_POSTING
     
+    /** 마스크 api 주소*/
+    var store_api_url = ""
+    
     /** 마스크 제고 관련 기능 사용여부*/
     var maskNowEnable = false
     
@@ -147,7 +151,9 @@ class AdminOptions {
             // exp
             "exp_for_report_store_stock": exp_for_report_store_stock,
             "exp_for_report_store_wait" : exp_for_report_store_wait,
-            "exp_for_report_bad_posting" : exp_for_report_bad_posting
+            "exp_for_report_bad_posting" : exp_for_report_bad_posting,
+            
+            "store_api_url": store_api_url
             
         ]
     }
@@ -187,6 +193,7 @@ class AdminOptions {
             "can_view_talk_log_level"
         ],
         [
+            "store_api_url",
             "maskNowEnable"
         ]
         
@@ -289,7 +296,7 @@ class AdminOptions {
         case "false":
             boolValue = false
         default:
-            return false
+            break
         }
         
         switch key {
@@ -298,6 +305,14 @@ class AdminOptions {
             return true
         case "isUsePoker":
             isUsePoker = boolValue
+            return true
+        default:            
+            break
+        }
+        
+        switch key {
+        case "store_api_url":
+            store_api_url = value
             return true
         default:
             break
@@ -359,5 +374,6 @@ class AdminOptions {
         point_for_report_store_stock = data["point_for_report_store_stock"] as? Int ?? POINT_FOR_REPORT_STOCK
         point_for_report_store_wait = data["point_for_report_store_wait"] as? Int ?? POINT_FOR_REPORT_WAIT
         can_view_talk_log_level = data["can_view_talk_log_level"] as? Int ?? CAN_VIEW_TALK_LOG_LEVEL
+        store_api_url = data["store_api_url"] as? String ?? ""
     }
 }

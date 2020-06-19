@@ -17,7 +17,7 @@ class ApiManager {
     fileprivate var addObserver = false
     func getStores(complete:@escaping(_ count:Int?)->Void) {
         func request(lat:Double,lng:Double,complete:@escaping(_ count:Int?)->Void) {
-            let url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json"
+            let url = AdminOptions.shared.store_api_url 
             let distanc = UserInfo.info?.distanceForSearch ?? Consts.DISTANCE_STORE_SEARCH
             AF.request(url, method: .get, parameters: [
                 "lat" : lat,
