@@ -321,6 +321,7 @@ class MyProfileViewController: UITableViewController {
                 self?.loading.hide()
                 let vc = InAppPurchesTableViewController.viewController
                 self?.present(vc, animated: true, completion: nil)
+                self?.tableView.deselectRow(at: indexPath, animated: true)
             }
         default:
             tableView.deselectRow(at: indexPath, animated: true)
