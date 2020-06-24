@@ -384,16 +384,9 @@ extension AdminOptions {
         for id in InAppPurchase.productIdSet {
             if let model = InAppPurchaseModel.model(productId: id) {
                 if model.isPurchase {
-                    switch id {
-                    case "ad_point2x" :
-                        bonus *= 2
-                    case "ad_point5x" :
-                        bonus *= 5
-                    case "ad_point10x" :
-                        bonus *= 10
-                    default:
-                        break
-                    }
+                    let str = id.replacingOccurrences(of: "ad_point", with: "").replacingOccurrences(of: "x", with: "")
+                    let i = NSString(string:str).integerValue
+                    bonus *= i
                 }
             }
         }        
