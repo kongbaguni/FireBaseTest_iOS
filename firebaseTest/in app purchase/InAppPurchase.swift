@@ -27,24 +27,38 @@ struct InAppPurchase {
     /** 구매내역 복원 */
     static func restorePurchases(complete:@escaping(_ isSucess:Bool)->Void) {
         func restore() {
-            SwiftyStoreKit.restorePurchases { (result) in
-                let restoredList = result.restoredPurchases.filter { (p) -> Bool in
-                    switch p.transaction.transactionState {
-                    case .purchased, .restored:
-                        return true
-                    default:
-                        return false
+            let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: "27aa41384d2f48d6b78eeac367079f4c")
+            
+            SwiftyStoreKit.verifyReceipt(using: appleValidator) { (result) in
+                switch result {
+                case .success(let receipt):
+                    for id in InAppPurchase.productIdSet {
+                        let sresult = SwiftyStoreKit.verifySubscription(ofType: .autoRenewable, productId: id, inReceipt: receipt)
+                        switch sresult {
+                        case .expired(let expiryDate, let items):
+                            print("expired : \(expiryDate.simpleFormatStringValue)")
+                            for item in items {
+                                print("\(item.productId) \(item.purchaseDate.simpleFormatStringValue)")
+                            }
+                            InAppPurchaseModel.set(productId: id, isPurchase: false)
+                            break
+                        case .purchased(let expiryDate, let items):
+                            print("purchased : \(expiryDate.simpleFormatStringValue)")
+                            for item in items {
+                                print("\(item.productId) \(item.purchaseDate.simpleFormatStringValue)")
+                            }
+                            InAppPurchaseModel.set(productId: id, isPurchase: true)
+                            break
+                        default:
+                            InAppPurchaseModel.set(productId: id, isPurchase: false)
+                            break
+                        }
                     }
+                    complete(true)
+                case .error(let error):
+                    print(error.localizedDescription)
+                    complete(false)
                 }
-                let list = restoredList.sorted { (a, b) -> Bool in
-                    let d1 = a.transaction.transactionDate ?? Date(timeIntervalSince1970: 0)
-                    let d2 = b.transaction.transactionDate ?? Date(timeIntervalSinceReferenceDate: 0)
-                    return d1 > d2
-                }
-                for id in InAppPurchase.productIdSet {
-                    InAppPurchaseModel.set(productId: id, isPurchase: list.first?.productId == id)
-                }
-                complete(result.restoredPurchases.count > 0)
             }
         }
         
