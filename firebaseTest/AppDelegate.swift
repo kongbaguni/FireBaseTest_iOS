@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(purchase)
                 switch purchase.transaction.transactionState {
                 case .purchased, .restored:
-                    InAppPurchaseModel.set(productId: purchase.productId, isEnable: true)
+                    InAppPurchaseModel.set(productId: purchase.productId, isPurchase: true)
                     if purchase.needsFinishTransaction {
                         // Deliver content from server, then:
                         SwiftyStoreKit.finishTransaction(purchase.transaction)

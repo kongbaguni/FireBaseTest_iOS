@@ -383,13 +383,13 @@ extension AdminOptions {
         var bonus = 1
         for id in InAppPurchase.productIdSet {
             if let model = InAppPurchaseModel.model(productId: id) {
-                if model.isEnable {
+                if model.isPurchase {
                     switch id {
-                    case "adPoint2x" :
+                    case "ad_point2x" :
                         bonus *= 2
-                    case "adPoint4x" :
-                        bonus *= 4
-                    case "adPoint10x" :
+                    case "ad_point5x" :
+                        bonus *= 5
+                    case "ad_point10x" :
                         bonus *= 10
                     default:
                         break

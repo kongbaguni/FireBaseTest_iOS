@@ -24,7 +24,7 @@ class InAppPurchesTableViewController: UIViewController {
         return try! Realm().objects(InAppPurchaseModel.self).sorted(byKeyPath: "price")
     }
     
-    let productIdSet:Set<String> = ["adPoint2x","adPoint4x","adPoint10x"]
+    var productIdSet:Set<String> { InAppPurchase.productIdSet }
     
     static var viewController : InAppPurchesTableViewController {
         if #available(iOS 13.0, *) {
@@ -55,7 +55,7 @@ class InAppPurchesTableViewController: UIViewController {
                 return
             }
             s.loading.show(viewController: s)
-            InAppPurchase.verifyPurchase { [weak s](isSucess) in
+            InAppPurchase.restorePurchases() { [weak s] (isSucess) in
                 s?.loading.hide()
                 if isSucess {
                     s?.tableView.reloadData()
@@ -82,21 +82,19 @@ extension InAppPurchesTableViewController : UITableViewDataSource {
         cell.titleLabel.text = product.title
         cell.descLabel.text = product.desc
         cell.priceLabel.text = product.localeFormatedPrice
-        cell.contentView.alpha = product.isEnable ? 0.3 : 1
+        cell.contentView.alpha = product.isPurchase ? 0.3 : 1
         return cell
     }
 }
 
 extension InAppPurchesTableViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         let product = products[indexPath.row]
-        if product.isEnable == false {
-            InAppPurchase.buyProduct(productId: product.id) { (sucess) in
-                if sucess {
-                    self.tableView.reloadData()
-                }
+        InAppPurchase.buyProduct(productId: product.id) { (sucess) in
+            if sucess {
+                self.tableView.reloadData()
             }
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     

@@ -16,13 +16,14 @@ class InAppPurchaseModel: Object {
     @objc dynamic var desc:String = ""
     @objc dynamic var price:Float = 0
     @objc dynamic var priceLocaleId:String = ""
-    @objc dynamic var isEnable:Bool = false
+    @objc dynamic var isPurchase:Bool = false
     override static func primaryKey() -> String? {
         return "id"
     }
 }
 
 extension InAppPurchaseModel {
+
     var localeFormatedPrice:String? {
         let locale = Locale(identifier: priceLocaleId)
         return price.getFormatString(locale: locale, style: .currency)
@@ -49,10 +50,10 @@ extension InAppPurchaseModel {
         try! realm.commitWrite()
     }
     
-    static func set(productId:String, isEnable:Bool) {
+    static func set(productId:String, isPurchase:Bool) {
         let data:[String:Any] = [
             "id":productId,
-            "isEnable":isEnable
+            "isPurchase":isPurchase
         ]
         let realm = try! Realm()
         realm.beginWrite()
