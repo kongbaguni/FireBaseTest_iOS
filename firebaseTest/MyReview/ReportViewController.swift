@@ -59,7 +59,11 @@ class ReportViewController: UIViewController {
         confirmBtn.rx.tap.bind { [weak self](_) in
             self?.report()
         }.disposed(by: disposeBag)
-        
+                
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
     }
     

@@ -57,8 +57,6 @@ class PopupMapViewController: UIViewController {
             mapView.addAnnotation(ann)
             mapView.centerCoordinate = value
         }
-        contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 20, masksToBounds: true)
-
         closeBtn.setImage(.closeBtnImage_normal, for: .normal)
         closeBtn.setImage(.closeBtnImage_highlighted, for: .highlighted)
         closeBtn.rx.tap.bind { [weak self](_) in
@@ -67,5 +65,10 @@ class PopupMapViewController: UIViewController {
         }.disposed(by: disposebag)
  
         closeBtn.tintColor = .autoColor_text_color
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 20, masksToBounds: true)
     }
 }

@@ -41,9 +41,14 @@ class InAppPurchesTableViewController: UIViewController {
     @IBOutlet weak var verifyPurchaseBtn: UIButton!
     
     let disposebag = DisposeBag()
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
         titleLabel.text = "in app Purchase title".localized
         closeBtn.rx.tap.bind { [weak self] (_) in
             self?.dismiss(animated: true, completion: nil)

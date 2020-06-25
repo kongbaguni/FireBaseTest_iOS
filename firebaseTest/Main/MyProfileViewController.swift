@@ -166,10 +166,14 @@ class MyProfileViewController: UITableViewController {
         leaveLabel.text = "leave".localized
         leaveCell.isHidden = self.hideLeaveCell
         
+        inAppPurchaseLabel.text = "In App Purchase".localized
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         for view in [introduceTextView, searchDistanceTextField, nameTextField, mapTypeTextFiled] {
             view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 5)
         }
-        inAppPurchaseLabel.text = "In App Purchase".localized
     }
     
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {

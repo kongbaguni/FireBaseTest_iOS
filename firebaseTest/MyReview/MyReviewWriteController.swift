@@ -164,7 +164,14 @@ class MyReviewWriteController: UITableViewController {
         gpsRequestView.isHidden = count > 0
         
     }
-        
+     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        for view in [addressTextField, address2TextField, postalCodeTextField, nameTextField, priceTextField, pointTextField, commentTextView] {
+            view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
+        }
+    }
+    
     override func viewDidLoad() {
         title = "write review".localized
         super.viewDidLoad()
@@ -183,9 +190,6 @@ class MyReviewWriteController: UITableViewController {
         gpsRequestView.isHidden = true
         getLocationInfo()
         
-        for view in [addressTextField, address2TextField, postalCodeTextField, nameTextField, priceTextField, pointTextField, commentTextView] {
-            view?.setBorder(borderColor: .autoColor_weak_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
-        }
         setTitle()
         pointTextField.inputView = starPointPicker
         starPointPicker.dataSource = self

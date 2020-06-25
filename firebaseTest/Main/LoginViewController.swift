@@ -98,6 +98,10 @@ class LoginViewController: UIViewController {
             maskNowBtn.setImage(maskIcon, for: .normal)
         }
         
+        versionLabel.text = "ver : \(UIApplication.shared.version)"
+    }
+    
+    override func viewDidLayoutSubviews() {
         for btn in [loginAppleBtn, loginGoogleBtn] {
             btn?.backgroundColor = .autoColor_bg_color
             btn?.setBackgroundImage(UIImage(color: .clear, size: CGSize(width: 100, height: 100)), for: .normal)
@@ -106,7 +110,6 @@ class LoginViewController: UIViewController {
             btn?.setTitleColor(.autoColor_text_color, for: .normal)
             btn?.setTitleColor(.autoColor_bold_text_color, for: .highlighted)
         }
-        versionLabel.text = "ver : \(UIApplication.shared.version)"
     }
     
     @IBAction func onTouchupLoginGoogleBtn(_ sender:UIButton) {
