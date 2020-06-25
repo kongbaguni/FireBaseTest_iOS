@@ -288,7 +288,14 @@ class MyReviewWriteController: UITableViewController {
     }
     
     @objc func onTouchSaveBtn(_ sender:UIBarButtonItem) {
-        
+        if UserInfo.info?.isBlockByAdmin == true {
+            unblockAlert { (isUnblock) in
+                if isUnblock {
+                    self.onTouchSaveBtn(sender)
+                }
+            }
+            return
+        }
         guard let name = nameTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")),
             let price = priceTextField.text,
             let starPoint = pointTextField.text,

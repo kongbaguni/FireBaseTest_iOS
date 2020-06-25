@@ -180,14 +180,15 @@
 "pointUseReportBadPosting" = "불량 게시물 신고 위해 필요한 포인트";
 "defaultPoint"              = "최초 가입시 기본 포인트";
 "admin menu" = "관리자 메뉴";
-"exp_for_report_store_wait" = "대기열 보고시 보상 경험치";
-"exp_for_report_store_stock" = "스토어 재고 보고 성공시 보상 경험치";
-"exp_for_report_bad_posting" = "불량 게시물 신고 보상 경헙치";
-"point_for_report_store_stock" = "재고 보고 보상 포인트";
-"point_for_report_store_wait" = "대기열 보고 보상포인트";
-"levelup_req_exp_base" = "레벨업 : 기본 경험치";
-"levelup_req_exp_plus" = "레벨업 : 레벨에 비례하여 상승하는 계수";
-"can_view_talk_log_level" = "글 쓴 이력 조회 가능 레벨";
+"expForReportStoreWait" = "대기열 보고시 보상 경험치";
+"expForReportStoreStock" = "스토어 재고 보고 성공시 보상 경험치";
+"expForReportBadPosting" = "불량 게시물 신고 보상 경헙치";
+"pointForReportStoreStock" = "재고 보고 보상 포인트";
+"pointForReportStoreWait" = "대기열 보고 보상포인트";
+"pointForUnblockPosting" = "차단 해제를 위해 필요한 포인트";
+"levelupReqExpBase" = "레벨업 : 기본 경험치";
+"levelupReqExpPlus" = "레벨업 : 레벨에 비례하여 상승하는 계수";
+"canViewTalkLogLevel" = "글 쓴 이력 조회 가능 레벨";
 
 "storeList footer btn title" = "식약처 공적마스크 구매 안내";
 "Food and Drug Administration Official Blog" = "식품의약품안전처 공식 블로그";
@@ -284,3 +285,8 @@
 "In App Purchase" = "구독하기";
 "Restore purchase" = "구입 복원";
 "in app Purchase title" = "구독하기";
+"alert" = "알림";
+"block by admin to unlock need point : %@" = "관리자에 의해 글쓰기가 차단되었습니다.\n 차단 해제를 위해서 %@포인트가 필요합니다.";
+"unblock" = "차단 해제";
+"store_api_url" = "store api url";
+"unblock sucess msg" = "글쓰기 차단이 해제되었습니다.";

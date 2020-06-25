@@ -17,7 +17,7 @@ class Exp {
         var e = self.exp
         var level = 0
         while e >= 0 {
-            e -= (AdminOptions.shared.levelup_req_exp_base + level * AdminOptions.shared.levelup_req_exp_plus)
+            e -= (AdminOptions.shared.levelupReqExpBase + level * AdminOptions.shared.levelupReqExpPlus)
             level += 1
         }
         return level
@@ -27,7 +27,7 @@ class Exp {
     var prevLevelExp:Int {
         var exp = 0
         for i in 0..<level-1 {
-            exp += AdminOptions.shared.levelup_req_exp_base + (AdminOptions.shared.levelup_req_exp_plus * i)
+            exp += AdminOptions.shared.levelupReqExpBase + (AdminOptions.shared.levelupReqExpPlus * i)
         }
         return exp
     }
@@ -36,7 +36,7 @@ class Exp {
     var nextLevelupExp:Int {
         var exp = 0
         for i in 0..<level {
-            exp += AdminOptions.shared.levelup_req_exp_base + (AdminOptions.shared.levelup_req_exp_plus * i)
+            exp += AdminOptions.shared.levelupReqExpBase + (AdminOptions.shared.levelupReqExpPlus * i)
         }
         return exp
     }

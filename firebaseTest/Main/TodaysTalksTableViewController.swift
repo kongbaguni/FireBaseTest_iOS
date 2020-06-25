@@ -106,13 +106,11 @@ class TodaysTalksTableViewController: UITableViewController {
             }).disposed(by: self.disposebag)
         
         toolBar.items = []
-        if UserInfo.info?.isBlockByAdmin == false {
-            toolBar.items?.append(UIBarButtonItem(
-                title: "write talk".localized,
-                style: .plain,
-                target: self,
-                action: #selector(self.onTouchupAddBtn(_:))))
-        }
+        toolBar.items?.append(UIBarButtonItem(
+            title: "write talk".localized,
+            style: .plain,
+            target: self,
+            action: #selector(self.onTouchupAddBtn(_:))))
         
         hideGameOptionView.isHidden = AdminOptions.shared.canPlayPoker == false
         
@@ -324,12 +322,10 @@ class TodaysTalksTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "showMyProfile", sender: nil)
         }))
         
-        if UserInfo.info?.isBlockByAdmin == false {
-            vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
-                self.isNeedScrollToBottomWhenRefresh = true
-                self.performSegue(withIdentifier: "showTalk", sender: nil)
-            }))
-        }
+        vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
+            self.isNeedScrollToBottomWhenRefresh = true
+            self.performSegue(withIdentifier: "showTalk", sender: nil)
+        }))
         
         vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
             let firebaseAuth = Auth.auth()

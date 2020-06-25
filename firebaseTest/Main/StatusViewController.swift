@@ -243,7 +243,7 @@ class StatusViewController: UIViewController {
     @IBAction func onTouchupBtn(_ sender: UIButton) {
         switch sender {
         case talkLogsBtn:
-            let level = AdminOptions.shared.can_view_talk_log_level
+            let level = AdminOptions.shared.canViewTalkLogLevel
             if level <= UserInfo.info?.level ?? 0 || userId == UserInfo.info?.id {
                 let vc = TalkHistoryTableViewController.viewController
                 vc.userId = self.userId

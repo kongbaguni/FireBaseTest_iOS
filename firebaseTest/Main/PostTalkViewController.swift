@@ -101,6 +101,14 @@ class PostTalkViewController: UITableViewController {
     }
         
     @objc func onTouchupSaveBtn(_ sender:UIBarButtonItem) {
+        if UserInfo.info?.isBlockByAdmin == true {
+            unblockAlert { (isUnblock) in
+                if isUnblock {
+                    self.onTouchupSaveBtn(sender)
+                }
+            }
+            return
+        }
         let text = textView.text.trimForPostValue
         textView.text = text
                 

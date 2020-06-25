@@ -134,8 +134,8 @@ class StoreWaittingTableViewController: UITableViewController {
         StoreWaitingModel.uploadLog(storeCode: storecode, status: status.rawValue) { [weak self] (isSucess) in
             if isSucess {                
                 let data:[String:Any] = [
-                    "exp" : (UserInfo.info?.exp ?? 0) + AdminOptions.shared.exp_for_report_store_wait,
-                    "point" : (UserInfo.info?.exp ?? 0) + AdminOptions.shared.point_for_report_store_wait
+                    "exp" : (UserInfo.info?.exp ?? 0) + AdminOptions.shared.expForReportStoreWait,
+                    "point" : (UserInfo.info?.exp ?? 0) + AdminOptions.shared.pointForReportStoreWait
                 ]
                 UserInfo.info?.update(data: data, complete: { (sucess) in
                     self?.store?.getStoreWaittingLogs(complete: {[weak self] (count) in
@@ -143,7 +143,7 @@ class StoreWaittingTableViewController: UITableViewController {
                         loading.hide()
                         if sucess {
                             let vc = StatusViewController.viewController(withUserId: UserInfo.info?.id)
-                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_wait, pointChange:  AdminOptions.shared.point_for_report_store_wait)
+                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.expForReportStoreWait, pointChange:  AdminOptions.shared.pointForReportStoreWait)
                             self?.present(vc, animated: true, completion: nil)
                         }
                     })

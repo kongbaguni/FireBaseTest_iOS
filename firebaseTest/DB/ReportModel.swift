@@ -137,7 +137,7 @@ extension ReportModel {
     
     /** 신고  하기*/
     static func create(targetId:String, targetType:TargetType, resonType:ResonType, reson:String, complete:@escaping(_ isSucess:Bool)->Void) {
-        GameManager.shared.usePoint(point: AdminOptions.shared.pointUseReportBadPosting, exp: AdminOptions.shared.exp_for_report_bad_posting) { isSucess in
+        GameManager.shared.usePoint(point: AdminOptions.shared.pointUseReportBadPosting, exp: AdminOptions.shared.expForReportBadPosting) { isSucess in
             if isSucess == false {
                 GameManager.shared.showAd(popoverView: UIBarButtonItem()) {
                     ReportModel.create(targetId: targetId, targetType: targetType, resonType: resonType, reson: reson, complete: complete)

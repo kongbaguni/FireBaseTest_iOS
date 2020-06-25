@@ -124,7 +124,7 @@ class HoldemViewController : UIViewController {
     
     private func loadData() {
         myPointLabel.text = UserInfo.info?.point.decimalForamtString
-        
+                
         jackPotPointLabel.text = JackPotManager.shared.point.decimalForamtString
     }
     

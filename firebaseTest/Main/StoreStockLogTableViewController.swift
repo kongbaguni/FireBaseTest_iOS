@@ -87,8 +87,8 @@ class StoreStockLogTableViewController: UITableViewController {
         if todayLogs?.first?.remain_stat != store.remain_stat || todayLogs?.count == 0 {
             let data:[String:Any] = [
                 "email" : userInfo.email,
-                "exp": userInfo.exp + AdminOptions.shared.exp_for_report_store_stock,
-                "point" : userInfo.point + AdminOptions.shared.point_for_report_store_stock,
+                "exp": userInfo.exp + AdminOptions.shared.expForReportStoreStock,
+                "point" : userInfo.point + AdminOptions.shared.pointForReportStoreStock,
                 "lastTalkTimeIntervalSince1970" : Date().timeIntervalSince1970,
                 "count_of_report_stock" : userInfo.count_of_report_stock + 1
             ]
@@ -98,7 +98,7 @@ class StoreStockLogTableViewController: UITableViewController {
                     userInfo.update(data: data) { (sucess) in
                         if sucess {
                             let vc = StatusViewController.viewController(withUserId: userInfo.id)
-                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_store_stock, pointChange: AdminOptions.shared.point_for_report_store_stock)
+                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.expForReportStoreStock, pointChange: AdminOptions.shared.pointForReportStoreStock)
                             self?.present(vc, animated: true, completion: nil)
                         }
                         complete(sucess)

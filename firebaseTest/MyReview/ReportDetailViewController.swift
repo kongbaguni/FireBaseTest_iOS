@@ -171,7 +171,7 @@ class ReportDetailViewController: UITableViewController {
                 let dt = model.regDt.relativeTimeStringValue
                 text += "대화 등록 시각 : \(dt)"
                 if let dt = model.modifiedDt?.relativeTimeStringValue {
-                    text += "\n대화 수정 시각: \(dt)"
+                    text += "\n대화 수정 시각 : \(dt)"
                 }
             }
             if let model = report?.target as? ReviewModel {

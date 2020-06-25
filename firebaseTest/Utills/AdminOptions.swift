@@ -47,6 +47,9 @@ fileprivate let POINT_FOR_DELETE_TALK = 1000
 /** 불량 게시물 신고를 위해 필요한 포인트*/
 fileprivate let POINT_FOR_REPORT_BAD_POSTING = 100
 
+/** 글쓰기 차단 해제 위해 필요한 포인트*/
+fileprivate let POINT_FOR_UNBLOCK_POSTING = 1000000
+
 /**  관리자가 원격으로 제어하는 옵션값 관리하는 클래스*/
 class AdminOptions {
     
@@ -94,20 +97,22 @@ class AdminOptions {
     var defaultPoint : Int = POINT_DEFAULT
     
     /** 다른 사용자의 작성글 이력을 조회할 수 있는 레벨*/
-    var can_view_talk_log_level : Int = CAN_VIEW_TALK_LOG_LEVEL
+    var canViewTalkLogLevel : Int = CAN_VIEW_TALK_LOG_LEVEL
     
     let collection = FS.store.collection(FSCollectionName.ADMIN)
     
-    var levelup_req_exp_base = Consts.LEVELUP_REQ_EXP_BASE
-    var levelup_req_exp_plus = Consts.LEVELUP_REQ_EXP_PLUS
+    var levelupReqExpBase = Consts.LEVELUP_REQ_EXP_BASE
+    var levelupReqExpPlus = Consts.LEVELUP_REQ_EXP_PLUS
     
-    var exp_for_report_store_stock = EXP_FOR_REPORT_STOCK
-    var exp_for_report_store_wait = EXP_FOR_REPORT_WAIT
-    var exp_for_report_bad_posting = EXP_FOR_REPORT_BAD
+    var expForReportStoreStock = EXP_FOR_REPORT_STOCK
+    var expForReportStoreWait = EXP_FOR_REPORT_WAIT
+    var expForReportBadPosting = EXP_FOR_REPORT_BAD
     
-    var point_for_report_store_stock = POINT_FOR_REPORT_STOCK
-    var point_for_report_store_wait = POINT_FOR_REPORT_WAIT
+    var pointForReportStoreStock = POINT_FOR_REPORT_STOCK
+    var pointForReportStoreWait = POINT_FOR_REPORT_WAIT
 
+    /** 글쓰기 차단 해제 위해 필요한 포인트*/
+    var pointForUnblockPosting = POINT_FOR_UNBLOCK_POSTING
     /** talk 삭제 위해 필요한 포인트*/
     var pointUseDeleteTalk = POINT_FOR_DELETE_TALK
     
@@ -124,7 +129,7 @@ class AdminOptions {
             "maskNowEnable" : maskNowEnable,
             // report
             "waitting_report_distance"  : waitting_report_distance,
-            "can_view_talk_log_level"   : can_view_talk_log_level,
+            "canViewTalkLogLevel"   : canViewTalkLogLevel,
             
             // game
             "isUsePoker"                : isUsePoker,
@@ -142,16 +147,17 @@ class AdminOptions {
             "pointUseUploadPicture"     : pointUseUploadPicture,
             "pointUseDeleteTalk"        : pointUseDeleteTalk,
             "defaultPoint"              : defaultPoint,
-            "levelup_req_exp_base"      : levelup_req_exp_base,
-            "levelup_req_exp_plus"      : levelup_req_exp_plus,
-            "point_for_report_store_stock" : point_for_report_store_stock,
-            "point_for_report_store_wait" : point_for_report_store_wait,
+            "levelupReqExpBase"      : levelupReqExpBase,
+            "levelupReqExpPlus"      : levelupReqExpPlus,
+            "pointForReportStoreStock" : pointForReportStoreStock,
+            "pointForReportStoreWait" : pointForReportStoreWait,
             "pointUseReportBadPosting": pointUseReportBadPosting,
-
+            "pointForUnblockPosting":pointForUnblockPosting,
+            
             // exp
-            "exp_for_report_store_stock": exp_for_report_store_stock,
-            "exp_for_report_store_wait" : exp_for_report_store_wait,
-            "exp_for_report_bad_posting" : exp_for_report_bad_posting,
+            "expForReportStoreStock": expForReportStoreStock,
+            "expForReportStoreWait" : expForReportStoreWait,
+            "expForReportBadPosting" : expForReportBadPosting,
             
             "store_api_url": store_api_url
             
@@ -163,11 +169,11 @@ class AdminOptions {
             "waitting_report_distance",
         ],
         [
-            "exp_for_report_store_stock",
-            "exp_for_report_store_wait",
-            "exp_for_report_bad_posting",
-            "levelup_req_exp_base",
-            "levelup_req_exp_plus"
+            "expForReportStoreStock",
+            "expForReportStoreWait",
+            "expForReportBadPosting",
+            "levelupReqExpBase",
+            "levelupReqExpPlus"
         ],
         [
             "adRewardPoint",
@@ -175,9 +181,10 @@ class AdminOptions {
             "pointUseUploadPicture",
             "pointUseDeleteTalk",
             "defaultPoint",
-            "point_for_report_store_stock",
-            "point_for_report_store_wait",
+            "pointForReportStoreStock",
+            "pointForReportStoreWait",
             "pointUseReportBadPosting",
+            "pointForUnblockPosting",
         ],
         [
             "isUsePoker",
@@ -190,7 +197,7 @@ class AdminOptions {
             "dealarMaxBettingRate"
         ],
         [
-            "can_view_talk_log_level"
+            "canViewTalkLogLevel"
         ],
         [
             "store_api_url",
@@ -212,35 +219,38 @@ class AdminOptions {
         let intValue = NSString(string:value).integerValue
         if intValue >= 0 {
             switch key {
+            case "pointForUnblockPosting":
+                pointForUnblockPosting = intValue
+                return true
             case "pointUseReportBadPosting":
                 pointUseReportBadPosting = intValue
                 return true
             case "pointUseDeleteTalk":
                 pointUseDeleteTalk = intValue
                 return true
-            case "can_view_talk_log_level":
-                can_view_talk_log_level = intValue
+            case "canViewTalkLogLevel":
+                canViewTalkLogLevel = intValue
                 return true
-            case "point_for_report_store_stock":
-                point_for_report_store_stock = intValue
+            case "pointForReportStoreStock":
+                pointForReportStoreStock = intValue
                 return true
-            case "point_for_report_store_wait":
-                point_for_report_store_wait = intValue
+            case "pointForReportStoreWait":
+                pointForReportStoreWait = intValue
                 return true
-            case "exp_for_report_store_stock":
-                exp_for_report_store_stock = intValue
+            case "expForReportStoreStock":
+                expForReportStoreStock = intValue
                 return true
-            case "exp_for_report_store_wait":
-                exp_for_report_store_wait = intValue
+            case "expForReportStoreWait":
+                expForReportStoreWait = intValue
                 return true
-            case "exp_for_report_bad_posting":
-                exp_for_report_bad_posting = intValue
+            case "expForReportBadPosting":
+                expForReportBadPosting = intValue
                 return true
-            case "levelup_req_exp_base":
-                levelup_req_exp_base = intValue
+            case "levelupReqExpBase":
+                levelupReqExpBase = intValue
                 return true
-            case "levelup_req_exp_plus":
-                levelup_req_exp_plus = intValue
+            case "levelupReqExpPlus":
+                levelupReqExpPlus = intValue
                 return true
             case "waitting_report_distance":
                 waitting_report_distance = intValue
@@ -350,12 +360,13 @@ class AdminOptions {
     }
     
     private func loadData(data:[String:Any]) {
+        pointForUnblockPosting = data["pointForUnblockPosting"] as? Int ?? POINT_FOR_UNBLOCK_POSTING
         pointUseReportBadPosting = data["pointUseReportBadPosting"] as? Int ?? POINT_FOR_REPORT_BAD_POSTING
         maskNowEnable = data["maskNowEnable"] as? Bool ?? false
         isUsePoker = data["isUsePoker"] as? Bool ?? false
         waitting_report_distance = data["waitting_report_distance"] as? Int ?? WAITING_REPORT_DISTANCE
-        minBettingPoint = data["minBettingPoint"] as? Int ?? MIN_BETTING_POINT
-        maxBettingPoint = data["maxBettingPoint"] as? Int ?? MAX_BETTING_POINT
+        minBettingPoint = data["minBettingPoint"] as? Int ?? minBettingPoint
+        maxBettingPoint = data["maxBettingPoint"] as? Int ?? maxBettingPoint
         maxJackPotPoint = data["maxJackPotPoint"] as? Int ?? MAX_JACKPOT_POINT
         minJackPotPoint = data["minJackPotPoint"] as? Int ?? MIN_JACKPOT_POINT
         dealarZeroPointBettingRate = data["dealarZeroPointBettingRate"] as? Float ?? D_ZERO_BETTING_RATE
@@ -366,14 +377,14 @@ class AdminOptions {
         pointUseRatePosting = data["pointUseRatePosting"] as? Int ?? POINT_USE_POSTING
         pointUseDeleteTalk = data["pointUseDeleteTalk"] as? Int ?? POINT_FOR_DELETE_TALK
         defaultPoint = data["defaultPoint"] as? Int ?? POINT_DEFAULT
-        levelup_req_exp_plus = data["levelup_req_exp_plus"] as? Int ?? Consts.LEVELUP_REQ_EXP_PLUS
-        levelup_req_exp_base = data["levelup_req_exp_base"] as? Int ?? Consts.LEVELUP_REQ_EXP_BASE
-        exp_for_report_store_wait = data["exp_for_report_store_wait"] as? Int ?? EXP_FOR_REPORT_WAIT
-        exp_for_report_store_stock = data["exp_for_report_store_stock"] as? Int ?? EXP_FOR_REPORT_STOCK
-        exp_for_report_bad_posting = data["exp_for_report_bad_posting"] as? Int ?? EXP_FOR_REPORT_BAD
-        point_for_report_store_stock = data["point_for_report_store_stock"] as? Int ?? POINT_FOR_REPORT_STOCK
-        point_for_report_store_wait = data["point_for_report_store_wait"] as? Int ?? POINT_FOR_REPORT_WAIT
-        can_view_talk_log_level = data["can_view_talk_log_level"] as? Int ?? CAN_VIEW_TALK_LOG_LEVEL
+        levelupReqExpPlus = data["levelupReqExpPlus"] as? Int ?? Consts.LEVELUP_REQ_EXP_PLUS
+        levelupReqExpBase = data["levelupReqExpBase"] as? Int ?? Consts.LEVELUP_REQ_EXP_BASE
+        expForReportStoreWait = data["expForReportStoreWait"] as? Int ?? EXP_FOR_REPORT_WAIT
+        expForReportStoreStock = data["expForReportStoreStock"] as? Int ?? EXP_FOR_REPORT_STOCK
+        expForReportBadPosting = data["expForReportBadPosting"] as? Int ?? EXP_FOR_REPORT_BAD
+        pointForReportStoreStock = data["pointForReportStoreStock"] as? Int ?? POINT_FOR_REPORT_STOCK
+        pointForReportStoreWait = data["pointForReportStoreWait"] as? Int ?? POINT_FOR_REPORT_WAIT
+        canViewTalkLogLevel = data["canViewTalkLogLevel"] as? Int ?? CAN_VIEW_TALK_LOG_LEVEL
         store_api_url = data["store_api_url"] as? String ?? ""
     }
 }
@@ -393,7 +404,7 @@ extension AdminOptions {
         return bonus
     }
     
-    func getAdRewoedPointFinal(complete:@escaping(_ value:Int)->Void) {        
+    func getAdRewoedPointFinal(complete:@escaping(_ value:Int)->Void) {
         if adRewordPointMultipleValue == 1 {
             InAppPurchase.restorePurchases { (sucess) in
                 complete(self.adRewardPointFinal)

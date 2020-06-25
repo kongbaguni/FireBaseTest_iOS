@@ -42,7 +42,14 @@ class ReportViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = "report".localized
-        descLabel.text = "Please enter a reason for reporting".localized
+        var subTitle = "Please enter a reason for reporting".localized
+        subTitle += "\n"
+        subTitle += String(format:"need point: %@, my point: %@".localized,
+               AdminOptions.shared.pointUseReportBadPosting.decimalForamtString,
+               UserInfo.info!.point.decimalForamtString)
+        
+        descLabel.text = subTitle
+        
         confirmBtn.setTitle("report".localized, for: .normal)
         
         closeBtn.rx.tap.bind {[weak self] (_) in
@@ -72,7 +79,7 @@ class ReportViewController: UIViewController {
                     self?.alert(title: nil, message: "report sucess".localized, confirmText: "confirm".localized, didConfirm: { (_) in
                         self?.dismiss(animated: true, completion: {
                             let vc = StatusViewController.viewController(withUserId: UserInfo.info?.id)
-                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.exp_for_report_bad_posting,
+                            vc.statusChange = StatusChange(addedExp: AdminOptions.shared.expForReportBadPosting,
                                                            pointChange: -AdminOptions.shared.pointUseReportBadPosting)
                             UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
                         })
