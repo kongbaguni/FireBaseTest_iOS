@@ -379,17 +379,31 @@ class AdminOptions {
 }
 
 extension AdminOptions {
-    var adRewardPointFinal:Int {
+    fileprivate var adRewordPointMultipleValue:Int {
         var bonus = 1
         for id in InAppPurchase.productIdSet {
             if let model = InAppPurchaseModel.model(productId: id) {
-                if model.isPurchase {
+                if model.isExpire == false {
                     let str = id.replacingOccurrences(of: "ad_point", with: "").replacingOccurrences(of: "x", with: "")
                     let i = NSString(string:str).integerValue
                     bonus *= i
                 }
             }
-        }        
-        return adRewardPoint * bonus
+        }
+        return bonus
+    }
+    
+    func getAdRewoedPointFinal(complete:@escaping(_ value:Int)->Void) {        
+        if adRewordPointMultipleValue == 1 {
+            InAppPurchase.restorePurchases { (sucess) in
+                complete(self.adRewardPointFinal)
+            }
+        } else {
+            complete(adRewardPointFinal)
+        }
+    }
+    
+    var adRewardPointFinal:Int {
+        return adRewardPoint * adRewordPointMultipleValue
     }
 }

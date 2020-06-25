@@ -85,4 +85,25 @@ extension UserDefaults {
             bool(forKey: "showModifiedOnly")
         }
     }
+    
+    var lastInAppPurchaseExpireDate:Date? {
+        set {
+            if let value = newValue {
+                let time = value.timeIntervalSince1970
+                let d = Double(time)
+                set(d, forKey: "lastInAppPurchaseExpireDate")
+            }
+            else {
+                removeObject(forKey: "lastInAppPurchaseExpireDate")
+            }
+        }
+        get {
+            let d = double(forKey: "lastInAppPurchaseExpireDate")
+            if d == 0 {
+                return nil
+            }
+            let interval = TimeInterval(d)
+            return Date(timeIntervalSince1970: interval)
+        }
+    }
 }

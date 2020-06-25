@@ -40,17 +40,18 @@ struct InAppPurchase {
                             for item in items {
                                 print("\(item.productId) \(item.purchaseDate.simpleFormatStringValue)")
                             }
-                            InAppPurchaseModel.set(productId: id, isPurchase: false)
+                            InAppPurchaseModel.set(productId: id, expireDt: expiryDate)
                             break
                         case .purchased(let expiryDate, let items):
                             print("purchased : \(expiryDate.simpleFormatStringValue)")
                             for item in items {
                                 print("\(item.productId) \(item.purchaseDate.simpleFormatStringValue)")
                             }
-                            InAppPurchaseModel.set(productId: id, isPurchase: true)
+                            UserDefaults.standard.lastInAppPurchaseExpireDate = expiryDate
+                            InAppPurchaseModel.set(productId: id, expireDt: expiryDate)
                             break
                         default:
-                            InAppPurchaseModel.set(productId: id, isPurchase: false)
+                            InAppPurchaseModel.set(productId: id,  expireDt: nil)
                             break
                         }
                     }
@@ -79,9 +80,9 @@ struct InAppPurchase {
             case .success(let purchase):
                 print("Purchase Success: \(purchase.productId)")
                 for id in InAppPurchase.productIdSet {
-                    InAppPurchaseModel.set(productId: id, isPurchase: false)
+                    InAppPurchaseModel.set(productId: id, expireDt: nil)
                 }
-                InAppPurchaseModel.set(productId: productId, isPurchase: true)
+                InAppPurchaseModel.set(productId: productId, expireDt: Date(timeIntervalSinceNow: 100000))
                 complete(true)
             case .error(let error):
                 switch error.code {

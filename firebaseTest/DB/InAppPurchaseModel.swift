@@ -16,13 +16,17 @@ class InAppPurchaseModel: Object {
     @objc dynamic var desc:String = ""
     @objc dynamic var price:Float = 0
     @objc dynamic var priceLocaleId:String = ""
-    @objc dynamic var isPurchase:Bool = false
+    @objc dynamic var expireDate:Date = Date(timeIntervalSince1970: 0)
     override static func primaryKey() -> String? {
         return "id"
     }
 }
 
 extension InAppPurchaseModel {
+    
+    var isExpire:Bool {
+        return expireDate < Date()
+    }
 
     var localeFormatedPrice:String? {
         let locale = Locale(identifier: priceLocaleId)
@@ -50,10 +54,10 @@ extension InAppPurchaseModel {
         try! realm.commitWrite()
     }
     
-    static func set(productId:String, isPurchase:Bool) {
+    static func set(productId:String, expireDt:Date?) {
         let data:[String:Any] = [
             "id":productId,
-            "isPurchase":isPurchase
+            "expireDate":expireDt ?? Date(timeIntervalSince1970: 0)
         ]
         let realm = try! Realm()
         realm.beginWrite()

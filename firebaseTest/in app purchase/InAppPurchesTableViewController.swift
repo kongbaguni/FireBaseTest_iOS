@@ -63,7 +63,10 @@ class InAppPurchesTableViewController: UIViewController {
             }
             
         }.disposed(by: disposebag)
-//        verifyPurchase()
+        
+        AdminOptions.shared.getAdRewoedPointFinal { [weak self](_) in
+            self?.tableView.reloadData()
+        }
     }
 }
 
@@ -82,7 +85,7 @@ extension InAppPurchesTableViewController : UITableViewDataSource {
         cell.titleLabel.text = product.title
         cell.descLabel.text = product.desc
         cell.priceLabel.text = product.localeFormatedPrice
-        cell.contentView.alpha = product.isPurchase ? 0.3 : 1
+        cell.contentView.alpha = product.isExpire ? 1 : 0.3
         return cell
     }
 }
