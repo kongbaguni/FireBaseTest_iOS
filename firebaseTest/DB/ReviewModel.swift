@@ -74,7 +74,7 @@ class ReviewEditModel : Object {
     @objc dynamic var name:String = ""
     @objc dynamic var starPoint:Int = 0
     @objc dynamic var comment:String = ""
-    @objc dynamic var price:Int = 0
+    @objc dynamic var price:Float = 0
     @objc dynamic var photoUrls:String = ""
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     @objc dynamic var localeIdentifier:String = ""
