@@ -24,7 +24,7 @@ class PostTalkViewController: UITableViewController {
             return storyboard.instantiateViewController(withIdentifier: "postArticle") as! PostTalkViewController
         }
     }
-    
+  
     @IBOutlet weak var textView:UITextView!
     @IBOutlet weak var textCountLabel: UILabel!
     @IBOutlet weak var imageView:UIImageView!
@@ -34,7 +34,11 @@ class PostTalkViewController: UITableViewController {
             if selectedImageUrl == nil {
                 imageView.image = #imageLiteral(resourceName: "placeholder")
             } else {
-                imageView.kf.setImage(with: selectedImageUrl, placeholder: UIImage.placeHolder_image)
+                if let url = selectedImageUrl {
+                    if let data = try? Data(contentsOf: url) {
+                        imageView.image = UIImage(data: data)
+                    }
+                }
                 imageWillDelete = false
             }
         }
