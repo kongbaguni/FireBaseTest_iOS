@@ -148,6 +148,15 @@ class TalkHistoryTableViewController: UITableViewController {
                 cell.dateLabel.text = data.regDt.simpleFormatStringValue
                 return cell
             }
+            if data.isDeletedByAdmin {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
+                cell.bubbleImageView.alpha = 0.5
+                cell.textView.text = "deleted by Admin".localized
+                cell.textView.isSelectable = false
+                cell.textView.alpha = 0.5
+                cell.dateLabel.text = data.regDt.simpleFormatStringValue
+                return cell
+            }
             if let url = data.imageURL {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
                 cell.textView.text = data.textForSearch
@@ -163,6 +172,15 @@ class TalkHistoryTableViewController: UITableViewController {
         case 2:
             guard let review = reviews?[indexPath.row] else {
                 return UITableViewCell()
+            }
+            if review.isDeletedByAdmin {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
+                cell.bubbleImageView.alpha = 0.5
+                cell.textView.text = "deleted by Admin".localized
+                cell.textView.isSelectable = false
+                cell.textView.alpha = 0.5
+                cell.dateLabel.text = review.regDt.simpleFormatStringValue
+                return cell
             }
             var starPoint = ""
             if review.starPoint > 0 && review.starPoint <= Consts.stars.count {
@@ -195,7 +213,12 @@ class TalkHistoryTableViewController: UITableViewController {
             guard let talk = talks?[indexPath.row] else {
                 return
             }
-            
+            if talk.isDeletedByAdmin {
+                alert(title: "alert".localized, message: "deleted by admin msg".localized, didConfirm: {[weak tableView] _ in
+                    tableView?.deselectRow(at: indexPath, animated: true)
+                })
+                return
+            }
             if talk.isDeleted {
                 tableView.deselectRow(at: indexPath, animated: true)
                 return
@@ -205,6 +228,12 @@ class TalkHistoryTableViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         case 2:
             guard let review = reviews?[indexPath.row] else {
+                return
+            }
+            if review.isDeletedByAdmin {
+                alert(title: "alert".localized, message: "deleted by admin msg".localized, didConfirm: { [weak tableView] _ in
+                    tableView?.deselectRow(at: indexPath, animated: true)
+                })
                 return
             }
             let vc = ReviewDetailViewController.viewController
