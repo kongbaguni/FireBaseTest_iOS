@@ -17,6 +17,43 @@ extension Notification.Name {
     static let likeUpdateNotification = Notification.Name("likeUpdateNotification_observer")
 }
 
+fileprivate extension Set {
+    var sortedArray:[ImageModel] {
+        var result:[ImageModel] = []
+        for item in self {
+            if let model = item as? ImageModel {
+                result.append(model)
+            }
+        }
+        return result.sorted { (a, b) -> Bool in
+            return a.thumbURLstr > b.thumbURLstr
+        }
+    }
+    
+    var thumbUrlStringValue:String {
+        var result = ""
+        for item in sortedArray {
+            if result.isEmpty == false {
+                result.append(",")
+            }
+            result.append(item.thumbURLstr)
+        }
+        return result
+    }
+    
+    var laegeUrlStringValue:String {
+        var result = ""
+        for item in sortedArray {
+            if result.isEmpty == false {
+                result.append(",")
+            }
+            result.append(item.largeURLstr)
+        }
+        return result
+    }
+
+}
+
 class ReviewModel: Object {
     @objc dynamic var id:String = ""
     @objc dynamic var creatorId:String = ""
@@ -33,7 +70,7 @@ class ReviewModel: Object {
     @objc dynamic var starPoint:Int = 0
     @objc dynamic var comment:String = ""
     @objc dynamic var price:Float = 0
-    @objc dynamic var photoUrls:String = ""
+
     @objc dynamic var likeCount:Int = 0
     @objc dynamic var regTimeIntervalSince1970:Double = 0
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
@@ -41,6 +78,7 @@ class ReviewModel: Object {
     @objc dynamic var localeIdentifier:String = ""
     @objc dynamic var isDeletedByAdmin:Bool = false
     
+    let photos = List<ImageModel>()
     let editList = List<ReviewEditModel>()
     let likeList = List<LikeModel>()
     override static func primaryKey() -> String? {
@@ -75,9 +113,11 @@ class ReviewEditModel : Object {
     @objc dynamic var starPoint:Int = 0
     @objc dynamic var comment:String = ""
     @objc dynamic var price:Float = 0
-    @objc dynamic var photoUrls:String = ""
     @objc dynamic var modifiedTimeIntervalSince1970:Double = 0
     @objc dynamic var localeIdentifier:String = ""
+    
+    let photos = List<ImageModel>()
+    
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -110,14 +150,33 @@ extension ReviewModel {
     
     var photoUrlList:[URL] {
         var result:[URL] = []
-        for str in photoUrls.components(separatedBy: ",") {
-            if let url = URL(string: str) {
-                result.append (url)
+        var photoList = self.photos
+        if editList.count > 0 {
+            photoList = editList.sorted(byKeyPath: "modifiedTimeIntervalSince1970").last!.photos
+        }
+        print("photoURL count \(photoList.count)")
+        for photo in photoList {
+            if let url = photo.thumbURL {
+                result.append(url)
             }
         }
         return result.sorted { (a, b) -> Bool in
             return a.absoluteString > b.absoluteString
         }
+    }
+    
+    var photoLargeUrlList:[URL] {
+        var result:[URL] = []
+        var photoList = self.photos
+        if editList.count > 0 {
+            photoList = editList.sorted(byKeyPath: "modifiedTimeIntervalSince1970").last!.photos
+        }
+        for photo in photoList {
+            if let url = photo.largeURL {
+                result.append(url)
+            }
+        }
+        return result
     }
     
     var priceLocaleString:String? {
@@ -146,7 +205,6 @@ extension ReviewModel {
         }
         var photolist = photos
         var uploadUrls:[String] = []
-        let st = FirebaseStorageHelper()
         func upload() {
             if photolist.count == 0 {
                 complete(uploadUrls)
@@ -154,14 +212,16 @@ extension ReviewModel {
             }
             if let url = photolist.first {
                 if url.isFileURL {
-                    st.uploadImage(url: url, contentType: "image/jpeg", uploadURL: "\(FSCollectionName.STORAGE_REVIEW_IMAGE)/\(creatorId)/\(documentId)/\(UUID().uuidString).jpg") { (url) in
+                    let uploadURL = "\(FSCollectionName.STORAGE_REVIEW_IMAGE)/\(creatorId)/\(documentId)/\(UUID().uuidString).jpg"
+                    ImageModel.upload(url: url, type: .review, uploadURL: uploadURL) { (url) in
                         if let url = url {
                             photolist.removeFirst()
-                            uploadUrls.append(url.absoluteString)
+                            uploadUrls.append(url)
                             upload()
                         } else {
                             complete(nil)
                         }
+
                     }
                     return
                 }
@@ -169,7 +229,6 @@ extension ReviewModel {
             photolist.removeFirst()
             upload()
         }
-        
         upload()
     }
     
@@ -206,15 +265,24 @@ extension ReviewModel {
                 "place_detail":place_detail,
                 "localeIdentifier":Locale.current.identifier
             ]
+            
             if uploadImages.count > 0 {
-                data["photoUrls"] = uploadImages.stringValue
+                let images = ImageModel.imagesWithThumbURLS(urls: uploadImages)
+                data["photoThumbUrls"] = images.thumbUrlStringValue
+                data["photoLargeUrls"] = images.laegeUrlStringValue
             }
+            
             let doc = FS.store.collection(FSCollectionName.REVIEW).document(id)
             doc.setData(data) { (error) in
                 if error == nil {
                     let realm = try! Realm()
                     realm.beginWrite()
                     let model = realm.create(ReviewModel.self, value: data, update: .all)
+                    model.photos.removeAll()
+                    let images = ImageModel.imagesWithThumbURLS(urls: uploadImages)
+                    for image in images {
+                        model.photos.append(image)
+                    }
                     try! realm.commitWrite()
                     // 최초 작성시 수정내역 남기기 위한 리포트 
                     model.edit(
@@ -277,14 +345,31 @@ extension ReviewModel {
                 "localeIdentifier" : Locale.current.identifier
             ]
             
-            var images = Set<String>(photoUrls.components(separatedBy: ","))
+            var images = Set<ImageModel>()
+            for p in photos {
+                images.insert(p)
+            }
+            
             if deletePhotos.count > 0 {
-                images.subtract(Set<String>(deletePhotos))
+                var dSet = Set<ImageModel>()
+                for url in deletePhotos {
+                    if let image = ImageModel.imageWithThumbURL(url: url) {
+                        dSet.insert(image)
+                    }
+                }
+                images.subtract(dSet)
             }
+            
             for item in addPhotoUrls {
-                images.insert(item)
+                if let image = ImageModel.imageWithThumbURL(url: item) {
+                    images.insert(image)
+                }
             }
-            data["photoUrls"] = images.stringValue
+            
+            let photoThumbUrls = images.thumbUrlStringValue
+            data["photoThumbUrls"] = photoThumbUrls
+            data["photoLargeUrls"] = images.laegeUrlStringValue
+            
             
             let document = FS.store.collection(FSCollectionName.REVIEW).document(id)
             document.collection("edit").document(editId).setData(data) { (error) in
@@ -292,7 +377,15 @@ extension ReviewModel {
                     let realm = try! Realm()
                     realm.beginWrite()
                     let model = realm.create(ReviewEditModel.self, value: data, update: .all)
-                    print("photos : \(model.photoUrlList.count)")
+                    model.photos.removeAll()
+                    
+                    print("----------------")
+                    for img in ImageModel.imagesWithThumbURLS(urls: photoThumbUrls.components(separatedBy: ",")) {
+                        print(img.thumbURLstr)
+                        model.photos.append(img)
+                    }
+                    
+                    print("photos : \(model.photos.count)")
                     if let doc = realm.object(ofType: ReviewModel.self, forPrimaryKey: docId) {
                         doc.editList.append(model)
                     }
@@ -337,6 +430,20 @@ extension ReviewModel {
                     realm.beginWrite()
                     for doc in data.documents {
                         let review = realm.create(ReviewModel.self, value: doc.data(), update: .all)
+                        if let largeURLS = (doc.data()["photoLargeUrls"] as? String)?.components(separatedBy: ","),
+                            let thumbURLS = (doc.data()["photoThumbUrls"] as? String)?.components(separatedBy: ",")
+                        {
+                            review.photos.removeAll()
+                            for (index,thumbUrl) in thumbURLS.enumerated() {
+                                let imageData = [
+                                    "thumbURLstr":thumbUrl,
+                                    "largeURLstr":largeURLS[index]
+                                ]
+                                let imageModel = realm.create(ImageModel.self, value: imageData, update: .all)
+                                review.photos.append(imageModel)
+                            }
+                        }
+                        
                         let reviewId = review.id
                         let reviewDoc = FS.store.collection(FSCollectionName.REVIEW).document(doc.documentID)
                         reviewDoc.collection("like").getDocuments { (snapShot, error) in
@@ -363,6 +470,21 @@ extension ReviewModel {
                             if let editData = snapShot {
                                 for edoc in editData.documents {
                                     let editModel = realm.create(ReviewEditModel.self, value: edoc.data(), update: .all)
+                                    
+                                    if let largeURLS = (edoc.data()["photoLargeUrls"] as? String)?.components(separatedBy: ","),
+                                        let thumbURLS = (edoc.data()["photoThumbUrls"] as? String)?.components(separatedBy: ",")
+                                    {
+                                        editModel.photos.removeAll()
+                                        for (index,thumbUrl) in thumbURLS.enumerated() {
+                                            let imageData = [
+                                                "thumbURLstr":thumbUrl,
+                                                "largeURLstr":largeURLS[index]
+                                            ]
+                                            let imageModel = realm.create(ImageModel.self, value: imageData, update: .all)
+                                            editModel.photos.append(imageModel)
+                                        }
+                                    }
+                                    
                                     review?.editList.append(editModel)
                                 }                                
                             }
@@ -516,20 +638,7 @@ extension ReviewEditModel {
         }
         return result
     }
-    
-    var photoUrlList:[URL] {
-        var result:[URL] = []
-        for str in photoUrls.components(separatedBy: ",") {
-            if let url = URL(string: str) {
-                result.append (url)
-            }
-        }
         
-        return result.sorted { (a, b) -> Bool in
-            return a.absoluteString > b.absoluteString
-        }
-    }
-    
     var modifiedDt:Date? {
         if modifiedTimeIntervalSince1970 == 0 {
             return nil

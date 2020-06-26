@@ -235,7 +235,7 @@ class ReviewDetailViewController: UITableViewController {
             let vc = StatusViewController.viewController(withUserId: self.review?.creatorId)
             present(vc, animated: true, completion: nil)
         case 1:
-            if let list = review?.photoUrlList {
+            if let list = review?.photoLargeUrlList {
                 let imgs = LightboxImage.getImages(imageUrls: list)
                 let vc = LightboxController(images: imgs, startIndex: indexPath.row)
                 vc.modalPresentationStyle = .fullScreen

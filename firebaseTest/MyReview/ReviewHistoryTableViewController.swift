@@ -46,7 +46,7 @@ class ReviewHistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if edits?[section].photoUrlList.count == 0 {
+        if edits?[section].photos.count == 0 {
             return 6
         }
         return 7
@@ -106,7 +106,7 @@ class ReviewHistoryTableViewController: UITableViewController {
         case 5:
             return before?.comment != data?.comment
         case 6:
-            return before?.photoUrlList != data?.photoUrlList
+            return before?.photos != data?.photos
         default:
             break
         }
@@ -165,7 +165,16 @@ class ReviewHistoryTableViewController: UITableViewController {
             return cell
         case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! ReviewHistoryImageTableViewCell
-            cell.images = data?.photoUrlList ?? []
+            if let photos = data?.photos {
+                var images:[URL] = []
+                for p in photos {
+                    if let url = p.thumbURL {
+                        images.append(url)
+                    }
+                }
+                cell.images = images
+            }
+            
             print(cell.images.count)
             cell.contentView.alpha = isChange ? 1.0 : 0.3
             return cell

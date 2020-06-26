@@ -426,11 +426,9 @@ class MyReviewWriteController: UITableViewController {
         }
         starPointPicker.selectRow((pointTextField.text?.count ?? 1)-1, inComponent: 0, animated: false)
         commentTextView.text = data.comment
-        for str in data.photoUrls.components(separatedBy: ",") {
-            if str.trimmingCharacters(in: CharacterSet(charactersIn: " ")).isEmpty == false {
-                if let url = URL(string: str) {
-                    self.selectedImages.append(url)
-                }
+        for image in data.photos {
+            if let url = image.thumbURL {
+                self.selectedImages.append(url)
             }
         }
         

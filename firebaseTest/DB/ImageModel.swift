@@ -78,4 +78,14 @@ extension ImageModel {
     static func imageWithThumbURL(url:String)->ImageModel? {
         return try! Realm().object(ofType: ImageModel.self, forPrimaryKey: url)
     }
+    
+    static func imagesWithThumbURLS(urls:[String])->Set<ImageModel> {
+        var result = Set<ImageModel>()
+        for url in urls {
+            if let img = ImageModel.imageWithThumbURL(url: url) {
+                result.insert(img)
+            }
+        }
+        return result
+    }
 }
