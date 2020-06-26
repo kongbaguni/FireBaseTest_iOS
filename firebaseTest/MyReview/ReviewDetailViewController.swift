@@ -299,7 +299,12 @@ class ReviewDetailPhotoTableViewCell : UITableViewCell {
     
     func setImage() {
         photoImageView?.kf.setImage(with: imageUrl, placeholder: UIImage.placeHolder_image, options: nil, progressBlock: nil
-            , completionHandler: { (_) in
+            , completionHandler: { [weak self](_) in
+                if let url = self?.imageUrl?.absoluteString {
+                    if let image = ImageModel.imageWithThumbURL(url: url) {
+                        self?.photoImageView?.kf.setImage(with: image.largeURL, placeholder: self?.photoImageView.image)
+                    }
+                }
         })
     }    
         
