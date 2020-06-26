@@ -179,7 +179,7 @@ class MyProfileViewController: UITableViewController {
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
         view.endEditing(true)
         /** 이미지 업로드*/
-        func uploadImage(complete:@escaping(_ imageUrl:String?)->Void) {            
+        func uploadImage(complete:@escaping(_ imageUrl:String?)->Void) {
             if let url = profileImageUrl {
                 let uploadURL = "\(FSCollectionName.STORAGE_PROFILE_IMAGE)/\(UserInfo.info!.id).png"
                 ImageModel.upload(url: url, type: .profile, uploadURL:uploadURL) { (url) in
@@ -214,10 +214,14 @@ class MyProfileViewController: UITableViewController {
                     data["profileThumbURLfirebase"] = image.thumbURLstr
                 }
             }
-            if profileImageDeleteMode == .delete {
+            switch profileImageDeleteMode {
+            case .delete, .googlePhoto:
                 data["profileImageURLfirebase"] = ""
                 data["profileThumbURLfirebase"] = ""
+            default:
+                break
             }
+            
 
             userinfo.update(data: data) { (sucess) in
                 complete(sucess)
