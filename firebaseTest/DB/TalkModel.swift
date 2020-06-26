@@ -392,7 +392,7 @@ extension TalkModel {
         }
         let now = Date().timeIntervalSince1970
         let id = "\(userId)_\(now)\(UUID().uuidString)"
-        let fileUploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(userId)/\(id)"
+        let fileUploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(userId)/\(id)/\(Date().timeIntervalSince1970)"
         
         func upload(uploadUrl:URL?) {
             var data:[String:Any] = [
@@ -444,7 +444,7 @@ extension TalkModel {
         }
         let editTalkId = id
         let now = Date().timeIntervalSince1970
-        let fileUploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(userId)/\(self.id)"
+        let fileUploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(userId)/\(self.id)/\(Date().timeIntervalSince1970)"
         let editId = "\(userId)_\(now)\(UUID().uuidString)"
         
         func edit(uploadUrl:URL?) {
