@@ -48,10 +48,16 @@ extension TextEditModel {
     }
     
     var imageUrl:URL? {
+        if imageLargeURLstr.isEmpty {
+            return nil
+        }
         return URL(string: imageLargeURLstr)
     }
     
     var thumbURL:URL? {
+        if imageThumbURLstr.isEmpty {
+            return nil
+        }
         return URL(string: imageThumbURLstr)
     }
     
@@ -495,6 +501,7 @@ extension TalkModel {
                         talk.editList.append(edit)
                         try! realm.commitWrite()
                         complete(true)
+                        NotificationCenter.default.post(name: .talkUpdateNotification, object: nil)
                     } else {
                         complete(false)
                     }

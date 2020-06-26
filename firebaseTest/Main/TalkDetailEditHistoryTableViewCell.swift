@@ -46,7 +46,7 @@ class TalkDetailEditHistoryImageTableViewCell : TalkDetailEditHistoryTableViewCe
         guard let data = self.data else {
             return
         }
-        attachmentImageView.kf.setImage(with: data.imageUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
+        attachmentImageView.kf.setImage(with: data.thumbURL, placeholder: UIImage.placeHolder_image)
     }
 }
 
