@@ -149,7 +149,7 @@ class TodayTalksTableImageViewCell :TodayTalksTableViewCell {
         }
         super.setData()
         if data.editList.count == 0 {
-            attachmentImageView.setImageUrl(url: data.imageUrl, placeHolder: #imageLiteral(resourceName: "placeholder"))
+            attachmentImageView.kf.setImage(with: data.thumbURL, placeholder: UIImage.placeHolder_image)
         }
         else {
             if let url = data.editList.last?.imageUrl {

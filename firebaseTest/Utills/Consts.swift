@@ -64,10 +64,12 @@ struct Consts {
             
     static let stars = ["⭐️","⭐️⭐️","⭐️⭐️⭐️","⭐️⭐️⭐️⭐️","⭐️⭐️⭐️⭐️⭐️"]
     
-    static let TALK_IMAGE_MAX_SIZE = CGSize(width: 1000, height: 1000)
-    static let REVIEW_IMAGE_MAX_SIZE = CGSize(width: 1000, height: 1000)
-    
+    static let TALK_IMAGE_MAX_SIZE = CGSize(width: 1500, height: 1500)
+    static let TALK_THUMB_MAX_SIZE = CGSize(width: 200, height: 200)
+    static let REVIEW_IMAGE_MAX_SIZE = CGSize(width: 1500, height: 1500)
+    static let REVIEW_THUMB_MAX_SIZE = CGSize(width: 300, height: 300)
     static let PROFILE_IMAGE_SIZE = CGSize(width: 1000, height: 1000)
+    static let PROFILE_THUMB_SIZE = CGSize(width: 80, height: 80)
 }
 
 /** 파이어베이스 스토리지 아이디*/

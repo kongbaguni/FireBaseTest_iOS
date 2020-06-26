@@ -20,10 +20,11 @@ extension Notification.Name {
 class TextEditModel : Object {
     @objc dynamic var id:String = ""
     @objc dynamic var text:String = ""
-    @objc dynamic var imageUrlStr:String = ""
     @objc dynamic var regTimeIntervalSince1970:Double = 0
     @objc dynamic var lat:Double = 0
     @objc dynamic var lng:Double = 0
+    @objc dynamic var imageThumbURLstr:String = ""
+    @objc dynamic var imageLargeURLstr:String = ""
     
     override static func primaryKey() -> String? {
         return "id"
@@ -36,7 +37,7 @@ extension TextEditModel {
     }
     
     var isImageDeleted:Bool {
-        return imageUrlStr == ""
+        return imageThumbURLstr == ""
     }
     
     var cordinate:CLLocationCoordinate2D? {
@@ -47,10 +48,11 @@ extension TextEditModel {
     }
     
     var imageUrl:URL? {
-        if imageUrlStr.isEmpty {
-            return nil
-        }
-        return URL(string: imageUrlStr)
+        return URL(string: imageLargeURLstr)
+    }
+    
+    var thumbURL:URL? {
+        return URL(string: imageThumbURLstr)
     }
     
 }
@@ -72,8 +74,6 @@ class TalkModel: Object {
     @objc dynamic var lng:Double = UserDefaults.standard.lastMyCoordinate?.longitude ?? 0
     /** 경도*/
     @objc dynamic var lat:Double = UserDefaults.standard.lastMyCoordinate?.latitude ?? 0
-    /** 첨부이미지 URL*/
-    @objc dynamic var imageUrl:String = ""
     /** 게임결과 json Data 를  base64인코딩 한 문자열*/
     @objc dynamic var gameResultBase64encodingSting:String = ""
     /** 검색을 위한 text. 수정내역에서 가장 마지막 내용이 저장됨*/
@@ -82,7 +82,11 @@ class TalkModel: Object {
     @objc dynamic var isDeleted:Bool = false
     /** 관리자가 삭제함*/
     @objc dynamic var isDeletedByAdmin:Bool = false
-    
+    /** Thumb 이미지 */
+    @objc dynamic var imageThumbURLstr:String = ""
+    /** 큰 이미지*/
+    @objc dynamic var imageLargeURLstr:String = ""
+
     /** 등록시각 */
     @objc dynamic var regTimeIntervalSince1970:Double = 0 {
         didSet {
@@ -99,7 +103,7 @@ class TalkModel: Object {
     let likes = List<LikeModel>()
     /** 수정이력*/
     let editList = List<TextEditModel>()
-    
+
     
     override static func primaryKey() -> String? {
         return "id"
@@ -116,12 +120,22 @@ extension TalkModel {
     /** 최종 이미지 URL 구하기.*/
     var imageURL:URL? {
         if editList.count == 0 {
-            return URL(string: imageUrl)
+            if imageLargeURLstr.isEmpty == true {
+                return nil
+            }
+            return URL(string: imageLargeURLstr)
         }
-        if let url = editList.last?.imageUrl {
-            return url
+        return editList.last?.imageUrl
+    }
+    /** 썸네일 이미지*/
+    var thumbURL:URL? {
+        if editList.count == 0 {
+            if imageThumbURLstr.isEmpty == true {
+                return nil
+            }
+            return URL(string: imageThumbURLstr)
         }
-        return nil
+        return editList.last?.thumbURL
     }
     
     var isLike:Bool {
@@ -394,7 +408,7 @@ extension TalkModel {
         let id = "\(userId)_\(now)\(UUID().uuidString)"
         let fileUploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(userId)/\(id)/\(Date().timeIntervalSince1970)"
         
-        func upload(uploadUrl:URL?) {
+        func upload(uploadUrl:String?) {
             var data:[String:Any] = [
                 "id":id,
                 "text":text,
@@ -410,7 +424,10 @@ extension TalkModel {
                 data["gameResultBase64encodingSting"] = game
             }
             if let url = uploadUrl {
-                data["imageUrl"] = url.absoluteString
+                if let image = ImageModel.imageWithThumbURL(url: url) {
+                    data["imageThumbURLstr"] = image.thumbURLstr
+                    data["imageLargeURLstr"] = image.largeURLstr
+                }
             }
             FS.store.collection(FSCollectionName.TALKS).document(id).setData(data) { (error) in
                 if error == nil {
@@ -428,7 +445,7 @@ extension TalkModel {
         }
         
         if let url = imageUrl {
-            FirebaseStorageHelper().uploadImage(url:url, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
+            ImageModel.upload(url: url, type: .talk, uploadURL: fileUploadURL) { (url) in
                 upload(uploadUrl: url)
             }
         } else {
@@ -447,7 +464,7 @@ extension TalkModel {
         let fileUploadURL = "\(FSCollectionName.STORAGE_TLAK_IMAGE)/\(userId)/\(self.id)/\(Date().timeIntervalSince1970)"
         let editId = "\(userId)_\(now)\(UUID().uuidString)"
         
-        func edit(uploadUrl:URL?) {
+        func edit(uploadUrl:String?) {
             let data:[String:Any] = [
                 "id":editTalkId,
                 "textForSearch":text,
@@ -462,7 +479,10 @@ extension TalkModel {
             ]
                         
             if let url = uploadUrl {
-                editData["imageUrlStr"] = url.absoluteString
+                if let image = ImageModel.imageWithThumbURL(url: url) {
+                    editData["imageThumbURLstr"] = image.thumbURLstr
+                    editData["imageLargeURLstr"] = image.largeURLstr
+                }
             }
             let doc = FS.store.collection(FSCollectionName.TALKS).document(id)
             doc.updateData(data) { (error1) in
@@ -483,8 +503,8 @@ extension TalkModel {
         }
         
         if let url = imageUrl {
-            FirebaseStorageHelper().uploadImage(url: url, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
-                edit(uploadUrl: url)
+            ImageModel.upload(url: url, type: .talk, uploadURL: fileUploadURL) { (thumburl) in
+                edit(uploadUrl: thumburl)
             }
         } else {
             edit(uploadUrl: nil)

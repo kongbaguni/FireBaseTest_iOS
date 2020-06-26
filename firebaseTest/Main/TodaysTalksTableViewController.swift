@@ -188,7 +188,7 @@ class TodaysTalksTableViewController: UITableViewController {
         }
         
         NotificationCenter.default.addObserver(forName: .todayTlakImageBtnTouchup, object: nil, queue: nil) {[weak self] (notification) in
-            if let imglist = self?.list.filter("imageUrl != %@",""),
+            if let imglist = self?.list.filter("imageThumbURLstr != %@",""),                
                 let noti_url = notification.object as? URL {
                 var urls:[URL] = []
                 var images:[LightboxImage] = []

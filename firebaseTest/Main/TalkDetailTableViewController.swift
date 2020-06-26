@@ -221,14 +221,12 @@ class TalkDetailTableViewController: UITableViewController {
             }
             if let editList = talkModel?.editList {
                 if indexPath.row == 0 {
-                    if let imgUrl = talkModel?.imageUrl {
-                        if imgUrl.isEmpty == false {
-                            let cell = tableView.dequeueReusableCell(withIdentifier: "editHistoryImage") as! TalkDetailEditHistoryImageTableViewCell
-                            cell.dateLabel.text = talkModel?.regDt.simpleFormatStringValue
-                            cell.textView.text = talkModel?.text
-                            cell.attachmentImageView.setImageUrl(url: imgUrl, placeHolder: #imageLiteral(resourceName: "placeholder"))
-                            return cell
-                        }
+                    if let imgUrl = talkModel?.thumbURL {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "editHistoryImage") as! TalkDetailEditHistoryImageTableViewCell
+                        cell.dateLabel.text = talkModel?.regDt.simpleFormatStringValue
+                        cell.textView.text = talkModel?.text
+                        cell.attachmentImageView.kf.setImage(with: imgUrl, placeholder: UIImage.placeHolder_image)
+                        return cell
                     }
                     let cell = tableView.dequeueReusableCell(withIdentifier: "editHistory") as! TalkDetailEditHistoryTableViewCell
                     cell.dateLabel.text = talkModel?.regDt.simpleFormatStringValue
