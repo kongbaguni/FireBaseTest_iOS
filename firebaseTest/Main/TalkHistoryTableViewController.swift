@@ -11,6 +11,7 @@ import UIKit
 import RealmSwift
 import RxCocoa
 import RxSwift
+import Lightbox
 /** 대화 작성 이력 보여주는 뷰 컨트롤러*/
 class TalkHistoryTableViewController: UITableViewController {
     
@@ -209,6 +210,12 @@ class TalkHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
+        case 0:
+            if let url = userInfo?.profileLargeImageURL {
+                let vc = LightboxController(images: [LightboxImage(imageURL: url)], startIndex: 0)
+                vc.modalPresentationStyle = .fullScreen
+                present(vc, animated: true, completion: nil)
+            }
         case 1:
             guard let talk = talks?[indexPath.row] else {
                 return
