@@ -262,12 +262,14 @@ class ReviewsViewController : UITableViewController {
         let id = list[indexPath.row].id
 
         if UserInfo.info?.id == reviews?[indexPath.row].creatorId {
-            action.append(UIContextualAction(style: .normal, title: "edit".localized, handler: { (action, view, complete) in
+            let edit = UIContextualAction(style: .normal, title: "edit".localized, handler: { (action, view, complete) in
                     let vc = MyReviewWriteController.viewController
                     vc.reviewId = id
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
-            ))
+            )
+            edit.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
+            action.append(edit)
         }
         else {
             action.append(UIContextualAction(style: .destructive, title: "report".localized, handler: { (action, view, complete) in
