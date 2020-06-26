@@ -179,14 +179,11 @@ class MyProfileViewController: UITableViewController {
     @objc func onTouchupSave(_ sender:UIBarButtonItem) {
         view.endEditing(true)
         /** 이미지 업로드*/
-        func uploadImage(complete:@escaping(_ imageUrl:String?)->Void) {
-            
+        func uploadImage(complete:@escaping(_ imageUrl:String?)->Void) {            
             if let url = profileImageUrl {
-                FirebaseStorageHelper().uploadImage(
-                    url: url,
-                    contentType: "image/png",
-                    uploadURL: "\(FSCollectionName.STORAGE_PROFILE_IMAGE)/\(UserInfo.info!.id).png") { (downloadUrl) in
-                        complete(downloadUrl?.absoluteString)
+                let uploadURL = "\(FSCollectionName.STORAGE_PROFILE_IMAGE)/\(UserInfo.info!.id).png"
+                ImageModel.upload(url: url, type: .profile, uploadURL:uploadURL) { (url) in
+                    complete(url)
                 }
                 return
             }
@@ -212,10 +209,14 @@ class MyProfileViewController: UITableViewController {
                 "mapType" : selectMapViewMapType.rawValue
             ]
             if let url = profileImageUrl {
-                data["profileImageURLfirebase"] = url
+                if let image = ImageModel.imageWithThumbURL(url: url) {
+                    data["profileImageURLfirebase"] = image.largeURLstr
+                    data["profileThumbURLfirebase"] = image.thumbURLstr
+                }
             }
             if profileImageDeleteMode == .delete {
                 data["profileImageURLfirebase"] = ""
+                data["profileThumbURLfirebase"] = ""
             }
 
             userinfo.update(data: data) { (sucess) in

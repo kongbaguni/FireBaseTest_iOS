@@ -29,8 +29,11 @@ class UserInfo : Object {
     @objc dynamic var introduce                 : String    = ""
     /** 프로필 이미지 (구글)*/
     @objc dynamic var profileImageURLgoogle     : String    = ""
+    
     /** 업로드한 프로필 이미지*/
     @objc dynamic var profileImageURLfirebase   : String    = ""
+    /** 업로드한 프로필 이미지의 섬네일*/
+    @objc dynamic var profileThumbURLfirebase   : String    = ""
     /** 최근 갱신 시각*/
     @objc dynamic var updateTimeIntervalSince1970: Double   = 0
     /** 마지막 대화 작성 시각*/
@@ -136,6 +139,7 @@ class UserInfo : Object {
         didSet {
             if isDeleteProfileImage {
                 profileImageURLfirebase = ""
+                profileThumbURLfirebase = ""
             }
         }
     }
@@ -154,11 +158,21 @@ class UserInfo : Object {
         if isDeleteProfileImage {
             return nil
         }
-        if let url = URL(string:profileImageURLfirebase) {
+        if let url = URL(string:profileThumbURLfirebase) {
             return url
         }
         return URL(string:profileImageURLgoogle)
     }    
+        
+    var profileLargeImageURL:URL? {
+        if isDeleteProfileImage {
+            return nil
+        }
+        if let url = URL(string:profileImageURLfirebase) {
+            return url
+        }
+        return URL(string:profileImageURLgoogle)
+    }
     
     override static func primaryKey() -> String? {
         return "email"
@@ -174,7 +188,7 @@ class UserInfo : Object {
         googleProfileUrl:String?,
         complete:@escaping(_ isNewUser:Bool?)->Void) {
         
-        func create(fileUrl:URL?) {
+        func create(fileUrl:String?) {
             let user = FS.store.collection(FSCollectionName.USERS).document(email)
             var data:[String:Any] = [
                 "id":email,
@@ -187,7 +201,10 @@ class UserInfo : Object {
                 data["profileImageURLgoogle"] = url
             }
             if let url = fileUrl {
-                data["profileImageURLfirebase"] = url
+                if let image = ImageModel.imageWithThumbURL(url: url) {
+                    data["profileImageURLfirebase"] = image.largeURLstr
+                    data["profileThumbURLfirebase"] = image.thumbURLstr
+                }
             }
             func createDB() {
                 let realm = try! Realm()
@@ -221,8 +238,8 @@ class UserInfo : Object {
         
         let fileUploadURL = "\(FSCollectionName.STORAGE_PROFILE_IMAGE)"
         if let url = profileImageURL {
-            FirebaseStorageHelper().uploadImage(url: url, contentType: "image/jpeg", uploadURL: fileUploadURL) { (url) in
-                create(fileUrl: url)
+            ImageModel.upload(url: url, type: .profile, uploadURL: fileUploadURL) { (thumbUrl) in
+                create(fileUrl: thumbUrl)
             }
         } else {
             create(fileUrl: nil)
