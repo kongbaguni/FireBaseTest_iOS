@@ -39,6 +39,11 @@ extension UIImage {
     open class var bubble:UIImage {#imageLiteral(resourceName: "bubble")}
     
     open class var bubble_bottom:UIImage {#imageLiteral(resourceName: "bubble_bottom")}
+    
+    open class var checkBoxNormal:UIImage {#imageLiteral(resourceName: "checkbox_n").kf.resize(to: CGSize(width: 22, height: 20))}
+    
+    open class var checkBoxSelected:UIImage {#imageLiteral(resourceName: "checkbox_s").kf.resize(to: CGSize(width: 22, height: 20))}
+    
 }
 
 

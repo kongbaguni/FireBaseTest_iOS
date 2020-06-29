@@ -11,6 +11,13 @@ import FirebaseAuth
 import RealmSwift
 
 extension AuthDataResult {
+    var name:String? {
+        return additionalUserInfo?.profile?["name"] as? String
+    }
+    var email:String? {
+        return additionalUserInfo?.profile?["email"] as? String
+    }
+    
     func saveUserInfo(idToken:String,accessToken:String, complete:@escaping(_ isNewUser:Bool?)->Void) {
         
         func saveToken(email:String) {

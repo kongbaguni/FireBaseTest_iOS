@@ -222,7 +222,7 @@ class MyProfileViewController: UITableViewController {
                 break
             }
             
-
+            
             userinfo.update(data: data) { (sucess) in
                 complete(sucess)
             }
@@ -231,13 +231,15 @@ class MyProfileViewController: UITableViewController {
         loading.show(viewController: self)
         uploadImage { downloadUrl in
             updateProfile(profileImageUrl: downloadUrl) { (isSucess) in
+                self.loading.hide()
                 if isSucess {
-                    self.loading.hide()
                     if self.navigationController?.viewControllers.first == self {
                         UIApplication.shared.rootViewController = MainTabBarController.viewController
                     } else {
                         self.navigationController?.popViewController(animated: true)
                     }
+                } else {
+                    self.alert(title: "alert".localized, message: "join fail msg".localized)
                 }
             }
         }

@@ -813,6 +813,111 @@
             </objects>
             <point key="canvasLocation" x="-997" y="-846"/>
         </scene>
+        <!--Term View Controller-->
+        <scene sceneID="tr5-It-VrR">
+            <objects>
+                <viewController storyboardIdentifier="term" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RBx-Fi-d3P" customClass="TermViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ajh-l2-FC6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MjG-xT-gap">
+                                <rect key="frame" x="20" y="44" width="374" height="327"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s7f-LY-qhG">
+                                <rect key="frame" x="20" y="433" width="374" height="325"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4h-x7-94C">
+                                <rect key="frame" x="20" y="391" width="374" height="22"/>
+                                <color key="tintColor" name="textColor"/>
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button" image="checkbox_n">
+                                    <color key="titleColor" name="textColor"/>
+                                </state>
+                                <state key="selected" image="checkbox_s"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" name="weakTextColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcs-h2-dsv">
+                                <rect key="frame" x="20" y="778" width="374" height="22"/>
+                                <color key="tintColor" name="textColor"/>
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button" image="checkbox_n">
+                                    <color key="titleColor" name="textColor"/>
+                                </state>
+                                <state key="selected" image="checkbox_s"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" name="weakTextColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WCW-4J-OCc">
+                                <rect key="frame" x="20" y="820" width="374" height="22"/>
+                                <color key="tintColor" name="textColor"/>
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button" image="checkbox_n">
+                                    <color key="titleColor" name="textColor"/>
+                                </state>
+                                <state key="selected" image="checkbox_s"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" name="weakTextColor"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04Y-hP-ZWA">
+                                <rect key="frame" x="0.0" y="433" width="414" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="Ni4-Nf-Dsf"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="4Gy-Uj-e8l" firstAttribute="trailing" secondItem="MjG-xT-gap" secondAttribute="trailing" constant="20" id="7AU-Cz-ONZ"/>
+                            <constraint firstItem="MjG-xT-gap" firstAttribute="leading" secondItem="4Gy-Uj-e8l" secondAttribute="leading" constant="20" id="9R9-zD-fyN"/>
+                            <constraint firstItem="gcs-h2-dsv" firstAttribute="leading" secondItem="4Gy-Uj-e8l" secondAttribute="leading" constant="20" id="BFj-qx-5et"/>
+                            <constraint firstItem="4Gy-Uj-e8l" firstAttribute="trailing" secondItem="04Y-hP-ZWA" secondAttribute="trailing" id="CQ0-lc-NV6"/>
+                            <constraint firstItem="s7f-LY-qhG" firstAttribute="leading" secondItem="4Gy-Uj-e8l" secondAttribute="leading" constant="20" id="EPi-8I-7PI"/>
+                            <constraint firstItem="04Y-hP-ZWA" firstAttribute="top" secondItem="b4h-x7-94C" secondAttribute="bottom" constant="20" id="J3w-Oh-Vzj"/>
+                            <constraint firstItem="4Gy-Uj-e8l" firstAttribute="trailing" secondItem="WCW-4J-OCc" secondAttribute="trailing" constant="20" id="J9y-5b-vdN"/>
+                            <constraint firstItem="04Y-hP-ZWA" firstAttribute="centerY" secondItem="4Gy-Uj-e8l" secondAttribute="centerY" constant="-20" id="Jgt-TL-QM7"/>
+                            <constraint firstItem="WCW-4J-OCc" firstAttribute="leading" secondItem="4Gy-Uj-e8l" secondAttribute="leading" constant="20" id="LX0-Ee-Hkg"/>
+                            <constraint firstItem="04Y-hP-ZWA" firstAttribute="leading" secondItem="4Gy-Uj-e8l" secondAttribute="leading" id="Vxk-fu-34b"/>
+                            <constraint firstItem="4Gy-Uj-e8l" firstAttribute="trailing" secondItem="b4h-x7-94C" secondAttribute="trailing" constant="20" id="YyW-vr-FUY"/>
+                            <constraint firstItem="b4h-x7-94C" firstAttribute="top" secondItem="MjG-xT-gap" secondAttribute="bottom" constant="20" id="ZPg-D6-d7e"/>
+                            <constraint firstItem="b4h-x7-94C" firstAttribute="leading" secondItem="4Gy-Uj-e8l" secondAttribute="leading" constant="20" id="btE-h4-r0E"/>
+                            <constraint firstItem="s7f-LY-qhG" firstAttribute="top" secondItem="04Y-hP-ZWA" secondAttribute="bottom" id="eg8-e5-VID"/>
+                            <constraint firstItem="4Gy-Uj-e8l" firstAttribute="trailing" secondItem="gcs-h2-dsv" secondAttribute="trailing" constant="20" id="ele-HW-haP"/>
+                            <constraint firstItem="4Gy-Uj-e8l" firstAttribute="bottom" secondItem="WCW-4J-OCc" secondAttribute="bottom" constant="20" id="hvb-VM-3OX"/>
+                            <constraint firstItem="WCW-4J-OCc" firstAttribute="top" secondItem="gcs-h2-dsv" secondAttribute="bottom" constant="20" id="rkQ-U0-fvl"/>
+                            <constraint firstItem="gcs-h2-dsv" firstAttribute="top" secondItem="s7f-LY-qhG" secondAttribute="bottom" constant="20" id="xmA-hQ-fJi"/>
+                            <constraint firstItem="4Gy-Uj-e8l" firstAttribute="trailing" secondItem="s7f-LY-qhG" secondAttribute="trailing" constant="20" id="xsJ-dP-PIT"/>
+                            <constraint firstItem="MjG-xT-gap" firstAttribute="top" secondItem="4Gy-Uj-e8l" secondAttribute="top" id="zH5-Yf-M0X"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4Gy-Uj-e8l"/>
+                    </view>
+                    <connections>
+                        <outlet property="agreeBtn1" destination="b4h-x7-94C" id="C1V-LF-uT0"/>
+                        <outlet property="agreeBtn2" destination="gcs-h2-dsv" id="eyt-F8-2JO"/>
+                        <outlet property="agreeBtn3" destination="WCW-4J-OCc" id="a2e-4m-s9H"/>
+                        <outlet property="webview1" destination="MjG-xT-gap" id="kmP-YG-IfW"/>
+                        <outlet property="webview2" destination="s7f-LY-qhG" id="toy-Mm-kkz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4d5-fz-5Pq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="190" y="-846"/>
+        </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="E9H-7F-iAa">
             <objects>
@@ -3660,6 +3765,8 @@
         <image name="boxLight" width="9.5" height="9.5"/>
         <image name="bubble" width="37.5" height="52.5"/>
         <image name="bubble_light" width="37.5" height="52.5"/>
+        <image name="checkbox_n" width="11.5" height="10"/>
+        <image name="checkbox_s" width="11.5" height="10"/>
         <image name="location" width="195.66667175292969" height="284.66665649414062"/>
         <image name="myBubble_light" width="37.5" height="52.5"/>
         <image name="narui" width="1096" height="485.5"/>
@@ -3671,6 +3778,9 @@
         </namedColor>
         <namedColor name="textColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="weakTextColor">
+            <color white="0.625" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>
 </document>

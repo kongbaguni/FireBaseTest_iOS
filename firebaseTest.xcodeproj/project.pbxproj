@@ -10,6 +10,12 @@
 		313AEA29D63D2AF8108134B0 /* Pods_firebaseTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */; };
 		C31DDCB2241DBC8C00F0BAA8 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */; };
 		C3252307242CD87B0039819D /* NoticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3252306242CD87A0039819D /* NoticeListViewController.swift */; };
+		C3309C7E24A981A6004C6281 /* term.html in Resources */ = {isa = PBXBuildFile; fileRef = C3309C7D24A981A6004C6281 /* term.html */; };
+		C3309C8024A9A71E004C6281 /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = C3309C7F24A9A71D004C6281 /* jquery.js */; };
+		C3309C8224A9A74A004C6281 /* java.js in Resources */ = {isa = PBXBuildFile; fileRef = C3309C8124A9A74A004C6281 /* java.js */; };
+		C3309C8424A9A759004C6281 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = C3309C8324A9A759004C6281 /* style.css */; };
+		C3309C8624A9B367004C6281 /* policy.html in Resources */ = {isa = PBXBuildFile; fileRef = C3309C8524A9B367004C6281 /* policy.html */; };
+		C3309C8824A9BB78004C6281 /* TermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3309C8724A9BB78004C6281 /* TermViewController.swift */; };
 		C332B1E724A5753700C20457 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332B1E624A5753700C20457 /* ImageModel.swift */; };
 		C33839DB241873D600CADC60 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839DA241873D600CADC60 /* Toast.swift */; };
 		C33839E12418AC0F00CADC60 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33839E02418AC0F00CADC60 /* StoreModel.swift */; };
@@ -153,6 +159,12 @@
 		8BFB0F1EAF5F0A8295286866 /* Pods_firebaseTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_firebaseTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C31DDCB1241DBC8C00F0BAA8 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		C3252306242CD87A0039819D /* NoticeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListViewController.swift; sourceTree = "<group>"; };
+		C3309C7D24A981A6004C6281 /* term.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = term.html; sourceTree = "<group>"; };
+		C3309C7F24A9A71D004C6281 /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
+		C3309C8124A9A74A004C6281 /* java.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = java.js; sourceTree = "<group>"; };
+		C3309C8324A9A759004C6281 /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		C3309C8524A9B367004C6281 /* policy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = policy.html; sourceTree = "<group>"; };
+		C3309C8724A9BB78004C6281 /* TermViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermViewController.swift; sourceTree = "<group>"; };
 		C332B1E624A5753700C20457 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		C33839DA241873D600CADC60 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		C33839E02418AC0F00CADC60 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
@@ -319,6 +331,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C3309C7B24A9815B004C6281 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				C3309C7F24A9A71D004C6281 /* jquery.js */,
+				C3309C7D24A981A6004C6281 /* term.html */,
+				C3309C8524A9B367004C6281 /* policy.html */,
+				C3309C8124A9A74A004C6281 /* java.js */,
+				C3309C8324A9A759004C6281 /* style.css */,
+			);
+			path = HTML;
+			sourceTree = "<group>";
+		};
 		C3630FD1241B51C1003479C2 /* Game */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +399,7 @@
 				C36A1903242CA92B007B9D71 /* NoticeViewController.swift */,
 				C3252306242CD87A0039819D /* NoticeListViewController.swift */,
 				C36A1905242DB492007B9D71 /* PopupMapViewController.swift */,
+				C3309C8724A9BB78004C6281 /* TermViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -448,6 +473,7 @@
 		C3BDFBFD240CD79D006AE2B3 /* firebaseTest */ = {
 			isa = PBXGroup;
 			children = (
+				C3309C7B24A9815B004C6281 /* HTML */,
 				C3EB27A724270FB400CA59F7 /* mask now.entitlements */,
 				C3630FD1241B51C1003479C2 /* Game */,
 				C3DC5B8D241221EE00A028E0 /* Utills */,
@@ -625,14 +651,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3309C8224A9A74A004C6281 /* java.js in Resources */,
 				C37509F12456CE9B0092FD78 /* Localizable.strings in Resources */,
 				C3630FD7241B5C7C003479C2 /* CardDackView.xib in Resources */,
 				C395290D243307B40050C80D /* MyReview.storyboard in Resources */,
 				C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */,
 				C346B0532491F1AC0049DE7E /* Colors.xcassets in Resources */,
 				C3CE9857244FCA4600D8BADF /* InfoPlist.strings in Resources */,
+				C3309C8424A9A759004C6281 /* style.css in Resources */,
 				C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */,
+				C3309C8024A9A71E004C6281 /* jquery.js in Resources */,
 				C3D055FE249C733C00974971 /* InAppPurchase.storyboard in Resources */,
+				C3309C7E24A981A6004C6281 /* term.html in Resources */,
+				C3309C8624A9B367004C6281 /* policy.html in Resources */,
 				C3D055F3249B1DA900974971 /* GoogleService-Info.plist in Resources */,
 				C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */,
 				C39A6ECC241F368000460705 /* HoldemView.xib in Resources */,
@@ -756,6 +787,7 @@
 				C386C792241A0B1C0034132B /* Int+Extensions.swift in Sources */,
 				C3EB27A624263BF200CA59F7 /* ChipView.swift in Sources */,
 				C37E86912423410700F87D4D /* JackPotHistoryLogTableViewController.swift in Sources */,
+				C3309C8824A9BB78004C6281 /* TermViewController.swift in Sources */,
 				C3630FD3241B51CE003479C2 /* Card.swift in Sources */,
 				C37EE3DD248F7ADB0093A801 /* UIViewController+Extensions.swift in Sources */,
 				C338BC7C24458CE300E07D0E /* MKMapView+Extensions.swift in Sources */,

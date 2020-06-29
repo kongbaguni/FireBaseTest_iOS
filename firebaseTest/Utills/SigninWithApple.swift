@@ -10,6 +10,7 @@ import Foundation
 import AuthenticationServices
 import CryptoKit
 import FirebaseAuth
+import RealmSwift
 
 class SigninWithApple : NSObject {
     weak var targetVC:UIViewController? = nil
@@ -119,28 +120,24 @@ extension SigninWithApple : ASAuthorizationControllerDelegate {
                     self?.targetVC?.alert(title: "Sign in with Apple errored", message: err.localizedDescription);
                     return
                 } else {
-                    if UserInfo.info == nil {
-                        authResult?.saveUserInfo(idToken: idTokenString, accessToken: "") { isNewUser in
-                            if let isNew = isNewUser {
-                                StoreModel.deleteAll()
+                    if let id = authResult?.email {
+                        UserInfo.getUserInfo(id: id) { (sucess) in
+                            if sucess {
+                                let realm = try! Realm()
+                                realm.beginWrite()
+                                realm.create(UserInfo.self, value: ["email": id, "idToken":idTokenString], update: .modified)
+                                try! realm.commitWrite()
+                                
                                 AdminOptions.shared.getData {
-                                    if isNew {
-                                        let vc = MyProfileViewController.viewController
-                                        vc.hideLeaveCell = true
-                                        UIApplication.shared.rootViewController = UINavigationController(rootViewController: vc)
-                                    }
-                                    else {
-                                        UIApplication.shared.rootViewController  = MainTabBarController.viewController
-                                    }
+                                    UIApplication.shared.rootViewController  = MainTabBarController.viewController
                                 }
+                            } else {
+                                let vc = TermViewController.viewController
+                                vc.authResult = authResult
+                                vc.idTokenString = idTokenString
+                                UIApplication.shared.rootViewController = vc
+
                             }
-                            else {
-                                Toast.makeToast(message: "error")
-                            }
-                        }
-                    } else {
-                        AdminOptions.shared.getData {
-                            UIApplication.shared.rootViewController  = MainTabBarController.viewController
                         }
                     }
                 }

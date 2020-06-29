@@ -340,11 +340,25 @@ class UserInfo : Object {
         let dbCollection = FS.store.collection(FSCollectionName.USERS)
         let document = dbCollection.document(self.email)
         document.updateData(data) { (error) in
-            let realm = try! Realm()
-            realm.beginWrite()
-            realm.create(UserInfo.self, value: data, update: .modified)
-            try! realm.commitWrite()
-            complete(error == nil)
+            func finish() {
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(UserInfo.self, value: data, update: .modified)
+                try! realm.commitWrite()
+                complete(true)
+            }
+            if error == nil {
+                finish()
+            } else {
+                document.setData(data) { (error) in
+                    if error == nil {
+                        finish()
+                    } else {
+                        complete(false)
+                    }
+                }
+            }
+            
         }
     }
     

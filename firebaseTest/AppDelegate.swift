@@ -76,6 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return GIDSignIn.sharedInstance()?.handle(url) ?? false
     }
     
+    /** 자동 로그인 (구글 auth)*/
     private func signin() {
         guard let userInfo = UserInfo.info else {
             return
@@ -140,28 +141,27 @@ extension AppDelegate : GIDSignInDelegate {
         Auth.auth().signIn(with: credential) {(authResult, error) in
             
             if error == nil {
-                if UserInfo.info == nil {
-                    authResult?.saveUserInfo(idToken: authentication.idToken, accessToken: authentication.accessToken) { isNewUser in
-                        if let isNew = isNewUser {
-                            StoreModel.deleteAll()
+                if let id = authResult?.email {
+                    UserInfo.getUserInfo(id: id) { (isSucess) in
+                        if isSucess {
+                            let realm = try! Realm()
+                            realm.beginWrite()
+                            realm.create(UserInfo.self, value: [
+                                "email": id,
+                                "idToken":authentication.idToken,
+                                "accessToken":authentication.accessToken], update: .modified)
+                            try! realm.commitWrite()
+                            
                             AdminOptions.shared.getData {
-                                if isNew {
-                                    let vc = MyProfileViewController.viewController
-                                    vc.hideLeaveCell = true
-                                    UIApplication.shared.rootViewController = UINavigationController(rootViewController: vc)
-                                }
-                                else {
-                                    UIApplication.shared.rootViewController  = MainTabBarController.viewController
-                                }
+                                UIApplication.shared.rootViewController  = MainTabBarController.viewController
                             }
+                        } else {
+                            let vc = TermViewController.viewController
+                            vc.authResult = authResult
+                            vc.idTokenString = authentication.idToken
+                            vc.accessToken = authentication.accessToken
+                            UIApplication.shared.rootViewController = vc
                         }
-                        else {
-                            Toast.makeToast(message: "error")
-                        }
-                    }
-                } else {
-                    AdminOptions.shared.getData {
-                        UIApplication.shared.rootViewController  = MainTabBarController.viewController
                     }
                 }
             }

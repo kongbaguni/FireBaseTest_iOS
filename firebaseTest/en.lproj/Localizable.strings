@@ -281,3 +281,6 @@
 
 "store_api_url" = "store api url";
 "deleted by admin msg" = "Posts have been deleted by the administrator.";
+"agree msg" = "agree";
+"agree all msg" = "all agree";
+"join fail msg" = "Member registration failed. Please try again in a few minutes.";
