@@ -362,19 +362,13 @@ class UserInfo : Object {
         }
     }
     
-    func logout(isDeleteAll:Bool = false) {
+    func logout() {
         UIApplication.shared.rootViewController = UIViewController()
         
         let realm = try! Realm()
         realm.beginWrite()
-        if isDeleteAll {
-            realm.deleteAll()
-        } else {
-            UserInfo.info?.idToken = ""
-            UserInfo.info?.accessToken = ""
-        }
+        realm.deleteAll()
         try! realm.commitWrite()
-        StoreModel.deleteAll()
         
         do {
             try Auth.auth().signOut()

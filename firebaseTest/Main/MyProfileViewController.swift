@@ -316,7 +316,7 @@ class MyProfileViewController: UITableViewController {
                     self?.tableView.deselectRow(at: indexPath, animated: true)
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                         if error == nil {
-                            UserInfo.info?.logout(isDeleteAll: true)
+                            UserInfo.info?.logout()
                         }
                     }
                 }
