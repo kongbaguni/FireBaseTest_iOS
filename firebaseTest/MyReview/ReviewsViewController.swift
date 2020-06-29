@@ -83,8 +83,8 @@ class ReviewsViewController : UITableViewController {
         title = "review".localized
         searchBar.placeholder = "search review".localized
         
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = UITableView.automaticDimension
+//        tableView.rowHeight = UITableView.automaticDimension
         
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButtonItem(_:)))
@@ -236,6 +236,7 @@ class ReviewsViewController : UITableViewController {
             cell.reviewId = data[indexPath.row].id
             cell.loadData()
         }
+        cell.delegate = self
         cell.layoutSubviews()
         return cell
     }
@@ -250,37 +251,6 @@ class ReviewsViewController : UITableViewController {
         LocationManager.shared.manager.stopUpdatingLocation()
     }
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let list = self.reviews else {
-            return nil
-        }
-
-        if list.count == 0 {
-            return nil
-        }
-        var action:[UIContextualAction] = []
-        let id = list[indexPath.row].id
-
-        if UserInfo.info?.id == reviews?[indexPath.row].creatorId {
-            let edit = UIContextualAction(style: .normal, title: "edit".localized, handler: { (action, view, complete) in
-                    let vc = MyReviewWriteController.viewController
-                    vc.reviewId = id
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            )
-            edit.backgroundColor = UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1)
-            action.append(edit)
-        }
-        else {
-            action.append(UIContextualAction(style: .destructive, title: "report".localized, handler: { (action, view, complete) in
-                let vc = ReportViewController.viewController
-                vc.setData(targetId: list[indexPath.row].id, targetType: .review)
-                self.present(vc, animated: true, completion: nil)
-            }))
-        }
-        
-        return UISwipeActionsConfiguration(actions: action)
-    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
@@ -293,5 +263,26 @@ class ReviewsViewController : UITableViewController {
         }
         return sessionTitle[section]
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 스크롤 사이즈 이상하게 커지는 문제 수정.
+        let size = tableView.sizeThatFits(scrollView.contentSize)
+        tableView.contentSize = size
+    }
+}
+
+
+extension ReviewsViewController : ReviewTableViewCellDelegate {
+    func didEditBtnTouched(targetId: String, cell: ReviewsTableViewCell) {
+        let vc = MyReviewWriteController.viewController
+        vc.reviewId = targetId
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func didReportBtnTouched(targetId: String, cell: ReviewsTableViewCell) {
+        let vc = ReportViewController.viewController
+        vc.setData(targetId: targetId, targetType: .review)
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     
 }

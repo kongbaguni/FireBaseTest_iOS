@@ -11,9 +11,14 @@ import UIKit
 import RealmSwift
 import RxCocoa
 import RxSwift
-
+protocol ReviewTableViewCellDelegate : class {
+    func didEditBtnTouched(targetId:String,cell:ReviewsTableViewCell)
+    func didReportBtnTouched(targetId:String,cell:ReviewsTableViewCell)
+}
 class ReviewsTableViewCell: UITableViewCell {
 
+    weak var delegate:ReviewTableViewCellDelegate? = nil
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var starPointLabel: UILabel!
     @IBOutlet weak var priceLaebl: UILabel!
@@ -29,6 +34,8 @@ class ReviewsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var attachPlusLabel: UILabel!
     @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var reportBtn: UIButton!
     let disposeBag = DisposeBag()
     
     var reviewId:String? = nil 
@@ -74,6 +81,12 @@ class ReviewsTableViewCell: UITableViewCell {
             commentLabel.text = "deleted by Admin".localized
             return
         }
+        let isMyPost = review?.creatorId == UserInfo.info?.id
+        editBtn.isHidden = !isMyPost
+        reportBtn.isHidden = isMyPost
+        
+        editBtn.setTitle("edit".localized, for: .normal)
+        reportBtn.setTitle("report".localized, for: .normal)
         titleLabel.text = review?.name
         let point = review?.starPoint ?? 0
         if point <= Consts.stars.count && point > 0 {
@@ -133,5 +146,16 @@ class ReviewsTableViewCell: UITableViewCell {
         attachPlusLabel.isHidden = count <= 0
         attachPlusLabel.text = "+\(count)"
         attachPlusLabel.textColor = .autoColor_bold_text_color
+    }
+    
+    @IBAction func onTouchupBtn(sender:UIButton) {
+        switch sender {
+        case editBtn:
+            delegate?.didEditBtnTouched(targetId: reviewId!, cell: self)
+        case reportBtn:
+            delegate?.didReportBtnTouched(targetId: reviewId!, cell: self)
+        default:
+            break
+        }
     }
 }

@@ -101,6 +101,12 @@ class ReviewDetailViewController: UITableViewController {
                 vc.reviewId = self.reviewId
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
+        } else {
+            vc.addAction(UIAlertAction(title: "report".localized, style: .default, handler: { (action) in
+                let vc = ReportViewController.viewController
+                vc.setData(targetId: self.reviewId!, targetType: .review)
+                self.present(vc, animated: true, completion: nil)
+            }))
         }
         vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         present(vc, animated: true, completion: nil)

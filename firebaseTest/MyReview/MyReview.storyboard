@@ -374,17 +374,17 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Ylz-v8-JuT">
-                            <rect key="frame" x="0.0" y="1231.5" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="1226.5" width="414" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <viewLayoutGuide key="safeArea" id="nbr-hi-srV"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="review" id="Koo-uM-nCM" customClass="ReviewsTableViewCell" customModule="Any_Review" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="413.5"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="408.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Koo-uM-nCM" id="Qrx-4v-JML">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="413.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="408.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고구마 맛있다 고구마 맛있다 고구마 맛있다 고구마 " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n67-4h-x1b">
@@ -468,35 +468,61 @@
                                                 <constraint firstAttribute="height" constant="250" id="Sl5-Qn-u4l"/>
                                             </constraints>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sdq-ls-mXd">
-                                            <rect key="frame" x="10" y="362.5" width="43" height="30"/>
-                                            <state key="normal" title="좋아요 "/>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOu-92-ygZ">
                                             <rect key="frame" x="10" y="342" width="42" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="f1c-Cr-l91">
+                                            <rect key="frame" x="10" y="368.5" width="394" height="30"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sdq-ls-mXd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="64" height="30"/>
+                                                    <state key="normal" title="좋아요 "/>
+                                                </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="763-rR-Cph">
+                                                    <rect key="frame" x="74" y="0.0" width="240" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hN6-g3-ANA">
+                                                    <rect key="frame" x="324" y="0.0" width="30" height="30"/>
+                                                    <state key="normal" title="수정"/>
+                                                    <connections>
+                                                        <action selector="onTouchupBtnWithSender:" destination="Koo-uM-nCM" eventType="touchUpInside" id="f3w-yr-PEY"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7S6-UK-Cd5">
+                                                    <rect key="frame" x="364" y="0.0" width="30" height="30"/>
+                                                    <state key="normal" title="신고"/>
+                                                    <connections>
+                                                        <action selector="onTouchupBtnWithSender:" destination="Koo-uM-nCM" eventType="touchUpInside" id="HCa-zQ-ZH9"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="gzH-2m-C9K"/>
+                                            </constraints>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Sdq-ls-mXd" secondAttribute="trailing" constant="10" id="1Jo-01-bVY"/>
                                         <constraint firstAttribute="trailing" secondItem="pu5-vp-VLg" secondAttribute="trailing" constant="10" id="AnF-oo-PU5"/>
-                                        <constraint firstItem="Sdq-ls-mXd" firstAttribute="top" secondItem="jOu-92-ygZ" secondAttribute="bottom" id="BS9-BS-gyG"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Sdq-ls-mXd" secondAttribute="bottom" constant="10" id="EC6-le-XwR"/>
+                                        <constraint firstItem="f1c-Cr-l91" firstAttribute="top" secondItem="jOu-92-ygZ" secondAttribute="bottom" constant="6" id="CQc-9A-9kW"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jOu-92-ygZ" secondAttribute="trailing" constant="10" id="Fxf-vW-ix7"/>
                                         <constraint firstAttribute="trailing" secondItem="x1I-bd-OhU" secondAttribute="trailing" constant="10" id="HwR-rO-ypB"/>
                                         <constraint firstItem="1Lb-if-ahk" firstAttribute="leading" secondItem="n67-4h-x1b" secondAttribute="trailing" constant="10" id="JpF-QT-Btd"/>
                                         <constraint firstItem="pu5-vp-VLg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Lb-if-ahk" secondAttribute="bottom" constant="10" id="LvY-BF-2ha"/>
                                         <constraint firstItem="pu5-vp-VLg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="n67-4h-x1b" secondAttribute="bottom" constant="10" id="PvF-il-7vc"/>
                                         <constraint firstItem="n67-4h-x1b" firstAttribute="top" secondItem="Qrx-4v-JML" secondAttribute="top" constant="10" id="S9w-lw-D7g"/>
+                                        <constraint firstItem="f1c-Cr-l91" firstAttribute="leading" secondItem="Qrx-4v-JML" secondAttribute="leading" constant="10" id="TqG-Li-T69"/>
                                         <constraint firstItem="1Lb-if-ahk" firstAttribute="top" secondItem="x1I-bd-OhU" secondAttribute="bottom" id="WTO-1O-N8c"/>
                                         <constraint firstItem="n67-4h-x1b" firstAttribute="leading" secondItem="Qrx-4v-JML" secondAttribute="leading" constant="10" id="a0T-EC-RD2"/>
-                                        <constraint firstItem="Sdq-ls-mXd" firstAttribute="leading" secondItem="Qrx-4v-JML" secondAttribute="leading" constant="10" id="cjI-LG-APm"/>
                                         <constraint firstItem="jOu-92-ygZ" firstAttribute="leading" secondItem="Qrx-4v-JML" secondAttribute="leading" constant="10" id="crQ-PC-4f5"/>
+                                        <constraint firstAttribute="trailing" secondItem="f1c-Cr-l91" secondAttribute="trailing" constant="10" id="er2-8e-fT8"/>
                                         <constraint firstItem="x1I-bd-OhU" firstAttribute="top" secondItem="Qrx-4v-JML" secondAttribute="top" constant="10" id="fbR-wv-S5J"/>
                                         <constraint firstItem="jOu-92-ygZ" firstAttribute="top" secondItem="pu5-vp-VLg" secondAttribute="bottom" constant="10" id="mR4-9U-z0O"/>
                                         <constraint firstAttribute="trailing" secondItem="1Lb-if-ahk" secondAttribute="trailing" constant="10" id="obe-gK-XSk"/>
+                                        <constraint firstAttribute="bottom" secondItem="f1c-Cr-l91" secondAttribute="bottom" constant="10" id="pLQ-XK-1Hc"/>
                                         <constraint firstItem="pu5-vp-VLg" firstAttribute="leading" secondItem="Qrx-4v-JML" secondAttribute="leading" constant="10" id="xYF-rE-4qP"/>
                                         <constraint firstItem="x1I-bd-OhU" firstAttribute="leading" secondItem="n67-4h-x1b" secondAttribute="trailing" constant="10" id="zxl-xX-8i5"/>
                                     </constraints>
@@ -511,9 +537,11 @@
                                     <outlet property="attachImageView" destination="20g-j4-UHc" id="Au3-Kc-kmt"/>
                                     <outlet property="attachPlusLabel" destination="Fib-4A-Maw" id="df6-cZ-j8O"/>
                                     <outlet property="commentLabel" destination="jOu-92-ygZ" id="E3O-qs-nYC"/>
+                                    <outlet property="editBtn" destination="hN6-g3-ANA" id="Jqc-se-dQs"/>
                                     <outlet property="imageViewHeight" destination="Sl5-Qn-u4l" id="mvt-B3-Ted"/>
                                     <outlet property="likeBtn" destination="Sdq-ls-mXd" id="Mpq-lA-R52"/>
                                     <outlet property="priceLaebl" destination="x1I-bd-OhU" id="0s9-Vq-XYE"/>
+                                    <outlet property="reportBtn" destination="7S6-UK-Cd5" id="LW9-lm-7X9"/>
                                     <outlet property="starPointLabel" destination="1Lb-if-ahk" id="pSv-2I-rBc"/>
                                     <outlet property="titleLabel" destination="n67-4h-x1b" id="UGS-Kf-uHu"/>
                                 </connections>
@@ -1263,7 +1291,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eWP-TP-vgH"/>
+        <segue reference="u6B-6G-Yp1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="closeBtn" width="275.5" height="258"/>
