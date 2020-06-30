@@ -309,6 +309,10 @@ class TalkHistoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentSize = scrollView.sizeThatFits(scrollView.contentSize)
+    }
 }
 
 

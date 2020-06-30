@@ -266,8 +266,7 @@ class ReviewsViewController : UITableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 스크롤 사이즈 이상하게 커지는 문제 수정.
-        let size = tableView.sizeThatFits(scrollView.contentSize)
-        tableView.contentSize = size
+        scrollView.contentSize = scrollView.sizeThatFits(scrollView.contentSize)
     }
 }
 
