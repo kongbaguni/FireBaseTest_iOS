@@ -18,6 +18,10 @@ extension AuthDataResult {
         return additionalUserInfo?.profile?["email"] as? String
     }
     
+    var pictureURL:String? {
+        return additionalUserInfo?.profile?["picture"] as? String
+    }
+    
     func saveUserInfo(idToken:String,accessToken:String, complete:@escaping(_ isNewUser:Bool?)->Void) {
         
         func saveToken(email:String) {

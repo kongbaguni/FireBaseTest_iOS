@@ -211,7 +211,7 @@ class MyProfileViewController: UITableViewController {
                 "id" : userinfo.id,
                 "name" : nameTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) ?? "",
                 "introduce" : introduceTextView.text.trimmingCharacters(in: CharacterSet(charactersIn: " ")),
-                "isDeleteProfileImage" : profileImageDeleteMode == .delete,
+                "isDeleteProfileImage" : (profileImageDeleteMode == .delete || userinfo.profileImageURLgoogle.isEmpty == true && profileImageUrl == nil),
                 "distanceForSearch" : selectSearchDistance,
                 "isAnonymousInventoryReport" : anonymousInventoryReportTitleSwitch.isOn,
                 "updateTimeIntervalSince1970" : Date().timeIntervalSince1970,

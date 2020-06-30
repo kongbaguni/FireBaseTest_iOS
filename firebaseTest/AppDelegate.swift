@@ -146,15 +146,33 @@ extension AppDelegate : GIDSignInDelegate {
                     UserInfo.getUserInfo(id: id) { (isSucess) in
                         if isSucess {
                             let realm = try! Realm()
+                            var user = realm.object(ofType: UserInfo.self, forPrimaryKey: id)
                             realm.beginWrite()
-                            realm.create(UserInfo.self, value: [
+                            var data:[String:Any] = [
                                 "email": id,
-                                "idToken":authentication.idToken,
-                                "accessToken":authentication.accessToken], update: .modified)
-                            try! realm.commitWrite()
+                                "idToken":authentication.idToken ?? "",
+                                "accessToken":authentication.accessToken ?? ""
+                            ]
                             
-                            AdminOptions.shared.getData {
-                                UIApplication.shared.rootViewController  = MainTabBarController.viewController
+                            var data2:[String:Any] = [
+                                "email": id,
+                            ]
+
+                            if (user?.profileImageURLgoogle.isEmpty ?? false) == true {
+                                if let url = authResult?.pictureURL {
+                                    data["isDeleteProfileImage"] = user?.profileImageURL == nil
+                                    data["profileImageURLgoogle"] = url
+                                    
+                                    data2["isDeleteProfileImage"] = user?.profileImageURL == nil
+                                    data2["profileImageURLgoogle"] = url
+                                }
+                            }
+                            user = realm.create(UserInfo.self, value: data, update: .modified)
+                            try! realm.commitWrite()
+                            user?.update(data: data2) { (sucess) in
+                                AdminOptions.shared.getData {
+                                    UIApplication.shared.rootViewController  = MainTabBarController.viewController
+                                }
                             }
                         } else {
                             let vc = TermViewController.viewController
