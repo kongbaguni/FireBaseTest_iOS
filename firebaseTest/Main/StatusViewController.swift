@@ -161,7 +161,7 @@ class StatusViewController: UIViewController {
             if userId == "guest" {
                 nameLabel.text = "guest".localized
             } else {
-                nameLabel.text = ""
+                nameLabel.text = userId?.components(separatedBy: "@").first
             }
             pointLabel.text = ""
             levelLabel.text = ""

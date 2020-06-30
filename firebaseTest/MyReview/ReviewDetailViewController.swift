@@ -163,7 +163,7 @@ class ReviewDetailViewController: UITableViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "profile", for: indexPath) as! ReviewDetailProfileTableViewCell
             cell.profileImageView.kf.setImage(with: review?.creator?.profileImageURL, placeholder: UIImage.placeHolder_profile)
-            cell.nameLabel.text = review?.creator?.name
+            cell.nameLabel.text = review?.creator?.name ?? review?.creatorId.components(separatedBy: "@").first
             cell.dateLabel.text = review?.regDt.simpleFormatStringValue
             return cell
         case 1:
@@ -220,7 +220,7 @@ class ReviewDetailViewController: UITableViewController {
                 let like = review?.likeList[indexPath.row]
                 let cell = tableView.dequeueReusableCell(withIdentifier: "profile", for: indexPath) as! ReviewDetailProfileTableViewCell
                 cell.profileImageView.kf.setImage(with: like?.creator?.profileImageURL, placeholder: UIImage.placeHolder_profile)
-                cell.nameLabel.text = like?.creator?.name
+                cell.nameLabel.text = like?.creator?.name ?? like?.creatorId.components(separatedBy: "@").first
                 cell.dateLabel.text = like?.regDt?.simpleFormatStringValue
                 return cell
             } else {

@@ -56,7 +56,7 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
     
     fileprivate func setData() {
         if isLike == false {
-            nameLabel.text = userId
+            nameLabel.text = userId?.components(separatedBy: "@").first
             if let info = userInfo {
                 profileImageView.kf.setImage(with: info.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
                 nameLabel.text = info.name
@@ -67,7 +67,7 @@ class TalkDetailUserInfoTableViewCell: UITableViewCell {
         if let like = likeModel {
             
             profileImageView.kf.setImage(with: like.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
-            nameLabel.text = like.creator?.name ?? like.creatorId
+            nameLabel.text = like.creator?.name ?? like.creatorId.components(separatedBy: "@").first
             introduceLabel.text = Date(timeIntervalSince1970: like.regTimeIntervalSince1970).relativeTimeStringValue
         }
     }    

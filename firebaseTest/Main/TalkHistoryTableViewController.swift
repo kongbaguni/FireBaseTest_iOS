@@ -99,6 +99,20 @@ class TalkHistoryTableViewController: UITableViewController {
         if sender != self.refreshControl {
             loading.show(viewController: self)
         }
+        
+        if userInfo == nil {
+            if let id = userId {
+                UserInfo.getUserInfo(id: id) { [weak self](sucess) in
+                    self?.loading.hide()
+                    sender.endRefreshing()
+                    if sucess {
+                        self?.onRefreshControll(sender)
+                    }
+                }
+            }
+            return
+        }
+        
         userInfo?.getTalkList(complete: { [weak self] (sucess) in
             sender.endRefreshing()
             self?.loading.hide()
@@ -363,7 +377,7 @@ class TalHistoryUserProfileTableViewCell : UITableViewCell {
     
     func setData() {
         profileImageView.kf.setImage(with: user?.profileImageURL, placeholder: UIImage.placeHolder_profile)
-        nameLabel.text = user?.name
+        nameLabel.text = user?.name ?? userId?.components(separatedBy: "@").first
         introLabel.text = user?.introduce
         emailButton.setTitle(user?.email, for: .normal)
     }

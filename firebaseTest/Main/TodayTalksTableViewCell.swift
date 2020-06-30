@@ -97,7 +97,7 @@ class TodayTalksTableViewCell: UITableViewCell {
         likeBtn.setTitle(String(format: format.localized, data.likes.count.decimalForamtString), for: .normal)
         likeBtn.setTitleColor(data.isLike ? .autoColor_bold_text_color : .autoColor_text_color, for: .normal)
         likeBtn.setTitleColor(.autoColor_weak_text_color, for: .disabled)
-        nameLabel.text = data.creator?.name ?? data.creatorId
+        nameLabel.text = data.creator?.name ?? data.creatorId.components(separatedBy: "@").first
         self.porfileImageView.kf.setImage(with: data.creator?.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
 
         switch reuseIdentifier {
