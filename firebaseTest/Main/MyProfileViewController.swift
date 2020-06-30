@@ -16,8 +16,12 @@ import RealmSwift
 import RxCocoa
 import RxSwift
 import StoreKit
+import FirebaseAuth
 
 class MyProfileViewController: UITableViewController {
+
+    var authDataResult:AuthDataResult? = nil
+    
     class var viewController : MyProfileViewController {
         if #available(iOS 13.0, *) {
             return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "myProfile") as! MyProfileViewController
@@ -139,8 +143,13 @@ class MyProfileViewController: UITableViewController {
     }
     
     private func loadData() {
+        if let data = authDataResult {
+            self.nameTextField.text = data.name
+        }
         if let userInfo = UserInfo.info {
-            self.nameTextField.text = userInfo.name
+            if userInfo.name.isEmpty == false {
+                self.nameTextField.text = userInfo.name
+            }
             self.introduceTextView.text = userInfo.introduce
             self.profileImageView.kf.setImage(with: userInfo.profileImageURL, placeholder: #imageLiteral(resourceName: "profile"))
             self.selectSearchDistance = userInfo.distanceForSearch
@@ -297,6 +306,15 @@ class MyProfileViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 2 {
+            if authDataResult != nil {
+                return 0
+            }
+        }
+        return super.tableView(tableView, numberOfRowsInSection: section)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

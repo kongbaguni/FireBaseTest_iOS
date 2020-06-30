@@ -12,7 +12,7 @@ import RealmSwift
 
 extension AuthDataResult {
     var name:String? {
-        return additionalUserInfo?.profile?["name"] as? String
+        return additionalUserInfo?.profile?["name"] as? String ?? email?.components(separatedBy: "@").first
     }
     var email:String? {
         return additionalUserInfo?.profile?["email"] as? String
@@ -31,7 +31,7 @@ extension AuthDataResult {
         }
         if let userInfo = self.additionalUserInfo,
             let profile = userInfo.profile {
-            let name = profile["name"] as? String ?? ""
+            let name = self.name ?? ""
             let profileUrl = profile["picture"] as? String  ?? ""
             UserDefaults.standard.set(profileUrl, forKey: "profileTemp")
             if let email = profile["email"] as? String {

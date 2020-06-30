@@ -26,3 +26,7 @@ function makeIndex() {
 $(document).ready(function(){
     makeIndex();
 })
+
+function changeMode(name) {
+    $("body").attr("class",name)
+}

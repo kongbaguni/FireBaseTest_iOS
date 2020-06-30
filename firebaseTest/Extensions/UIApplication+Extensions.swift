@@ -8,7 +8,7 @@
 
 import UIKit
 extension UIApplication {
-    var isDarkMode:Bool {
+    var isDarkMode:Bool {        
         if #available(iOS 12.0, *) {
             return windows.first?.rootViewController?.traitCollection.userInterfaceStyle == .dark
         }

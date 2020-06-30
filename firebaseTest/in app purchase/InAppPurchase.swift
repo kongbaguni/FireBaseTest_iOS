@@ -12,6 +12,17 @@ import RealmSwift
 struct InAppPurchase {
     static let productIdSet:Set<String> = ["ad_point2x","ad_point5x","ad_point10x"]
     
+    static let title:[String:String] = [
+        "ad_point2x":"AD 포인트 2배",
+        "ad_point5x":"AD 포인트 5배",
+        "ad_point10x":"AD 포인트 10배"
+    ]
+    static let desc:[String:String] = [
+        "ad_point2x":"1달 동안 광고 시청후 받는 보상포인트가 2배가 됩니다.",
+        "ad_point5x":"1달 동안 광고 시청후 받는 보상포인트가 5배가 됩니다.",
+        "ad_point10x":"1달 동안 광고 시청후 받는 보상포인트가 10배가 됩니다."
+    ]
+    
     /** 인앱 결재 제품 정보 얻어오기*/
     static func getProductInfo(force:Bool = false, complete:@escaping()->Void) {
         if InAppPurchaseModel.isEmpty == true || force {

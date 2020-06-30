@@ -93,6 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         AdminOptions.shared.getData {
                             let vc = MyProfileViewController.viewController
                             vc.hideLeaveCell = true
+                            vc.authDataResult = authResult
                             UIApplication.shared.rootViewController = UINavigationController(rootViewController:vc)
                         }
                     } else {

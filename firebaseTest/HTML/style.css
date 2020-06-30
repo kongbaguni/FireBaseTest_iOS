@@ -1,7 +1,16 @@
-html {
+body {
+    background:#fff;
+    color:#000
+}
+body a {
+    color:#963;
+}
+
+body.dark {
     background:#000;
     color:#fff;
 }
-a {
-    color:#963;
+body.dark a {
+    color:#369;
 }
+

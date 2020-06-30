@@ -41,11 +41,11 @@ extension InAppPurchaseModel {
     static func make(result:RetrieveResults) {
         let realm = try! Realm()
         realm.beginWrite()
-        for product in result.retrievedProducts {
+        for product in result.retrievedProducts {            
             let data:[String:Any] = [
                 "id": product.productIdentifier,
-                "title" : product.localizedTitle,
-                "desc" : product.localizedDescription,
+                "title" : product.localizedTitle.isEmpty ? (InAppPurchase.title[product.productIdentifier] ?? "") : product.localizedTitle,
+                "desc" : product.localizedDescription.isEmpty ? (InAppPurchase.desc[product.productIdentifier] ?? "") : product.localizedDescription,
                 "price" : product.price.floatValue,
                 "priceLocaleId" : product.priceLocale.identifier,
             ]

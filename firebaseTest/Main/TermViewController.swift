@@ -39,6 +39,11 @@ class TermViewController: UIViewController {
             return
         }
         
+        for view in [webview1, webview2] {
+            view?.navigationDelegate = self
+            view?.alpha = 0
+        }
+        
         webview1.load(URLRequest(url: url1))
         webview2.load(URLRequest(url: url2))
         for btn in [agreeBtn1, agreeBtn2] {
@@ -62,6 +67,21 @@ class TermViewController: UIViewController {
         }.disposed(by: disposeBag)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        changeDisplyStyleWebview()
+    }
+    
+    func changeDisplyStyleWebview() {
+        for view in [webview1, webview2] {
+            view?.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5)
+            
+            view?.evaluateJavaScript("changeMode('\(UIApplication.shared.isDarkMode ? "dark" : "light")')", completionHandler: { (_, error) in
+                
+            })
+        }
+    }
+    
     func check() {
         if agreeBtn1.isSelected == true && agreeBtn2.isSelected == true {
             gotoProfile()
@@ -69,13 +89,24 @@ class TermViewController: UIViewController {
     }
     
     func gotoProfile() {
-        authResult?.saveUserInfo(idToken: idTokenString, accessToken: accessToken) { _ in
+        print(authResult?.name ?? "이름 없음")
+        authResult?.saveUserInfo(idToken: idTokenString, accessToken: accessToken) { [weak self] _ in
             StoreModel.deleteAll()
             AdminOptions.shared.getData {
                 let vc = MyProfileViewController.viewController
                 vc.hideLeaveCell = true
+                vc.authDataResult = self?.authResult
                 UIApplication.shared.rootViewController = UINavigationController(rootViewController: vc)
             }
+        }
+    }
+}
+
+extension TermViewController : WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        changeDisplyStyleWebview()
+        UIView.animate(withDuration: 0.25) {
+            webView.alpha = 1
         }
     }
 }
