@@ -20,7 +20,9 @@ extension Notification.Name {
 /** 포인트 사용. 경험치 축적. 게임 관리 등을 위한 클래스*/
 class GameManager {
     static let shared = GameManager()
-    let info = UserInfo.info!
+    var info:UserInfo {
+        return UserInfo.info!
+    }
     /** 포인트 사용하기*/
     func usePoint(point:Int, exp:Int? = nil, complete:@escaping(_ sucess:Bool)->Void) {
         let newExp = self.info.exp + (exp ?? point)
