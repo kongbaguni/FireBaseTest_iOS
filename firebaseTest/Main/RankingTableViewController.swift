@@ -74,8 +74,8 @@ class RankingTableViewController: UITableViewController {
             rankingTypePikcer.selectRow(0, inComponent: 0, animated: false)
             rankingType = rankingTypes[0]
         }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
+
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
     }
     
@@ -115,37 +115,7 @@ class RankingTableViewController: UITableViewController {
     }
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
-        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
-            self.performSegue(withIdentifier: "showMyProfile", sender: nil)
-        }))
-        
-        if Consts.isAdmin {
-            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .default, handler: { (action) in
-                let vc = AdminViewController.viewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
-                let vc = ReportListViewController.viewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-        }
-        
-        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
-                return
-            }
-            
-            UserInfo.info?.logout()
-        }))
-        
-        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-        vc.popoverPresentationController?.barButtonItem = sender
-        present(vc, animated: true, completion: nil)
+        navigationController?.pushViewController(MyMenuViewController.viewController, animated: true)
     }
 }
 

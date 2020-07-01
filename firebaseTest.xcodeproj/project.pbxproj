@@ -114,6 +114,7 @@
 		C3D5A2DE24AC14EE00D1FE4E /* MyMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3D5A2DD24AC14EE00D1FE4E /* MyMenu.storyboard */; };
 		C3D5A2E024AC2C7500D1FE4E /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D5A2DF24AC2C7500D1FE4E /* AppInfoViewController.swift */; };
 		C3D5A2E424AC465900D1FE4E /* openSourceLicense.html in Resources */ = {isa = PBXBuildFile; fileRef = C3D5A2E324AC465900D1FE4E /* openSourceLicense.html */; };
+		C3D5A2E724AC707800D1FE4E /* WriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D5A2E624AC707800D1FE4E /* WriteButton.swift */; };
 		C3DC5B842412172D00A028E0 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */; };
 		C3DC5B882412181200A028E0 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */; };
 		C3DC5B8A24121A3100A028E0 /* TodaysTalksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC5B8924121A3100A028E0 /* TodaysTalksTableViewController.swift */; };
@@ -277,6 +278,7 @@
 		C3D5A2DD24AC14EE00D1FE4E /* MyMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyMenu.storyboard; sourceTree = "<group>"; };
 		C3D5A2DF24AC2C7500D1FE4E /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 		C3D5A2E324AC465900D1FE4E /* openSourceLicense.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = openSourceLicense.html; sourceTree = "<group>"; };
+		C3D5A2E624AC707800D1FE4E /* WriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteButton.swift; sourceTree = "<group>"; };
 		C3DC5B832412172D00A028E0 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		C3DC5B872412181200A028E0 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		C3DC5B8924121A3100A028E0 /* TodaysTalksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysTalksTableViewController.swift; sourceTree = "<group>"; };
@@ -496,8 +498,9 @@
 				C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */,
 				C3D055FC249C730400974971 /* in app purchase */,
 				C346B0522491F1AC0049DE7E /* Colors.xcassets */,
-				C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */,
+				C3D5A2E524AC704D00D1FE4E /* UI */,
 				C3BDFC0C240CD7A1006AE2B3 /* Info.plist */,
+				C3BDFC09240CD7A1006AE2B3 /* LaunchScreen.storyboard */,
 				C3D055F2249B1DA900974971 /* GoogleService-Info.plist */,
 				C3CE9859244FCA4600D8BADF /* InfoPlist.strings */,
 				C37509F32456CE9B0092FD78 /* Localizable.strings */,
@@ -523,6 +526,14 @@
 				C3D5A2DF24AC2C7500D1FE4E /* AppInfoViewController.swift */,
 			);
 			path = MyMenu;
+			sourceTree = "<group>";
+		};
+		C3D5A2E524AC704D00D1FE4E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C3D5A2E624AC707800D1FE4E /* WriteButton.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		C3DC5B8D241221EE00A028E0 /* Utills */ = {
@@ -816,6 +827,7 @@
 				C37EE3DB248F73C80093A801 /* SigninWithApple.swift in Sources */,
 				C3EF51C6240CEABE00A4C29E /* UserDefault+Extensions.swift in Sources */,
 				C3DC5B95241243D400A028E0 /* Consts.swift in Sources */,
+				C3D5A2E724AC707800D1FE4E /* WriteButton.swift in Sources */,
 				C39E499E2429E20A0094E16B /* Exp.swift in Sources */,
 				C3D5A2E024AC2C7500D1FE4E /* AppInfoViewController.swift in Sources */,
 				C370C9FD24176C6B00026E86 /* UserListTableViewController.swift in Sources */,

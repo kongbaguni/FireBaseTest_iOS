@@ -763,7 +763,7 @@
         <!--Web View Controller-->
         <scene sceneID="XsF-wc-cZ1">
             <objects>
-                <viewController storyboardIdentifier="webview" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VA3-qo-83O" customClass="WebViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webview" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VA3-qo-83O" customClass="WebViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f56-Yf-GUF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -816,7 +816,7 @@
         <!--Term View Controller-->
         <scene sceneID="tr5-It-VrR">
             <objects>
-                <viewController storyboardIdentifier="term" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RBx-Fi-d3P" customClass="TermViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="term" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RBx-Fi-d3P" customClass="TermViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ajh-l2-FC6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1072,7 +1072,7 @@
         <!--Store Waitting Table View Controller-->
         <scene sceneID="TP1-iN-bbP">
             <objects>
-                <tableViewController storyboardIdentifier="storeWaitting" id="B37-qL-9rJ" customClass="StoreWaittingTableViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="storeWaitting" hidesBottomBarWhenPushed="YES" id="B37-qL-9rJ" customClass="StoreWaittingTableViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="O79-Wo-Lvq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1238,7 +1238,7 @@
         <!--Stores Table View Controller-->
         <scene sceneID="DAz-lA-KQC">
             <objects>
-                <tableViewController storyboardIdentifier="maskStock" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9fG-rJ-N9F" customClass="StoresTableViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="maskStock" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9fG-rJ-N9F" customClass="StoresTableViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kHN-cX-72t">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1505,7 +1505,7 @@
         <!--Store Stock Log Table View Controller-->
         <scene sceneID="TGQ-mz-Sfh">
             <objects>
-                <tableViewController id="Bgj-rV-ji4" customClass="StoreStockLogTableViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="Bgj-rV-ji4" customClass="StoreStockLogTableViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dGq-5C-93K">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2990,7 +2990,7 @@
         <!--Talk Detail Table View Controller-->
         <scene sceneID="gdL-I3-Sdp">
             <objects>
-                <tableViewController storyboardIdentifier="talkDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rzk-Ow-uys" customClass="TalkDetailTableViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="talkDetail" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rzk-Ow-uys" customClass="TalkDetailTableViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hT5-OP-vTp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3758,7 +3758,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
-        <segue reference="hYy-LE-fJh"/>
+        <segue reference="1aU-la-qB8"/>
         <segue reference="tNh-p3-JAq"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -22,6 +22,7 @@ class ReviewsViewController : UITableViewController {
     @IBOutlet var emptyView: UIView!
     @IBOutlet weak var writeReviewBtn: UIButton!
     @IBOutlet weak var emptyViewLabel: UILabel!
+    @IBOutlet weak var writeBtn:UIButton!
     
     let disposeBag = DisposeBag()
     
@@ -80,14 +81,17 @@ class ReviewsViewController : UITableViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        writeBtn.setTitle("write review".localized, for: .normal)
+        writeBtn.rx.tap.bind { [weak self](_) in
+            let vc = MyReviewWriteController.viewController
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }.disposed(by: disposeBag)
+        
         title = "review".localized
         searchBar.placeholder = "search review".localized
-        
-//        tableView.estimatedRowHeight = UITableView.automaticDimension
-//        tableView.rowHeight = UITableView.automaticDimension
-        
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupRightBarButtonItem(_:)))
+                
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(self.onTouchupRightBarButtonItem(_:)))
         NotificationCenter.default.addObserver(forName: .reviewWriteNotification, object: nil, queue: nil) { [weak self] (notification) in
             self?.tableView.reloadData()
         }
@@ -185,38 +189,8 @@ class ReviewsViewController : UITableViewController {
         }
     }
     
-    @objc func onTouchupRightBarButtonItem(_ sender:UIBarButtonItem) {
-        let mvc = MyMenuViewController.viewController
-//        present(mvc, animated: true, completion: nil)
-        navigationController?.pushViewController(mvc, animated: true)
-//        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        vc.popoverPresentationController?.barButtonItem = sender
-//        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (_) in
-//            let vc = MyProfileViewController.viewController
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }))
-//        
-//        if Consts.isAdmin {
-//            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .destructive, handler: { (action) in
-//                let vc = AdminViewController.viewController
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }))
-//            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
-//                let vc = ReportListViewController.viewController
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }))
-//        }
-//        vc.addAction(UIAlertAction(title: "write review".localized, style: .default, handler: { (_) in
-//            let vc = MyReviewWriteController.viewController
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }))
-//        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (_) in
-//            UserInfo.info?.logout()
-//        }))
-//        
-//        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-//        present(vc, animated: true, completion: nil)
-        
+    @objc func onTouchupRightBarButtonItem(_ sender:UIBarButtonItem) {        
+        navigationController?.pushViewController(MyMenuViewController.viewController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

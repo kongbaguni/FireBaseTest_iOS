@@ -374,9 +374,24 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Ylz-v8-JuT">
-                            <rect key="frame" x="0.0" y="1226.5" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="1186.5" width="414" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWg-UL-X8V">
+                                    <rect key="frame" x="10" y="0.0" width="65" height="40"/>
+                                    <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="write" image="write_n">
+                                        <color key="titleColor" name="textColor"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="nbr-hi-srV" firstAttribute="bottom" secondItem="WWg-UL-X8V" secondAttribute="bottom" id="1kf-12-uiz"/>
+                                <constraint firstItem="nbr-hi-srV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WWg-UL-X8V" secondAttribute="trailing" id="7z8-v2-oEU"/>
+                                <constraint firstItem="WWg-UL-X8V" firstAttribute="leading" secondItem="nbr-hi-srV" secondAttribute="leading" constant="10" id="JDw-67-5iM"/>
+                                <constraint firstItem="WWg-UL-X8V" firstAttribute="top" secondItem="nbr-hi-srV" secondAttribute="top" id="m8v-t0-ww5"/>
+                            </constraints>
                             <viewLayoutGuide key="safeArea" id="nbr-hi-srV"/>
                         </view>
                         <prototypes>
@@ -560,6 +575,7 @@
                         <outlet property="emptyView" destination="UVh-kU-jAJ" id="YV4-fv-auc"/>
                         <outlet property="emptyViewLabel" destination="GcC-NM-hOs" id="mfy-aL-rev"/>
                         <outlet property="searchBar" destination="7eE-4A-jw5" id="p9H-50-9R9"/>
+                        <outlet property="writeBtn" destination="WWg-UL-X8V" id="KcB-gw-1Mr"/>
                         <outlet property="writeReviewBtn" destination="r21-Uz-7BQ" id="6YL-PU-XPN"/>
                         <segue destination="BTg-ap-Oce" kind="show" identifier="showReviewDetail" id="3P5-Wm-ViT"/>
                     </connections>
@@ -1297,6 +1313,7 @@
         <image name="closeBtn" width="275.5" height="258"/>
         <image name="placeholder" width="512" height="512"/>
         <image name="profile" width="300" height="300"/>
+        <image name="write_n" width="25" height="25"/>
         <namedColor name="textColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

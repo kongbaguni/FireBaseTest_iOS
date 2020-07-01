@@ -87,7 +87,7 @@ class TodaysTalksTableViewController: UITableViewController {
             tableView.addSubview(emptyView)
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(self.onTouchupMenuBtn(_:)))
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControl(_:)), for: .valueChanged)
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
@@ -295,53 +295,7 @@ class TodaysTalksTableViewController: UITableViewController {
     }
     
     @objc func onTouchupMenuBtn(_ sender:UIBarButtonItem) {
-        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        if Consts.isAdmin {
-            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .destructive, handler: { (action) in
-                let vc = AdminViewController.viewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-            
-            vc.addAction(UIAlertAction(title: "write notice".localized, style: .destructive, handler: { (action) in
-                let vc = PostNoticeViewController.viewController                
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-            
-            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
-                let vc = ReportListViewController.viewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-
-        }
-        
-        vc.addAction(UIAlertAction(title: "view notices".localized, style: .default, handler: { (action) in
-            self.performSegue(withIdentifier: "showNoticeList", sender: nil)
-        }))
-        
-        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (action) in
-            self.performSegue(withIdentifier: "showMyProfile", sender: nil)
-        }))
-        
-        vc.addAction(UIAlertAction(title: "write talk".localized, style: .default, handler: { (action) in
-            self.isNeedScrollToBottomWhenRefresh = true
-            self.performSegue(withIdentifier: "showTalk", sender: nil)
-        }))
-        
-        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (action) in
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
-                return
-            }
-            
-            UserInfo.info?.logout()
-        }))
-        
-        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-        vc.popoverPresentationController?.barButtonItem = sender
-        present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(MyMenuViewController.viewController, animated: true)
     }
     
     @IBAction func onTouchupWriteBtn(_ sender: UIButton) {
