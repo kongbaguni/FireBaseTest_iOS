@@ -186,33 +186,36 @@ class ReviewsViewController : UITableViewController {
     }
     
     @objc func onTouchupRightBarButtonItem(_ sender:UIBarButtonItem) {
-        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        vc.popoverPresentationController?.barButtonItem = sender
-        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (_) in
-            let vc = MyProfileViewController.viewController
-            self.navigationController?.pushViewController(vc, animated: true)
-        }))
-        
-        if Consts.isAdmin {
-            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .destructive, handler: { (action) in
-                let vc = AdminViewController.viewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
-                let vc = ReportListViewController.viewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-        }
-        vc.addAction(UIAlertAction(title: "write review".localized, style: .default, handler: { (_) in
-            let vc = MyReviewWriteController.viewController
-            self.navigationController?.pushViewController(vc, animated: true)
-        }))
-        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (_) in
-            UserInfo.info?.logout()
-        }))
-        
-        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-        present(vc, animated: true, completion: nil)
+        let mvc = MyMenuViewController.viewController
+//        present(mvc, animated: true, completion: nil)
+        navigationController?.pushViewController(mvc, animated: true)
+//        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        vc.popoverPresentationController?.barButtonItem = sender
+//        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (_) in
+//            let vc = MyProfileViewController.viewController
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }))
+//        
+//        if Consts.isAdmin {
+//            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .destructive, handler: { (action) in
+//                let vc = AdminViewController.viewController
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }))
+//            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
+//                let vc = ReportListViewController.viewController
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }))
+//        }
+//        vc.addAction(UIAlertAction(title: "write review".localized, style: .default, handler: { (_) in
+//            let vc = MyReviewWriteController.viewController
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }))
+//        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (_) in
+//            UserInfo.info?.logout()
+//        }))
+//        
+//        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+//        present(vc, animated: true, completion: nil)
         
     }
     

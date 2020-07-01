@@ -17,6 +17,9 @@ import RxCocoa
 import RxSwift
 import StoreKit
 import FirebaseAuth
+extension Notification.Name {
+    static let profileUpdateNotification = Notification.Name("profileUPdateNotification_observer")
+}
 
 class MyProfileViewController: UITableViewController {
 
@@ -234,6 +237,7 @@ class MyProfileViewController: UITableViewController {
             
             userinfo.update(data: data) { (sucess) in
                 complete(sucess)
+                NotificationCenter.default.post(name: .profileUpdateNotification, object: nil)
             }
         }
         

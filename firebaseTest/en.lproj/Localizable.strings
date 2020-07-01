@@ -284,3 +284,9 @@
 "agree msg" = "agree";
 "agree all msg" = "all agree";
 "join fail msg" = "Member registration failed. Please try again in a few minutes.";
+"appInfo" = "about app";
+
+"appVersion" = "App version";
+"term" = "Terms of Use";
+"privacyPolicy" = "privacy Policy";
+"openSourceLicense" = "open source license";
