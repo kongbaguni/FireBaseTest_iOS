@@ -13,12 +13,14 @@ class AppInfoViewController: UITableViewController {
      이용약관
      개인정보 처리방침
      오픈소스 라이센스
+     EULA
      */
     
     enum CellType: String, CaseIterable {
         case appVersion = "appVersion"
         case term = "term"
         case privacyPolicy = "privacyPolicy"
+        case EULA = "EULA"
         case openSourceLicense = "openSourceLicense"
     }
     
@@ -68,6 +70,8 @@ class AppInfoViewController: UITableViewController {
             fileName = "policy"
         case .openSourceLicense:
             fileName = "openSourceLicense"
+        case .EULA:
+            fileName = "EULA"
         default:
             break
         }
