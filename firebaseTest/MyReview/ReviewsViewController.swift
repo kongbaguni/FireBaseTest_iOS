@@ -106,6 +106,7 @@ class ReviewsViewController : UITableViewController {
         LocationManager.shared.requestAuth(complete: { (status) in
         }) { [weak self](location) in
             self?.tableView.reloadData()
+            self?.refereshEmptyView()
         }
                             
         searchBar
@@ -136,16 +137,17 @@ class ReviewsViewController : UITableViewController {
     func refereshEmptyView() {
         emptyViewLabel.text = "empty review".localized
         writeReviewBtn.setTitle("write review".localized, for: .normal)
-
         let a = newReviews?.count ?? 0
         let b = reviews?.count ?? 0
-        emptyView.isHidden = a + b > 0
-        if emptyView.isHidden {
-            emptyView.removeFromSuperview()
-        } else {
-            tableView.addSubview(emptyView)
+        DispatchQueue.main.async {
+            self.emptyView.isHidden = a + b > 0
+            if self.emptyView.isHidden {
+                self.emptyView.removeFromSuperview()
+            } else {
+                self.tableView.addSubview(self.emptyView)
+            }
+            self.emptyView.setEmptyViewFrame()
         }
-        emptyView.setEmptyViewFrame()
     }
     
     override func viewDidLayoutSubviews() {
