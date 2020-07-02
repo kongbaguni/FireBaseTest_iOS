@@ -154,7 +154,6 @@ extension ReviewModel {
         if editList.count > 0 {
             photoList = editList.sorted(byKeyPath: "modifiedTimeIntervalSince1970").last!.photos
         }
-        print("photoURL count \(photoList.count)")
         for photo in photoList {
             if let url = photo.thumbURL {
                 result.append(url)
