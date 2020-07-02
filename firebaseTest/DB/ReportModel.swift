@@ -84,6 +84,28 @@ extension ReportModel {
         }
     }
     
+    var targetProfileUrl:URL? {
+        switch targetType {
+        case .user:
+            return (target as? UserInfo)?.profileImageURL
+        case .talk:
+            return (target as? TalkModel)?.creator?.profileImageURL
+        case .review:
+            return (target as? ReviewModel)?.creator?.profileImageURL
+        }
+    }
+    
+    var targetCreatorId:String? {
+        switch targetType {
+        case .user:
+            return (target as? UserInfo)?.id
+        case .talk:
+            return (target as? TalkModel)?.creator?.id
+        case .review:
+            return (target as? ReviewModel)?.creator?.id
+        }
+    }
+    
     /** 신고내역 간략히*/
     var desc: String {
         var text = ""

@@ -346,7 +346,7 @@ class TodaysTalksTableViewController: UITableViewController {
                 return cell
             }
             
-            if data.imageURL != nil {
+            if data.imageURL != nil && data.isDeletedByAdmin == false {
                 let cellId = data.creatorId == UserInfo.info?.id ? "myImageCell" : "imageCell"
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodayTalksTableImageViewCell
                 cell.talkId = list[indexPath.row].id

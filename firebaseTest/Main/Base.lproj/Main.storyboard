@@ -2616,6 +2616,8 @@
                                             <constraint firstAttribute="width" constant="30" id="nq2-5f-lrQ"/>
                                             <constraint firstAttribute="height" constant="30" id="sWn-3P-kkN"/>
                                         </constraints>
+                                        <color key="tintColor" name="textColor"/>
+                                        <state key="normal" image="closeBtn"/>
                                         <connections>
                                             <action selector="onTouchupCloseBtn:" destination="IV1-7L-IZl" eventType="touchUpInside" id="gb2-aA-Lae"/>
                                         </connections>
@@ -3319,8 +3321,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mL7-0o-EDb">
-                                        <rect key="frame" x="265" y="5" width="30" height="34"/>
-                                        <state key="normal">
+                                        <rect key="frame" x="270" y="5" width="25" height="23.5"/>
+                                        <color key="tintColor" name="textColor"/>
+                                        <state key="normal" image="closeBtn">
                                             <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
@@ -3494,7 +3497,8 @@
                                             <constraint firstAttribute="width" constant="30" id="QVj-6c-40W"/>
                                             <constraint firstAttribute="height" constant="30" id="wnz-aA-r8L"/>
                                         </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" name="textColor"/>
+                                        <state key="normal" image="closeBtn"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miG-Wg-Pas">
                                         <rect key="frame" x="10" y="14.5" width="42" height="21"/>
@@ -3748,6 +3752,7 @@
         <image name="bubble_light" width="37.5" height="52.5"/>
         <image name="checkbox_n" width="11.5" height="10"/>
         <image name="checkbox_s" width="11.5" height="10"/>
+        <image name="closeBtn" width="25" height="23.5"/>
         <image name="location" width="195.66667175292969" height="284.66665649414062"/>
         <image name="myBubble_light" width="37.5" height="52.5"/>
         <image name="narui" width="1096" height="485.5"/>

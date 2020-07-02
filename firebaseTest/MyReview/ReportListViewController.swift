@@ -85,16 +85,19 @@ class ReportListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ReportItemTableViewCell
         switch indexPath.section {
         case 3:
             let info = blockedUsers[indexPath.row]
-            cell.textLabel?.text = info.email
-            cell.detailTextLabel?.text = info.name
+            cell.nameLabel.text = info.email
+            cell.detailLabel.text = info.name
+            cell.profileImageView.kf.setImage(with: info.profileImageURL, placeholder: UIImage.placeHolder_profile)
         default:
-            if let info = getInfo(indexPath: indexPath) {
-                cell.textLabel?.text = info.reporter?.name
-                cell.detailTextLabel?.text = info.desc
+            if let info = getInfo(indexPath: indexPath) {                
+                cell.profileImageView.kf.setImage(with:
+                    info.targetProfileUrl, placeholder: UIImage.placeHolder_profile)
+                cell.nameLabel.text = info.targetCreatorId
+                cell.detailLabel.text = info.desc
             }
         }
         return cell
@@ -153,3 +156,8 @@ class ReportListViewController: UITableViewController {
     
 }
 
+class ReportItemTableViewCell: UITableViewCell {
+    @IBOutlet weak var profileImageView:UIImageView!
+    @IBOutlet weak var nameLabel:UILabel!
+    @IBOutlet weak var detailLabel:UILabel!
+}

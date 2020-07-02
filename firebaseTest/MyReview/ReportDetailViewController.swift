@@ -28,6 +28,27 @@ class ReportDetailViewController: UITableViewController {
         return nil
     }
     
+    private func deleteTarget(complete:@escaping(_ isSucess:Bool)->Void) {
+        if let talk = report?.target as? TalkModel {
+            talk.deleteByAdmin { [weak self](isSucess) in
+                if isSucess {
+                    self?.report?.check(complete: { (isSucess) in
+                        complete(isSucess)
+                    })
+                }
+            }
+        }
+        if let review = report?.target as? ReviewModel {
+            review.deleteByAdmin { [weak self](isSucess) in
+                if isSucess {
+                    self?.report?.check(complete: { (isSucess) in
+                        complete(isSucess)
+                    })
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = report?.desc
@@ -44,31 +65,18 @@ class ReportDetailViewController: UITableViewController {
         deleteBtn.rx.tap.bind { [weak self](_) in
             let ac = UIAlertController(title: nil, message: "삭제합니다", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { (_) in
-                if let talk = self?.report?.target as? TalkModel {
-                    talk.deleteByAdmin { (isSucess) in
-                        if isSucess {
-                            self?.report?.check(complete: { (isSucess) in
-                                self?.navigationController?.popViewController(animated: true)
-                            })
-                        }
+                self?.deleteTarget(complete: { (isSucess) in
+                    if isSucess {
+                        self?.navigationController?.popViewController(animated: true)
                     }
-                }
-                if let review = self?.report?.target as? ReviewModel {
-                    review.deleteByAdmin { (isSucess) in
-                        if isSucess {
-                            self?.report?.check(complete: { (isSucess) in
-                                self?.navigationController?.popViewController(animated: true)
-                            })
-                        }
-                    }
-                }
+                })
             }))
             ac.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
             self?.present(ac, animated: true, completion: nil)
         }.disposed(by: disposeBag)
         
         addBlackListBtn.rx.tap.bind {[weak self](_) in
-            let ac = UIAlertController(title: nil, message: "글쓰기 차단합니다.", preferredStyle: .alert)
+            let ac = UIAlertController(title: nil, message: "삭제후 글쓰기 차단합니다.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { [weak self](_) in
                 var u:UserInfo? = nil
                 if let user = self?.report?.target as? UserInfo {
@@ -80,10 +88,14 @@ class ReportDetailViewController: UITableViewController {
                 if let user = (self?.report?.target as? ReviewModel)?.creator {
                     u = user
                 }
-                u?.blockPostingUser(isBlock: true, complete: { (isSucess) in
+                self?.deleteTarget(complete: { (isSucess) in
                     if isSucess {
-                        self?.report?.check(complete: { (isSucess) in
-                            self?.navigationController?.popViewController(animated: true)
+                        u?.blockPostingUser(isBlock: true, complete: { (isSucess) in
+                            if isSucess {
+                                self?.report?.check(complete: { (isSucess) in
+                                    self?.navigationController?.popViewController(animated: true)
+                                })
+                            }
                         })
                     }
                 })
@@ -110,13 +122,13 @@ class ReportDetailViewController: UITableViewController {
     
     let dataTypes:[[DataType]] = [
         [
-//            .reporterName
+            .reporterName,
             .reporterEmail,
             .reportRegDt,
             .reportReson
         ],
         [
-//            .targetName,
+            .targetName,
             .targetEmail,
             .targetText,
             .targetRegDt
@@ -224,14 +236,39 @@ class ReportDetailViewController: UITableViewController {
         return text
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
-        case 0:
-            return "reporter"
-        case 1:
-            return "target"
+        case 0,1:
+            break
         default:
             return nil
+        }
+        let view = UIView()
+        let imageView = UIImageView(frame: CGRect(x: 15, y: 5, width: 40, height: 40))
+        view.addSubview(imageView)
+        let label = UILabel(frame: CGRect(x: 65, y: 5, width: 200, height: 40))
+        view.addSubview(label)
+        switch section {
+        case 0:
+            imageView.kf.setImage(with: self.report?.reporter?.profileImageURL, placeholder: UIImage.placeHolder_profile)
+            label.text = "reporter"
+        case 1:
+            imageView.kf.setImage(with: self.report?.targetProfileUrl, placeholder: UIImage.placeHolder_profile)
+            label.text = "target"
+        default:
+            break
+        }
+        view.backgroundColor = .autoColor_weak_text_color
+        label.textColor = .autoColor_bg_color
+        return view
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0,1:
+            return 50
+        default:
+            return CGFloat.leastNormalMagnitude
         }
     }
     
