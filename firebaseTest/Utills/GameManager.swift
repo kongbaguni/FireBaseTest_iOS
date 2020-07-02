@@ -19,6 +19,14 @@ extension Notification.Name {
 
 /** 포인트 사용. 경험치 축적. 게임 관리 등을 위한 클래스*/
 class GameManager {
+    struct BonusPoint {
+        let point:Int
+        let bonusMultiple:Int
+        var finalPoint:Int {
+            return point * bonusMultiple
+        }
+    }
+    
     static let shared = GameManager()
     var info:UserInfo {
         return UserInfo.info!
@@ -101,19 +109,23 @@ class GameManager {
         let msg = String(format:"Not enough points.\nCurrent Point: %@".localized, UserInfo.info?.point.decimalForamtString ?? "0")
         let vc = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
         vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
+            if let alert = UIApplication.shared.lastViewController as? UIAlertController {
+                alert.dismiss(animated: false, completion: nil)
+            }
             self.googleAd.showAd(targetViewController: UIApplication.shared.lastViewController!) { (isSucess) in
                 if isSucess {
-                    AdminOptions.shared.getAdRewoedPointFinal { (bonuePoint) in
-                        GameManager.shared.addPoint(point: bonuePoint) { (isSucess) in
-                            if isSucess {
-                                let msg = String(format:"%@ point get!".localized, bonuePoint.decimalForamtString)
-                                Toast.makeToast(message: msg)
+                    let bonusPoint = GameManager.shared.adRewardPointFinal
+                    GameManager.shared.addPoint(point: bonusPoint.finalPoint) { (isSucess) in
+                        if isSucess {
+                            UIApplication.shared.lastViewController?.alertBonusPoint(bonus: bonusPoint) {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                                     adcomplete()
                                 }
                             }
                         }
                     }
+                } else {
+                    Toast.makeToast(message: "The network connection is unstable. Please try again later.".localized)
                 }
             }
         }))
@@ -126,4 +138,25 @@ class GameManager {
         }
         UIApplication.shared.lastViewController!.present(vc, animated: true, completion: nil)
     }
+}
+
+
+extension GameManager {
+    /** 구독 설정에 따라 보너스 포인트 배율 정하기*/
+    fileprivate var adRewordPointMultipleValue:Int {
+        var bonus = 1
+        for id in InAppPurchase.productIdSet {
+            if let model = InAppPurchaseModel.model(productId: id) {
+                if model.isExpire == false {
+                    bonus *= Int.random(in: 3...10)
+                }
+            }
+        }
+        return bonus
+    }
+    
+    /** 보너스 포인트를 곱한 리워드 포인트*/
+    var adRewardPointFinal:BonusPoint {
+        BonusPoint(point: AdminOptions.shared.adRewardPoint, bonusMultiple: adRewordPointMultipleValue)
+    }        
 }

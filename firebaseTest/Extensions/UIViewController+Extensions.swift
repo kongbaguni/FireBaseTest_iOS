@@ -47,4 +47,11 @@ extension UIViewController {
         present(vc, animated: true, completion: nil)
         
     }
+    
+    func alertBonusPoint(bonus:GameManager.BonusPoint, didDismiss:@escaping()->Void) {
+        let vc = RewordPointResultViewController.viewController
+        vc.bonusPoint = bonus
+        vc.didDismissAction = didDismiss
+        present(vc, animated: true, completion: nil)
+    }
 }

@@ -181,19 +181,19 @@ class PostTalkViewController: UITableViewController {
                 vc.addAction(UIAlertAction(title: "Receive points".localized, style: .default, handler: { (_) in
                     self.googleAd.showAd(targetViewController: self) { (isSucess) in
                         if isSucess {
-                            AdminOptions.shared.getAdRewoedPointFinal { (bonusPoint) in
-                                GameManager.shared.addPoint(point: bonusPoint) { (isSucess) in
-                                    if isSucess {
-                                        let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPointFinal.decimalForamtString)
-                                        Toast.makeToast(message: msg)
+                            let bonusPoint = GameManager.shared.adRewardPointFinal
+                            GameManager.shared.addPoint(point: bonusPoint.finalPoint) { [weak self](isSucess) in
+                                if isSucess {
+                                    self?.alertBonusPoint(bonus: bonusPoint) {
                                         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                                            self.onTouchupSaveBtn(sender)
+                                            self?.onTouchupSaveBtn(sender)
                                         }
                                     }
                                 }
                             }
+                            
                         } else {
-                             self.onTouchupSaveBtn(sender)
+                            Toast.makeToast(message: "The network connection is unstable. Please try again later.".localized)
                         }
                     }
                 }))

@@ -110,15 +110,16 @@ class UserInfoDetailViewController: UITableViewController {
         case "point":
             googlead.showAd(targetViewController: self) { (isSucess) in
                 if isSucess {
-                    AdminOptions.shared.getAdRewoedPointFinal { (bonusPoint) in
-                        GameManager.shared.addPoint(point: bonusPoint) { (isSucess) in
-                            if isSucess {
-                                let msg = String(format:"%@ point get!".localized, AdminOptions.shared.adRewardPointFinal.decimalForamtString)
-                                Toast.makeToast(message: msg)
-                                self.loadData()
+                    let bonusPoint = GameManager.shared.adRewardPointFinal
+                    GameManager.shared.addPoint(point: bonusPoint.finalPoint) { [weak self](isSucess) in
+                        if isSucess {
+                            self?.alertBonusPoint(bonus: bonusPoint) {
+                                self?.loadData()
                             }
                         }
                     }
+                } else {
+                    Toast.makeToast(message: "The network connection is unstable. Please try again later.".localized)
                 }
             }
 

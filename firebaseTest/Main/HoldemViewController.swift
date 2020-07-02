@@ -139,6 +139,9 @@ class HoldemViewController : UIViewController {
     
     @IBAction func onTouchupButton(_ sender: UIButton) {
         func bettingPointAlert(didBetting:@escaping(_ bettingPoint:Int)->Void) {
+            if let _ = self.presentingViewController as? UIAlertController {
+                return ;
+            }
             let msg = String(format:"betting point input.\nmy point : %@".localized, (UserInfo.info?.point ?? 0).decimalForamtString )
             let vc = UIAlertController(title: "Porker", message: msg, preferredStyle: .alert)
             var lastBetting = self.bettingPoint > 0 ? self.bettingPoint : AdminOptions.shared.maxBettingPoint / 10

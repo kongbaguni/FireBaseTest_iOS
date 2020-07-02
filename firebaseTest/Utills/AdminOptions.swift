@@ -389,30 +389,4 @@ class AdminOptions {
     }
 }
 
-extension AdminOptions {
-    fileprivate var adRewordPointMultipleValue:Int {
-        var bonus = 1
-        for id in InAppPurchase.productIdSet {
-            if let model = InAppPurchaseModel.model(productId: id) {
-                if model.isExpire == false {
-                    bonus *= Int.random(in: 3...10)
-                }
-            }
-        }
-        return bonus
-    }
-    
-    func getAdRewoedPointFinal(complete:@escaping(_ value:Int)->Void) {
-        if adRewordPointMultipleValue == 1 {
-            InAppPurchase.restorePurchases { (sucess) in
-                complete(self.adRewardPointFinal)
-            }
-        } else {
-            complete(adRewardPointFinal)
-        }
-    }
-    
-    var adRewardPointFinal:Int {
-        return adRewardPoint * adRewordPointMultipleValue
-    }
-}
+
