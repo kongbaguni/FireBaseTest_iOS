@@ -79,7 +79,7 @@ struct InAppPurchase {
         
         if InAppPurchaseModel.isEmpty {
             SwiftyStoreKit.retrieveProductsInfo(productIdSet) { (results) in
-                InAppPurchaseModel.make(result: results)
+                InAppPurchaseModel.make(result: results)                
                 restore()
             }
         } else {

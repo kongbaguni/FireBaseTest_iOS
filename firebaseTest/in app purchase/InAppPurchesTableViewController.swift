@@ -43,7 +43,6 @@ class InAppPurchesTableViewController: UIViewController {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var footerLabel: UILabel!
     let disposebag = DisposeBag()
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         contentView.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5, radius: 10, masksToBounds: true)
@@ -74,8 +73,15 @@ class InAppPurchesTableViewController: UIViewController {
             
         }.disposed(by: disposebag)
         
-        AdminOptions.shared.getAdRewoedPointFinal { [weak self](_) in
-            self?.tableView.reloadData()
+                
+        if products.count == 0 {
+            tableView.alpha = 0
+            loading.show(viewController: self)
+            InAppPurchase.getProductInfo {[weak self] in
+                self?.loading.hide()
+                self?.tableView.alpha = 1
+                self?.tableView.reloadData()
+            }
         }
     }
 }

@@ -68,4 +68,16 @@ extension InAppPurchaseModel {
     static func model(productId:String)->InAppPurchaseModel? {
         return try! Realm().object(ofType: InAppPurchaseModel.self, forPrimaryKey: productId)
     }
+    
+    /** 구독중인가?*/
+    static var isSubscribe:Bool {
+        let list = try! Realm().objects(InAppPurchaseModel.self)
+        for model in list {
+            if model.isExpire == false {
+                return true
+            }
+        }
+        return false
+    }
+    
 }
