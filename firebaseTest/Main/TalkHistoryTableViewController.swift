@@ -174,12 +174,16 @@ class TalkHistoryTableViewController: UITableViewController {
             }
             if let url = data.imageURL {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
+                cell.bubbleImageView.alpha = 1
+                cell.textView.alpha = 1
                 cell.textView.text = data.textForSearch
                 cell.dateLabel.text = data.regDt.simpleFormatStringValue
                 cell.attachImageView.kf.setImage(with: url,placeholder: #imageLiteral(resourceName: "placeholder") )
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TalkHistoryTableViewCell
+                cell.bubbleImageView.alpha = 1
+                cell.textView.alpha = 1
                 cell.textView.text = data.textForSearch
                 cell.dateLabel.text = data.regDt.simpleFormatStringValue
                 return cell
@@ -209,6 +213,8 @@ class TalkHistoryTableViewController: UITableViewController {
             
             if let url = review.photoUrlList.first {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TalkHistoryImageTableViewCell
+                cell.bubbleImageView.alpha = 1
+                cell.textView.alpha = 1
                 cell.textView.text = text
                 cell.attachImageView?.kf.setImage(with: url,placeholder: UIImage.placeHolder_image)
                 return cell
