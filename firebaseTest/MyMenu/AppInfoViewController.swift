@@ -21,7 +21,7 @@ class AppInfoViewController: UITableViewController {
         case term = "term"
         case privacyPolicy = "privacyPolicy"
         case EULA = "EULA"
-        case openSourceLicense = "openSourceLicense"
+        case openSourceLicense = "openSourceLicense"        
     }
     
     override func viewDidLoad() {

@@ -22,6 +22,8 @@ class MyMenuViewController: UITableViewController {
         case myArticles
         /** 앱 정보*/
         case appinfo
+        /** 구독하기*/
+        case subscribe
         /** 빈칸*/
         case blank
     }
@@ -30,7 +32,8 @@ class MyMenuViewController: UITableViewController {
             .profile,
             .myArticles,
             .appinfo,
-            .logout,
+            .subscribe,
+            .logout
         ]
     }
     var adminCellTypes:[CellType] {
@@ -112,6 +115,8 @@ class MyMenuViewController: UITableViewController {
             cell.textLabel?.text = "appInfo".localized
         case .myArticles:
             cell.textLabel?.text = "talk logs".localized
+        case .subscribe:
+            cell.textLabel?.text = "in app Purchase title".localized
         case .blank:
             cell.textLabel?.text = nil
             cell.accessoryType = .none
@@ -139,6 +144,9 @@ class MyMenuViewController: UITableViewController {
             let vc = TalkHistoryTableViewController.viewController
             vc.userId = UserInfo.info?.id
             self.navigationController?.pushViewController(vc, animated: true)
+        case .subscribe:
+            let vc = InAppPurchesTableViewController.viewController
+            self.present(vc, animated: true, completion: nil)
         case .appinfo:
             performSegue(withIdentifier: "showAppInfo", sender: nil)
         default:

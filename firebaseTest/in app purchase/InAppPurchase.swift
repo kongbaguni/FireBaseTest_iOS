@@ -10,17 +10,20 @@ import Foundation
 import SwiftyStoreKit
 import RealmSwift
 struct InAppPurchase {
-    static let productIdSet:Set<String> = ["ad_point2x","ad_point5x","ad_point10x"]
+    static let productIdSet:Set<String> = ["weeklyADBonus","monthlyADBonus","6monthsADBonus","yearlyADBonus"]
     
     static let title:[String:String] = [
-        "ad_point2x":"AD 포인트 2배",
-        "ad_point5x":"AD 포인트 5배",
-        "ad_point10x":"AD 포인트 10배"
+        "weeklyADBonus":"주간",
+        "monthlyADBonus":"월간",
+        "6monthsADBonus":"6개월",
+        "yearlyADBonus":"연간"
     ]
+    
     static let desc:[String:String] = [
-        "ad_point2x":"1달동안 광고 시청후 받는 보상포인트가 2배가 됩니다.",
-        "ad_point5x":"1달동안 광고 시청후 받는 보상포인트가 5배가 됩니다.",
-        "ad_point10x":"1달동안 광고 시청후 받는 보상포인트가 10배가 됩니다."
+        "weeklyADBonus":"1주일간 광고시청후 받는 리워드 포인트가 3~10배로 증가합니다.",
+        "monthlyADBonus":"한달동안 광고시청후 받는 리워드 포인트가 3~10배로 증가합니다.",
+        "6monthsADBonus":"6개월간 광고시청후 받는 리워드 포인트가 3~10배로 증가합니다.",
+        "yearlyADBonus":"1년동안 광고시청후 받는 리워드 포인트가 3~10배로 증가합니다."
     ]
     
     /** 인앱 결재 제품 정보 얻어오기*/

@@ -49,11 +49,8 @@ function makeIndex() {
                 $(ul).append(item);
             }
             $("#"+ulid).append(ul);
-//            $(item).append(ul);
         }
-        
     }
-//    titles.forEach(addLink);
 }
 
 $(document).ready(function(){

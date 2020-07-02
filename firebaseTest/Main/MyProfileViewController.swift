@@ -81,7 +81,6 @@ class MyProfileViewController: UITableViewController {
     @IBOutlet weak var mapTypeTitleLabel: UILabel!
     @IBOutlet weak var mapTypeTextFiled: UITextField!
     
-    @IBOutlet weak var inAppPurchaseLabel: UILabel!
     var selectSearchDistance:Int = 0 {
         didSet {
             searchDistanceTextField.text = "\(selectSearchDistance)m"
@@ -178,7 +177,6 @@ class MyProfileViewController: UITableViewController {
         leaveLabel.text = "leave".localized
         leaveCell.isHidden = self.hideLeaveCell
         
-        inAppPurchaseLabel.text = "In App Purchase".localized
     }
     
     override func viewDidLayoutSubviews() {
@@ -348,14 +346,6 @@ class MyProfileViewController: UITableViewController {
             })
             vc.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: cell.contentView)
             present(vc, animated: true, completion: nil)
-        case "inAppPurchase":
-            loading.show(viewController: self)
-            InAppPurchase.getProductInfo {[weak self] in
-                self?.loading.hide()
-                let vc = InAppPurchesTableViewController.viewController
-                self?.present(vc, animated: true, completion: nil)
-                self?.tableView.deselectRow(at: indexPath, animated: true)
-            }
         default:
             tableView.deselectRow(at: indexPath, animated: true)
             

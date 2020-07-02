@@ -40,6 +40,8 @@ class InAppPurchesTableViewController: UIViewController {
     @IBOutlet weak var closeBtn:UIButton!
     @IBOutlet weak var verifyPurchaseBtn: UIButton!
     
+    @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var footerLabel: UILabel!
     let disposebag = DisposeBag()
     
     override func viewDidLayoutSubviews() {
@@ -49,7 +51,10 @@ class InAppPurchesTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         titleLabel.text = "in app Purchase title".localized
+        descLabel.text = "in app purchase desc".localized
+        footerLabel.text = "in app purchase footer".localized
         closeBtn.rx.tap.bind { [weak self] (_) in
             self?.dismiss(animated: true, completion: nil)
         }.disposed(by: disposebag)
@@ -84,15 +89,46 @@ extension InAppPurchesTableViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                 
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! InAppPurchesTableViewCell
         let product = products[indexPath.row]
+        
+        var desc:String? {
+            if indexPath.row == 0 {
+                return nil
+            }
+            var sum:Float {
+                switch indexPath.row {
+                case 0:
+                    return 1
+                case 1:
+                    return 4.28
+                case 2:
+                    return 25.71
+                default:
+                    return 51.4
+                }
+            }
+            
+            if let p = products.first?.price {
+                let p2 = p * sum
+                let locale = Locale(identifier: product.priceLocaleId)
+                if let a = p2.getFormatString(locale: locale, style: .currency),
+                    let b = (p2 - product.price).getFormatString(locale: locale, style: .currency) {
+                    return String(format:"%@, %@ save!".localized,a,b)
+                }
+            }
+            return nil
+        }
+        
         cell.productId = product.id
         cell.titleLabel.text = product.title
-        cell.descLabel.text = product.desc
+        cell.descLabel.text = desc
         cell.priceLabel.text = product.localeFormatedPrice
         cell.contentView.alpha = product.isExpire ? 1 : 0.3
         return cell
     }
+        
 }
 
 extension InAppPurchesTableViewController : UITableViewDelegate {

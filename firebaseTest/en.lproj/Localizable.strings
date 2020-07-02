@@ -291,3 +291,8 @@
 "privacyPolicy" = "privacy Policy";
 "openSourceLicense" = "open source license";
 "Menu" = "Menu";
+
+"%@, %@ save!" = "%@\n%@ save!";
+
+"in app purchase desc" =  "Reward points received after watching an advertisement during the subscription period increase from a minimum of 3 times to a maximum of 10 times.";
+"in app purchase footer" = "Payment amount will be charged to your Apple Account at confirmation of purchase. Subscriptions will be automatically renewed unless canceled at least 24 hours before the end of the current period. Your account will expire 24 You will be charged for your renewal before time. You can manage your subscription in your account settings.";

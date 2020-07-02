@@ -395,9 +395,7 @@ extension AdminOptions {
         for id in InAppPurchase.productIdSet {
             if let model = InAppPurchaseModel.model(productId: id) {
                 if model.isExpire == false {
-                    let str = id.replacingOccurrences(of: "ad_point", with: "").replacingOccurrences(of: "x", with: "")
-                    let i = NSString(string:str).integerValue
-                    bonus *= i
+                    bonus *= Int.random(in: 3...10)
                 }
             }
         }

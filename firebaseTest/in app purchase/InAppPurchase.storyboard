@@ -26,7 +26,7 @@
                                 <blurEffect style="regular"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRO-PS-pSu">
-                                <rect key="frame" x="57" y="283" width="300" height="340"/>
+                                <rect key="frame" x="57" y="153" width="300" height="600"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hkn-DE-oUK">
                                         <rect key="frame" x="260" y="10" width="30" height="30"/>
@@ -44,7 +44,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sre-LA-cZd">
-                                        <rect key="frame" x="0.0" y="290" width="300" height="50"/>
+                                        <rect key="frame" x="0.0" y="550" width="300" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xvm-fx-X0T">
                                                 <rect key="frame" x="10" y="3" width="280" height="44"/>
@@ -58,16 +58,50 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f1G-fa-B8e">
-                                        <rect key="frame" x="10" y="50" width="280" height="240"/>
+                                        <rect key="frame" x="10" y="50" width="280" height="500"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <view key="tableFooterView" contentMode="scaleToFill" id="kig-Ia-ocF">
-                                            <rect key="frame" x="0.0" y="112.5" width="280" height="0.0"/>
+                                        <view key="tableHeaderView" contentMode="scaleToFill" id="Y6a-yc-T49">
+                                            <rect key="frame" x="0.0" y="0.0" width="280" height="60"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구독기간동안 광고시청 보너스가 최소 3배에서 최대 10베까지 증가합니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ww-ft-Gmj">
+                                                    <rect key="frame" x="15" y="0.0" width="250" height="60"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstItem="7ww-ft-Gmj" firstAttribute="leading" secondItem="Y6a-yc-T49" secondAttribute="leading" constant="15" id="1Tf-Qw-o1Q"/>
+                                                <constraint firstAttribute="trailing" secondItem="7ww-ft-Gmj" secondAttribute="trailing" constant="15" id="5JZ-N3-Evp"/>
+                                                <constraint firstItem="7ww-ft-Gmj" firstAttribute="top" secondItem="Y6a-yc-T49" secondAttribute="top" id="MiB-Kd-WZe"/>
+                                                <constraint firstAttribute="bottom" secondItem="7ww-ft-Gmj" secondAttribute="bottom" id="P9F-Qk-pb8"/>
+                                            </constraints>
+                                        </view>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="kig-Ia-ocF">
+                                            <rect key="frame" x="0.0" y="172.5" width="280" height="100"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUz-Vb-OLK">
+                                                    <rect key="frame" x="15" y="0.0" width="250" height="100"/>
+                                                    <string key="text">결재금액은 구매확인 시 사용자의 Apple계정으로 청구됩니다. 구독신청은 현재 남아있는 기간이 끝나기 최소 24시간전에 취소하지 않는 한 자동 갱신됩니다. 계정은 현재 기간이 끝나기 24시간전에 갱신에 대한 금액이 청구됩니다. 계정 설정에서 귀하의 가입을 관리할 수 있습니다.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstItem="kUz-Vb-OLK" firstAttribute="top" secondItem="kig-Ia-ocF" secondAttribute="top" id="bRu-G3-vCC"/>
+                                                <constraint firstAttribute="trailing" secondItem="kUz-Vb-OLK" secondAttribute="trailing" constant="15" id="ltH-FN-ETM"/>
+                                                <constraint firstAttribute="bottom" secondItem="kUz-Vb-OLK" secondAttribute="bottom" id="rzo-4I-hj9"/>
+                                                <constraint firstItem="kUz-Vb-OLK" firstAttribute="leading" secondItem="kig-Ia-ocF" secondAttribute="leading" constant="15" id="v8o-8b-VeT"/>
+                                            </constraints>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="aBp-QM-WBM" customClass="InAppPurchesTableViewCell" customModule="Any_Review" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="280" height="56.5"/>
+                                                <rect key="frame" x="0.0" y="88" width="280" height="56.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aBp-QM-WBM" id="kZe-D0-dGZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="280" height="56.5"/>
@@ -126,7 +160,7 @@
                                     <constraint firstItem="sre-LA-cZd" firstAttribute="leading" secondItem="BRO-PS-pSu" secondAttribute="leading" id="26b-o8-R2A"/>
                                     <constraint firstItem="Hkn-DE-oUK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nWR-9m-FUF" secondAttribute="trailing" constant="10" id="6qP-sB-bYp"/>
                                     <constraint firstAttribute="trailing" secondItem="f1G-fa-B8e" secondAttribute="trailing" constant="10" id="6qd-S0-4wB"/>
-                                    <constraint firstAttribute="height" constant="340" id="Eth-V4-wSM"/>
+                                    <constraint firstAttribute="height" constant="600" id="Eth-V4-wSM"/>
                                     <constraint firstAttribute="trailing" secondItem="Hkn-DE-oUK" secondAttribute="trailing" constant="10" id="FXk-Gj-XfH"/>
                                     <constraint firstItem="f1G-fa-B8e" firstAttribute="leading" secondItem="BRO-PS-pSu" secondAttribute="leading" constant="10" id="HOx-C3-dmV"/>
                                     <constraint firstItem="Hkn-DE-oUK" firstAttribute="top" secondItem="BRO-PS-pSu" secondAttribute="top" constant="10" id="P4N-2t-izd"/>
@@ -153,6 +187,8 @@
                     <connections>
                         <outlet property="closeBtn" destination="Hkn-DE-oUK" id="bOV-8f-IIs"/>
                         <outlet property="contentView" destination="BRO-PS-pSu" id="eYb-aL-HNi"/>
+                        <outlet property="descLabel" destination="7ww-ft-Gmj" id="bGU-8A-8ET"/>
+                        <outlet property="footerLabel" destination="kUz-Vb-OLK" id="nZs-8W-xhV"/>
                         <outlet property="tableView" destination="f1G-fa-B8e" id="qgX-2U-n7B"/>
                         <outlet property="titleLabel" destination="nWR-9m-FUF" id="jCH-1d-xKd"/>
                         <outlet property="verifyPurchaseBtn" destination="Xvm-fx-X0T" id="hLQ-4U-BkA"/>
@@ -160,11 +196,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kJO-Ud-8Uj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="18.840579710144929" y="47.544642857142854"/>
+            <point key="canvasLocation" x="-184" y="54"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="WpV-gD-zMD">
+            <objects>
+                <viewController id="vzH-B3-uaj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mUe-KR-cCN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYh-qR-70Y">
+                                <rect key="frame" x="359" y="59" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ES5-vb-VCg"/>
+                                    <constraint firstAttribute="width" constant="40" id="k4u-gU-5se"/>
+                                </constraints>
+                                <color key="tintColor" name="textColor"/>
+                                <state key="normal" image="closeBtn"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="TmC-Yr-wQA" firstAttribute="trailing" secondItem="DYh-qR-70Y" secondAttribute="trailing" constant="15" id="W0Z-fF-Bza"/>
+                            <constraint firstItem="TmC-Yr-wQA" firstAttribute="top" secondItem="DYh-qR-70Y" secondAttribute="top" constant="-15" id="o6e-t9-kTP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TmC-Yr-wQA"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SNg-he-GXm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="538" y="54"/>
         </scene>
     </scenes>
     <resources>
-        <image name="closeBtn" width="275.5" height="258"/>
+        <image name="closeBtn" width="25" height="23.5"/>
         <namedColor name="boldTextColor">
             <color red="0.0" green="0.7850000262260437" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
