@@ -19,7 +19,24 @@ class WebViewController: UIViewController {
         }
     }
     
-    var url:URL? = nil
+    var url:URL? = nil {
+        didSet {
+            navigationItem.rightBarButtonItem = nil
+            if let url = url {
+                if url.isFileURL == false {
+                    if UIApplication.shared.canOpenURL(url) {
+                        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.openAsSafari(_:)))
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func openAsSafari(_ sender:UIBarButtonItem) {
+        if let url = self.url {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+         }
+    }
     
     @IBOutlet weak var webview:WKWebView!
     
@@ -87,9 +104,9 @@ extension WebViewController : WKNavigationDelegate {
         UIView.animate(withDuration: 0.25) {
             webView.alpha = 1
         }
-        webview.evaluateJavaScript("document.getElementsByTagName('title')[0].innerText") { (result, error) -> Void in
+        webview.evaluateJavaScript("document.getElementsByTagName('title')[0].innerText") { [weak self](result, error) -> Void in
             if let txt = result as? String {
-                self.title = txt
+                self?.title = txt
             }
         }
     }
