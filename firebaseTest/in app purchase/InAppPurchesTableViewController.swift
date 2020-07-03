@@ -42,6 +42,8 @@ class InAppPurchesTableViewController: UIViewController {
     
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var footerLabel: UILabel!
+    @IBOutlet var linkButtons:[UIButton]!
+    
     let disposebag = DisposeBag()
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -50,6 +52,17 @@ class InAppPurchesTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        for (index,title) in ["term","privacyPolicy","EULA"].enumerated() {
+            linkButtons[index].setTitle(title.localized, for: .normal)
+            linkButtons[index].rx.tap.bind {[weak self] (_) in
+                let vc = WebViewController.viewController
+                if let url = Bundle.main.url(forResource: title, withExtension: "html") {
+                    vc.url = url                    
+                    self?.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+                }
+            }.disposed(by: disposebag)
+        }
+        
         
         titleLabel.text = "in app Purchase title".localized
         descLabel.text = "in app purchase desc".localized

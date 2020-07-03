@@ -54,4 +54,15 @@ extension UIViewController {
         vc.didDismissAction = didDismiss
         present(vc, animated: true, completion: nil)
     }
+    
+    /** 모달로 붙었을 경우 오른쪽 바 아이템을 닫기 버튼으로 만듭니다.*/
+    func makeModalCloseBarButtonItmIfNeed(selector:Selector?) {
+        if navigationController?.viewControllers.first == self {
+            if navigationItem.rightBarButtonItem == nil {
+                navigationItem.rightBarButtonItem = .closeButton(target: self, selector: selector)
+            } else {
+                navigationItem.leftBarButtonItem = .closeButton(target: self, selector: selector)
+            }
+        }
+    }
 }

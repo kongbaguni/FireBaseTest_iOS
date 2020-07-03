@@ -75,14 +75,12 @@ class StoresTableViewController: UITableViewController {
                 }
                 self?.tableView.reloadData()
             }).disposed(by: self.disposebag)
+        makeModalCloseBarButtonItmIfNeed(selector: #selector(self.onTouchupCloseBtn(_:)))
         
         if UserInfo.info != nil {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNavigationBarButton(_:)))
         }
-        else {
-            navigationItem.leftBarButtonItem =
-                UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
-        }
+        
         
         footerBtn.setTitle("storeList footer btn title".localized, for: .normal)
         footerBtn.rx.tap.bind { [weak self] (_) in

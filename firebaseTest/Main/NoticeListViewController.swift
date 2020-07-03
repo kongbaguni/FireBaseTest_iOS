@@ -19,12 +19,30 @@ class NoticeListViewController: UITableViewController {
         }
     }
     
+    @IBOutlet var emptyView: UIView!
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        emptyView.setEmptyViewFrame()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "notice".localized
         NotificationCenter.default.addObserver(forName: .noticeUpdateNotification, object: nil, queue: nil) { [weak self] (notification) in
-            self?.tableView.reloadData()
+            self?.reloadData()
         }
+        if Consts.isAdmin {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchAddBtn(_:)))
+        }
+        view.addSubview(emptyView)
+        emptyView.setEmptyViewFrame()
+        reloadData()
+    }
+    
+    @objc func onTouchAddBtn(_ sender: UIBarButtonItem) {
+        let vc = PostNoticeViewController.viewController
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     var notices:Results<NoticeModel> {
@@ -33,6 +51,11 @@ class NoticeListViewController: UITableViewController {
             result = result.filter("isShow = %@", true)
         }
         return result
+    }
+    
+    private func reloadData() {
+        tableView.reloadData()
+        emptyView.isHidden = self.notices.count > 0
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -71,14 +94,14 @@ class NoticeListViewController: UITableViewController {
             var notice: NoticeModel? {
                 try! Realm().object(ofType: NoticeModel.self, forPrimaryKey: id)
             }
-            notice?.delete(complete: { (sucess) in
+            notice?.delete(complete: {[weak self](sucess) in
                 if sucess {
                     if let n = notice {
                         let realm = try! Realm()
                         realm.beginWrite()
                         realm.delete(n)
                         try! realm.commitWrite()
-                        self.tableView.reloadData()
+                        self?.reloadData()
                     }
                 }
             })

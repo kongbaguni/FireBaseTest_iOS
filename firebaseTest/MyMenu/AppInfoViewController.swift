@@ -67,7 +67,7 @@ class AppInfoViewController: UITableViewController {
         case .term:
             fileName = "term"
         case .privacyPolicy:
-            fileName = "policy"
+            fileName = "privacyPolicy"
         case .openSourceLicense:
             fileName = "openSourceLicense"
         case .EULA:

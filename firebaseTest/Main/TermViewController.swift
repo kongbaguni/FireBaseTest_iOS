@@ -34,7 +34,7 @@ class TermViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let url1 = Bundle.main.url(forResource: "term", withExtension: "html"),
-            let url2 = Bundle.main.url(forResource: "policy", withExtension: "html")
+            let url2 = Bundle.main.url(forResource: "privacyPolicy", withExtension: "html")
             else {
             return
         }

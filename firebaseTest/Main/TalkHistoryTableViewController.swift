@@ -80,10 +80,9 @@ class TalkHistoryTableViewController: UITableViewController {
                 self?.tableView.reloadData()
             }).disposed(by: self.disposebag)
         title = "talk logs".localized
-        if navigationController?.viewControllers.first == self {
-            navigationItem.leftBarButtonItem =
-                UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
-        }
+        
+        makeModalCloseBarButtonItmIfNeed(selector: #selector(self.onTouchupCloseBtn(_:)))
+
         refreshControl?.addTarget(self, action: #selector(self.onRefreshControll(_:)), for: .valueChanged)
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension

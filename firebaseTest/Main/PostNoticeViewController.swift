@@ -39,10 +39,8 @@ class PostNoticeViewController: UITableViewController {
         loadData()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save".localized, style: .plain, target: self, action: #selector(self.onTouchupSaveBtn(_:)))
-        
-        if navigationController?.viewControllers.first == self {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
-        }
+        title = "posting notice"
+        makeModalCloseBarButtonItmIfNeed(selector: #selector(self.onTouchupCloseBtn(_:)))
     }
     
     func loadData() {

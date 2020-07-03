@@ -30,7 +30,7 @@ class JackPotHistoryLogTableViewController: UITableViewController {
             }
         }
         title = "JackPot Logs".localized
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close".localized, style: .plain, target: self, action: #selector(self.onTouchupCloseBtn(_:)))
+        makeModalCloseBarButtonItmIfNeed(selector: #selector(self.onTouchupCloseBtn(_:)))
     }
     
     @objc func onTouchupCloseBtn(_ sender:UIBarButtonItem) {

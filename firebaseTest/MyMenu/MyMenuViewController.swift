@@ -24,26 +24,33 @@ class MyMenuViewController: UITableViewController {
         case appinfo
         /** 구독하기*/
         case subscribe
+        /** 공지 목록*/
+        case noticeList
         /** 빈칸*/
         case blank
     }
-    var cellTypes:[CellType] {
-        return [
-            .profile,
-            .myArticles,
-            .appinfo,
-            .subscribe,
-            .logout
-        ]
-    }
-    var adminCellTypes:[CellType] {
-        if Consts.isAdmin {
-            return [
-                .adminMenu,
-                .reportList
+    var cellTypes:[[CellType]] {
+        var list:[[CellType]] = [
+            [
+                .profile,
+                .myArticles,
+                .logout
+            ],
+            [
+                .subscribe,
+                .appinfo
+            ],
+            [
+                .noticeList,
             ]
+        ]
+        if Consts.isAdmin {
+            list.append([
+                .adminMenu,
+                .reportList,
+            ])
         }
-        return []
+        return list
     }
     
     static var viewController : MyMenuViewController {
@@ -53,7 +60,7 @@ class MyMenuViewController: UITableViewController {
             return UIStoryboard(name: "MyMenu", bundle: nil).instantiateViewController(withIdentifier: "root") as! MyMenuViewController
         }
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Menu".localized
@@ -63,30 +70,17 @@ class MyMenuViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return cellTypes.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return cellTypes.count
-        case 1:
-            return adminCellTypes.count
-        default:
-            return 0
-        }
+        return cellTypes[section].count
     }
     
     func getType(indexPath:IndexPath)->CellType? {
-        switch indexPath.section {
-        case 0:
-            return cellTypes[indexPath.row]
-        case 1:
-            return adminCellTypes[indexPath.row]
-        default:
-            return nil
-        }
+        return cellTypes[indexPath.section][indexPath.row]
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch getType(indexPath: indexPath) {
         case .profile:
@@ -117,6 +111,8 @@ class MyMenuViewController: UITableViewController {
             cell.textLabel?.text = "talk logs".localized
         case .subscribe:
             cell.textLabel?.text = "in app Purchase title".localized
+        case .noticeList:
+            cell.textLabel?.text = "notice".localized
         case .blank:
             cell.textLabel?.text = nil
             cell.accessoryType = .none
@@ -125,9 +121,10 @@ class MyMenuViewController: UITableViewController {
             break
         }
         return cell
-
+        
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         switch getType(indexPath: indexPath) {
         case .profile:
             let vc = MyProfileViewController.viewController
@@ -147,6 +144,9 @@ class MyMenuViewController: UITableViewController {
         case .subscribe:
             let vc = InAppPurchesTableViewController.viewController
             self.present(vc, animated: true, completion: nil)
+        case .noticeList:
+            let vc = NoticeListViewController.viewController
+            self.navigationController?.pushViewController(vc, animated: true)
         case .appinfo:
             performSegue(withIdentifier: "showAppInfo", sender: nil)
         default:
@@ -155,14 +155,9 @@ class MyMenuViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
-            if adminCellTypes.count > 0 {
-                return "admin"
-            }
-        }
-        return nil
+        return " "
     }
-        
+    
 }
 
 class ProfileTableViewCell: UITableViewCell {

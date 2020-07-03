@@ -2965,7 +2965,41 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="5hm-nW-bSY"/>
+                    <connections>
+                        <outlet property="emptyView" destination="XQy-6P-OaF" id="TfX-P8-tDx"/>
+                    </connections>
                 </tableViewController>
+                <view contentMode="scaleToFill" id="XQy-6P-OaF">
+                    <rect key="frame" x="0.0" y="0.0" width="271" height="200"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucm-9z-Diy">
+                            <rect key="frame" x="15" y="72" width="241" height="100"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공지사항이 없습니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUX-7g-J90">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="1HA-7E-uVs"/>
+                                <constraint firstItem="QUX-7g-J90" firstAttribute="top" secondItem="ucm-9z-Diy" secondAttribute="top" id="S7L-ak-Lu7"/>
+                                <constraint firstItem="QUX-7g-J90" firstAttribute="leading" secondItem="ucm-9z-Diy" secondAttribute="leading" id="f0q-rS-hVa"/>
+                                <constraint firstAttribute="trailing" secondItem="QUX-7g-J90" secondAttribute="trailing" id="wGc-v6-Abn"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="ucm-9z-Diy" firstAttribute="leading" secondItem="Jci-xn-w2q" secondAttribute="leading" constant="15" id="PIl-fK-1nk"/>
+                        <constraint firstItem="ucm-9z-Diy" firstAttribute="centerY" secondItem="Jci-xn-w2q" secondAttribute="centerY" id="VTn-Me-Z9A"/>
+                        <constraint firstItem="Jci-xn-w2q" firstAttribute="trailing" secondItem="ucm-9z-Diy" secondAttribute="trailing" constant="15" id="bmV-h6-OpJ"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="Jci-xn-w2q"/>
+                </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ioa-lh-DMd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2680" y="-778"/>
@@ -3743,7 +3777,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
-        <segue reference="1aU-la-qB8"/>
+        <segue reference="hYy-LE-fJh"/>
         <segue reference="tNh-p3-JAq"/>
     </inferredMetricsTieBreakers>
     <resources>

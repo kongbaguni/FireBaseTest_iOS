@@ -144,7 +144,7 @@ class MyProfileViewController: UITableViewController {
         }.disposed(by: disposebag)
     }
     
-    private func loadData() {
+    private func loadData() {        
         if let data = authDataResult {
             self.nameTextField.text = data.name
         }

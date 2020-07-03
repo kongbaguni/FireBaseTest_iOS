@@ -33,6 +33,7 @@ class WebViewController: UIViewController {
             webview.load(URLRequest(url: url))
             loading.show(viewController: self)
         }
+        makeModalCloseBarButtonItmIfNeed(selector:#selector(self.onTouchupCloseBtn(_:)))
     }
     
     @objc func onTouchupCloseBtn(_ sender:UIBarButtonItem) {
