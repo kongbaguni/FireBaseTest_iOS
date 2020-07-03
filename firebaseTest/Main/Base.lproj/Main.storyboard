@@ -169,7 +169,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="userInfoDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L7l-bB-hyF" customClass="UserInfoDetailViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sP9-MD-2mh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -1422,7 +1422,6 @@
                         <outlet property="tableViewHeaderButton" destination="atg-xI-0Pa" id="xK6-29-xhU"/>
                         <outlet property="tableViewHeaderTitleLabel" destination="nzc-dl-KTD" id="DNO-GU-kvx"/>
                         <outlet property="updateDtLabel" destination="MaA-hW-Bua" id="4RG-ux-gog"/>
-                        <segue destination="cLq-Zf-QUF" kind="show" identifier="showMap" id="Tmf-Fi-hQn"/>
                         <segue destination="ABD-kk-8hZ" kind="show" identifier="showProfile" id="IOd-bS-gNt"/>
                         <segue destination="Bgj-rV-ji4" kind="show" identifier="showStoreStockLogs" id="FyS-ee-ii9"/>
                         <segue destination="B37-qL-9rJ" kind="show" identifier="showWaitting" id="gSs-EK-z3Q"/>
@@ -1472,18 +1471,18 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-997" y="-91"/>
+            <point key="canvasLocation" x="-1157" y="-110"/>
         </scene>
-        <!--Item-->
+        <!--mapView-->
         <scene sceneID="Cpe-oy-eyb">
             <objects>
-                <viewController id="cLq-Zf-QUF" customClass="MapViewController" customModule="mask_now" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapView" title="mapView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cLq-Zf-QUF" customClass="MapViewController" customModule="Any_Review" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WoP-QX-IhY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-ns-arp">
-                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -3800,8 +3799,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="FyS-ee-ii9"/>
         <segue reference="gSs-EK-z3Q"/>
-        <segue reference="hYy-LE-fJh"/>
-        <segue reference="tNh-p3-JAq"/>
+        <segue reference="IOd-bS-gNt"/>
+        <segue reference="CyJ-tB-mFG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="boxLight" width="9.5" height="9.5"/>

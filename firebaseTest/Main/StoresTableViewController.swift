@@ -128,7 +128,7 @@ class StoresTableViewController: UITableViewController {
         for store in stores {
             codes.append(store.code)
         }
-        performSegue(withIdentifier: "showMap", sender: codes)
+        showMap(sender: codes)
     }
     
     @objc func onRefreshCongrol(_ sender:UIRefreshControl)  {
@@ -280,7 +280,7 @@ class StoresTableViewController: UITableViewController {
         for shop in list {
             ids.append(shop.code)
         }
-        performSegue(withIdentifier: "showMap", sender: ids)
+        showMap(sender: ids)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -290,20 +290,22 @@ class StoresTableViewController: UITableViewController {
         }
         let list = getStoreList(type: getSectionType(section: indexPath.section))
         let data = list[indexPath.row]
-        performSegue(withIdentifier: "showMap", sender: data.code)
+        showMap(sender: data.code)
+    }
+    
+    private func showMap(sender:Any?) {
+        let vc = MapViewController.viewController
+        if let value = sender as? String {
+            vc.storeCodes = [value]
+        }
+        else if let value = sender as? [String] {
+            vc.storeCodes = value
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "showMap":
-            if let vc = segue.destination as? MapViewController {
-                if let value = sender as? String {
-                    vc.storeCodes = [value]
-                }
-                else if let value = sender as? [String] {
-                    vc.storeCodes = value
-                }
-            }
         case "showStoreStockLogs":
             if let vc = segue.destination as? StoreStockLogTableViewController {
                 vc.code = sender as? String
@@ -323,8 +325,8 @@ class StoresTableViewController: UITableViewController {
         let list = getStoreList(type: getSectionType(section: indexPath.section))
         let data = list[indexPath.row]
         let code = data.code
-        let action1 = UIContextualAction(style: .normal, title: "view on map".localized) { (action, view, complete) in
-            self.performSegue(withIdentifier: "showMap", sender: code)
+        let action1 = UIContextualAction(style: .normal, title: "view on map".localized) { [weak self](action, view, complete) in
+            self?.showMap(sender: code)
         }
         
         if UserInfo.info != nil {

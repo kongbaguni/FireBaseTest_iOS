@@ -22,6 +22,15 @@ class MyPointAnnotation : MKPointAnnotation {
 }
 
 class MapViewController: UIViewController {
+    
+    static var viewController : MapViewController {
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "mapView")
+        } else {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapView") as! MapViewController
+        }
+    }
+    
     @IBOutlet weak var mapView:MKMapView!
     var storeCodes:[String] = []
     private var _stores:[StoreModel]? = nil
