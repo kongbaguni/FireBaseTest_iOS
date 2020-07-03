@@ -78,7 +78,7 @@ class StoresTableViewController: UITableViewController {
         makeModalCloseBarButtonItmIfNeed(selector: #selector(self.onTouchupCloseBtn(_:)))
         
         if UserInfo.info != nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onTouchupNavigationBarButton(_:)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(self.onTouchupNavigationBarButton(_:)))
         }
         
         
@@ -154,27 +154,8 @@ class StoresTableViewController: UITableViewController {
     }
     
     @objc func onTouchupNavigationBarButton(_ sender:UIBarButtonItem) {
-        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        vc.addAction(UIAlertAction(title: "myProfile".localized, style: .default, handler: { (_) in
-            self.performSegue(withIdentifier: "showProfile", sender: nil)
-        }))
-        if Consts.isAdmin {
-            vc.addAction(UIAlertAction(title: "admin menu".localized, style: .destructive, handler: { (action) in
-                let vc = AdminViewController.viewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-            vc.addAction(UIAlertAction(title: "report list".localized, style: .destructive, handler: { _ in
-                let vc = ReportListViewController.viewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-        }
-        vc.addAction(UIAlertAction(title: "logout".localized, style: .default, handler: { (_) in
-            UserInfo.info?.logout()
-        }))
-        vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
-        vc.popoverPresentationController?.barButtonItem = sender
-        present(vc, animated: true, completion: nil)        
+        let vc = MyMenuViewController.viewController
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setHeaderTitle() {
