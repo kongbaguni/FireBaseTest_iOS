@@ -123,3 +123,25 @@ body.dark article.firstLetter header {
     background:#00000000;
     border-bottom:1px dashed #963;
 }
+
+a.toTop {
+    display:inline-block;
+    width:15px;
+    height:15px;
+    background-image:url("toTop_light.png");
+    text-indent:-10000em;
+    overflow:hidden;
+    margin-left:10px;
+}
+
+body.dark a.toTop {
+    background-image:url("toTop_dark.png");
+}
+
+article header a.toTop {
+    background-image:url("toTop_white.png");
+}
+
+body.dark article header a.toTop {
+    background-image:url("toTop_black.png");
+}

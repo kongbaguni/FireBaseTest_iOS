@@ -23,7 +23,7 @@ function makeIndex() {
         }
         $(this).find("h3").each(function() {
             $(this).attr("id","h3"+count+"_"+scount);
-            scount += 1            
+            scount += 1
             subTitleArr.push($(this).text());
         });
         subtitles.push(subTitleArr);
@@ -53,6 +53,14 @@ function makeIndex() {
             }
             $("#"+ulid).append(ul);
         }
+    }
+    
+    if (titles.length > 0) {
+        var naviLink = document.createElement("a");
+        $(naviLink).attr("href","#navi");
+        $(naviLink).text("#toTop");
+        $(naviLink).attr("class","toTop");
+        $("h2,h3").append(naviLink);
     }
 }
 

@@ -87,6 +87,10 @@
 		C39E499E2429E20A0094E16B /* Exp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E499D2429E20A0094E16B /* Exp.swift */; };
 		C3AE8E4E24AD95960068FCFE /* RewordPointResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE8E4D24AD95960068FCFE /* RewordPointResultViewController.swift */; };
 		C3AE8E5024AEB3690068FCFE /* UIBarButtonIten+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE8E4F24AEB3690068FCFE /* UIBarButtonIten+Extension.swift */; };
+		C3AE8E5A24AF0C8C0068FCFE /* toTop_light.png in Resources */ = {isa = PBXBuildFile; fileRef = C3AE8E5924AF0C8C0068FCFE /* toTop_light.png */; };
+		C3AE8E5C24AF0D6B0068FCFE /* toTop_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C3AE8E5B24AF0D6B0068FCFE /* toTop_dark.png */; };
+		C3AE8E5F24AF0E410068FCFE /* toTop_white.png in Resources */ = {isa = PBXBuildFile; fileRef = C3AE8E5D24AF0E410068FCFE /* toTop_white.png */; };
+		C3AE8E6024AF0E410068FCFE /* toTop_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C3AE8E5E24AF0E410068FCFE /* toTop_black.png */; };
 		C3BDFBFF240CD79D006AE2B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */; };
 		C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC04240CD79D006AE2B3 /* Main.storyboard */; };
 		C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BDFC07240CD7A1006AE2B3 /* Assets.xcassets */; };
@@ -249,6 +253,10 @@
 		C39E499D2429E20A0094E16B /* Exp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exp.swift; sourceTree = "<group>"; };
 		C3AE8E4D24AD95960068FCFE /* RewordPointResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewordPointResultViewController.swift; sourceTree = "<group>"; };
 		C3AE8E4F24AEB3690068FCFE /* UIBarButtonIten+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonIten+Extension.swift"; sourceTree = "<group>"; };
+		C3AE8E5924AF0C8C0068FCFE /* toTop_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toTop_light.png; sourceTree = "<group>"; };
+		C3AE8E5B24AF0D6B0068FCFE /* toTop_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toTop_dark.png; sourceTree = "<group>"; };
+		C3AE8E5D24AF0E410068FCFE /* toTop_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toTop_white.png; sourceTree = "<group>"; };
+		C3AE8E5E24AF0E410068FCFE /* toTop_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toTop_black.png; sourceTree = "<group>"; };
 		C3BDFBFB240CD79D006AE2B3 /* Any Review.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Any Review.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BDFBFE240CD79D006AE2B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BDFC05240CD79D006AE2B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -350,6 +358,10 @@
 		C3309C7B24A9815B004C6281 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				C3AE8E5E24AF0E410068FCFE /* toTop_black.png */,
+				C3AE8E5D24AF0E410068FCFE /* toTop_white.png */,
+				C3AE8E5B24AF0D6B0068FCFE /* toTop_dark.png */,
+				C3AE8E5924AF0C8C0068FCFE /* toTop_light.png */,
 				C3309C7F24A9A71D004C6281 /* jquery.js */,
 				C3309C7D24A981A6004C6281 /* term.html */,
 				C3309C8524A9B367004C6281 /* privacyPolicy.html */,
@@ -697,16 +709,20 @@
 				C3630FD7241B5C7C003479C2 /* CardDackView.xib in Resources */,
 				C395290D243307B40050C80D /* MyReview.storyboard in Resources */,
 				C3BDFC0B240CD7A1006AE2B3 /* LaunchScreen.storyboard in Resources */,
+				C3AE8E6024AF0E410068FCFE /* toTop_black.png in Resources */,
 				C346B0532491F1AC0049DE7E /* Colors.xcassets in Resources */,
 				C3CE9857244FCA4600D8BADF /* InfoPlist.strings in Resources */,
 				C3309C8424A9A759004C6281 /* style.css in Resources */,
 				C3D5A2E424AC465900D1FE4E /* openSourceLicense.html in Resources */,
 				C3D5A2E924AC7C8D00D1FE4E /* EULA.html in Resources */,
 				C3BDFC08240CD7A1006AE2B3 /* Assets.xcassets in Resources */,
+				C3AE8E5A24AF0C8C0068FCFE /* toTop_light.png in Resources */,
 				C3309C8024A9A71E004C6281 /* jquery.js in Resources */,
 				C3D055FE249C733C00974971 /* InAppPurchase.storyboard in Resources */,
 				C3309C7E24A981A6004C6281 /* term.html in Resources */,
 				C3309C8624A9B367004C6281 /* privacyPolicy.html in Resources */,
+				C3AE8E5C24AF0D6B0068FCFE /* toTop_dark.png in Resources */,
+				C3AE8E5F24AF0E410068FCFE /* toTop_white.png in Resources */,
 				C3D055F3249B1DA900974971 /* GoogleService-Info.plist in Resources */,
 				C3BDFC06240CD79D006AE2B3 /* Main.storyboard in Resources */,
 				C39A6ECC241F368000460705 /* HoldemView.xib in Resources */,
