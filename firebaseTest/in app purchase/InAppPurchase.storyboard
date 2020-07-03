@@ -83,7 +83,7 @@
                                             </constraints>
                                         </view>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="kig-Ia-ocF">
-                                            <rect key="frame" x="0.0" y="173" width="294" height="200"/>
+                                            <rect key="frame" x="0.0" y="172.5" width="294" height="200"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUz-Vb-OLK">
@@ -142,26 +142,26 @@
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="aBp-QM-WBM" customClass="InAppPurchesTableViewCell" customModule="Any_Review" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="88" width="294" height="57"/>
+                                                <rect key="frame" x="0.0" y="88" width="294" height="56.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aBp-QM-WBM" id="kZe-D0-dGZ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="294" height="57"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="294" height="56.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uH6-0j-aRO">
-                                                            <rect key="frame" x="15" y="10" width="44.5" height="21.5"/>
+                                                            <rect key="frame" x="15" y="10" width="44.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4H-bc-fnG">
-                                                            <rect key="frame" x="15" y="31" width="33" height="16"/>
+                                                            <rect key="frame" x="15" y="30.5" width="33" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" name="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XM5-a8-CiO">
-                                                            <rect key="frame" x="218" y="18.5" width="60" height="20.5"/>
+                                                            <rect key="frame" x="218" y="18" width="60" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                                             <color key="textColor" name="boldTextColor"/>
                                                             <nil key="highlightedColor"/>

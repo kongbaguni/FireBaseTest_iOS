@@ -1059,9 +1059,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G4v-zB-Pdw">
-                                <rect key="frame" x="0.0" y="-56" width="414" height="1018"/>
+                                <rect key="frame" x="-100" y="-56" width="614" height="1018"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9d3-ZO-lnV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="1018"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="614" height="1018"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <blurEffect style="systemUltraThinMaterialLight"/>
@@ -1153,8 +1153,8 @@
                             <constraint firstItem="G4v-zB-Pdw" firstAttribute="top" secondItem="cCL-Ho-Nme" secondAttribute="top" constant="-100" id="O8E-Hc-Ge6"/>
                             <constraint firstItem="cCL-Ho-Nme" firstAttribute="bottom" secondItem="G4v-zB-Pdw" secondAttribute="bottom" constant="-100" id="V58-rA-uuv"/>
                             <constraint firstItem="sHx-pD-amu" firstAttribute="centerY" secondItem="cCL-Ho-Nme" secondAttribute="centerY" id="X1s-IJ-yNA"/>
-                            <constraint firstItem="cCL-Ho-Nme" firstAttribute="trailing" secondItem="G4v-zB-Pdw" secondAttribute="trailing" id="axZ-zG-Sri"/>
-                            <constraint firstItem="G4v-zB-Pdw" firstAttribute="leading" secondItem="cCL-Ho-Nme" secondAttribute="leading" id="bEx-p7-icN"/>
+                            <constraint firstItem="cCL-Ho-Nme" firstAttribute="trailing" secondItem="G4v-zB-Pdw" secondAttribute="trailing" constant="-100" id="axZ-zG-Sri"/>
+                            <constraint firstItem="G4v-zB-Pdw" firstAttribute="leading" secondItem="cCL-Ho-Nme" secondAttribute="leading" constant="-100" id="bEx-p7-icN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cCL-Ho-Nme"/>
                     </view>
