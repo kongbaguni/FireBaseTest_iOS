@@ -292,7 +292,7 @@
 "openSourceLicense" = "open source license";
 "Menu" = "Menu";
 "Subscription terms" = "Subscription terms";
-
+"subscription desc" = "Payment is repeated. Cancel anytime.";
 "%@, %@ save!" = "%@\n%@ save!";
 
 "in app purchase desc" =  "Reward points received after watching an advertisement during the subscription period increase from a minimum of 3 times to a maximum of 10 times.";

@@ -41,8 +41,7 @@ class InAppPurchesTableViewController: UIViewController {
     @IBOutlet weak var verifyPurchaseBtn: UIButton!
     
     @IBOutlet weak var descLabel: UILabel!
-    @IBOutlet weak var footerTitleLabel: UILabel!
-    @IBOutlet weak var footerLabel: UILabel!
+    @IBOutlet var footerLabels:[UILabel]!
     @IBOutlet var linkButtons:[UIButton]!
     
     let disposebag = DisposeBag()
@@ -67,8 +66,14 @@ class InAppPurchesTableViewController: UIViewController {
         
         titleLabel.text = "in app Purchase title".localized
         descLabel.text = "in app purchase desc".localized
-        footerTitleLabel.text = "Subscription terms".localized
-        footerLabel.text = "in app purchase footer".localized
+        let titles = ["subscription desc".localized
+            ,"Subscription terms".localized
+            ,"in app purchase footer".localized]
+
+        for (index, view) in footerLabels.enumerated() {
+            view.text = titles[index]
+        }
+        
         closeBtn.rx.tap.bind { [weak self] (_) in
             self?.dismiss(animated: true, completion: nil)
         }.disposed(by: disposebag)

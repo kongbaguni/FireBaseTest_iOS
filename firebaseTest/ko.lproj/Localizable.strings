@@ -302,6 +302,7 @@
 "openSourceLicense" = "오픈소스 라이선스";
 "Menu" = "메뉴";
 "Subscription terms" = "구독 약관";
+"subscription desc" = "결제가 반복됩니다. 언제든지 취소하세요.";
 "%@, %@ save!" = "%@\n%@ 할인!";
 
 "in app purchase desc" = "구독기간동안 광고시청후 받는 리워드포인트가 최소3배에서 최대10배까지 증가합니다.";
