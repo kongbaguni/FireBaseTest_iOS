@@ -29,11 +29,13 @@ function makeIndex() {
         count += 1;
     });
     
-    var nav = document.createElement("nav")
-    $(nav).attr("id","navi")
-    $("article:first-of-type").before(nav);
-    var ul = document.createElement("ol")
-    $(nav).append(ul);
+    if (titles.count > 0) {
+        var nav = document.createElement("nav")
+        $(nav).attr("id","navi")
+        $("article:first-of-type").before(nav);
+        var ul = document.createElement("ol")
+        $(nav).append(ul);
+    }
     
     for (var i = 0 ; i < titles.length ; i ++) {
         var item = makeLink("h2",titles[i],i);
