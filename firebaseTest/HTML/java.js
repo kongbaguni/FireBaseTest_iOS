@@ -29,7 +29,7 @@ function makeIndex() {
         count += 1;
     });
     
-    if (titles.count > 0) {
+    if (titles.length > 0) {
         var nav = document.createElement("nav")
         $(nav).attr("id","navi")
         $("article:first-of-type").before(nav);
