@@ -80,67 +80,76 @@
                                             </constraints>
                                         </view>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="kig-Ia-ocF">
-                                            <rect key="frame" x="0.0" y="173" width="280" height="150"/>
+                                            <rect key="frame" x="0.0" y="172.5" width="280" height="150"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUz-Vb-OLK">
-                                                    <rect key="frame" x="15" y="0.0" width="250" height="86"/>
+                                                    <rect key="frame" x="15" y="17" width="250" height="86"/>
                                                     <string key="text">결재금액은 구매확인 시 사용자의 Apple계정으로 청구됩니다. 구독신청은 현재 남아있는 기간이 끝나기 최소 24시간전에 취소하지 않는 한 자동 갱신됩니다. 계정은 현재 기간이 끝나기 24시간전에 갱신에 대한 금액이 청구됩니다. 계정 설정에서 귀하의 가입을 관리할 수 있습니다.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" name="weakTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cl9-tK-ztp">
-                                                    <rect key="frame" x="15" y="86" width="38" height="27"/>
+                                                    <rect key="frame" x="15" y="103" width="38" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="Button"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKH-P3-xyX">
-                                                    <rect key="frame" x="68" y="86" width="38" height="27"/>
+                                                    <rect key="frame" x="68" y="103" width="38" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="Button"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DrE-qw-OvA">
-                                                    <rect key="frame" x="121" y="86" width="38" height="27"/>
+                                                    <rect key="frame" x="121" y="103" width="38" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="Button"/>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiC-7g-IFf">
+                                                    <rect key="frame" x="15" y="0.0" width="250" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
+                                                <constraint firstItem="jiC-7g-IFf" firstAttribute="leading" secondItem="kig-Ia-ocF" secondAttribute="leading" constant="15" id="4TA-ZA-Jio"/>
                                                 <constraint firstItem="DrE-qw-OvA" firstAttribute="leading" secondItem="WKH-P3-xyX" secondAttribute="trailing" constant="15" id="6KZ-Eo-NeE"/>
                                                 <constraint firstItem="Cl9-tK-ztp" firstAttribute="leading" secondItem="kig-Ia-ocF" secondAttribute="leading" constant="15" id="Gd2-qQ-4ol"/>
+                                                <constraint firstItem="jiC-7g-IFf" firstAttribute="top" secondItem="kig-Ia-ocF" secondAttribute="top" id="HK9-WL-jro"/>
                                                 <constraint firstItem="DrE-qw-OvA" firstAttribute="top" secondItem="kUz-Vb-OLK" secondAttribute="bottom" id="J0u-Dx-xUF"/>
+                                                <constraint firstAttribute="trailing" secondItem="jiC-7g-IFf" secondAttribute="trailing" constant="15" id="JXI-at-zgR"/>
                                                 <constraint firstItem="WKH-P3-xyX" firstAttribute="leading" secondItem="Cl9-tK-ztp" secondAttribute="trailing" constant="15" id="Nru-m4-qKP"/>
                                                 <constraint firstItem="Cl9-tK-ztp" firstAttribute="top" secondItem="kUz-Vb-OLK" secondAttribute="bottom" id="Vhd-mZ-Uz5"/>
-                                                <constraint firstItem="kUz-Vb-OLK" firstAttribute="top" secondItem="kig-Ia-ocF" secondAttribute="top" id="bRu-G3-vCC"/>
                                                 <constraint firstItem="WKH-P3-xyX" firstAttribute="top" secondItem="kUz-Vb-OLK" secondAttribute="bottom" id="gU9-PJ-ler"/>
                                                 <constraint firstAttribute="trailing" secondItem="kUz-Vb-OLK" secondAttribute="trailing" constant="15" id="ltH-FN-ETM"/>
                                                 <constraint firstItem="kUz-Vb-OLK" firstAttribute="leading" secondItem="kig-Ia-ocF" secondAttribute="leading" constant="15" id="v8o-8b-VeT"/>
+                                                <constraint firstItem="kUz-Vb-OLK" firstAttribute="top" secondItem="jiC-7g-IFf" secondAttribute="bottom" id="yiJ-b9-K08"/>
                                             </constraints>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="aBp-QM-WBM" customClass="InAppPurchesTableViewCell" customModule="Any_Review" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="88" width="280" height="57"/>
+                                                <rect key="frame" x="0.0" y="88" width="280" height="56.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aBp-QM-WBM" id="kZe-D0-dGZ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="57"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="56.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uH6-0j-aRO">
-                                                            <rect key="frame" x="15" y="10" width="44.5" height="21.5"/>
+                                                            <rect key="frame" x="15" y="10" width="44.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4H-bc-fnG">
-                                                            <rect key="frame" x="15" y="31" width="33" height="16"/>
+                                                            <rect key="frame" x="15" y="30.5" width="33" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" name="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XM5-a8-CiO">
-                                                            <rect key="frame" x="204" y="18.5" width="60" height="20.5"/>
+                                                            <rect key="frame" x="204" y="18" width="60" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                                             <color key="textColor" name="boldTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -206,6 +215,7 @@
                         <outlet property="contentView" destination="BRO-PS-pSu" id="eYb-aL-HNi"/>
                         <outlet property="descLabel" destination="7ww-ft-Gmj" id="bGU-8A-8ET"/>
                         <outlet property="footerLabel" destination="kUz-Vb-OLK" id="nZs-8W-xhV"/>
+                        <outlet property="footerTitleLabel" destination="jiC-7g-IFf" id="j7K-kI-qEh"/>
                         <outlet property="tableView" destination="f1G-fa-B8e" id="qgX-2U-n7B"/>
                         <outlet property="titleLabel" destination="nWR-9m-FUF" id="jCH-1d-xKd"/>
                         <outlet property="verifyPurchaseBtn" destination="Xvm-fx-X0T" id="hLQ-4U-BkA"/>

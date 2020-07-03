@@ -41,6 +41,7 @@ class InAppPurchesTableViewController: UIViewController {
     @IBOutlet weak var verifyPurchaseBtn: UIButton!
     
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var footerTitleLabel: UILabel!
     @IBOutlet weak var footerLabel: UILabel!
     @IBOutlet var linkButtons:[UIButton]!
     
@@ -57,7 +58,7 @@ class InAppPurchesTableViewController: UIViewController {
             linkButtons[index].rx.tap.bind {[weak self] (_) in
                 let vc = WebViewController.viewController
                 if let url = Bundle.main.url(forResource: title, withExtension: "html") {
-                    vc.url = url                    
+                    vc.url = url
                     self?.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
                 }
             }.disposed(by: disposebag)
@@ -66,6 +67,7 @@ class InAppPurchesTableViewController: UIViewController {
         
         titleLabel.text = "in app Purchase title".localized
         descLabel.text = "in app purchase desc".localized
+        footerTitleLabel.text = "Subscription terms".localized
         footerLabel.text = "in app purchase footer".localized
         closeBtn.rx.tap.bind { [weak self] (_) in
             self?.dismiss(animated: true, completion: nil)
