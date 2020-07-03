@@ -18,11 +18,12 @@ function makeIndex() {
         $(this).attr("id","article"+count);
         var h2 = $(this).find("h2")
         h2.attr("id","h2"+count);
-        titles.push($(h2).text());
-        
+        if ($(h2).text() != "") {
+            titles.push($(h2).text());
+        }
         $(this).find("h3").each(function() {
             $(this).attr("id","h3"+count+"_"+scount);
-            scount += 1
+            scount += 1            
             subTitleArr.push($(this).text());
         });
         subtitles.push(subTitleArr);
