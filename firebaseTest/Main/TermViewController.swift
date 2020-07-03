@@ -26,11 +26,12 @@ class TermViewController: UIViewController {
     var accessToken:String = ""
     let disposeBag = DisposeBag()
     
-    @IBOutlet weak var webview1:WKWebView!
-    @IBOutlet weak var webview2:WKWebView!
     @IBOutlet weak var agreeBtn1:UIButton!
     @IBOutlet weak var agreeBtn2:UIButton!
     @IBOutlet weak var agreeBtn3:UIButton!
+    @IBOutlet var titleLabels:[UILabel]!
+    @IBOutlet var webviews:[WKWebView]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let url1 = Bundle.main.url(forResource: "term", withExtension: "html"),
@@ -38,14 +39,16 @@ class TermViewController: UIViewController {
             else {
             return
         }
+        let urls = [url1,url2]
+        let titles = ["term","privacyPolicy"]
         
-        for view in [webview1, webview2] {
-            view?.navigationDelegate = self
-            view?.alpha = 0
+        for (index,view) in webviews.enumerated() {
+            view.navigationDelegate = self
+            view.alpha = 0
+            view.load(URLRequest(url: urls[index]))
+            titleLabels[index].text = titles[index].localized
         }
-        
-        webview1.load(URLRequest(url: url1))
-        webview2.load(URLRequest(url: url2))
+                
         for btn in [agreeBtn1, agreeBtn2] {
             btn?.setTitle("agree msg".localized, for: .normal)
             btn?.rx.tap.bind { [weak btn, weak self](_) in
@@ -73,10 +76,10 @@ class TermViewController: UIViewController {
     }
     
     func changeDisplyStyleWebview() {
-        for view in [webview1, webview2] {
-            view?.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5)
+        for view in webviews {
+            view.setBorder(borderColor: .autoColor_text_color, borderWidth: 0.5)
             
-            view?.evaluateJavaScript("changeMode('\(UIApplication.shared.isDarkMode ? "dark" : "light")')", completionHandler: { (_, error) in
+            view.evaluateJavaScript("changeMode('\(UIApplication.shared.isDarkMode ? "dark" : "light")')", completionHandler: { (_, error) in
                 
             })
         }
@@ -107,6 +110,16 @@ extension TermViewController : WKNavigationDelegate {
         changeDisplyStyleWebview()
         UIView.animate(withDuration: 0.25) {
             webView.alpha = 1
+        }
+        webView.evaluateJavaScript("document.getElementsByTagName('title')[0].innerText") {[weak self] (result, error) -> Void in
+            if let txt = result as? String {
+                for (index,view) in (self?.webviews ?? []).enumerated() {
+                    if view == webView {
+                        self?.titleLabels[index].text = txt
+                        return
+                    }
+                }
+            }
         }
     }
 }
