@@ -52,7 +52,7 @@ class InAppPurchesTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for (index,title) in ["term","privacyPolicy","EULA"].enumerated() {
+        for (index,title) in ["term","privacyPolicy"].enumerated() {
             linkButtons[index].setTitle(title.localized, for: .normal)
             linkButtons[index].rx.tap.bind {[weak self] (_) in
                 let vc = WebViewController.viewController
