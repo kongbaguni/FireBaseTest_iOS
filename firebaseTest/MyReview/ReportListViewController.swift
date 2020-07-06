@@ -46,8 +46,14 @@ class ReportListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ReportModel.syncReports { [weak self](isSucess) in
-            self?.tableView.reloadData()
+        UserInfo.syncUserInfo {
+            ReviewModel.sync { (isSucess) in
+                TalkModel.syncDatas { (isSucess) in
+                    ReportModel.syncReports { [weak self](isSucess) in
+                        self?.tableView.reloadData()
+                    }
+                }
+            }
         }
         title = "report list".localized
     }
